@@ -1,0 +1,422 @@
+fileFormatVersion: 2
+guid: e9685188a6f66a34680269dd1893d77d
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: bFoot.L
+    100002: bFoot.R
+    100004: bIK_leg.L
+    100006: bIK_leg.R
+    100008: bLeg1.L
+    100010: bLeg1.R
+    100012: bLeg2.L
+    100014: bLeg2.R
+    100016: body1
+    100018: body2
+    100020: ear.L
+    100022: ear.R
+    100024: fFoot.L
+    100026: fFoot.R
+    100028: fIK_leg.L
+    100030: fIK_leg.R
+    100032: fLeg1.L
+    100034: fLeg1.R
+    100036: fLeg2.L
+    100038: fLeg2.R
+    100040: //RootNode
+    100042: hare
+    100044: head
+    100046: neck
+    100048: rig
+    400000: bFoot.L
+    400002: bFoot.R
+    400004: bIK_leg.L
+    400006: bIK_leg.R
+    400008: bLeg1.L
+    400010: bLeg1.R
+    400012: bLeg2.L
+    400014: bLeg2.R
+    400016: body1
+    400018: body2
+    400020: ear.L
+    400022: ear.R
+    400024: fFoot.L
+    400026: fFoot.R
+    400028: fIK_leg.L
+    400030: fIK_leg.R
+    400032: fLeg1.L
+    400034: fLeg1.R
+    400036: fLeg2.L
+    400038: fLeg2.R
+    400040: hare
+    400042: //RootNode
+    400044: head
+    400046: neck
+    400048: rig
+    4300000: hare
+    7400000: idle_unarmed
+    7400002: run_unarmed
+    7400004: hare|run
+    7400006: loot_unarmed
+    7400008: chop_unarmed
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: hare
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle_unarmed
+      takeName: rig|idle
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hare
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/bIK_leg.L
+        weight: 1
+      - path: rig/bIK_leg.R
+        weight: 1
+      - path: rig/body1
+        weight: 1
+      - path: rig/body1/bLeg1.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
+        weight: 1
+      - path: rig/body1/bLeg1.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
+        weight: 1
+      - path: rig/body2
+        weight: 1
+      - path: rig/body2/fLeg1.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
+        weight: 1
+      - path: rig/body2/fLeg1.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
+        weight: 1
+      - path: rig/body2/neck
+        weight: 1
+      - path: rig/body2/neck/head
+        weight: 1
+      - path: rig/body2/neck/head/ear.L
+        weight: 1
+      - path: rig/body2/neck/head/ear.R
+        weight: 1
+      - path: rig/fIK_leg.L
+        weight: 1
+      - path: rig/fIK_leg.R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: run_unarmed
+      takeName: rig|run
+      firstFrame: 0
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hare
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/bIK_leg.L
+        weight: 1
+      - path: rig/bIK_leg.R
+        weight: 1
+      - path: rig/body1
+        weight: 1
+      - path: rig/body1/bLeg1.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
+        weight: 1
+      - path: rig/body1/bLeg1.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
+        weight: 1
+      - path: rig/body2
+        weight: 1
+      - path: rig/body2/fLeg1.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
+        weight: 1
+      - path: rig/body2/fLeg1.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
+        weight: 1
+      - path: rig/body2/neck
+        weight: 1
+      - path: rig/body2/neck/head
+        weight: 1
+      - path: rig/body2/neck/head/ear.L
+        weight: 1
+      - path: rig/body2/neck/head/ear.R
+        weight: 1
+      - path: rig/fIK_leg.L
+        weight: 1
+      - path: rig/fIK_leg.R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: loot_unarmed
+      takeName: rig|idle
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hare
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/bIK_leg.L
+        weight: 1
+      - path: rig/bIK_leg.R
+        weight: 1
+      - path: rig/body1
+        weight: 1
+      - path: rig/body1/bLeg1.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
+        weight: 1
+      - path: rig/body1/bLeg1.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
+        weight: 1
+      - path: rig/body2
+        weight: 1
+      - path: rig/body2/fLeg1.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
+        weight: 1
+      - path: rig/body2/fLeg1.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
+        weight: 1
+      - path: rig/body2/neck
+        weight: 1
+      - path: rig/body2/neck/head
+        weight: 1
+      - path: rig/body2/neck/head/ear.L
+        weight: 1
+      - path: rig/body2/neck/head/ear.R
+        weight: 1
+      - path: rig/fIK_leg.L
+        weight: 1
+      - path: rig/fIK_leg.R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: chop_unarmed
+      takeName: rig|idle
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hare
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/bIK_leg.L
+        weight: 1
+      - path: rig/bIK_leg.R
+        weight: 1
+      - path: rig/body1
+        weight: 1
+      - path: rig/body1/bLeg1.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
+        weight: 1
+      - path: rig/body1/bLeg1.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
+        weight: 1
+      - path: rig/body2
+        weight: 1
+      - path: rig/body2/fLeg1.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
+        weight: 1
+      - path: rig/body2/fLeg1.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
+        weight: 1
+      - path: rig/body2/neck
+        weight: 1
+      - path: rig/body2/neck/head
+        weight: 1
+      - path: rig/body2/neck/head/ear.L
+        weight: 1
+      - path: rig/body2/neck/head/ear.R
+        weight: 1
+      - path: rig/fIK_leg.L
+        weight: 1
+      - path: rig/fIK_leg.R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+<WeaponsRoot>
+	<MeleeWeapons>
+		<MeleeWeaponData name="flintAxe" gameName="Flint Axe">
+			<durability>100</durability>
+			<damage>
+				<int>15</int>
+				<int>25</int>
+				<int>15</int>
+			</damage>
+			<attackSpeed>1.2</attackSpeed>
+			<idleAnim>idle_axe</idleAnim>
+			<runAnim>run_axe</runAnim>
+			<lootAnim>loot_axe</lootAnim>
+			<attackAnims>
+				<string>chop_axe</string>
+				<string>chop_axe</string>
+				<string>mine_axe</string>
+			</attackAnims>
+			<attackSounds>
+				<string>attackAxe01</string>
+				<string>chop01</string>
+				<string>mine01</string>
+			</attackSounds>
+		</MeleeWeaponData>
+		
+		<MeleeWeaponData name="flintPickaxe" gameName="Flint Pickaxe">
+			<durability>100</durability>
+			<damage>
+				<int>15</int>
+				<int>15</int>
+				<int>25</int>
+			</damage>
+			<attackSpeed>1.2</attackSpeed>
+			<idleAnim>idle_axe</idleAnim>
+			<runAnim>run_axe</runAnim>
+			<lootAnim>loot_axe</lootAnim>
+			<attackAnims>
+				<string>chop_axe</string>
+				<string>chop_axe</string>
+				<string>mine_axe</string>
+			</attackAnims>
+			<attackSounds>
+				<string>attackAxe01</string>
+				<string>chop01</string>
+				<string>mine01</string>
+			</attackSounds>
+		</MeleeWeaponData>
+		
+		<MeleeWeaponData name = "unarmed" gameName = "Unarmed">
+			<durability>0</durability>
+			<damage>
+				<int>5</int>
+				<int>5</int>
+				<int>0</int>
+			</damage>
+			<attackSpeed>1</attackSpeed>
+			<idleAnim>idle_unarmed</idleAnim>
+			<runAnim>run_unarmed</runAnim>
+			<lootAnim>loot_unarmed</lootAnim>
+			<attackAnims>
+				<string>chop_unarmed</string>
+				<string>chop_unarmed</string>
+				<string>chop_unarmed</string>
+			</attackAnims>
+			<attackSounds>
+				<string>punch01</string>
+				<string>punch01</string>
+				<string>punch01</string>
+			</attackSounds>
+		</MeleeWeaponData>
+	</MeleeWeapons>
+	
+	<RangedWeapons>
+		<RangedWeaponData name = "shortbow" gameName = "Short Bow">
+			<rightHand>false</rightHand>
+			<durability>10</durability>
+			<damage>20</damage>
+			<attackSpeed>1.2</attackSpeed>
+			<idleAnim>idle_bow</idleAnim>
+			<runAnim>run_bow</runAnim>
+			<lootAnim>loot_unarmed</lootAnim>
+			<attackAnim>attack_bow</attackAnim>
+			<attackSound>attackBow01</attackSound>
+			<weaponAttackAnim>bow_attack</weaponAttackAnim>
+			<projectileModelName>shortarrow</projectileModelName>
+			<projectileName>arrow</projectileName>
+		</RangedWeaponData>
+	</RangedWeapons>
+</WeaponsRoot>

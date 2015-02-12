@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: terrain
+  m_Shader: {fileID: 4800000, guid: 6d538ada6676a7f4ca74b0ce655d5ea0, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Splat1
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Splat0
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ColorTexture
+        second:
+          m_Texture: {fileID: 2800000, guid: a491004fdccefca4d9a163b1b4a94438, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpTexture
+        second:
+          m_Texture: {fileID: 2800000, guid: 2b22126dd74eb9f42aa9780be13c4a54, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _GridTexture
+        second:
+          m_Texture: {fileID: 2800000, guid: 6875b46d3df3e8d4cb7c3fa837686eca, type: 3}
+          m_Scale: {x: 256, y: 256}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SnowHeightMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 027a8dd23a17b5541b332350abf15a62, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture1
+        second:
+          m_Texture: {fileID: 2800000, guid: 667c7c42f3348ce49b916d3bd3e5288c, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture2
+        second:
+          m_Texture: {fileID: 2800000, guid: 45ebac949b4a08b4dbbee4aa5cf61df1, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture3
+        second:
+          m_Texture: {fileID: 2800000, guid: 91e1ce43c1e1e0d48acc90aeec6f3373, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture4
+        second:
+          m_Texture: {fileID: 2800000, guid: b8cb7c5faadd0bb40a4814df086273dc, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture5
+        second:
+          m_Texture: {fileID: 2800000, guid: 980fbc6747bc0b64ab9118df26586d93, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture6
+        second:
+          m_Texture: {fileID: 2800000, guid: b04934383a35fac468edd7035d8123b7, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture7
+        second:
+          m_Texture: {fileID: 2800000, guid: 9b79c04dd16198a4ebfb096a30e0deac, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture8
+        second:
+          m_Texture: {fileID: 2800000, guid: 1e9490ccfc3acb74c8e8f2986c26af85, type: 3}
+          m_Scale: {x: 64, y: 64}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump1
+        second:
+          m_Texture: {fileID: 2800000, guid: 8a51852ec258eb84093588ddee40df92, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump2
+        second:
+          m_Texture: {fileID: 2800000, guid: 98618631c9525c1468d39b3370f39378, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump3
+        second:
+          m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump4
+        second:
+          m_Texture: {fileID: 2800000, guid: 6d0d05f346946b548b36d13884184997, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MainTex2
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump5
+        second:
+          m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump6
+        second:
+          m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump7
+        second:
+          m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump8
+        second:
+          m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _DrawGrid
+        second: 0
+      data:
+        first:
+          name: _SnowAmount
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}

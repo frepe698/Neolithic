@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+<ConsumableItemsRoot>
+	<ConsumableItems>
+		<ConsumableItemData name = "meat" gameName = "Meat">
+			<tooltip>Can be eaten</tooltip>
+			<hungerChange>40</hungerChange>
+		</ConsumableItemData>
+	</ConsumableItems>
+</ConsumableItemsRoot>

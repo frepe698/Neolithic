@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+<ProjectilesRoot>
+	<Projectiles>
+		<ProjectileData name = "rock" gameName = "Rock" modelName = "rock">
+			<damage>3</damage>
+			<speed>15</speed>
+			<range>10</range>
+		</ProjectileData>
+		
+		<ProjectileData name = "arrow" gameName = "Wooden Arrow" modelName = "arrow">
+			<damage>7</damage>
+			<speed>30</speed>
+			<range>15</range>
+		</ProjectileData>
+	</Projectiles>
+</ProjectilesRoot>

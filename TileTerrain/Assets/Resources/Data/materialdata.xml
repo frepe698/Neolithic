@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+<MaterialsRoot>
+	<Materials>
+		<MaterialData name="log" gameName="Log">
+			<tooltip>Used for building wood stuff</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="stick" gameName="Stick">
+			<tooltip>Used for crafting items</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="stone" gameName="Stone">
+			<tooltip>Used for crafting items and building stone stuff</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="iron" gameName="Iron">
+			<tooltip>Used for crafting advanced items</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="gold" gameName="Gold">
+			<tooltip>Can be sacrificed to the gods</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="cep" gameName="Cep">
+			<tooltip>An edible shroom</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="deathcap" gameName="Deathcap">
+			<tooltip>AKA the berzerker shroom</tooltip>
+		</MaterialData>
+		
+		<MaterialData name="puffball" gameName="Puffball">
+			<tooltip>Can make smoke</tooltip>
+		</MaterialData>
+	</Materials>
+</MaterialsRoot>

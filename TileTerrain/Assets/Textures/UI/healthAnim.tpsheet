@@ -1,0 +1,26 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: healthAnim.png (1024 x 1024)
+# $TexturePacker:SmartUpdate:b700ebff5db45a1b1db43965c3b523d5:937ab922d5e05b251e9ea2d6d8e2c332:a490e62cc6b45828a2c709f8d1db0a7e$
+#
+
+anim0400;0;768;256;256;0.5;0.5
+anim0410;0;512;256;256;0.5;0.5
+anim0420;0;256;256;256;0.5;0.5
+anim0430;0;0;256;256;0.5;0.5
+anim0440;256;768;256;256;0.5;0.5
+anim0450;512;768;256;256;0.5;0.5
+anim0460;768;768;256;256;0.5;0.5
+anim0470;256;512;256;256;0.5;0.5
+anim0480;256;256;256;256;0.5;0.5
+anim0490;256;0;256;256;0.5;0.5
+anim0500;512;512;256;256;0.5;0.5
+anim0510;768;512;256;256;0.5;0.5
+anim0520;512;256;256;256;0.5;0.5
+anim0530;512;0;256;256;0.5;0.5
+anim0540;768;256;256;256;0.5;0.5
+anim0550;768;0;256;256;0.5;0.5

@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: e3db8c0445ee1c641a073391bfeeeac0
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: arm.L
+    100002: arm.R
+    100004: bicep.L
+    100006: bicep.R
+    100008: elbowTarget.L
+    100010: elbowTarget.R
+    100012: foot.L
+    100014: foot.R
+    100016: front
+    100018: hand.L
+    100020: hand.R
+    100022: head
+    100024: IKArm.L
+    100026: IKArm.R
+    100028: IKLeg.L
+    100030: IKLeg.R
+    100032: jaw
+    100034: kneeTarget.L
+    100036: kneeTarget.R
+    100038: neck
+    100040: paw.L
+    100042: paw.R
+    100044: rear
+    100046: rig
+    100048: shin.L
+    100050: shin.R
+    100052: tail1
+    100054: tail2
+    100056: thigh.L
+    100058: thigh.R
+    100060: //RootNode
+    100062: wolf
+    100064: wrist.L
+    100066: wrist.R
+    400000: arm.L
+    400002: arm.R
+    400004: bicep.L
+    400006: bicep.R
+    400008: elbowTarget.L
+    400010: elbowTarget.R
+    400012: foot.L
+    400014: foot.R
+    400016: front
+    400018: hand.L
+    400020: hand.R
+    400022: head
+    400024: IKArm.L
+    400026: IKArm.R
+    400028: IKLeg.L
+    400030: IKLeg.R
+    400032: jaw
+    400034: kneeTarget.L
+    400036: kneeTarget.R
+    400038: neck
+    400040: paw.L
+    400042: paw.R
+    400044: rear
+    400046: rig
+    400048: shin.L
+    400050: shin.R
+    400052: tail1
+    400054: tail2
+    400056: thigh.L
+    400058: thigh.R
+    400060: //RootNode
+    400062: wolf
+    400064: wrist.L
+    400066: wrist.R
+    4300000: wolf
+    7400000: chop_unarmed
+    7400002: idle_unarmed
+    7400004: run_unarmed
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: wolf
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: chop_unarmed
+      takeName: rig|attack
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/front
+        weight: 1
+      - path: rig/front/bicep.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L/hand.L
+        weight: 1
+      - path: rig/front/bicep.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R/hand.R
+        weight: 1
+      - path: rig/front/neck
+        weight: 1
+      - path: rig/front/neck/head
+        weight: 1
+      - path: rig/front/neck/head/jaw
+        weight: 1
+      - path: rig/IKArm.L
+        weight: 1
+      - path: rig/IKArm.L/elbowTarget.L
+        weight: 1
+      - path: rig/IKArm.R
+        weight: 1
+      - path: rig/IKArm.R/elbowTarget.R
+        weight: 1
+      - path: rig/IKLeg.L
+        weight: 1
+      - path: rig/IKLeg.L/kneeTarget.L
+        weight: 1
+      - path: rig/IKLeg.R
+        weight: 1
+      - path: rig/IKLeg.R/kneeTarget.R
+        weight: 1
+      - path: rig/rear
+        weight: 1
+      - path: rig/rear/tail1
+        weight: 1
+      - path: rig/rear/tail1/tail2
+        weight: 1
+      - path: rig/rear/thigh.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L/paw.L
+        weight: 1
+      - path: rig/rear/thigh.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R/paw.R
+        weight: 1
+      - path: wolf
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle_unarmed
+      takeName: rig|idle
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/front
+        weight: 1
+      - path: rig/front/bicep.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L/hand.L
+        weight: 1
+      - path: rig/front/bicep.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R/hand.R
+        weight: 1
+      - path: rig/front/neck
+        weight: 1
+      - path: rig/front/neck/head
+        weight: 1
+      - path: rig/front/neck/head/jaw
+        weight: 1
+      - path: rig/IKArm.L
+        weight: 1
+      - path: rig/IKArm.L/elbowTarget.L
+        weight: 1
+      - path: rig/IKArm.R
+        weight: 1
+      - path: rig/IKArm.R/elbowTarget.R
+        weight: 1
+      - path: rig/IKLeg.L
+        weight: 1
+      - path: rig/IKLeg.L/kneeTarget.L
+        weight: 1
+      - path: rig/IKLeg.R
+        weight: 1
+      - path: rig/IKLeg.R/kneeTarget.R
+        weight: 1
+      - path: rig/rear
+        weight: 1
+      - path: rig/rear/tail1
+        weight: 1
+      - path: rig/rear/tail1/tail2
+        weight: 1
+      - path: rig/rear/thigh.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L/paw.L
+        weight: 1
+      - path: rig/rear/thigh.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R/paw.R
+        weight: 1
+      - path: wolf
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: run_unarmed
+      takeName: rig|run
+      firstFrame: 0
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/front
+        weight: 1
+      - path: rig/front/bicep.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L
+        weight: 1
+      - path: rig/front/bicep.L/arm.L/wrist.L/hand.L
+        weight: 1
+      - path: rig/front/bicep.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R
+        weight: 1
+      - path: rig/front/bicep.R/arm.R/wrist.R/hand.R
+        weight: 1
+      - path: rig/front/neck
+        weight: 1
+      - path: rig/front/neck/head
+        weight: 1
+      - path: rig/front/neck/head/jaw
+        weight: 1
+      - path: rig/IKArm.L
+        weight: 1
+      - path: rig/IKArm.L/elbowTarget.L
+        weight: 1
+      - path: rig/IKArm.R
+        weight: 1
+      - path: rig/IKArm.R/elbowTarget.R
+        weight: 1
+      - path: rig/IKLeg.L
+        weight: 1
+      - path: rig/IKLeg.L/kneeTarget.L
+        weight: 1
+      - path: rig/IKLeg.R
+        weight: 1
+      - path: rig/IKLeg.R/kneeTarget.R
+        weight: 1
+      - path: rig/rear
+        weight: 1
+      - path: rig/rear/tail1
+        weight: 1
+      - path: rig/rear/tail1/tail2
+        weight: 1
+      - path: rig/rear/thigh.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: rig/rear/thigh.L/shin.L/foot.L/paw.L
+        weight: 1
+      - path: rig/rear/thigh.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: rig/rear/thigh.R/shin.R/foot.R/paw.R
+        weight: 1
+      - path: wolf
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .25
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

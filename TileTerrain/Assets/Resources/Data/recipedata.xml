@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='us-ascii'?> 
+<RecipesRoot>
+	<ItemRecipes>
+		<ItemRecipeData name="craftFlintAxe" gameName="Flint Axe">
+		<product>flintAxe</product>
+		<ingredients>
+			<Ingredient>
+				<name>stick</name>
+				<amount>1</amount>
+			</Ingredient>
+			<Ingredient>
+				<name>stone</name>
+				<amount>1</amount>
+			</Ingredient>
+		</ingredients>
+		<tooltip>Craft a flint axe</tooltip>
+		</ItemRecipeData>
+		
+		<ItemRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe">
+		<product>flintPickaxe</product>
+		<ingredients>
+			<Ingredient>
+				<name>stick</name>
+				<amount>1</amount>
+			</Ingredient>
+			<Ingredient>
+				<name>stone</name>
+				<amount>2</amount>
+			</Ingredient>
+		</ingredients>
+		<tooltip>Craft a flint pickaxe</tooltip>
+		</ItemRecipeData>
+		
+		<ItemRecipeData name="craftShortBow" gameName="Short Bow">
+		<product>shortbow</product>
+		<ingredients>
+			<Ingredient>
+				<name>stick</name>
+				<amount>2</amount>
+			</Ingredient>
+		</ingredients>
+		<tooltip>Craft a short bow</tooltip>
+		</ItemRecipeData>
+		
+	</ItemRecipes>
+	<MaterialRecipes>
+		<MaterialRecipeData name="craftGoldMaterial" gameName = "Gold">
+		<product>gold</product>
+		<ingredients>
+			<Ingredient>
+				<name>stone</name>
+				<amount>2</amount>
+			</Ingredient>
+		</ingredients>
+		<tooltip>Create Gold with 2 Iron</tooltip>	
+		</MaterialRecipeData>
+	</MaterialRecipes>
+</RecipesRoot>
