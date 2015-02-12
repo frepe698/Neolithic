@@ -31,7 +31,7 @@ public class Unit {
 	protected float moveSensitivity = 0.1f;
 	
 	protected Command command;
-	protected float animationEndTime;
+    protected float commandEndTime;
 	protected bool alive = true;
 
 	protected float gatherTime = 0.8f;
@@ -168,7 +168,7 @@ public class Unit {
 		}
 		else
 		{
-			if(command == null)
+			if(command == null && Time.time >= commandEndTime)
 			{
 				setAnimation( getIdleAnim(), 1);
 			}
@@ -196,6 +196,11 @@ public class Unit {
 	{
 		this.id = id;
 	}
+
+    public void setCommandEndTime(float time)
+    {
+        commandEndTime = time;
+    }
 
 	public void giveCommand(Command command)
 	{
@@ -252,6 +257,13 @@ public class Unit {
 		command = newCommand;
 		command.start();
 	}
+
+    public bool canStartCommand(Command command)
+    {
+        if (command.canAlwaysStart()) return true;
+        if (currentCommandEquals(command)) return false;
+        return Time.time >= commandEndTime;
+    }
 	
 	public bool currentCommandEquals(Command command)
 	{
@@ -261,7 +273,6 @@ public class Unit {
 	private void setCommand(Command command)
 	{
 		this.command = command;
-		//animationEndTime = Time.time + command.
 	}
 	
 	protected void ground()

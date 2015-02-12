@@ -39,4 +39,9 @@ public abstract class Command {
 		this.destination = destination;
 	}
 
+    public virtual bool canAlwaysStart()
+    {
+        return false;
+    }
+
 }

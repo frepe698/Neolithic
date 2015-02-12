@@ -3,11 +3,11 @@ using System.Collections;
 
 public class RangedAttackCommand : Command {
 
-	private readonly static float BASE_TIME = 0.375f;
+	private readonly static float BASE_TIME = 1.0f;
+    private readonly static float TRIGGER_TIME = 0.375f;
 
 	private bool hasAttacked;
 	private float attackTime;
-	private float animationTime;
 	private Vector3 target;
 
 
@@ -20,9 +20,8 @@ public class RangedAttackCommand : Command {
 	{
 
 		unit.setMoving(false);
-		attackTime = BASE_TIME / unit.getAttackSpeed();
+		attackTime = TRIGGER_TIME / unit.getAttackSpeed();
 		hasAttacked = false;
-		animationTime = attackTime * 0.1f;
 		calculateRotation();
 		unit.playWeaponAttackAnimation(unit.getAttackSpeed());
 		unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());
@@ -40,17 +39,11 @@ public class RangedAttackCommand : Command {
 				unit.playSound(unit.getAttackSound(0));
 				unit.fireProjectile(target);
 				hasAttacked = true;
-			}
-		}
-		else
-		{
-			animationTime -= Time.deltaTime;
-			if(animationTime <= 0)
-			{
-				setCompleted();
-			}
-		}
 
+                unit.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME)/unit.getAttackSpeed());
+                setCompleted();
+			}
+		}
 	}
 
 	private void calculateRotation()

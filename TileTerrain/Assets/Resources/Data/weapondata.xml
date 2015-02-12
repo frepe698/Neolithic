@@ -76,7 +76,7 @@
 			<rightHand>false</rightHand>
 			<durability>10</durability>
 			<damage>20</damage>
-			<attackSpeed>1.2</attackSpeed>
+			<attackSpeed>1</attackSpeed>
 			<idleAnim>idle_bow</idleAnim>
 			<runAnim>run_bow</runAnim>
 			<lootAnim>loot_bow</lootAnim>

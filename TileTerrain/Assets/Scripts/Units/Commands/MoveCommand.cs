@@ -22,5 +22,10 @@ public class MoveCommand : Command {
 		}
 	}
 
+    public override bool canAlwaysStart()
+    {
+        return true;
+    }
+
 
 }

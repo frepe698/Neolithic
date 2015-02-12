@@ -17,7 +17,7 @@ public class OfflineController : GameController {
 	{
 		Unit unit = GameMaster.getHero(unitID);
 		ResourceObject res = World.tileMap.getTile ((int)goalX, (int)goalY).getResourceObject();
-		if(res != null && unit != null && !unit.currentCommandEquals(new GatherCommand(unit, res)))
+		if(res != null && unit != null && unit.canStartCommand(new GatherCommand(unit, res)))
 		{
 			approveGatherCommand(unitID, goalX, goalY, GameMaster.getHero(unitID).getPosition());
 		}
@@ -28,7 +28,7 @@ public class OfflineController : GameController {
 	{
 		Unit unit = GameMaster.getUnit(unitID);
 		Unit target = GameMaster.getUnit (targetID);
-		if(target != null && unit != null && !unit.currentCommandEquals(new AttackCommand(unit, target)))
+        if (target != null && unit != null && unit.canStartCommand(new AttackCommand(unit, target)))
 		{
 			approveAttackCommand(unitID, targetID, GameMaster.getUnit(unitID).getPosition());
 		}
@@ -38,7 +38,7 @@ public class OfflineController : GameController {
 	public override void requestRangedAttackCommand(int unitID, Vector3 target)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
-		if(unit != null && !unit.currentCommandEquals(new RangedAttackCommand(unit, target)))
+        if (unit != null && unit.canStartCommand(new RangedAttackCommand(unit, target)))
 		{
 			approveRangedAttackCommand(unitID, target, GameMaster.getUnit(unitID).getPosition());
 		}

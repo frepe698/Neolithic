@@ -2231,7 +2231,7 @@ ModelImporter:
       name: attack_axe
       takeName: rig|attack_axe
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
