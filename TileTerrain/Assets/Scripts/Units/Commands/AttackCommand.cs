@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AttackCommand : Command {
 	
-	private readonly static float BASE_TIME = 0.8f;
+	private readonly static float BASE_TIME = 0.5f;
 	
 	private Unit target;
 	private bool attacking;

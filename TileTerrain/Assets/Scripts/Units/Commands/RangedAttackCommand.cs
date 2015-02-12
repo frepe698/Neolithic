@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RangedAttackCommand : Command {
 
-	private readonly static float BASE_TIME = 0.8f;
+	private readonly static float BASE_TIME = 0.375f;
 
 	private bool hasAttacked;
 	private float attackTime;
