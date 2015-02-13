@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{2E560870-3EBF-1F86-0723-3979A23919A5}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Scripts\Audio\AudioHolder.cs" />
+     <Compile Include="Assets\Scripts\Game\ClientController.cs" />
+     <Compile Include="Assets\Scripts\Game\GameController.cs" />
+     <Compile Include="Assets\Scripts\Game\GameMaster.cs" />
+     <Compile Include="Assets\Scripts\Game\OfflineController.cs" />
+     <Compile Include="Assets\Scripts\Game\ServerContoller.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\BaseGameObject.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\EyecandyObject.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\Fire.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\HarvestableObject.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\LootableConsumable.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\LootableItem.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\LootableObject.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\LootableObjects\ItemId.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\LootableObjects\LootId.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ConsumableItemData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\CraftedItemData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\DamageType.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\DataHolder.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\Ingredient.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ItemData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ItemRecipeData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\MaterialData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\MaterialRecipeData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\MeleeWeaponData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ObjectData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ProjectileData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\RangedWeaponData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\ResourceData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\UnitData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ObjectData\WeaponData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\Projectile.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\RenderData.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\ResourceObject.cs" />
+     <Compile Include="Assets\Scripts\GameObjects\WorldUnit.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\GameLobby.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\GlobalMenu.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\MenuUnit.cs" />
+     <Compile Include="Assets\Scripts\Mathematics\Line.cs" />
+     <Compile Include="Assets\Scripts\Mathematics\Vector2i.cs" />
+     <Compile Include="Assets\Scripts\Mathematics\WorldPoint.cs" />
+     <Compile Include="Assets\Scripts\Networking\OnlinePlayer.cs" />
+     <Compile Include="Assets\Scripts\Networking\Server\NetworkConnection.cs" />
+     <Compile Include="Assets\Scripts\Networking\Server\NetworkMaster.cs" />
+     <Compile Include="Assets\Scripts\Networking\Server\OfflineServer.cs" />
+     <Compile Include="Assets\Scripts\Networking\Server\OnlineClient.cs" />
+     <Compile Include="Assets\Scripts\Networking\Server\OnlineServer.cs" />
+     <Compile Include="Assets\Scripts\ObjectPool\ObjectPool.cs" />
+     <Compile Include="Assets\Scripts\ObjectPool\ObjectPoolingManager.cs" />
+     <Compile Include="Assets\Scripts\ObjectPool\RenderDataPool.cs" />
+     <Compile Include="Assets\Scripts\Pathfinder\Path.cs" />
+     <Compile Include="Assets\Scripts\Pathfinder\PathNode.cs" />
+     <Compile Include="Assets\Scripts\Pathfinder\Pathfinder.cs" />
+     <Compile Include="Assets\Scripts\Pathfinder\TileInfo.cs" />
+     <Compile Include="Assets\Scripts\Player\CameraControll.cs" />
+     <Compile Include="Assets\Scripts\Player\GUIManager.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Units\AIUnit.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\AttackCommand.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\Command.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\GatherCommand.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\LootCommand.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\MoveCommand.cs" />
+     <Compile Include="Assets\Scripts\Units\Commands\RangedAttackCommand.cs" />
+     <Compile Include="Assets\Scripts\Units\Hero.cs" />
+     <Compile Include="Assets\Scripts\Units\Inventory\ConsumableItem.cs" />
+     <Compile Include="Assets\Scripts\Units\Inventory\CraftedItem.cs" />
+     <Compile Include="Assets\Scripts\Units\Inventory\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Units\Inventory\Item.cs" />
+     <Compile Include="Assets\Scripts\Units\Inventory\MaterialItem.cs" />
+     <Compile Include="Assets\Scripts\Units\Unit.cs" />
+     <Compile Include="Assets\Scripts\Units\UnitController.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\Cave.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\BeachGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\DeadForestGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\ForestGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\GrassGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\GroundType.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\MountainGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\RoadGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\ShoreGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\SnowMountainGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\GroundTypes\WaterGround.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\Road.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\SplatMapColor.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\Tile.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\TileMap.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\TileWorld.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\World.cs" />
+     <Compile Include="Assets\Scripts\WorldGeneration\WorldSection.cs" />
+     <None Include="Assets\Materials\Shaders\LootShader.shader" />
+     <None Include="Assets\Materials\Shaders\OutlinedDiffuse.shader" />
+     <None Include="Assets\Resources\Data\consumableitemdata.xml" />
+     <None Include="Assets\TODO.txt" />
+     <None Include="Assets\Textures\Fonts\freefont_EULA_v1-00.txt" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Materials\Shaders\OutlinedBumped.shader" />
+     <None Include="Assets\Resources\Data\weapondata.xml" />
+     <None Include="Assets\Resources\Data\materialdata.xml" />
+     <None Include="Assets\Materials\Shaders\ObjectShader.shader" />
+     <None Include="Assets\Resources\Data\recipedata.xml" />
+     <None Include="Assets\Resources\Data\resourcedata.xml" />
+     <None Include="Assets\Materials\Shaders\TransparentCutoutNocull.shader" />
+     <None Include="Assets\Materials\Shaders\SmartTerrain.shader" />
+     <None Include="Assets\Materials\Shaders\TerrainSplat8NoNormal.shader" />
+     <None Include="Assets\Resources\Data\projectiledata.xml" />
+     <None Include="Assets\Resources\Data\unitdata.xml" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

@@ -1,4 +1,4 @@
-﻿Shader "Outlined/Silhouetted Diffuse" {
+﻿Shader "Outlined/Outlined Diffuse" {
 	Properties {
 		_Color ("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor ("Outline Color", Color) = (1,0,0,1)

@@ -94,6 +94,7 @@
 		</ResourceData>
 		
 		<ResourceData name="stone" gameName="Stone">
+      <variances>2</variances>
 			<health>80</health>
 			<safeDrops>
 				<string>stone</string>

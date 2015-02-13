@@ -108,7 +108,7 @@ public class AIUnit : Unit {
 
 	public override void takeDamage(float damage, int dealerID)
 	{
-		this.health -= damage;
+        base.takeDamage(damage, dealerID);
 		Unit dealer = GameMaster.getUnit(dealerID);
 		if(command == null || command is MoveCommand)
 		{

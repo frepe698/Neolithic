@@ -89,7 +89,8 @@ public class GrassGround : GroundType {
 			int lootType = Mathf.RoundToInt(Mathf.PerlinNoise(position.x/20 + 100, position.z/20 + 100));
 			if(lootType == 0)
 			{
-				candyName = eyecandyTypes[Random.Range(0, eyecandyTypes.Length)];
+				//candyName = eyecandyTypes[Random.Range(0, eyecandyTypes.Length)];
+                return null;
 			}
 			else
 			{

@@ -87,7 +87,8 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree03"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/birch01"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("deadbush01"), 100,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("stone01"), 150,true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone01"), 75, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 75, true);
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
@@ -125,7 +126,8 @@ public class World : MonoBehaviour {
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/treeChopParticles"), 4, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/bushChopParticles"), 4, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/stoneMineParticles"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/stoneMineParticles"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bloodParticles"), 4, true);
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/hare"), 20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/battlepig"), 20, true);
@@ -229,7 +231,7 @@ public class World : MonoBehaviour {
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture8", new Vector2(scale, scale));
 			groundRenderer.material.SetTextureScale("_GridTexture", new Vector2(sectionCount*WorldSection.SIZE, sectionCount*WorldSection.SIZE));
 		}
-		initTerrainTexture();
+		//initTerrainTexture();
 	}
 
 	void initTerrainTexture()

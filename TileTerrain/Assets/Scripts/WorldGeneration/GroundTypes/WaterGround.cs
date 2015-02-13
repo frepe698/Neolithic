@@ -10,12 +10,12 @@ public class WaterGround : GroundType {
 	
 	public override ResourceObject getRandomResource(Vector3 position)
 	{
-		return null;
+        return new ResourceObject(position, Random.value * 360, "stone");
 	}
 	
 	public override bool spawnResource ()
 	{
-		return false;
+		return Random.value > 0.95f;
 	}
 	
 	public override int spawnLootAmount ()
@@ -45,11 +45,15 @@ public class WaterGround : GroundType {
 	
 	public override EyecandyObject getRandomEyecandy(Vector3 position)
 	{
-		int lootType = Random.Range(0, eyecandyTypes.Length);
+
+        if (Mathf.PerlinNoise(position.x / 2, position.z / 2) * 4 < 1)
+        {
+            return new EyecandyObject(new Vector3(position.x, 0.5f, position.z),
+                                  Quaternion.Euler(0, Random.value * 360, 0),
+                                  eyecandyTypes[0]);
+        }
+        return null;
 		
-		return new EyecandyObject(new Vector3(position.x, 0.5f, position.z),
-		                          Quaternion.Euler(0, Random.value*360, 0),
-		                          eyecandyTypes[lootType]);
 	}
 	
 	public override int getTexture()

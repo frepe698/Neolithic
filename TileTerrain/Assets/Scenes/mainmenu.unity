@@ -4150,8 +4150,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .819999993
-  m_Center: {x: .12977612, y: .855969846, z: -.0760023594}
+  m_Radius: .310000002
+  m_Center: {x: 0, y: .310000002, z: 0}
 --- !u!114 &276626223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4323,6 +4323,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -12164,7 +12165,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .179693326, y: .0586660393, z: 1.02645481}
+  m_Size: {x: .360000014, y: .0586660393, z: 1.02645481}
   m_Center: {x: .00967469066, y: .00309679098, z: .00392514467}
 --- !u!114 &758458192
 MonoBehaviour:
@@ -12476,6 +12477,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -12877,8 +12879,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .699081779
-  m_Center: {x: 0, y: .670356989, z: 0}
+  m_Radius: .280000001
+  m_Center: {x: 0, y: .270000011, z: 0}
 --- !u!114 &807563265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12962,8 +12964,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .649999976
-  m_Center: {x: 0, y: .428363353, z: 0}
+  m_Radius: .25999999
+  m_Center: {x: 0, y: .200000003, z: 0}
 --- !u!114 &811099103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15698,8 +15700,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .699081779
-  m_Center: {x: 0, y: .670356989, z: 0}
+  m_Radius: .280000001
+  m_Center: {x: 0, y: .270000011, z: 0}
 --- !u!114 &1010773604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15763,7 +15765,7 @@ GameObject:
   - 4: {fileID: 1010949184}
   - 33: {fileID: 1010949187}
   - 23: {fileID: 1010949186}
-  - 64: {fileID: 1010949185}
+  - 65: {fileID: 1010949185}
   m_Layer: 0
   m_Name: stone01
   m_TagString: Resource
@@ -15783,10 +15785,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 523426183}
   m_RootOrder: 24
---- !u!64 &1010949185
-MeshCollider:
+--- !u!65 &1010949185
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6400000, guid: cc980c8b235748443b630ea103291494,
+  m_PrefabParentObject: {fileID: 6500000, guid: cc980c8b235748443b630ea103291494,
     type: 2}
   m_PrefabInternal: {fileID: 14363967}
   m_GameObject: {fileID: 1010949183}
@@ -15794,9 +15796,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: 14ace14c63c5b624f9329eb13a95a4de, type: 3}
+  m_Size: {x: .779999971, y: .537672043, z: .930000067}
+  m_Center: {x: -.000658929348, y: .261046767, z: -.112988591}
 --- !u!23 &1010949186
 Renderer:
   m_ObjectHideFlags: 0
@@ -20331,8 +20332,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .819999993
-  m_Center: {x: .12977612, y: .855969846, z: -.0760023594}
+  m_Radius: .310000002
+  m_Center: {x: 0, y: .310000002, z: 0}
 --- !u!114 &1307566254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21456,8 +21457,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .649999976
-  m_Center: {x: 0, y: .428363353, z: 0}
+  m_Radius: .25999999
+  m_Center: {x: 0, y: .200000003, z: 0}
 --- !u!114 &1382177376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25053,6 +25054,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -26107,7 +26109,7 @@ GameObject:
   - 4: {fileID: 1704593146}
   - 33: {fileID: 1704593149}
   - 23: {fileID: 1704593148}
-  - 64: {fileID: 1704593147}
+  - 65: {fileID: 1704593147}
   m_Layer: 0
   m_Name: stone01
   m_TagString: Resource
@@ -26127,10 +26129,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 523426183}
   m_RootOrder: 25
---- !u!64 &1704593147
-MeshCollider:
+--- !u!65 &1704593147
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6400000, guid: cc980c8b235748443b630ea103291494,
+  m_PrefabParentObject: {fileID: 6500000, guid: cc980c8b235748443b630ea103291494,
     type: 2}
   m_PrefabInternal: {fileID: 42287787}
   m_GameObject: {fileID: 1704593145}
@@ -26138,9 +26140,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: 14ace14c63c5b624f9329eb13a95a4de, type: 3}
+  m_Size: {x: .779999971, y: .537672043, z: .930000067}
+  m_Center: {x: -.000658929348, y: .261046767, z: -.112988591}
 --- !u!23 &1704593148
 Renderer:
   m_ObjectHideFlags: 0
@@ -27541,8 +27542,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .699081779
-  m_Center: {x: 0, y: .670356989, z: 0}
+  m_Radius: .280000001
+  m_Center: {x: 0, y: .270000011, z: 0}
 --- !u!114 &1731082577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32019,8 +32020,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .819999993
-  m_Center: {x: .12977612, y: .855969846, z: -.0760023594}
+  m_Radius: .310000002
+  m_Center: {x: 0, y: .310000002, z: 0}
 --- !u!114 &2077419620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33043,8 +33044,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .819999993
-  m_Center: {x: .12977612, y: .855969846, z: -.0760023594}
+  m_Radius: .310000002
+  m_Center: {x: 0, y: .310000002, z: 0}
 --- !u!114 &2143025715
 MonoBehaviour:
   m_ObjectHideFlags: 0

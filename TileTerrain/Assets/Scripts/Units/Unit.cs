@@ -491,6 +491,17 @@ public class Unit {
 	public virtual void takeDamage(float damage, int dealerID)
 	{
 		this.health -= damage;
+
+        if (isActive())
+        {
+            GameObject particles = ObjectPoolingManager.Instance.GetObject("bloodParticles");
+            if (particles != null)
+            {
+                particles.transform.position = new Vector3(position.x, position.y + 1, position.z);
+                ParticleSystem system = particles.GetComponent<ParticleSystem>();
+                system.Play();
+            }
+        }
 	}
 
 	public void heal(int heal)
