@@ -13,7 +13,7 @@
 			<runAnim>run_axe</runAnim>
 			<lootAnim>loot_axe</lootAnim>
 			<attackAnims>
-				<string>chop_axe</string>
+				<string>attack_axe</string>
 				<string>chop_axe</string>
 				<string>mine_axe</string>
 			</attackAnims>
@@ -36,7 +36,7 @@
 			<runAnim>run_axe</runAnim>
 			<lootAnim>loot_axe</lootAnim>
 			<attackAnims>
-				<string>chop_axe</string>
+				<string>attack_axe</string>
 				<string>chop_axe</string>
 				<string>mine_axe</string>
 			</attackAnims>
@@ -76,10 +76,10 @@
 			<rightHand>false</rightHand>
 			<durability>10</durability>
 			<damage>20</damage>
-			<attackSpeed>1.2</attackSpeed>
+			<attackSpeed>1</attackSpeed>
 			<idleAnim>idle_bow</idleAnim>
 			<runAnim>run_bow</runAnim>
-			<lootAnim>loot_unarmed</lootAnim>
+			<lootAnim>loot_bow</lootAnim>
 			<attackAnim>attack_bow</attackAnim>
 			<attackSound>attackBow01</attackSound>
 			<weaponAttackAnim>bow_attack</weaponAttackAnim>

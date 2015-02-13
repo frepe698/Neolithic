@@ -3,13 +3,13 @@ using System.Collections;
 
 public class AttackCommand : Command {
 	
-	private readonly static float BASE_TIME = 0.8f;
+	private readonly static float BASE_TIME = 1.0f;
+    private readonly static float TRIGGER_TIME = 0.5f;
 	
 	private Unit target;
 	private bool attacking;
 	private bool hasAttacked;
 	private float attackTime;
-	private float animationTime;
 	private Vector2 attackPosition;
 	private Vector2i targetTile;
 	
@@ -42,14 +42,8 @@ public class AttackCommand : Command {
 					}
 					unit.attack(target);
 					hasAttacked = true;
-				}
-			}
-			else
-			{
-				animationTime -= Time.deltaTime;
-				if(animationTime <= 0)
-				{
-					setCompleted();
+                    unit.setCommandEndTime(Time.time + (BASE_TIME-TRIGGER_TIME)/unit.getAttackSpeed());
+                    setCompleted();
 				}
 			}
 		}
@@ -61,9 +55,8 @@ public class AttackCommand : Command {
 			{
 				attackPosition = target.get2DPos();
 				attacking = true;
-				attackTime = BASE_TIME / unit.getAttackSpeed();
+				attackTime = TRIGGER_TIME / unit.getAttackSpeed();
 				hasAttacked = false;
-				animationTime = attackTime * 0.1f;
 				calculateRotation();
 				unit.playWeaponAttackAnimation(unit.getAttackSpeed());
 				unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());

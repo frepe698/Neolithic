@@ -3,13 +3,13 @@ using System.Collections;
 
 public class GatherCommand : Command {
 
-	private readonly static float TIME = 0.8f;
+	private readonly static float BASE_TIME = 1.0f;
+    private readonly static float TRIGGER_TIME = 0.8f;
 
 	private ResourceObject resourceObject;
 	private bool gathering;
 	private bool hasGathered;
 	private float gatherTime;
-	private float animationTime;
 	private Vector2 resourcePosition;
 
 	public GatherCommand(Unit unit, ResourceObject resourceObject) : base(unit)
@@ -40,14 +40,9 @@ public class GatherCommand : Command {
 					}
 					unit.gather(resourceObject);
 					hasGathered = true;
-				}
-			}
-			else
-			{
-				animationTime -= Time.deltaTime;
-				if(animationTime <= 0)
-				{
-					setCompleted();
+
+                    unit.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME) / unit.getAttackSpeed());
+                    setCompleted();
 				}
 			}
 		}
@@ -59,9 +54,8 @@ public class GatherCommand : Command {
 			if(resObject != null)
 			{
 				gathering = true;
-				gatherTime = TIME / unit.getAttackSpeed();
+				gatherTime = TRIGGER_TIME / unit.getAttackSpeed();
 				hasGathered = false;
-				animationTime = gatherTime * 0.1f;
 				calculateRotation();
 				unit.setAnimationRestart(unit.getAttackAnim(resObject.getDamageType()), unit.getAttackSpeed());
 			}
