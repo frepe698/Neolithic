@@ -81,7 +81,8 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/bigTree01"), 100,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree01"), 30,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree02"), 30,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree03"), 30,true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree03"), 30, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree04"), 30, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree01"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree02"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree03"), 50,true);

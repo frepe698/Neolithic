@@ -54,7 +54,7 @@
 		</ResourceData>
 		
 		<ResourceData name="deadTree" gameName="Dead Tree">
-			<variances>3</variances>
+			<variances>4</variances>
 			<health>80</health>
 			<safeDrops>
 				<string>log</string>
