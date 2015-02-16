@@ -4,7 +4,7 @@ using System.Collections;
 public class AttackCommand : Command {
 	
 	private readonly static float BASE_TIME = 1.0f;
-    private readonly static float TRIGGER_TIME = 0.5f;
+    private readonly static float TRIGGER_TIME = 0.583f;
 	
 	private Unit target;
 	private bool attacking;

@@ -6,6 +6,8 @@ public class GrassGround : GroundType {
 	private static readonly string[] resObjects = new string[]
 	{
 		"greenTree",
+        "greenBush",
+        "stone",
 	};
 	
 	private static readonly string[] startingLootTypes = new string[]
@@ -99,7 +101,7 @@ public class GrassGround : GroundType {
 		}
 		else
 		{
-			int lootType = Mathf.RoundToInt(Mathf.PerlinNoise(position.x/5, position.z/5) * 4);
+			int lootType = Mathf.FloorToInt(Mathf.PerlinNoise(position.x/5, position.z/5) * 4);
 			if(lootType > 1)
 			{
 				return null;

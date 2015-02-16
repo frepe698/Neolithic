@@ -9,6 +9,7 @@ public class ForestGround : GroundType {
 		"gran",
 		"stone",
 		"bigTree",
+        "greenBush"
 	};
 
 	private static readonly string[] startingLootTypes = new string[]

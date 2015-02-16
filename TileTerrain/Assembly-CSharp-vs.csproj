@@ -147,6 +147,7 @@
      <None Include="Assets\Resources\Data\weapondata.xml" />
      <None Include="Assets\Resources\Data\materialdata.xml" />
      <None Include="Assets\Materials\Shaders\ObjectShader.shader" />
+     <None Include="Assets\Materials\Shaders\ObjectShaderBumped.shader" />
      <None Include="Assets\Resources\Data\recipedata.xml" />
      <None Include="Assets\Resources\Data\resourcedata.xml" />
      <None Include="Assets\Materials\Shaders\TransparentCutoutNocull.shader" />

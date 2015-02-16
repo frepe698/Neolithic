@@ -90,11 +90,25 @@
 			<damageType>1</damageType>
 			<hitParticle>bushChopParticles</hitParticle>
 			<blocksProjectile>false</blocksProjectile>
-			
+		</ResourceData>
+    
+    <ResourceData name="greenBush" gameName="Green Bush">
+			<health>40</health>
+			<safeDrops>
+				<string>stick</string>
+			</safeDrops>
+			<randomDrops>
+				<string>stick</string>
+			</randomDrops>
+			<minDrops>0</minDrops>
+			<maxDrops>4</maxDrops>
+			<damageType>1</damageType>
+			<hitParticle>bushChopParticles</hitParticle>
+			<blocksProjectile>false</blocksProjectile>
 		</ResourceData>
 		
 		<ResourceData name="stone" gameName="Stone">
-      <variances>2</variances>
+      <variances>3</variances>
 			<health>80</health>
 			<safeDrops>
 				<string>stone</string>

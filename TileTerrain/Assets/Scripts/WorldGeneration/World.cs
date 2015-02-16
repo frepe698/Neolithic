@@ -86,9 +86,11 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree02"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree03"), 50,true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/birch01"), 50,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("deadbush01"), 100,true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone01"), 75, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 75, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Bushes/deadbush01"), 100, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Bushes/greenbush01"), 100, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone01"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone03"), 50, true);
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
