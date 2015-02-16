@@ -422,6 +422,7 @@ public class GameMaster : MonoBehaviour {
 	{
 		Vector3 start = getUnit(unitID).getPosition() + Vector3.up;
 		ProjectileData data = DataHolder.Instance.getProjectileData(name);
+        if (data == null) return;
 		float speed = data.speed;
 		float range = data.range;
 		Projectile projectile = new Projectile(start, goal, range, speed, data.modelname, damage+data.damage, unitID);
