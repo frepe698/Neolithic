@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: stone1
-  m_Shader: {fileID: 4800000, guid: b3e6997746914af42bcb6ccedac717a2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3826dff8f4540dd44ab06e2bab41fe1b, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -18,6 +18,13 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: cbc1d3909ffb6704782df283679b4e84, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: fd845e0d887e74f47b9a9f413181a335, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
