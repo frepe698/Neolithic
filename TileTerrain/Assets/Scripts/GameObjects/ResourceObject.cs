@@ -10,7 +10,6 @@ public class ResourceObject
 	private Vector2 scale; // x = thickness, y = height
 	private float lightness;
 	private string poolName;
-	private ParticleSystem particles;
 	private int health;
 	private bool blocks;
 
@@ -121,12 +120,11 @@ public class ResourceObject
 	{
 		if(ObjectActive())
 		{
-			GameObject particles = ObjectPoolingManager.Instance.GetObject(data.hitParticle);
+			ParticleSystem particles = ParticlePoolingManager.Instance.GetObject(data.hitParticle);
 			if(particles != null)
 			{
 				particles.transform.position = new Vector3(position.x, position.y + 1, position.z);
-				ParticleSystem system = particles.GetComponent<ParticleSystem>();
-				system.Play();
+                particles.Play();
 			}
 			Animator anim = poolObject.transform.GetComponentInChildren<Animator>();
 			if(anim != null)

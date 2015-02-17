@@ -1,40 +1,27 @@
-﻿/*
- * @Author: David Crook
- *
- * Use the object pools to help reduce object instantiation time and performance
- * with objects that are frequently created and used.
- *
- *
- */
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 
-/// <summary>
-/// The object pool is a list of already instantiated game objects of the same type.
-/// </summary>
 public class ObjectPool
 {
-	//the list of objects.
+	//the stack of objects.
 	private Stack<GameObject> pooledObjects;
 	
 	//sample of the actual object to store.
 	//used if we need to grow the list.
 	private GameObject pooledObj;
 	
-	//maximum number of objects to have in the list.
+	//prefered number of objects to have in the list.
 	private int targetPoolSize;
 	
-	//initial and default number of objects to have in the list.
 
 	private bool shouldShrink;
 	/// <summary>
 	/// Constructor for creating a new Object Pool.
 	/// </summary>
 	/// <param name="obj">Game Object for this pool</param>
-	/// <param name="initialPoolSize">Initial and default size of the pool.</param>
-	/// <param name="maxPoolSize">Maximum number of objects this pool can contain.</param>
+	/// <param name="targetPoolSize">Initial and prefered size of the pool.</param>
 	/// <param name="shouldShrink">Should this pool shrink back to the initial size.</param>
 	public ObjectPool(GameObject obj, int targetPoolSize, bool shouldShrink)
 	{

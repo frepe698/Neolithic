@@ -127,10 +127,12 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintaxe"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintpickaxe"), 50, true);
 
+        /* OLD PARTICLES
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/treeChopParticles"), 4, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/bushChopParticles"), 4, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/stoneMineParticles"), 4, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bloodParticles"), 4, true);
+        */
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/hare"), 20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/battlepig"), 20, true);
@@ -142,6 +144,13 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/rock"),20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/arrow"),20, true);
 
+
+        //PARTICLES
+
+        ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/treeChopParticles"), 4, true);
+        ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bushChopParticles"), 4, true);
+        ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/stoneMineParticles"), 4, true);
+        ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bloodParticles"), 4, true);
 	}
 	
 	void generateWorldSections()

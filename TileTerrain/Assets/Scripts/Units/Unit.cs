@@ -494,12 +494,11 @@ public class Unit {
 
         if (isActive())
         {
-            GameObject particles = ObjectPoolingManager.Instance.GetObject("bloodParticles");
+            ParticleSystem particles = ParticlePoolingManager.Instance.GetObject("bloodParticles");
             if (particles != null)
             {
                 particles.transform.position = new Vector3(position.x, position.y + 1, position.z);
-                ParticleSystem system = particles.GetComponent<ParticleSystem>();
-                system.Play();
+                particles.Play();
             }
         }
 	}
