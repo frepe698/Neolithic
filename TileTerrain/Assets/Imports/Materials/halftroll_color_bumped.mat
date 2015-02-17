@@ -31,7 +31,7 @@ Material:
       data:
         first:
           name: _Highlight
-        second: 0
+        second: 1
     m_Colors:
       data:
         first:

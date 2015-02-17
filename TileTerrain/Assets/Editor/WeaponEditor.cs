@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using Edit;
 
 public class WeaponEditor : ObjectEditor {
-    private static DataHolder.WeaponDataHolder weaponDataHolder;
-
+    //private static DataHolder.WeaponDataHolder weaponDataHolder;
+    
+    [SerializeField]
     private List<MeleeWeaponEdit> meleeWeapons = new List<MeleeWeaponEdit>();
+    [SerializeField]
     private List<RangedWeaponEdit> rangedWeapons = new List<RangedWeaponEdit>();
 
     private Vector2 scroll;
@@ -19,17 +21,57 @@ public class WeaponEditor : ObjectEditor {
     static void Init()
     {
         WeaponEditor window = (WeaponEditor)EditorWindow.GetWindow(typeof(WeaponEditor));
-        loadData();
+        //loadFile();
     }
 
-    static void loadData()
+    protected override void loadFile()
     {
+        DataHolder.WeaponDataHolder weaponDataHolder;
         TextAsset data = (TextAsset)Resources.Load("Data/weapondata");
         XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
         using (StringReader reader = new System.IO.StringReader(data.text))
         {
             weaponDataHolder = serializer.Deserialize(reader) as DataHolder.WeaponDataHolder;
         }
+
+        foreach (MeleeWeaponData mdata in weaponDataHolder.meleeWeaponData)
+        {
+            meleeWeapons.Add(new MeleeWeaponEdit(mdata));
+        }
+        foreach (RangedWeaponData rdata in weaponDataHolder.rangedWeaponData)
+        {
+            rangedWeapons.Add(new RangedWeaponEdit(rdata));
+        }
+    }
+
+    protected override void saveFile()
+    {
+        MeleeWeaponData[] meleeData = new MeleeWeaponData[meleeWeapons.Count];
+        RangedWeaponData[] rangedData = new RangedWeaponData[rangedWeapons.Count];
+
+        int i = 0;
+        foreach (MeleeWeaponEdit medit in meleeWeapons)
+        {
+            meleeData[i] = new MeleeWeaponData(medit);
+            i++;
+        }
+        i = 0;
+        foreach (RangedWeaponEdit redit in rangedWeapons)
+        {
+            rangedData[i] = new RangedWeaponData(redit);
+            i++;
+        }
+
+        DataHolder.WeaponDataHolder weaponDataHolder = new DataHolder.WeaponDataHolder(meleeData, rangedData);
+
+        TextAsset data = (TextAsset)Resources.Load("Data/test");
+
+        using (FileStream file = new FileStream(Application.dataPath + "/Resources/Data/test.xml", FileMode.Create))
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
+            serializer.Serialize(file, weaponDataHolder);
+            AssetDatabase.Refresh();
+        }      
     }
 
     protected override void OnGUI()
@@ -38,7 +80,7 @@ public class WeaponEditor : ObjectEditor {
         GUILayout.Label("Melee Weapons", EditorStyles.boldLabel);
         for (int i = 0; i < meleeWeapons.Count; i++)
         {
-            if (GUILayout.Button(meleeWeapons[i].name))
+            if (GUILayout.Button(meleeWeapons[i].gameName))
             {
                 if (!openWindow(meleeWeapons[i]))
                 {
@@ -54,7 +96,7 @@ public class WeaponEditor : ObjectEditor {
         GUILayout.Label("Ranged Weapons", EditorStyles.boldLabel);
         for (int i = 0; i < rangedWeapons.Count; i++)
         {
-            if (GUILayout.Button(rangedWeapons[i].name))
+            if (GUILayout.Button(rangedWeapons[i].gameName))
             {
                 if (!openWindow(rangedWeapons[i]))
                 {
@@ -85,6 +127,11 @@ public class WeaponEditor : ObjectEditor {
 
     protected void editMeleeWeapon(int windowID)
     {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            windows.RemoveAt(windowID);
+            return;
+        }
         WindowSettings window = windows[windowID];
         MeleeWeaponEdit data = window.windowObject as MeleeWeaponEdit;
         if (data == null)
@@ -99,10 +146,10 @@ public class WeaponEditor : ObjectEditor {
         data.gameName = TextField("Game Name: ", data.gameName);
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Damage:", EditorStyles.boldLabel);
-        data.damage[0] = IntField("Combat: ", data.damage[0]);
-        data.damage[1] = IntField("Tree: ", data.damage[1]);
-        data.damage[2] = IntField("Stone: ", data.damage[2]);
+        EditorGUILayout.LabelField("Damage:  DPS:", EditorStyles.boldLabel);
+        data.damage[0] = IntField("Combat:    " + data.damage[0]*data.attackSpeed, data.damage[0]);
+        data.damage[1] = IntField("Tree:         " + data.damage[1]*data.attackSpeed, data.damage[1]);
+        data.damage[2] = IntField("Stone:       " + data.damage[2]*data.attackSpeed, data.damage[2]);
 
         data.attackSpeed = FloatField("Attack speed", data.attackSpeed);
 
@@ -129,6 +176,9 @@ public class WeaponEditor : ObjectEditor {
         data.attackSounds[1] = TextField("Tree: ", data.attackSounds[1]);
         data.attackSounds[2] = TextField("Stone: ", data.attackSounds[2]);
 
+        EditorGUILayout.Space();
+        data.durability = IntField("Durability: ", data.durability);
+
 
 
         GUILayout.EndScrollView();
@@ -137,11 +187,17 @@ public class WeaponEditor : ObjectEditor {
 
     protected void editRangedWeapon(int windowID)
     {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            windows.RemoveAt(windowID);
+            return;
+        }
         WindowSettings window = windows[windowID];
         RangedWeaponEdit data = window.windowObject as RangedWeaponEdit;
         if (data == null)
         {
             windows.RemoveAt(windowID);
+            return;
         }
 
         EditorGUIUtility.labelWidth = 120;
@@ -151,12 +207,13 @@ public class WeaponEditor : ObjectEditor {
         data.gameName = TextField("Game Name: ", data.gameName);
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Attack:", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Attack: \t DPS: " + data.damage*data.attackSpeed, EditorStyles.boldLabel);
         data.damage = IntField("Damage: ", data.damage);
+        data.attackSpeed = FloatField("Attack speed", data.attackSpeed);
         data.attackAnim = TextField("Animation: ", data.attackAnim);
         data.attackSound = TextField("Sound: ", data.attackSound);
 
-        data.attackSpeed = FloatField("Attack speed", data.attackSpeed);
+        
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Weapon Stuff:", EditorStyles.boldLabel);
@@ -174,53 +231,10 @@ public class WeaponEditor : ObjectEditor {
         data.runAnim = TextField("Run: ", data.runAnim);
         data.lootAnim = TextField("Loot: ", data.lootAnim);
 
+        EditorGUILayout.Space();
+        data.durability = IntField("Durability: ", data.durability);
+
         GUILayout.EndScrollView();
         GUI.DragWindow();
-    }
-
-    protected abstract class WeaponEdit : ObjectEdit
-    {
-        public bool rightHand = true;
-
-        public string idleAnim;
-        public string runAnim;
-        public string lootAnim;
-
-        public float attackSpeed;
-
-        public string weaponAttackAnim;
-    }
-    protected class MeleeWeaponEdit : WeaponEdit
-    {
-        public MeleeWeaponEdit()
-        {
-            name = "new melee weapon";
-            gameName = "new melee weapon";
-            damage = new int[3];
-            attackAnims = new string[3];
-            attackSounds = new string[3];
-        }
-        public int[] damage;
-
-        public string[] attackAnims;
-
-        public string[] attackSounds;
-    }
-
-    protected class RangedWeaponEdit : WeaponEdit
-    {
-        public RangedWeaponEdit()
-        {
-            name = "new ranged weapon";
-            gameName = "new ranged weapon";
-
-        }
-
-        public int damage;
-        public string attackAnim;
-        public string attackSound;
-
-        public string projectileModelName;
-        public string projectileName;
     }
 }

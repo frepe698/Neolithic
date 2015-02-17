@@ -8,7 +8,6 @@ public class LootCommand : Command {
 	private bool hasLooted;
 	private float lootTime;
 	private float animationTime;
-
 	
 	public LootCommand(Unit unit, LootableObject lootableObject) : base(unit)
 	{

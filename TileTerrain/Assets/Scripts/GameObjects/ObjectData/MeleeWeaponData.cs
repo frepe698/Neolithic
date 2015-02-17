@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+
 using System.Collections;
 using System.Xml.Serialization;
 using System.Xml;
+using Edit;
 
 public class MeleeWeaponData : WeaponData {
 
@@ -12,6 +14,16 @@ public class MeleeWeaponData : WeaponData {
 	public readonly string[] attackAnims;
 	
 	public readonly string[] attackSounds;
+
+    public MeleeWeaponData()
+    {
+    }
+    public MeleeWeaponData(MeleeWeaponEdit edit) : base(edit)
+    {
+        damage = edit.damage;
+        attackAnims = edit.attackAnims;
+        attackSounds = edit.attackSounds;
+    }
 
 	public override int getDamage(int damageType)
 	{
