@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: halftroll_color
+  m_Name: halftroll_color_bumped
   m_Shader: {fileID: 4800000, guid: 6e9860766d176284ebac76a148c705c9, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
