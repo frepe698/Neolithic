@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Xml.Serialization;
 using System.Xml;
+using Edit;
 
 public class RangedWeaponData : WeaponData {
 
@@ -11,6 +12,18 @@ public class RangedWeaponData : WeaponData {
 
 	public readonly string projectileModelName;
 	public readonly string projectileName;
+
+    public RangedWeaponData()
+    { 
+    }
+    public RangedWeaponData(RangedWeaponEdit edit) : base(edit)
+    {
+        damage = edit.damage;
+        attackAnim = edit.attackAnim;
+        attackSound = edit.attackSound;
+        projectileModelName = edit.projectileModelName;
+        projectileName = edit.projectileName;
+    }
 
 	public override int getDamage(int damageType)
 	{

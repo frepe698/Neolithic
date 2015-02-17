@@ -17,6 +17,12 @@ public class DataHolder {
 	[XmlRoot("WeaponsRoot")]
 	public class WeaponDataHolder
 	{
+        public WeaponDataHolder() { }
+        public WeaponDataHolder(MeleeWeaponData[] meleeData, RangedWeaponData[] rangedData)
+        {
+            this.meleeWeaponData = meleeData;
+            this.rangedWeaponData = rangedData;
+        }
 		[XmlArray("MeleeWeapons"), XmlArrayItem("MeleeWeaponData")]
 		public readonly MeleeWeaponData[] meleeWeaponData;
 		

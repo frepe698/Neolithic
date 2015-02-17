@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<WeaponsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MeleeWeapons>
+    <MeleeWeaponData name="new melee weapon" gameName="new melee weapon">
+      <durability>0</durability>
+      <rightHand>true</rightHand>
+      <attackSpeed>0</attackSpeed>
+      <damage>
+        <int>0</int>
+        <int>0</int>
+        <int>0</int>
+      </damage>
+      <attackAnims />
+      <attackSounds>
+        <string xsi:nil="true" />
+        <string xsi:nil="true" />
+        <string xsi:nil="true" />
+      </attackSounds>
+    </MeleeWeaponData>
+  </MeleeWeapons>
+  <RangedWeapons />
+</WeaponsRoot>
