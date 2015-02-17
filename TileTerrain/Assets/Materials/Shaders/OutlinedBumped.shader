@@ -40,17 +40,15 @@ v2f vert(appdata v) {
 ENDCG
  
 	SubShader {
-		Tags {"RenderType"="Transparent" "Queue" = "Transparent" }
- //Tags { "Queue" = "Background" }
-		
+		Tags { "Queue" = "Transparent" }
+ 
 		// note that a vertex shader is specified here but its using the one above
 		Pass {
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }
-			Cull Front
+			Cull Off
 			ZWrite Off
 			ZTest LEqual
-			//ColorMask RGBA
  
 			// you can choose what kind of blending mode you want for the outline
 			Blend SrcAlpha OneMinusSrcAlpha // Normal
@@ -59,38 +57,36 @@ ENDCG
 			//Blend DstColor Zero // Multiplicative
 			//Blend DstColor SrcColor // 2x Multiplicative
  
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
  
-			half4 frag(v2f i) : COLOR {
-				return i.color;
-			}
-			ENDCG
+half4 frag(v2f i) : COLOR {
+	return i.color;
+}
+ENDCG
 		}
  
-		CGPROGRAM
-		#pragma surface surf Lambert
-		struct Input {
-			float2 uv_MainTex;
-			float2 uv_BumpMap;
-		};
-		sampler2D _MainTex;
-		sampler2D _BumpMap;
-		uniform float3 _Color;
-		void surf(Input IN, inout SurfaceOutput o) {
-			fixed3 c = tex2D(_MainTex, IN.uv_MainTex).rgb * _Color;
-			o.Albedo = c;
-			//o.Alpha = c.a;
-			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
-		}
-		ENDCG
-		
+ 
+CGPROGRAM
+#pragma surface surf Lambert
+struct Input {
+	float2 uv_MainTex;
+	float2 uv_BumpMap;
+};
+sampler2D _MainTex;
+sampler2D _BumpMap;
+uniform float3 _Color;
+void surf(Input IN, inout SurfaceOutput o) {
+	o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb * _Color;
+	o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+}
+ENDCG
  
 	}
  
 	SubShader {
-		Tags { "Queue" = "Geometry" }
+		Tags { "Queue" = "Transparent" }
  
 		Pass {
 			Name "OUTLINE"
@@ -124,9 +120,7 @@ sampler2D _MainTex;
 sampler2D _BumpMap;
 uniform float3 _Color;
 void surf(Input IN, inout SurfaceOutput o) {
-	fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
-	o.Albedo = c.rgb * _Color;
-	o.Alpha = c.a;
+	o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb * _Color;
 	o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 }
 ENDCG

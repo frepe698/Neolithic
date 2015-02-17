@@ -10,7 +10,7 @@ Properties {
 }
 
 SubShader {
-	Tags { "RenderType"="Opaque" }
+	Tags { "RenderType"="Opaque" "Queue" = "Transparent+1"}
 	LOD 400
 CGPROGRAM
 #pragma surface surf BlinnPhong alpha
