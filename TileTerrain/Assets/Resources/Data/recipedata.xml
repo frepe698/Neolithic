@@ -15,6 +15,21 @@
 		</ingredients>
 		<tooltip>Craft a flint axe</tooltip>
 		</ItemRecipeData>
+
+    <ItemRecipeData name="craftSuperAxe" gameName="Super Axe">
+      <product>superAxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>1</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <tooltip>Craft a super axe</tooltip>
+    </ItemRecipeData>
 		
 		<ItemRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe">
 		<product>flintPickaxe</product>
@@ -41,6 +56,21 @@
 		</ingredients>
 		<tooltip>Craft a short bow</tooltip>
 		</ItemRecipeData>
+
+    <ItemRecipeData name="craftQuillRain" gameName="Quill Rain">
+      <product>quillrain</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>gold</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <tooltip>Craft a quill rain</tooltip>
+    </ItemRecipeData>
 		
 	</ItemRecipes>
 	<MaterialRecipes>

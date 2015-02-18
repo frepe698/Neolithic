@@ -1,119 +1,93 @@
-<?xml version='1.0' encoding='us-ascii'?> 
-<UnitsRoot>
-	<Units>
-		<UnitData name = "hare" gameName = "Hare" modelName = "hare">
-		<health>20</health>
-		<damage>3</damage>
-		<movespeed>6</movespeed>
-		<hostile>false</hostile>
-		<lineofsight>8</lineofsight>
-			<safeDrops>
-				<string>meat</string>
-			</safeDrops>
-			<randomDrops>
-				<string>meat</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>2</maxDrops>
-			<size>0.5</size>
-		</UnitData>
-		
-		<UnitData name = "battlepig" gameName = "Battle Pig" modelName = "battlepig">
-		<health>80</health>
-		<damage>5</damage>
-		<attackspeed>1.2</attackspeed>
-		<movespeed>3</movespeed>
-		<hostile>true</hostile>
-		<lineofsight>4</lineofsight>
-			<safeDrops>
-				<string>meat</string>
-				<string>meat</string>
-				<string>meat</string>
-			</safeDrops>
-			<randomDrops>
-				<string>meat</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>3</maxDrops>
-			<size>1.5</size>
-		</UnitData>
-		
-		<UnitData name = "wolf" gameName = "Wolf" modelName = "wolf">
-		<health>70</health>
-		<damage>5</damage>
-		<attackspeed>1.2</attackspeed>
-		<movespeed>6</movespeed>
-		<hostile>true</hostile>
-		<lineofsight>8</lineofsight>
-			<safeDrops>
-				<string>meat</string>
-				<string>meat</string>
-				<string>meat</string>
-			</safeDrops>
-			<randomDrops>
-				<string>meat</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>3</maxDrops>
-			<size>0.75</size>
-		</UnitData>
-		
-		<UnitData name = "vrodl" gameName = "Vrodl" modelName = "vrodl">
-			<health>100</health>
-			<lifegen>1</lifegen>
-			<energy>100</energy>
-			<energygen>10</energygen>
-			<damage>3</damage>
-			<movespeed>5</movespeed>
-			<hostile>true</hostile>
-			<lineofsight>8</lineofsight>
-				<safeDrops>
-					<string>meat</string>
-				</safeDrops>
-				<randomDrops>
-					<string>meat</string>
-				</randomDrops>
-				<minDrops>0</minDrops>
-				<maxDrops>2</maxDrops>
-				<size>0.5</size>
-		</UnitData>
-		<UnitData name = "caveman" gameName = "LeafeN" modelName = "caveman">
-			<health>100</health>
-			<lifegen>1</lifegen>
-			<energy>100</energy>
-			<energygen>10</energygen>
-			<damage>3</damage>
-			<movespeed>5</movespeed>
-			<hostile>true</hostile>
-			<lineofsight>8</lineofsight>
-				<safeDrops>
-					<string>meat</string>
-				</safeDrops>
-				<randomDrops>
-					<string>meat</string>
-				</randomDrops>
-				<minDrops>0</minDrops>
-				<maxDrops>2</maxDrops>
-				<size>0.5</size>
-		</UnitData>
-		<UnitData name = "halftroll" gameName = "Tyke" modelName = "halftroll">
-			<health>100</health>
-			<lifegen>1</lifegen>
-			<energy>100</energy>
-			<energygen>10</energygen>
-			<damage>3</damage>
-			<movespeed>5</movespeed>
-			<hostile>true</hostile>
-			<lineofsight>8</lineofsight>
-				<safeDrops>
-					<string>meat</string>
-				</safeDrops>
-				<randomDrops>
-					<string>meat</string>
-				</randomDrops>
-				<minDrops>0</minDrops>
-				<maxDrops>2</maxDrops>
-				<size>0.5</size>
-		</UnitData>
-	</Units>
+<?xml version="1.0" encoding="Windows-1252"?>
+<UnitsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Heroes>
+    <HeroData name="vrodl" gameName="Vrodl" modelName="vrodl">
+      <health>100</health>
+      <lifegen>1</lifegen>
+      <energy>100</energy>
+      <energygen>10</energygen>
+      <movespeed>5</movespeed>
+      <size>0.5</size>
+    </HeroData>
+    <HeroData name="halftroll" gameName="Half Troll" modelName="halftroll">
+      <health>100</health>
+      <lifegen>1</lifegen>
+      <energy>100</energy>
+      <energygen>10</energygen>
+      <movespeed>5</movespeed>
+      <size>0.5</size>
+    </HeroData>
+    <HeroData name="caveman" gameName="Caveman" modelName="caveman">
+      <health>100</health>
+      <lifegen>1</lifegen>
+      <energy>100</energy>
+      <energygen>10</energygen>
+      <movespeed>5</movespeed>
+      <size>0.5</size>
+    </HeroData>
+  </Heroes>
+  <AIUnits>
+    <AIUnitData name="hare" gameName="Hare" modelName="hare">
+      <health>20</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>6</movespeed>
+      <size>0.5</size>
+      <damage>3</damage>
+      <attackSpeed>1</attackSpeed>
+      <hostile>false</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>meat</string>
+      </safeDrops>
+      <randomDrops>
+        <string>meat</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="wolf" gameName="Wolf" modelName="wolf">
+      <health>70</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>6</movespeed>
+      <size>0.75</size>
+      <damage>4</damage>
+      <attackSpeed>1.4</attackSpeed>
+      <hostile>true</hostile>
+      <lineofsight>5</lineofsight>
+      <safeDrops>
+        <string>meat</string>
+      </safeDrops>
+      <randomDrops>
+        <string>meat</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>3</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="vrodlbot" gameName="Vrodl Bot" modelName="vrodl">
+      <health>150</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>3</movespeed>
+      <size>0.5</size>
+      <damage>6</damage>
+      <attackSpeed>1</attackSpeed>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>quillrain</string>
+        <string>superAxe</string>
+      </safeDrops>
+      <randomDrops>
+        <string>gold</string>
+        <string>iron</string>
+      </randomDrops>
+      <minDrops>1</minDrops>
+      <maxDrops>5</maxDrops>
+    </AIUnitData>
+  </AIUnits>
 </UnitsRoot>

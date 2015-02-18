@@ -2,16 +2,19 @@
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
 using Edit;
+using System;
 
-public class ObjectEditor : EditorWindow {
+public abstract class ObjectEditor : EditorWindow {
 
     protected List<WindowSettings> windows = new List<WindowSettings>();
 
     public static readonly Rect closeButtonRect = new Rect(278, 0, 18, 18);
+
+    protected int deleteWindowIndex = -1;
+    protected int deleteWindowListIndex = -1;
+
+    public const int DELETEWINDOWID = 1000;
 
 
     protected virtual void OnGUI()
@@ -20,13 +23,37 @@ public class ObjectEditor : EditorWindow {
         for (int i = 0; i < windows.Count; i++)
         {
             WindowSettings window = windows[i];
+            if (indexOutOfBounds(window.objectListIndex, window.objectIndex))
+            {
+                Debug.Log("Remove Window");
+                windows.RemoveAt(i);
+                i--;
+                continue;
+            }
+            else if (window.shouldReload())
+            {
+                Debug.Log("Reload window");
+                GUI.WindowFunction func = getWindowFunc(window);
+                if (func == null)
+                {
+                    Debug.Log("Func is null");
+                    windows.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                Debug.Log("window reloaded");
+                window.windowFunc = func;
+            }
             Rect rect = window.windowRect;
-            
-            rect = GUI.Window(i, rect, window.windowFunc, window.windowObject.windowTitle());
-            rect = new Rect(Mathf.Clamp(rect.x, 160, this.position.width-150), 10, rect.width, this.position.height - 60);
+
+
+            ObjectEdit edit = getObjectEdit(window.objectListIndex, window.objectIndex);
+            rect = GUI.Window(i, rect, window.windowFunc, edit.windowTitle());
+            rect = new Rect(Mathf.Clamp(rect.x, 160, this.position.width-150), 10, rect.width, this.position.height - 160);
             window.windowRect = rect;
         }
-        
+        if (!indexOutOfBounds(deleteWindowListIndex, deleteWindowIndex)) GUI.Window(DELETEWINDOWID, new Rect(200, this.position.height - 150, 200, 100), deleteWindow, "Delete");
         EndWindows();
 
         if (GUI.Button(new Rect(200, this.position.height - 40, 50, 30), "SAVE"))
@@ -37,13 +64,33 @@ public class ObjectEditor : EditorWindow {
         {
             loadFile();
         }
+
     }
 
-    protected bool hasWindow(ObjectEdit objectEdit)
+    private void deleteWindow(int windowID)
+    {
+        ObjectEdit edit = getObjectEdit(deleteWindowListIndex, deleteWindowIndex);
+        GUILayout.Label("Are you sure you want to\nremove " + edit.gameName + "?");
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("YES!"))
+        {
+            delete(deleteWindowListIndex, deleteWindowIndex);
+            deleteWindowIndex = -1;
+            deleteWindowListIndex = -1;
+        }
+        if (GUILayout.Button("NO!"))
+        {
+            deleteWindowIndex = -1;
+            deleteWindowListIndex = -1;
+        }
+        GUILayout.EndHorizontal();
+    }
+
+    protected bool hasWindow(int listIndex, int index)
     {
         foreach (WindowSettings window in windows)
         {
-            if (window.windowObject.Equals(objectEdit))
+            if (window.objectListIndex == listIndex && window.objectIndex == index)
             {
                 return true;
             }
@@ -51,14 +98,28 @@ public class ObjectEditor : EditorWindow {
         return false;
     }
 
-    protected bool openWindow(ObjectEdit objectEdit)
+    protected bool openWindow(int listIndex, int index)
     {
         for (int i = 0; i < windows.Count; i++)
         {
             WindowSettings window = windows[i];
-            if (window.windowObject.Equals(objectEdit))
+            if (window.objectListIndex == listIndex && window.objectIndex == index)
             {
                 GUI.BringWindowToFront(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected bool closeWindow(int listIndex, int index)
+    {
+        for (int i = 0; i < windows.Count; i++)
+        {
+            WindowSettings window = windows[i];
+            if (window.objectListIndex == listIndex && window.objectIndex == index)
+            {
+                windows.RemoveAt(i);
                 return true;
             }
         }
@@ -81,15 +142,35 @@ public class ObjectEditor : EditorWindow {
         return EditorGUILayout.FloatField(label, number);
     }
 
+    protected abstract GUI.WindowFunction getWindowFunc(WindowSettings window);
+
+    protected abstract ObjectEdit getObjectEdit(int listIndex, int index);
+
+    protected abstract bool indexOutOfBounds(int listIndex, int index);
+
+    protected virtual void delete(int listIndex, int index)
+    { 
+    }
+    protected virtual void deleteSelected()
+    {
+    }
+
+
+    [Serializable]
     protected class WindowSettings
     {
-        public ObjectEdit windowObject;
+        public int objectListIndex;
+        public int objectIndex;
 
         public GUI.WindowFunction windowFunc;
 
         public Rect windowRect;
 
         public Vector2 windowScroll;
+        public bool shouldReload()
+        {
+            return (windowFunc == null);
+        }
     }
 
     protected virtual void loadFile()

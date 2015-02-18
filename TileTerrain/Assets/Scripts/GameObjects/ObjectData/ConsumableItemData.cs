@@ -7,6 +7,6 @@ public class ConsumableItemData : ItemData {
 
 	public override LootableObject getLootableObject(Vector3 position, Quaternion rotation)
 	{
-		return new LootableConsumable(position, rotation, name);
+		return new LootableConsumable(position, rotation, name, modelName);
 	}
 }

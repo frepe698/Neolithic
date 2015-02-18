@@ -2,29 +2,52 @@
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
+using Edit;
 
 public class UnitData : ObjectData {
 
-	[XmlAttribute("modelName")]
-	public readonly string modelname;
-
 	public readonly int health;
-	public readonly int damage;
+	
 	public readonly float lifegen;
 	public readonly float energy;
 	public readonly float energygen;
-	public readonly float attackspeed = 1;
+	
 	public readonly float movespeed;
-	public readonly bool hostile;
-	public readonly int lineofsight;
+	
 	public readonly float size;
 
-	[XmlArray("safeDrops")]
-	public readonly string[] safeDrops;
+	
+    
+    public UnitData()
+    {
+    }
 
-	[XmlArray("randomDrops")]
-	public readonly string[] randomDrops;
+    public UnitData(UnitEdit data)
+        : base(data)
+    {
+        health = data.health;
+        lifegen = data.lifegen;
+        energy = data.energy;
+        energygen = data.energygen;
+        movespeed = data.movespeed;
+        size = data.size;
+    }
 
-	public readonly int minDrops;
-	public readonly int maxDrops;
+    public virtual string[] getSafeDrops()
+    {
+        return null;
+    }
+    public virtual string[] getRandomDrops()
+    {
+        return null;
+    }
+    public virtual int getMinDrops()
+    {
+        return 0;
+    }
+    public virtual int getMaxDrops()
+    {
+        return 0;
+    }
+
 }

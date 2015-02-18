@@ -39,7 +39,6 @@ public class Inventory {
 			if(listResItem != null)
 			{
 				listResItem.add();
-				Debug.Log ("added amount " + listResItem.getAmount());
 			}
 			else
 			{

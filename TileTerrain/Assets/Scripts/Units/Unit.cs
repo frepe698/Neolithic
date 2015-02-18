@@ -5,6 +5,7 @@ public class Unit {
 
 	protected GameObject unit;
 	protected string unitName;
+    protected string modelName;
 	protected UnitController unitController;
 
 	protected Vector3 position;
@@ -41,7 +42,7 @@ public class Unit {
 	
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id) 
 	{
-		this.unitName =  unit; 
+		this.unitName = unit;
 		this.position = position;
 		this.rotation = rotation;
 		this.scale = new Vector3(1,1,1);
@@ -52,7 +53,7 @@ public class Unit {
 
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
 	{
-		this.unitName =  unit; 
+		this.unitName = unit;
 		this.position = position;
 		this.rotation = rotation;
 		this.scale = scale;
@@ -64,7 +65,7 @@ public class Unit {
 	public virtual void activate()
 	{
 		if(isActive()) return; // already active
-		this.unit = ObjectPoolingManager.Instance.GetObject(unitName);
+		this.unit = ObjectPoolingManager.Instance.GetObject(modelName);
 		if(unit == null) return; //Object pool was full and no more objects are available
 
 		ground();
@@ -97,7 +98,7 @@ public class Unit {
 	public void inactivate()
 	{
 		if(!isActive()) return; //Already inactive
-		ObjectPoolingManager.Instance.ReturnObject(unitName, unit);		
+		ObjectPoolingManager.Instance.ReturnObject(modelName, unit);		
 		unit = null;
 		unitController = null;
 	}

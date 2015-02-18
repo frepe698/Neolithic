@@ -10,7 +10,7 @@ public class AIUnit : Unit {
 	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id) 
 		: base(unit, position, rotation, id)
 	{
-		UnitData data = DataHolder.Instance.getUnitData(unit);
+		AIUnitData data = DataHolder.Instance.getAIUnitData(unit);
 		if(data == null) 
 		{
 			hostile = false;
@@ -26,10 +26,11 @@ public class AIUnit : Unit {
 			hostile = data.hostile;
 			health = (float)data.health;
 			damage = data.damage;
-			attackspeed = data.attackspeed;
+			attackspeed = data.attackSpeed;
 			movespeed = data.movespeed;
 			lineOfSight = data.lineofsight;
 			size = data.size;
+            modelName = data.modelName;
 		}
 	}
 

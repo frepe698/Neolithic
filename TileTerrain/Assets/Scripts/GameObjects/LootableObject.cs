@@ -6,14 +6,16 @@ public class LootableObject {
 	private GameObject poolObject;
 	private Vector3 position;
 	private Quaternion rotation;
+    private string name;
 	private string poolName;
 	private int id;
 
-	public LootableObject(Vector3 position, Quaternion rotation, string lootType)
+	public LootableObject(Vector3 position, Quaternion rotation, string name, string poolName)
 	{
 		this.position = position;
 		this.rotation = rotation;
-		this.poolName = lootType;
+        this.name = name;
+		this.poolName = poolName;
 	}
 	
 	public bool Activate()
@@ -72,12 +74,12 @@ public class LootableObject {
 	
 	public string getName()
 	{
-		return poolName;
+		return name;
 	}
 	
 	public void setName(string name)
 	{
-		poolName = name;
+		this.name = name;
 	}
 
 	public void setID(int id)
@@ -119,7 +121,7 @@ public class LootableObject {
 
 	public string getLootType()
 	{
-		return poolName;
+		return name;
 	}
 
 	public virtual Item getItem()

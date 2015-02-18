@@ -8,12 +8,16 @@ public abstract class WeaponData : CraftedItemData {
 
 	public readonly bool rightHand = true;
 
+    [XmlElement(IsNullable = false)]
 	public readonly string idleAnim;
+    [XmlElement(IsNullable = false)]
 	public readonly string runAnim;
+    [XmlElement(IsNullable = false)]
 	public readonly string lootAnim;
 	
 	public readonly float attackSpeed;
 
+    [XmlElement(IsNullable = false)]
 	public readonly string weaponAttackAnim;
 
 	public abstract int getDamage(int damageType);
@@ -27,11 +31,11 @@ public abstract class WeaponData : CraftedItemData {
     public WeaponData(WeaponEdit edit) : base(edit)
     {
         rightHand = edit.rightHand;
-        idleAnim = edit.idleAnim;
-        runAnim = edit.runAnim;
-        lootAnim = edit.lootAnim;
+        if (!edit.idleAnim.Equals("")) idleAnim = edit.idleAnim;
+        if (!edit.runAnim.Equals("")) runAnim = edit.runAnim;
+        if (!edit.lootAnim.Equals("")) lootAnim = edit.lootAnim;
         attackSpeed = edit.attackSpeed;
-        weaponAttackAnim = edit.weaponAttackAnim;
+        if(!edit.weaponAttackAnim.Equals("")) weaponAttackAnim = edit.weaponAttackAnim;
     }
 
 	public virtual string getOffhandModelName()

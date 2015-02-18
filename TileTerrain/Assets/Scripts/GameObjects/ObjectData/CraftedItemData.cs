@@ -19,6 +19,6 @@ public abstract class CraftedItemData : ItemData {
 
 	public override LootableObject getLootableObject(Vector3 position, Quaternion rotation)
 	{
-		return new LootableItem(position, rotation, name);
+		return new LootableItem(position, rotation, name, modelName);
 	}
 }

@@ -50,7 +50,7 @@ public class Hero : Unit {
 		}
 		else
 		{
-			hostile = data.hostile;
+			hostile = true;
 			health = (float)data.health;
 			maxHealth = (float)data.health;
 			energy = data.energy;
@@ -60,8 +60,9 @@ public class Hero : Unit {
 			BASE_ENERGY_GAIN = data.energygen;
 			BASE_HUNGER_GAIN = -0.2f;
 			movespeed = data.movespeed;
-			lineOfSight = data.lineofsight;
+			lineOfSight = 0;
 			size = data.size;
+            modelName = data.modelName;
 		}
 
 		inventory = new Inventory();
@@ -232,7 +233,6 @@ public class Hero : Unit {
 
 	public override void playWeaponAttackAnimation(float speed = 1)
 	{
-		Debug.Log ("player weapone");
 		if(isActive()) unitController.setWeaponAnimation(heldItem.weaponAttackAnim, heldItem.rightHand, speed);
 	}
 

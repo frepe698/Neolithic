@@ -9,13 +9,19 @@ using Edit;
 
 public class WeaponEditor : ObjectEditor {
     //private static DataHolder.WeaponDataHolder weaponDataHolder;
-    
-    [SerializeField]
+
+    private const int MELEE = 0;
+    private const int RANGED = 1;
     private List<MeleeWeaponEdit> meleeWeapons = new List<MeleeWeaponEdit>();
-    [SerializeField]
     private List<RangedWeaponEdit> rangedWeapons = new List<RangedWeaponEdit>();
 
     private Vector2 scroll;
+
+    private int selectedmelee = -1;
+    private int selectedranged = -1;
+
+
+
 
     [MenuItem("Editor/Weapon Editor")]
     static void Init()
@@ -34,6 +40,8 @@ public class WeaponEditor : ObjectEditor {
             weaponDataHolder = serializer.Deserialize(reader) as DataHolder.WeaponDataHolder;
         }
 
+        meleeWeapons = new List<MeleeWeaponEdit>();
+        rangedWeapons = new List<RangedWeaponEdit>();
         foreach (MeleeWeaponData mdata in weaponDataHolder.meleeWeaponData)
         {
             meleeWeapons.Add(new MeleeWeaponEdit(mdata));
@@ -64,9 +72,7 @@ public class WeaponEditor : ObjectEditor {
 
         DataHolder.WeaponDataHolder weaponDataHolder = new DataHolder.WeaponDataHolder(meleeData, rangedData);
 
-        TextAsset data = (TextAsset)Resources.Load("Data/test");
-
-        using (FileStream file = new FileStream(Application.dataPath + "/Resources/Data/test.xml", FileMode.Create))
+        using (FileStream file = new FileStream(Application.dataPath + "/Resources/Data/weapondata.xml", FileMode.Create))
         {
             XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
             serializer.Serialize(file, weaponDataHolder);
@@ -76,64 +82,107 @@ public class WeaponEditor : ObjectEditor {
 
     protected override void OnGUI()
     {
-        scroll = GUILayout.BeginScrollView(scroll, false, true, GUILayout.Width(160), GUILayout.Height(this.position.height - 80));
+
+        scroll = GUILayout.BeginScrollView(scroll, false, true, GUILayout.Width(160), GUILayout.Height(this.position.height - 150));
+
         GUILayout.Label("Melee Weapons", EditorStyles.boldLabel);
-        for (int i = 0; i < meleeWeapons.Count; i++)
+        selectedmelee = GUILayout.SelectionGrid(selectedmelee, getMeleeStrings(), 1);
+        if (selectedmelee >= 0)
         {
-            if (GUILayout.Button(meleeWeapons[i].gameName))
+            selectedranged = -1;
+            if (!openWindow(MELEE, selectedmelee))
             {
-                if (!openWindow(meleeWeapons[i]))
-                {
-                    WindowSettings window = new WindowSettings();
-                    window.windowObject = meleeWeapons[i];
-                    window.windowFunc = editMeleeWeapon;
-                    window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
-                    window.windowScroll = Vector2.zero;
-                    windows.Add(window);
-                }
-            }   
-        }
-        GUILayout.Label("Ranged Weapons", EditorStyles.boldLabel);
-        for (int i = 0; i < rangedWeapons.Count; i++)
-        {
-            if (GUILayout.Button(rangedWeapons[i].gameName))
-            {
-                if (!openWindow(rangedWeapons[i]))
-                {
-                    WindowSettings window = new WindowSettings();
-                    window.windowObject = rangedWeapons[i];
-                    window.windowFunc = editRangedWeapon;
-                    window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
-                    window.windowScroll = Vector2.zero;
-                    windows.Add(window);
-                }
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = MELEE;
+                window.objectIndex = selectedmelee;
+                window.windowFunc = editMeleeWeapon;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
             }
         }
-       
+        GUILayout.Label("Ranged Weapons", EditorStyles.boldLabel);
+        selectedranged = GUILayout.SelectionGrid(selectedranged, getRangedStrings(), 1);
+        if (selectedranged >= 0)
+        {
+            selectedmelee = -1;
+            if (!openWindow(RANGED, selectedranged))
+            {
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = RANGED;
+                window.objectIndex = selectedranged;
+                window.windowFunc = editRangedWeapon;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
+            }
+        }
+        
         GUILayout.EndScrollView();
-        GUILayout.BeginVertical(GUILayout.Width(160));
+        GUILayout.BeginVertical(GUILayout.Width(120));
         GUILayout.Space(20);
-        if (GUILayout.Button("Add Melee Weapon"))
+        if (GUILayout.Button("Move up"))
+        {
+            moveUp();
+        }
+        if (GUILayout.Button("Move down"))
+        {
+            moveDown();
+        }
+        if (GUILayout.Button("Duplicate"))
+        {
+            duplicate();
+        }
+        if (GUILayout.Button("+Melee"))
         {
             meleeWeapons.Add(new MeleeWeaponEdit());
         }
-        if (GUILayout.Button("Add Ranged Weapon"))
+        if (GUILayout.Button("+Ranged"))
         {
             rangedWeapons.Add(new RangedWeaponEdit());
         }
+        if (GUILayout.Button("Remove"))
+        {
+            deleteSelected();
+        }
         GUILayout.EndVertical();
         base.OnGUI();
+    }
+
+    private string[] getMeleeStrings()
+    {
+        string[] result = new string[meleeWeapons.Count];
+        int i = 0;
+        foreach (MeleeWeaponEdit edit in meleeWeapons)
+        {
+            result[i] = edit.gameName;
+            i++;
+        }
+        return result;
+    }
+
+    private string[] getRangedStrings()
+    {
+        string[] result = new string[rangedWeapons.Count];
+        int i = 0;
+        foreach (RangedWeaponEdit edit in rangedWeapons)
+        {
+            result[i] = edit.gameName;
+            i++;
+        }
+        return result;
     }
 
     protected void editMeleeWeapon(int windowID)
     {
         if (GUI.Button(closeButtonRect, "X"))
         {
+            if (selectedmelee == windows[windowID].objectIndex) selectedmelee = -1;
             windows.RemoveAt(windowID);
             return;
         }
         WindowSettings window = windows[windowID];
-        MeleeWeaponEdit data = window.windowObject as MeleeWeaponEdit;
+        MeleeWeaponEdit data = meleeWeapons[window.objectIndex];
         if (data == null)
         {
             windows.RemoveAt(windowID);
@@ -144,6 +193,7 @@ public class WeaponEditor : ObjectEditor {
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
         data.name = TextField("Name: ", data.name);
         data.gameName = TextField("Game Name: ", data.gameName);
+        data.modelName = TextField("Model Name: ", data.modelName);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Damage:  DPS:", EditorStyles.boldLabel);
@@ -179,8 +229,6 @@ public class WeaponEditor : ObjectEditor {
         EditorGUILayout.Space();
         data.durability = IntField("Durability: ", data.durability);
 
-
-
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }
@@ -189,11 +237,12 @@ public class WeaponEditor : ObjectEditor {
     {
         if (GUI.Button(closeButtonRect, "X"))
         {
+            if (selectedranged == windows[windowID].objectIndex) selectedranged = -1;
             windows.RemoveAt(windowID);
             return;
         }
         WindowSettings window = windows[windowID];
-        RangedWeaponEdit data = window.windowObject as RangedWeaponEdit;
+        RangedWeaponEdit data = rangedWeapons[window.objectIndex];
         if (data == null)
         {
             windows.RemoveAt(windowID);
@@ -205,6 +254,7 @@ public class WeaponEditor : ObjectEditor {
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
         data.name = TextField("Name: ", data.name);
         data.gameName = TextField("Game Name: ", data.gameName);
+        data.modelName = TextField("Model Name: ", data.modelName);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Attack: \t DPS: " + data.damage*data.attackSpeed, EditorStyles.boldLabel);
@@ -236,5 +286,129 @@ public class WeaponEditor : ObjectEditor {
 
         GUILayout.EndScrollView();
         GUI.DragWindow();
+    }
+
+    protected override GUI.WindowFunction getWindowFunc(WindowSettings window)
+    {
+        if (window.objectListIndex == MELEE) return editMeleeWeapon;
+        if (window.objectListIndex == RANGED) return editRangedWeapon;
+        return null;
+    }
+
+    protected override ObjectEdit getObjectEdit(int listIndex, int index)
+    {
+        switch (listIndex)
+        {
+            case (MELEE):
+                return meleeWeapons[index];
+            case (RANGED):
+                return rangedWeapons[index];
+            default:
+                return null;
+        }
+    }
+
+    protected override bool indexOutOfBounds(int listIndex, int index)
+    {
+        switch (listIndex)
+        {
+            case (MELEE):
+                return index >= meleeWeapons.Count;
+            case (RANGED):
+                return index >= rangedWeapons.Count;
+            default:
+                return true;
+        }
+    }
+
+    protected override void deleteSelected()
+    {
+        if (selectedmelee >= 0)
+        {
+            deleteWindowIndex = selectedmelee;
+            deleteWindowListIndex = MELEE;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
+        else if(selectedranged >= 0)
+        {
+            deleteWindowIndex = selectedranged;
+            deleteWindowListIndex = RANGED;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
+    }
+
+    protected override void delete(int listIndex, int index)
+    {
+        if (!indexOutOfBounds(listIndex, index))
+        {
+            switch (listIndex)
+            {
+                case (MELEE):
+                    closeWindow(MELEE, index);
+                    meleeWeapons.RemoveAt(index);
+                    if (selectedmelee > 0) selectedmelee--;
+                    break;
+                case (RANGED):
+                    closeWindow(RANGED, index);
+                    rangedWeapons.RemoveAt(index);
+                    if (selectedranged > 0) selectedranged--;
+                    break;
+            }
+        }
+    }
+
+    private void duplicate()
+    {
+        if (selectedmelee >= 0)
+        {
+            MeleeWeaponEdit temp = new MeleeWeaponEdit(meleeWeapons[selectedmelee]);
+            temp.gameName += "(Copy)";
+            meleeWeapons.Insert(selectedmelee + 1, temp);
+            selectedmelee++;
+        }
+        else if (selectedranged >= 0)
+        {
+            RangedWeaponEdit temp = new RangedWeaponEdit(rangedWeapons[selectedranged]);
+            temp.gameName += "(Copy)";
+            rangedWeapons.Insert(selectedranged + 1, temp);
+            selectedranged++;
+        }
+    }
+
+    private void moveUp()
+    {
+        if (selectedmelee > 0)
+        {
+            MeleeWeaponEdit temp = meleeWeapons[selectedmelee];
+            meleeWeapons.RemoveAt(selectedmelee);
+            meleeWeapons.Insert(selectedmelee - 1, temp);
+            selectedmelee -= 1;
+
+        }
+        else if (selectedranged > 0)
+        {
+            RangedWeaponEdit temp = rangedWeapons[selectedranged];
+            rangedWeapons.RemoveAt(selectedranged);
+            rangedWeapons.Insert(selectedranged - 1, temp);
+            selectedranged -= 1;
+        }
+    }
+
+    private void moveDown()
+    {
+        if (selectedmelee >= 0 && selectedmelee < meleeWeapons.Count - 1)
+        {
+            MeleeWeaponEdit temp = meleeWeapons[selectedmelee];
+            meleeWeapons.RemoveAt(selectedmelee);
+            meleeWeapons.Insert(selectedmelee + 1, temp);
+            selectedmelee += 1;
+        }
+        else if (selectedranged >= 0 && selectedranged < rangedWeapons.Count-1)
+        {
+            RangedWeaponEdit temp = rangedWeapons[selectedranged];
+            rangedWeapons.RemoveAt(selectedranged);
+            rangedWeapons.Insert(selectedranged+1, temp);
+            selectedranged += 1;
+        }
     }
 }

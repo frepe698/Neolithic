@@ -124,8 +124,10 @@ public class World : MonoBehaviour {
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/vass01"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/waterlily01"));
 		
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintaxe"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintpickaxe"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintaxe"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/flintpickaxe"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/shortbow"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/quillrain"), 5, true);
 
         /* OLD PARTICLES
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/treeChopParticles"), 4, true);
@@ -348,7 +350,7 @@ public class World : MonoBehaviour {
 		{
 			for(int y = tileMap.basePos.y - baseSize; y <= tileMap.basePos.y + baseSize; y += baseSize*2)
 			{
-				AIUnit unit = new AIUnit("vrodl", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
+				AIUnit unit = new AIUnit("vrodlbot", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
 				GameMaster.addUnit(unit);
 			}
 		}

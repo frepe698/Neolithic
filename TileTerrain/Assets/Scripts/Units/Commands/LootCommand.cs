@@ -45,7 +45,6 @@ public class LootCommand : Command {
 		}
 		else if( Vector2.Distance(unit.get2DPos(), destination) < lootableObject.getGatherRadius() )
 		{
-			Debug.Log ("in range to loot");
 			unit.setMoving(false);
 			if(World.tileMap.getTile(new Vector2i(lootableObject.get2DPos())).getLootableObject(lootableObject.getID()) != null)
 			{

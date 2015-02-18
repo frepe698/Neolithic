@@ -19,10 +19,10 @@ public class RangedWeaponData : WeaponData {
     public RangedWeaponData(RangedWeaponEdit edit) : base(edit)
     {
         damage = edit.damage;
-        attackAnim = edit.attackAnim;
-        attackSound = edit.attackSound;
-        projectileModelName = edit.projectileModelName;
-        projectileName = edit.projectileName;
+        if(!edit.attackAnim.Equals("")) attackAnim = edit.attackAnim;
+        if(!edit.attackSound.Equals("")) attackSound = edit.attackSound;
+        if(!edit.projectileModelName.Equals("")) projectileModelName = edit.projectileModelName;
+        if(!edit.projectileName.Equals("")) projectileName = edit.projectileName;
     }
 
 	public override int getDamage(int damageType)

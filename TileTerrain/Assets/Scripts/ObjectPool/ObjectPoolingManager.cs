@@ -96,7 +96,17 @@ public class ObjectPoolingManager
 	/// <returns>A GameObject if one is available, else returns null if all are currently active and max size is reached.</returns>
 	public GameObject GetObject(string objName)
 	{
+        if (objName == null)
+        {
+            Debug.LogWarning("object name is nulll");
+            return null;
+        }
 		//Find the right pool and ask it for an object.
+        if (!ObjectPoolingManager.Instance.objectPools.ContainsKey(objName.ToLower()))
+        {
+            Debug.LogWarning(objName + " is not in the pool");
+            return null;
+        }
 		return ObjectPoolingManager.Instance.objectPools[objName.ToLower()].GetObject();
 	}
 

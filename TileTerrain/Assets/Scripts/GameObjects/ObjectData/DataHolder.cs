@@ -10,8 +10,17 @@ public class DataHolder {
 	[XmlRoot("UnitsRoot")]
 	public class UnitDataHolder
 	{
-		[XmlArray("Units"), XmlArrayItem("UnitData")]
-		public readonly UnitData[] unitData;
+        public UnitDataHolder() { }
+        public UnitDataHolder(HeroData[] heroData, AIUnitData[] aiUnitData)
+        {
+            this.heroData = heroData;
+            this.aiUnitData = aiUnitData;
+        }
+        [XmlArray("Heroes"), XmlArrayItem("HeroData")]
+        public readonly HeroData[] heroData;
+	
+        [XmlArray("AIUnits"), XmlArrayItem("AIUnitData")]
+		public readonly AIUnitData[] aiUnitData;
 	}
 
 	[XmlRoot("WeaponsRoot")]
@@ -275,13 +284,34 @@ public class DataHolder {
 
 	public UnitData getUnitData(string name)
 	{
-		foreach(UnitData data in unitDataHolder.unitData)
+		foreach(HeroData data in unitDataHolder.heroData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
+        foreach (AIUnitData data in unitDataHolder.aiUnitData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
 		return null;
 	}
 
+    public HeroData getHeroData(string name)
+    {
+        foreach (HeroData data in unitDataHolder.heroData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public AIUnitData getAIUnitData(string name)
+    {
+        foreach (AIUnitData data in unitDataHolder.aiUnitData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 
 	public static DataHolder Instance
 	{

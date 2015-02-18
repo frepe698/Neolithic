@@ -10,7 +10,13 @@ public class CraftedItem : Item {
 
 	public override string getGameName()
 	{
-		return DataHolder.Instance.getCraftedItemData(getName()).gameName;
+        CraftedItemData data = DataHolder.Instance.getCraftedItemData(getName());
+        if(data == null)
+        {
+            Debug.LogWarning(getName() + " do not have any data");
+            return null;
+        }
+		return data.gameName;
 	}
 
 	public override string getInventoryDisplay()

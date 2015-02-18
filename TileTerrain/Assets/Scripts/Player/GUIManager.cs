@@ -161,7 +161,6 @@ public class GUIManager : MonoBehaviour{
 			rect.transform.localScale = Vector3.one;
 			
 			Text text = bo.transform.FindChild("Text").GetComponent<Text>();
-			Debug.Log (resItems[index].getAmount());
 			text.text = resItems[index].getInventoryDisplay();
 			text.color = itemTextColor;
 			
@@ -344,7 +343,7 @@ public class GUIManager : MonoBehaviour{
 			b.onClick.AddListener(() =>  craftItemButtonClick(name) );
 			button.transform.FindChild("Text").GetComponent<Text>().text = gameName;
 			itemCraftingButtons.Add(b);
-			materialItemOffset -= index*40;
+			materialItemOffset -= 40;
 		}
 
 		MaterialRecipeData[] materialRecipes = DataHolder.Instance.getMaterialRecipeData();

@@ -28,7 +28,6 @@ public class UnitController : MonoBehaviour {
 
 	public void setWeaponAnimation(string animation, bool rightHand, float speed = 1)
 	{
-		Debug.Log (animation);
 		if(animation != null)
 		{
 			if(rightHand)
@@ -48,7 +47,6 @@ public class UnitController : MonoBehaviour {
 				AnimationState anim = itemTransformL.animation[animation];
 				if(anim != null)
 				{
-					Debug.Log ("play");
 					anim.speed = speed;
 					itemTransformL.animation.Stop();
 					itemTransformL.animation.Play(animation);
@@ -83,7 +81,7 @@ public class UnitController : MonoBehaviour {
 		if(itemTransformL != null) Destroy(itemTransformL.gameObject);
 		bool rightHand = item.rightHand;
 
-		setHoldItem("Holdable/"+item.name.ToLower(), rightHand);
+		setHoldItem("Holdable/"+item.modelName.ToLower(), rightHand);
 
 		string offhandName = item.getOffhandModelName();
 		if(offhandName != null)

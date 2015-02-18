@@ -383,28 +383,33 @@ public class GameMaster : MonoBehaviour {
 	public static void addUnitLoot(string unitName, int seed, int x, int y)
 	{
 		Random.seed = seed;
-		Debug.Log (unitName);
 		UnitData data = DataHolder.Instance.getUnitData(unitName);
 		if(data == null) return;
-		for(int i = 0; i < data.safeDrops.Length; i++)
-		{
-			string itemName = data.safeDrops[i];
-			ItemData itemData = DataHolder.Instance.getItemData(itemName);
-			if(itemData != null)
-			{
-				World.getMap().getTile(x,y).addLoot (itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x,y).height, y + Random.Range(0f, 1.0f)),
-				                                                                Quaternion.Euler(0, Random.Range(0, 360), 0)));
-			}
-			
-		}
+        string[] safedrops = data.getSafeDrops();
+        if (safedrops != null)
+        {
+            Debug.Log(safedrops.Length);
+            for (int i = 0; i < safedrops.Length; i++)
+            {
+                string itemName = safedrops[i];
+                Debug.Log(itemName);
+                ItemData itemData = DataHolder.Instance.getItemData(itemName);
+                if (itemData != null)
+                {
+                    World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x, y).height, y + Random.Range(0f, 1.0f)),
+                                                                                    Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                }
+
+            }
+        }
 		
 		
-		if(data.randomDrops != null)
+		if(data.getRandomDrops() != null)
 		{
-			int randomDrops = Random.Range(data.minDrops, data.maxDrops);
+			int randomDrops = Random.Range(data.getMinDrops(), data.getMaxDrops());
 			for(int i = 0; i < randomDrops; i++)
 			{  
-				string itemName = data.randomDrops[Random.Range(0, data.randomDrops.Length)];
+				string itemName = data.getRandomDrops()[Random.Range(0, data.getRandomDrops().Length)];
 				ItemData itemData = DataHolder.Instance.getItemData(itemName);
 				if(itemData != null)
 				{
@@ -425,7 +430,7 @@ public class GameMaster : MonoBehaviour {
         if (data == null) return;
 		float speed = data.speed;
 		float range = data.range;
-		Projectile projectile = new Projectile(start, goal, range, speed, data.modelname, damage+data.damage, unitID);
+		Projectile projectile = new Projectile(start, goal, range, speed, data.modelName, damage+data.damage, unitID);
 		projectile.Activate();
 		projectiles.Add(projectile);
 	}

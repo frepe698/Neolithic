@@ -11,6 +11,9 @@ public class ObjectData {
 	[XmlAttribute("gameName")]
 	public readonly string gameName;
 
+    [XmlAttribute("modelName")]
+    public readonly string modelName;
+
     public ObjectData()
     { 
     }
@@ -19,5 +22,6 @@ public class ObjectData {
     {
         name = edit.name;
         gameName = edit.gameName;
+        modelName = edit.modelName;
     }
 }

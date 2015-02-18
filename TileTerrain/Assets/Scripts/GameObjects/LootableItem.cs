@@ -5,7 +5,7 @@ public class LootableItem : LootableObject {
 
 	int durability;
 
-	public LootableItem(Vector3 position, Quaternion rotation, string lootType) : base(position, rotation, lootType)
+	public LootableItem(Vector3 position, Quaternion rotation, string name, string poolName) : base(position, rotation, name, poolName)
 	{
 
 	}
