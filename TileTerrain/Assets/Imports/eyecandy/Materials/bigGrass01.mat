@@ -20,11 +20,22 @@ Material:
           m_Texture: {fileID: 2800000, guid: 59ad3be554a704344a29c327a6225a96, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Cutoff
         second: .25
+      data:
+        first:
+          name: _Shininess
+        second: .078125
       data:
         first:
           name: _BaseLight
@@ -54,6 +65,10 @@ Material:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .5, g: .5, b: .5, a: 0}
       data:
         first:
           name: _Scale
