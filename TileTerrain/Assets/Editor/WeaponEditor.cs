@@ -21,8 +21,6 @@ public class WeaponEditor : ObjectEditor {
     private int selectedranged = -1;
 
 
-
-
     [MenuItem("Editor/Weapon Editor")]
     static void Init()
     {
@@ -32,28 +30,39 @@ public class WeaponEditor : ObjectEditor {
 
     protected override void loadFile()
     {
-        DataHolder.WeaponDataHolder weaponDataHolder;
-        TextAsset data = (TextAsset)Resources.Load("Data/weapondata");
-        XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
-        using (StringReader reader = new System.IO.StringReader(data.text))
+        filePath = null;
+        filePath = EditorUtility.OpenFilePanel("Open weapon data", Application.dataPath + "/Resources/Data", "xml");
+        if (filePath != null)
         {
-            weaponDataHolder = serializer.Deserialize(reader) as DataHolder.WeaponDataHolder;
+            DataHolder.WeaponDataHolder weaponDataHolder;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
+            var stream = new FileStream(filePath, FileMode.Open);
+            weaponDataHolder = serializer.Deserialize(stream) as DataHolder.WeaponDataHolder;
+            stream.Close();
+
+            meleeWeapons = new List<MeleeWeaponEdit>();
+            rangedWeapons = new List<RangedWeaponEdit>();
+            foreach (MeleeWeaponData mdata in weaponDataHolder.meleeWeaponData)
+            {
+                meleeWeapons.Add(new MeleeWeaponEdit(mdata));
+            }
+            foreach (RangedWeaponData rdata in weaponDataHolder.rangedWeaponData)
+            {
+                rangedWeapons.Add(new RangedWeaponEdit(rdata));
+            }
         }
 
-        meleeWeapons = new List<MeleeWeaponEdit>();
-        rangedWeapons = new List<RangedWeaponEdit>();
-        foreach (MeleeWeaponData mdata in weaponDataHolder.meleeWeaponData)
-        {
-            meleeWeapons.Add(new MeleeWeaponEdit(mdata));
-        }
-        foreach (RangedWeaponData rdata in weaponDataHolder.rangedWeaponData)
-        {
-            rangedWeapons.Add(new RangedWeaponEdit(rdata));
-        }
     }
 
     protected override void saveFile()
     {
+        if (filePath == null)
+        {
+            saveAsFile();
+            return;
+        }
+        
         MeleeWeaponData[] meleeData = new MeleeWeaponData[meleeWeapons.Count];
         RangedWeaponData[] rangedData = new RangedWeaponData[rangedWeapons.Count];
 
@@ -72,13 +81,16 @@ public class WeaponEditor : ObjectEditor {
 
         DataHolder.WeaponDataHolder weaponDataHolder = new DataHolder.WeaponDataHolder(meleeData, rangedData);
 
-        using (FileStream file = new FileStream(Application.dataPath + "/Resources/Data/weapondata.xml", FileMode.Create))
+        using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
             XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.WeaponDataHolder));
             serializer.Serialize(file, weaponDataHolder);
             AssetDatabase.Refresh();
-        }      
+        }  
+        
     }
+
+
 
     protected override void OnGUI()
     {

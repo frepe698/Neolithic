@@ -3,7 +3,7 @@
   <Heroes>
     <HeroData name="vrodl" gameName="Vrodl" modelName="vrodl">
       <health>100</health>
-      <lifegen>1</lifegen>
+      <lifegen>2</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
       <movespeed>5</movespeed>
@@ -80,7 +80,7 @@
       <lineofsight>8</lineofsight>
       <safeDrops>
         <string>quillrain</string>
-        <string>superAxe</string>
+        <string>superaxe</string>
       </safeDrops>
       <randomDrops>
         <string>gold</string>

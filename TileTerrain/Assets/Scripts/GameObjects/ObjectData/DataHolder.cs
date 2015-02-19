@@ -66,6 +66,11 @@ public class DataHolder {
 	[XmlRoot("ResourcesRoot")]
 	public class ResourceDataHolder
 	{
+        public ResourceDataHolder() { }
+        public ResourceDataHolder(ResourceData[] resourceData)
+        {
+            this.resourceData = resourceData;
+        }
 		[XmlArray("Resources"), XmlArrayItem("ResourceData")]
 		public readonly ResourceData[] resourceData;
 	}

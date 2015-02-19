@@ -8,12 +8,12 @@ public class TimeManager{
     private readonly static int NIGHT = 2;
     private readonly static int DAWN = 3;
 
-    private static TimeSetting[] times = new TimeSetting[]{new DayTime(), new DuskTime(), new NightTime(), new DuskTime()};
+    private static TimeSetting[] times = new TimeSetting[]{new DayTime(), new DuskTime(), new NightTime(), new DawnTime()};
     private TimeSetting currentTime;
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
 
-    private readonly float intermissionTime = 5;
+    private readonly float intermissionTime = 0;
     private float intermissionTimer;
 
     private Vector3 intermissionSunSpeed;
@@ -32,14 +32,14 @@ public class TimeManager{
     {
         currentTime = times[0];
         currentTime.start();
-        sun = new GameObject().AddComponent<Light>();
+        sun = new GameObject("sun").AddComponent<Light>();
         sun.transform.eulerAngles = currentTime.getSunRotation();
         sun.color = currentTime.getSunLightColor();
         sun.type = LightType.Directional;
         sun.shadows = LightShadows.Hard;
         sun.shadowStrength = 0.4f;
         
-        moon = new GameObject().AddComponent<Light>();
+        moon = new GameObject("moon").AddComponent<Light>();
         moon.transform.eulerAngles = currentTime.getMoonRotation();
         moon.color = currentTime.getMoonLightColor();
         moon.type = LightType.Directional;
@@ -53,7 +53,8 @@ public class TimeManager{
 
     public void update()
     {
-        currentTime.update();
+        float deltaTime = Time.deltaTime * 5;
+        currentTime.update(deltaTime);
         if(currentTime.isAlive())
         {
             
@@ -68,14 +69,17 @@ public class TimeManager{
         { 
             if(intermissionTimer < intermissionTime)
             {
-                intermissionTimer += Time.deltaTime;
+               
+                intermissionTimer += deltaTime;
                 //interpolate sun and moon properties
-
-                sun.color += intermissionSunLightChange*Time.deltaTime;
-                moon.color += intermissionMoonLightChange*Time.deltaTime;
-
-                sun.transform.eulerAngles += intermissionSunSpeed*Time.deltaTime;
-                moon.transform.eulerAngles += intermissionMoonSpeed*Time.deltaTime;
+                sun.color += intermissionSunLightChange * deltaTime;
+                moon.color += intermissionMoonLightChange * deltaTime;
+                Vector3 sunrot = sun.transform.eulerAngles;
+                sunrot += (times[nextTimeIndex].getSunStartRotation() - sunrot) / intermissionTimer * deltaTime;
+                sun.transform.eulerAngles = sunrot;
+                //sun.transform.eulerAngles += intermissionSunSpeed * deltaTime;
+                Debug.Log(intermissionSunSpeed);
+                moon.transform.eulerAngles += intermissionMoonSpeed * deltaTime;
             }
             else 
             {

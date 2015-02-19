@@ -32,9 +32,6 @@ public class AIUnitData : UnitData {
         hostile = data.hostile;
         lineofsight = data.lineofsight;
 
-        //data.safeDrops.CopyTo(safeDrops = new string[data.safeDrops.Length], 0);
-        //data.randomDrops.CopyTo(randomDrops = new string[data.randomDrops.Length], 0);
-
         safeDrops = data.safeDrops.Trim().Split('\n');
         randomDrops = data.randomDrops.Trim().Split('\n');
 

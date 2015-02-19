@@ -1,131 +1,139 @@
-<?xml version='1.0' encoding='us-ascii'?> 
-<ResourcesRoot>
-	<Resources>
-		<ResourceData name="bigTree" gameName="Big Tree">
-		</ResourceData>
-		
-		<ResourceData name="gran" gameName="Gran">
-			<variances>3</variances>
-			<health>100</health>
-			<safeDrops>
-				<string>log</string>
-				<string>log</string>
-				<string>log</string>
-			</safeDrops>
-			<damageType>1</damageType>
-			<hitParticle>treeChopParticles</hitParticle>
-			<blocksProjectile>true</blocksProjectile>
-			
-		</ResourceData>
-		
-		<ResourceData name="birch" gameName="Birch">
-			<health>80</health>
-			<safeDrops>
-				<string>log</string>
-				<string>log</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stick</string>
-			</randomDrops>
-			<minDrops>2</minDrops>
-			<maxDrops>5</maxDrops>
-			<damageType>1</damageType>
-			<hitParticle>treeChopParticles</hitParticle>
-			<blocksProjectile>true</blocksProjectile>
-			
-		</ResourceData>
-		
-		<ResourceData name="greenTree" gameName="Green Tree">
-			<variances>3</variances>
-			<health>80</health>
-			<safeDrops>
-				<string>log</string>
-				<string>log</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stick</string>
-			</randomDrops>
-			<minDrops>2</minDrops>
-			<maxDrops>5</maxDrops>
-			<damageType>1</damageType>
-			<hitParticle>treeChopParticles</hitParticle>
-			<blocksProjectile>true</blocksProjectile>
-			
-		</ResourceData>
-		
-		<ResourceData name="deadTree" gameName="Dead Tree">
-			<variances>4</variances>
-			<health>80</health>
-			<safeDrops>
-				<string>log</string>
-				<string>stick</string>
-				<string>stick</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stick</string>
-				<string>stick</string>
-				<string>stick</string>
-				<string>log</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>4</maxDrops>
-			<damageType>1</damageType>
-			<hitParticle>treeChopParticles</hitParticle>
-			<blocksProjectile>true</blocksProjectile>
-			
-		</ResourceData>
-		
-		<ResourceData name="deadBush" gameName="Dead Bush">
-			<health>40</health>
-			<safeDrops>
-				<string>stick</string>
-				<string>stick</string>
-				<string>stick</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stick</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>4</maxDrops>
-			<damageType>1</damageType>
-			<hitParticle>bushChopParticles</hitParticle>
-			<blocksProjectile>false</blocksProjectile>
-		</ResourceData>
-    
-    <ResourceData name="greenBush" gameName="Green Bush">
-			<health>40</health>
-			<safeDrops>
-				<string>stick</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stick</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>4</maxDrops>
-			<damageType>1</damageType>
-			<hitParticle>bushChopParticles</hitParticle>
-			<blocksProjectile>false</blocksProjectile>
-		</ResourceData>
-		
-		<ResourceData name="stone" gameName="Stone">
+<?xml version="1.0" encoding="Windows-1252"?>
+<ResourcesRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Resources>
+    <ResourceData name="bigTree" gameName="Big Tree" modelName="">
+      <health>0</health>
+      <damageType>0</damageType>
+      <safeDrops>
+        <string />
+      </safeDrops>
+      <randomDrops>
+        <string />
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
+      <variances>1</variances>
+      <blocksProjectile>false</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="gran" gameName="Gran" modelName="">
+      <health>100</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>log</string>
+        <string>log</string>
+        <string>log</string>
+      </safeDrops>
+      <randomDrops>
+        <string />
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
       <variances>3</variances>
-			<health>80</health>
-			<safeDrops>
-				<string>stone</string>
-				<string>stone</string>
-				<string>stone</string>
-			</safeDrops>
-			<randomDrops>
-				<string>stone</string>
-				<string>iron</string>
-				<string>gold</string>
-			</randomDrops>
-			<minDrops>0</minDrops>
-			<maxDrops>4</maxDrops>
-			<damageType>2</damageType>
-			<hitParticle>stoneMineParticles</hitParticle>
-			<blocksProjectile>false</blocksProjectile>
-			
-		</ResourceData>
-	</Resources>
+      <hitParticle>treeChopParticles</hitParticle>
+      <blocksProjectile>true</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="birch" gameName="Birch" modelName="">
+      <health>80</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>log</string>
+        <string>log</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+      </randomDrops>
+      <minDrops>2</minDrops>
+      <maxDrops>5</maxDrops>
+      <variances>1</variances>
+      <hitParticle>treeChopParticles</hitParticle>
+      <blocksProjectile>true</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="greenTree" gameName="Green Tree" modelName="">
+      <health>80</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>log</string>
+        <string>log</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+      </randomDrops>
+      <minDrops>2</minDrops>
+      <maxDrops>5</maxDrops>
+      <variances>3</variances>
+      <hitParticle>treeChopParticles</hitParticle>
+      <blocksProjectile>true</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="deadTree" gameName="Dead Tree" modelName="">
+      <health>80</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>log</string>
+        <string>stick</string>
+        <string>stick</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+        <string>stick</string>
+        <string>stick</string>
+        <string>log</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>4</maxDrops>
+      <variances>4</variances>
+      <hitParticle>treeChopParticles</hitParticle>
+      <blocksProjectile>true</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="deadBush" gameName="Dead Bush" modelName="">
+      <health>40</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>stick</string>
+        <string>stick</string>
+        <string>stick</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>4</maxDrops>
+      <variances>1</variances>
+      <hitParticle>bushChopParticles</hitParticle>
+      <blocksProjectile>false</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="greenBush" gameName="Green Bush" modelName="">
+      <health>40</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>stick</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>4</maxDrops>
+      <variances>1</variances>
+      <hitParticle>bushChopParticles</hitParticle>
+      <blocksProjectile>false</blocksProjectile>
+    </ResourceData>
+    <ResourceData name="stone" gameName="Stone" modelName="">
+      <health>80</health>
+      <damageType>2</damageType>
+      <safeDrops>
+        <string>stone</string>
+        <string>stone</string>
+        <string>stone</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stone</string>
+        <string>iron</string>
+        <string>gold</string>
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>4</maxDrops>
+      <variances>3</variances>
+      <hitParticle>stoneMineParticles</hitParticle>
+      <blocksProjectile>false</blocksProjectile>
+    </ResourceData>
+  </Resources>
 </ResourcesRoot>

@@ -25,7 +25,7 @@ Material:
           name: _BumpMap
         second:
           m_Texture: {fileID: 2800000, guid: dc395ff286ed36a4989baa9f62765dcf, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: .5, y: .5}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -43,7 +43,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .29411763, g: .219066918, b: 0, a: .737254918}
+        second: {r: .389705896, g: .376603723, b: .243566185, a: .737254918}
       data:
         first:
           name: _SpecColor

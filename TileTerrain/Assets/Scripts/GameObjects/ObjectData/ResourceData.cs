@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
+using Edit;
 
 public class ResourceData : ObjectData {
 	public readonly int health;
@@ -18,9 +19,30 @@ public class ResourceData : ObjectData {
 
 	public readonly int variances = 1;
 
+    [XmlElement(IsNullable = false)]
 	public readonly string hitParticle;
 
 	public readonly bool blocksProjectile;
+
+    public ResourceData()
+    { 
+    }
+
+    public ResourceData(ResourceEdit edit)
+        : base(edit)
+    {
+        health = edit.health;
+        damageType = DamageType.damageTypeToInt(edit.damageType);
+
+        safeDrops = edit.safeDrops.Trim().Split('\n');
+        randomDrops = edit.randomDrops.Trim().Split('\n');
+        minDrops = edit.minDrops;
+        maxDrops = edit.maxDrops;
+
+        variances = edit.variances;
+        if(edit.hitParticle != null && !edit.hitParticle.Trim().Equals(""))hitParticle = edit.hitParticle;
+        blocksProjectile = edit.blocksProjectile;
+    }
 
 	public void debug()
 	{

@@ -17,6 +17,9 @@ public abstract class ObjectEditor : EditorWindow {
     public const int DELETEWINDOWID = 1000;
 
 
+    protected string filePath;
+
+
     protected virtual void OnGUI()
     {
         BeginWindows();
@@ -56,14 +59,20 @@ public abstract class ObjectEditor : EditorWindow {
         if (!indexOutOfBounds(deleteWindowListIndex, deleteWindowIndex)) GUI.Window(DELETEWINDOWID, new Rect(200, this.position.height - 150, 200, 100), deleteWindow, "Delete");
         EndWindows();
 
-        if (GUI.Button(new Rect(200, this.position.height - 40, 50, 30), "SAVE"))
+        if (GUI.Button(new Rect(150, this.position.height - 40, 50, 30), "SAVE"))
         {
             saveFile();
         }
-        if (GUI.Button(new Rect(260, this.position.height - 40, 50, 30), "LOAD"))
+        if (GUI.Button(new Rect(210, this.position.height - 40, 70, 30), "SAVE AS"))
+        {
+            saveAsFile();
+        }
+        if (GUI.Button(new Rect(290, this.position.height - 40, 50, 30), "LOAD"))
         {
             loadFile();
         }
+
+        if(filePath != null) GUI.Label(new Rect(350, this.position.height - 35, 800, 20), "Filepath: " + filePath);
 
     }
 
@@ -180,6 +189,14 @@ public abstract class ObjectEditor : EditorWindow {
     protected virtual void saveFile()
     { 
     }
-
+    protected virtual void saveAsFile()
+    {
+        filePath = null;
+        filePath = EditorUtility.SaveFilePanel("Save as", Application.dataPath + "/Resources/Data", "", "xml");
+        if (filePath != null)
+        {
+            saveFile();
+        }
+    }
 
 }

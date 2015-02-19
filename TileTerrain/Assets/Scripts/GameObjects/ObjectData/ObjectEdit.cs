@@ -96,17 +96,15 @@ namespace Edit
             hostile = data.hostile;
             lineofsight = data.lineofsight;
 
-            //data.safeDrops.CopyTo(safeDrops = new string[data.safeDrops.Length], 0);
-            //data.randomDrops.CopyTo(randomDrops = new string[data.randomDrops.Length], 0);
             safeDrops = "";
             foreach (string s in data.safeDrops)
             {
-                safeDrops += s + ",";
+                safeDrops += s + "\n";
             }
             randomDrops = "";
             foreach (string s in data.randomDrops)
             {
-                randomDrops += s + ",";
+                randomDrops += s + "\n";
             }
 
             minDrops = data.minDrops;
@@ -119,9 +117,6 @@ namespace Edit
             attackSpeed = data.attackSpeed;
             hostile = data.hostile;
             lineofsight = data.lineofsight;
-
-            //data.safeDrops.CopyTo(safeDrops = new string[data.safeDrops.Length], 0);
-            //data.randomDrops.CopyTo(randomDrops = new string[data.randomDrops.Length], 0);
 
             safeDrops = data.safeDrops;
             randomDrops = data.randomDrops;
@@ -324,4 +319,77 @@ namespace Edit
         }
     }
 #endregion
+
+    [Serializable]
+    public class ResourceEdit : ObjectEdit
+    {
+        public int health;
+        public DamageType.dtype damageType;
+
+        public string safeDrops;
+        public string randomDrops;
+        public int minDrops = 0;
+        public int maxDrops = 0;
+
+        public int variances = 1;
+
+        public string hitParticle;
+
+        public bool blocksProjectile;
+
+        public ResourceEdit(ResourceEdit data) : base(data)
+        {
+            health = data.health;
+            damageType = data.damageType;
+
+            safeDrops = data.safeDrops;
+            
+            randomDrops = data.randomDrops;
+            
+            minDrops = data.minDrops;
+            maxDrops = data.maxDrops;
+
+            variances = data.variances;
+            hitParticle = data.hitParticle;
+            blocksProjectile = data.blocksProjectile;
+        }
+
+        public ResourceEdit(ResourceData data) : base(data)
+        {
+            health = data.health;
+            damageType = DamageType.intToDamageType(data.damageType);
+
+            safeDrops = "";
+            if (data.safeDrops != null)
+            {
+                foreach (string s in data.safeDrops)
+                {
+                    safeDrops += s + "\n";
+                }
+            }
+            randomDrops = "";
+            if (data.randomDrops != null)
+            {
+                foreach (string s in data.randomDrops)
+                {
+                    randomDrops += s + "\n";
+                }
+            }
+
+            minDrops = data.minDrops;
+            maxDrops = data.maxDrops;
+
+            variances = data.variances;
+            hitParticle = data.hitParticle;
+            blocksProjectile = data.blocksProjectile;
+        }
+
+        public ResourceEdit()
+        {
+        }
+    }
+
+    
+
+
 }

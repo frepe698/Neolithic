@@ -36,7 +36,7 @@ public class TimeSetting  {
         this.moonDirection = (moonEndRotation - moonStartRotation) / lifeSpan;
     }
 
-    public void update()
+    public void update(float deltaTime)
     {
         if(elapsedTime >= lifeSpan)
         {
@@ -44,9 +44,9 @@ public class TimeSetting  {
             return;
         }
 
-        elapsedTime += Time.deltaTime;
-        this.sunRotation += sunDirection * Time.deltaTime;
-        this.moonRotation += moonDirection * Time.deltaTime;
+        elapsedTime += deltaTime;
+        this.sunRotation += sunDirection * deltaTime;
+        this.moonRotation += moonDirection * deltaTime;
 
     }
     public void start()

@@ -35,7 +35,7 @@ public abstract class WeaponData : CraftedItemData {
         if (!edit.runAnim.Equals("")) runAnim = edit.runAnim;
         if (!edit.lootAnim.Equals("")) lootAnim = edit.lootAnim;
         attackSpeed = edit.attackSpeed;
-        if(!edit.weaponAttackAnim.Equals("")) weaponAttackAnim = edit.weaponAttackAnim;
+        if(edit.weaponAttackAnim != null && !edit.weaponAttackAnim.Trim().Equals("")) weaponAttackAnim = edit.weaponAttackAnim;
     }
 
 	public virtual string getOffhandModelName()

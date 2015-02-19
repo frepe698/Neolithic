@@ -20,8 +20,6 @@ public class UnitEditor : ObjectEditor {
     private int selectedai = -1;
 
 
-
-
     [MenuItem("Editor/Unit Editor")]
     static void Init()
     {
@@ -30,28 +28,38 @@ public class UnitEditor : ObjectEditor {
 
     protected override void loadFile()
     {
-        DataHolder.UnitDataHolder unitDataHolder;
-        TextAsset data = (TextAsset)Resources.Load("Data/unitdata");
-        XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.UnitDataHolder));
-        using (StringReader reader = new System.IO.StringReader(data.text))
+        filePath = null;
+        filePath = EditorUtility.OpenFilePanel("Open unit data", Application.dataPath + "/Resources/Data", "xml");
+        if (filePath != null)
         {
-            unitDataHolder = serializer.Deserialize(reader) as DataHolder.UnitDataHolder;
-        }
+            DataHolder.UnitDataHolder unitDataHolder;
 
-        heroes = new List<HeroEdit>();
-        aiUnits = new List<AIUnitEdit>();
-        foreach (HeroData mdata in unitDataHolder.heroData)
-        {
-            heroes.Add(new HeroEdit(mdata));
+            XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.UnitDataHolder));
+            var stream = new FileStream(filePath, FileMode.Open);
+            unitDataHolder = serializer.Deserialize(stream) as DataHolder.UnitDataHolder;
+            stream.Close();
+
+            heroes = new List<HeroEdit>();
+            aiUnits = new List<AIUnitEdit>();
+            foreach (HeroData mdata in unitDataHolder.heroData)
+            {
+                heroes.Add(new HeroEdit(mdata));
+            }
+            foreach (AIUnitData rdata in unitDataHolder.aiUnitData)
+            {
+                aiUnits.Add(new AIUnitEdit(rdata));
+            }
         }
-        foreach (AIUnitData rdata in unitDataHolder.aiUnitData)
-        {
-            aiUnits.Add(new AIUnitEdit(rdata));
-        }
+        
     }
 
     protected override void saveFile()
     {
+        if (filePath == null)
+        {
+            saveAsFile();
+            return;
+        }
         HeroData[] heroData = new HeroData[heroes.Count];
         AIUnitData[] aiUnitData = new AIUnitData[aiUnits.Count];
 
@@ -70,7 +78,7 @@ public class UnitEditor : ObjectEditor {
 
         DataHolder.UnitDataHolder unitDataHolder = new DataHolder.UnitDataHolder(heroData, aiUnitData);
 
-        using (FileStream file = new FileStream(Application.dataPath + "/Resources/Data/unitdata.xml", FileMode.Create))
+        using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
             XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.UnitDataHolder));
             serializer.Serialize(file, unitDataHolder);
