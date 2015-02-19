@@ -13,7 +13,7 @@ public class TimeManager{
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
 
-    private readonly float intermissionTime = 0;
+    private readonly float intermissionTime = 5;
     private float intermissionTimer;
 
     private Vector3 intermissionSunSpeed;
@@ -21,7 +21,9 @@ public class TimeManager{
     private Color intermissionSunLightChange;
     private Color intermissionMoonLightChange;
 
-    
+    private Vector3 sunRotation;
+    private Vector3 moonRotation;
+
     private static object syncRoot = new System.Object();
     private static volatile TimeManager instance;
 
@@ -33,14 +35,14 @@ public class TimeManager{
         currentTime = times[0];
         currentTime.start();
         sun = new GameObject("sun").AddComponent<Light>();
-        sun.transform.eulerAngles = currentTime.getSunRotation();
+        sunRotation = currentTime.getSunRotation();
         sun.color = currentTime.getSunLightColor();
         sun.type = LightType.Directional;
         sun.shadows = LightShadows.Hard;
         sun.shadowStrength = 0.4f;
         
         moon = new GameObject("moon").AddComponent<Light>();
-        moon.transform.eulerAngles = currentTime.getMoonRotation();
+        moonRotation = currentTime.getMoonRotation();
         moon.color = currentTime.getMoonLightColor();
         moon.type = LightType.Directional;
         moon.shadows = LightShadows.Hard;
@@ -53,6 +55,9 @@ public class TimeManager{
 
     public void update()
     {
+        Debug.Log(sunRotation);
+        sun.transform.eulerAngles = sunRotation;
+        moon.transform.eulerAngles = moonRotation;
         float deltaTime = Time.deltaTime * 5;
         currentTime.update(deltaTime);
         if(currentTime.isAlive())
@@ -62,8 +67,8 @@ public class TimeManager{
             sun.color = currentTime.getSunLightColor();
             moon.color = currentTime.getMoonLightColor();
 
-            sun.transform.eulerAngles = currentTime.getSunRotation();
-            moon.transform.eulerAngles = currentTime.getMoonRotation();
+            sunRotation = currentTime.getSunRotation();
+            moonRotation = currentTime.getMoonRotation();
         }
         else 
         { 
@@ -74,23 +79,24 @@ public class TimeManager{
                 //interpolate sun and moon properties
                 sun.color += intermissionSunLightChange * deltaTime;
                 moon.color += intermissionMoonLightChange * deltaTime;
-                Vector3 sunrot = sun.transform.eulerAngles;
-                sunrot += (times[nextTimeIndex].getSunStartRotation() - sunrot) / intermissionTimer * deltaTime;
-                sun.transform.eulerAngles = sunrot;
-                //sun.transform.eulerAngles += intermissionSunSpeed * deltaTime;
-                Debug.Log(intermissionSunSpeed);
-                moon.transform.eulerAngles += intermissionMoonSpeed * deltaTime;
+
+                sunRotation += intermissionSunSpeed * deltaTime;
+                sun.transform.eulerAngles = sunRotation;
+
+                moonRotation += intermissionMoonSpeed * deltaTime;
+                moon.transform.eulerAngles = moonRotation;
             }
             else 
             {
                 Debug.Log("new light");
                 intermissionTimer = 0;
+
                 currentTimeIndex = (currentTimeIndex + 1) % 4;
                 nextTimeIndex = (currentTimeIndex + 1) % 4;
                 currentTime = times[currentTimeIndex];
                 currentTime.start();
                 updateIntermissionValues();
-
+                
                 
             }
         }
@@ -100,8 +106,7 @@ public class TimeManager{
     {
         intermissionSunSpeed = (times[nextTimeIndex].getSunStartRotation() - times[currentTimeIndex].getSunEndRotation()) / intermissionTime;
         intermissionMoonSpeed = (times[nextTimeIndex].getMoonStartRotation() - times[currentTimeIndex].getMoonEndRotation()) / intermissionTime;
-        Debug.Log(intermissionSunSpeed);
-        intermissionSunLightChange = (times[nextTimeIndex].getSunLightColor() - times[currentTimeIndex].getSunLightColor()) / intermissionTime;
+        intermissionSunLightChange = (times[nextTimeIndex].getSunStartColor() - times[currentTimeIndex].getSunEndColor()) / intermissionTime;
         intermissionMoonLightChange = (times[nextTimeIndex].getMoonLightColor() - times[currentTimeIndex].getMoonLightColor()) / intermissionTime;
                 
     }
