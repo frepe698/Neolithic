@@ -114,7 +114,9 @@ public class World : MonoBehaviour {
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/vass01"), 200, true);
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/waterlily01"), 200, true);
 
-		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/grass01"));
+        RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/grass01"));
+        RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/fallengrass01"));
+        RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/moss01"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/fern01"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/fern02"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/fernCluster02"));

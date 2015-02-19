@@ -26,6 +26,8 @@ public class ForestGround : GroundType {
 	{
 		"fern01",
 		"fern02",
+        "moss01",
+        "moss01",
 	};
 
 	public override ResourceObject getRandomResource(Vector3 position)
@@ -58,7 +60,7 @@ public class ForestGround : GroundType {
 	{
 		float rand = Random.value;
 		int lootCount = 0;
-		if(rand > 0.9)
+		if(rand > 0.8)
 		{
 			lootCount++;
 			if(rand > 0.96)

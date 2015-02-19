@@ -46,8 +46,8 @@
 			half4 splatmapMask1 = tex2D (_Splat0, i.uv_Splat0);
             half4 splatmapMask2 = tex2D (_Splat1, i.uv_Splat0);
             
-            float2 uv = (frac(i.uv_ColorTexture * float2(3, 3))) * float2(0.25, 0.25);
-            float2 uvc = (i.uv_ColorTexture * float2(3, 3)) * float2(0.25, 0.25);
+            float2 uv = (frac(i.uv_ColorTexture * float2(4, 4))) * float2(0.25, 0.25);
+            float2 uvc = (i.uv_ColorTexture * float2(4, 4)) * float2(0.25, 0.25);
             
             half snowAmount = min(_SnowAmount*(tex2D(_SnowHeightMap, i.uv_ColorTexture).r), 1);
 			half amount1 = max(splatmapMask1.r - snowAmount*splatmapMask1.r, 0);

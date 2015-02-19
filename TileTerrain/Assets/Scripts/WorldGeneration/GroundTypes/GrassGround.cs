@@ -17,9 +17,14 @@ public class GrassGround : GroundType {
 		"stick",
 	};
 	
-	private static readonly string[] eyecandyTypes = new string[]
+	private static readonly string[] grass = new string[]
 	{
 		"grass01",
+	};
+
+    private static readonly string[] fallengrass = new string[]
+	{
+        "fallengrass01"
 	};
 
 	private static readonly string[] engTypes = new string[]
@@ -99,22 +104,39 @@ public class GrassGround : GroundType {
 				candyName = "fernCluster02";
 			}
 		}
-		else
-		{
-			int lootType = Mathf.FloorToInt(Mathf.PerlinNoise(position.x/5, position.z/5) * 4);
-			if(lootType > 1)
-			{
-				return null;
-			}
-			if(lootType == 0)
-			{
-				candyName = eyecandyTypes[Random.Range(0, eyecandyTypes.Length)];
-			}
-			else
-			{
-				candyName = engTypes[Random.Range(0, engTypes.Length)];
-			}
-		}
+        else if (nextToResource(new Vector2i(position.x, position.z)))
+        {
+            int lootType = Mathf.FloorToInt(Mathf.PerlinNoise(position.x / 5, position.z / 5) * 2);
+            if (lootType > 0)
+            {
+                return null;
+            }
+            else
+            {
+                candyName = grass[Random.Range(0, grass.Length)];
+            }
+        }
+        else
+        {
+            int lootType = Mathf.FloorToInt(Mathf.PerlinNoise(position.x / 5, position.z / 5) * 8);
+            
+            if (lootType == 0)
+            {
+                candyName = grass[Random.Range(0, grass.Length)];
+            }
+            else if(lootType == 1)
+            {
+                candyName = engTypes[Random.Range(0, engTypes.Length)];
+            }
+            else if (lootType == 5 || lootType == 6)
+            {
+                candyName = fallengrass[Random.Range(0, fallengrass.Length)];
+            }
+            else
+            {
+                return null;
+            }
+        }
 		
 		return new EyecandyObject(position,
 		                          Quaternion.Euler(0, Random.value*360, 0),
@@ -136,6 +158,22 @@ public class GrassGround : GroundType {
 		}
 		return false;
 	}
+
+    private bool nextToResource(Vector2i tile)
+    {
+        TileMap map = World.getMap();
+        for (int x = tile.x - 1; x < tile.x + 2; x++)
+        {
+            for (int y = tile.y - 1; y < tile.y + 2; y++)
+            {
+                if (map.isValidTile(x, y) && map.getTile(x, y).hasResource())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 	
 	public override int getTexture()
 	{
