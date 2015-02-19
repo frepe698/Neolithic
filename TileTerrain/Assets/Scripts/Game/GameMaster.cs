@@ -108,6 +108,7 @@ public class GameMaster : MonoBehaviour {
 	
 	void Update () 
 	{
+        TimeManager.Instance.update();
 		checkIfUnitsAwake();
 		gameController.update();
 
