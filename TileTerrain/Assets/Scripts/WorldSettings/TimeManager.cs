@@ -15,7 +15,7 @@ public class TimeManager{
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
 
-    private readonly float intermissionTime = 20;
+    private readonly float intermissionTime = 10;
     private float intermissionTimer;
 
     private Vector3 intermissionSunSpeed;
