@@ -9,9 +9,9 @@ public class DuskTime : TimeSetting {
         new Color(0,0,0),
         new Vector3(125, 0, 0),
         new Vector3(155, 0, 0), 
-        new Color(0,0,0), 
-        new Vector3(50, 0, 50), 
-        new Vector3(90, 0, 90))
+        new Color(0,0,0),
+        new Vector3(50, 0, 50),
+        new Vector3(50, 0, 50))
     {
 
     }

@@ -8,6 +8,8 @@ public class TimeManager{
     private readonly static int NIGHT = 2;
     private readonly static int DAWN = 3;
 
+    private readonly static float TIMESPEED = 5;
+
     private static TimeSetting[] times = new TimeSetting[]{new DayTime(), new DuskTime(), new NightTime(), new DawnTime()};
     private TimeSetting currentTime;
     private int currentTimeIndex = 0;
@@ -55,11 +57,10 @@ public class TimeManager{
 
     public void update()
     {
-        Debug.Log(sunRotation);
         sun.transform.eulerAngles = sunRotation;
         moon.transform.eulerAngles = moonRotation;
 
-        float deltaTime = Time.deltaTime;
+        float deltaTime = Time.deltaTime * TIMESPEED;
         currentTime.update(deltaTime);
         if(currentTime.isAlive())
         {
@@ -89,7 +90,6 @@ public class TimeManager{
             }
             else 
             {
-                Debug.Log("new light");
                 intermissionTimer = 0;
 
                 currentTimeIndex = (currentTimeIndex + 1) % 4;
