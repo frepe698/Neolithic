@@ -4,7 +4,7 @@ using System.Collections;
 public class NightTime : TimeSetting {
 
     public NightTime()
-        : base(15,
+        : base(120,
         new Color(0.0f, 0.0f, 0.0f),
         new Color(0.0f, 0.0f, 0.0f),
         new Vector3(270, 0, 0),

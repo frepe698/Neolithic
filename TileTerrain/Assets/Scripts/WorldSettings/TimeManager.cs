@@ -13,7 +13,7 @@ public class TimeManager{
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
 
-    private readonly float intermissionTime = 5;
+    private readonly float intermissionTime = 20;
     private float intermissionTimer;
 
     private Vector3 intermissionSunSpeed;
@@ -58,7 +58,8 @@ public class TimeManager{
         Debug.Log(sunRotation);
         sun.transform.eulerAngles = sunRotation;
         moon.transform.eulerAngles = moonRotation;
-        float deltaTime = Time.deltaTime * 5;
+
+        float deltaTime = Time.deltaTime;
         currentTime.update(deltaTime);
         if(currentTime.isAlive())
         {
