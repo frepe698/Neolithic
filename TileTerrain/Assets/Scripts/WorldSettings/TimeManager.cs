@@ -8,7 +8,7 @@ public class TimeManager{
     private readonly static int NIGHT = 2;
     private readonly static int DAWN = 3;
 
-    private readonly static float TIMESPEED = 1;
+    private readonly static float TIMESPEED = 10;
 
     private static TimeSetting[] times = new TimeSetting[]{new DayTime(), new DuskTime(), new NightTime(), new DawnTime()};
     private TimeSetting currentTime;
