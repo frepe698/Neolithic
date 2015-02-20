@@ -45,8 +45,23 @@
 		</ingredients>
 		<tooltip>Craft a flint pickaxe</tooltip>
 		</ItemRecipeData>
-		
-		<ItemRecipeData name="craftShortBow" gameName="Short Bow">
+
+    <ItemRecipeData name="craftTorch" gameName="Torch">
+      <product>torch</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>1</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>puffball</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <tooltip>Craft a torch</tooltip>
+    </ItemRecipeData>
+
+    <ItemRecipeData name="craftShortBow" gameName="Short Bow">
 		<product>shortbow</product>
 		<ingredients>
 			<Ingredient>

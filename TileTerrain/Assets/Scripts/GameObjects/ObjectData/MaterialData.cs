@@ -5,5 +5,8 @@ public class MaterialData : ItemData{
 
 	public readonly string tooltip;
 
-
+    public override string getTooltipStatsString()
+    {
+        return tooltip;
+    }
 }

@@ -93,6 +93,29 @@
         <string>punch01</string>
       </attackSounds>
     </MeleeWeaponData>
+    <MeleeWeaponData name="torch" gameName="Torch" modelName="torch">
+      <durability>50</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.1</attackSpeed>
+      <damage>
+        <int>15</int>
+        <int>20</int>
+        <int>1</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackTorch01</string>
+        <string>attackTorch01</string>
+        <string>attackTorch01</string>
+      </attackSounds>
+    </MeleeWeaponData>
   </MeleeWeapons>
   <RangedWeapons>
     <RangedWeaponData name="shortbow" gameName="Short Bow" modelName="shortbow">

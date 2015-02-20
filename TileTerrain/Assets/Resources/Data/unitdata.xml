@@ -56,6 +56,7 @@
       <size>0.75</size>
       <damage>4</damage>
       <attackSpeed>1.4</attackSpeed>
+      <attackSound>wolfAttack02</attackSound>
       <hostile>true</hostile>
       <lineofsight>5</lineofsight>
       <safeDrops>
@@ -76,6 +77,7 @@
       <size>0.5</size>
       <damage>6</damage>
       <attackSpeed>1</attackSpeed>
+      <attackSound>punch02</attackSound>
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
       <safeDrops>

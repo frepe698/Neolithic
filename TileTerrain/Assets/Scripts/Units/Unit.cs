@@ -26,7 +26,8 @@ public class Unit {
 	protected bool moving;
 	protected Path path;
 	protected Vector2i tile;
-	
+
+    protected const float BASE_MOVESPEED = 4;
 	protected float movespeed = 4;
 	protected float speedMult = 1;
 	protected float moveSensitivity = 0.1f;
@@ -121,7 +122,7 @@ public class Unit {
 		}
 		if(moving && command != null)
 		{
-			float deltaMove = Time.deltaTime*getMovespeed()*speedMult*speedMult;
+            float deltaMove = Time.deltaTime * getAdjustedMovespeed();
 			
 			if(Vector2.Distance(destination, get2DPos()) < deltaMove)
 			{
@@ -134,7 +135,7 @@ public class Unit {
 				Vector2 dir = (destination-get2DPos()).normalized;
 				//Here is some new stuff for unit collision
 				
-				Vector3 newPos = position + new Vector3(dir.x, 0, dir.y)*(getMovespeed()*speedMult*speedMult*Time.deltaTime);
+				Vector3 newPos = position + new Vector3(dir.x, 0, dir.y)*(deltaMove);
 				Vector2i newTile = new Vector2i(newPos);
 				float distanceToCenter = Mathf.Abs( (newTile.y - newPos.z)*(newTile.y - newPos.z) + (newTile.x - newPos.x)*(newTile.x - newPos.x));
 				if(newTile != tile)
@@ -163,7 +164,7 @@ public class Unit {
 				position =  newPos;
 				rotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0);
 				ground();
-				setAnimation(getRunAnim(), speedMult*speedMult);
+                setAnimation(getRunAnim(), getAdjustedMovespeed() / BASE_MOVESPEED);
 
 			}
 		}
@@ -288,7 +289,7 @@ public class Unit {
 	
 	public void setPath(Vector2 point)
 	{
-		float deltaMove = Time.deltaTime*getMovespeed()*speedMult*speedMult;
+        float deltaMove = Time.deltaTime * getAdjustedMovespeed();
 		
 		if(Vector2.Distance(point, get2DPos()) < deltaMove)
 		{
@@ -513,6 +514,11 @@ public class Unit {
 	{
 		return movespeed;
 	}
+
+    public float getAdjustedMovespeed()
+    {
+        return getMovespeed() * speedMult;
+    }
 
 	public float getHealth()
 	{

@@ -8,6 +8,9 @@ public class AIUnitData : UnitData {
 
     public readonly int damage;
     public readonly float attackSpeed = 1;
+
+    [XmlElement(IsNullable = false)]
+    public readonly string attackSound;
     public readonly bool hostile;
     public readonly int lineofsight;
 
@@ -29,6 +32,7 @@ public class AIUnitData : UnitData {
     {
         damage = data.damage;
         attackSpeed = data.attackSpeed;
+        if (data.attackSound != null && !data.attackSound.Trim().Equals("")) attackSound = data.attackSound;
         hostile = data.hostile;
         lineofsight = data.lineofsight;
 

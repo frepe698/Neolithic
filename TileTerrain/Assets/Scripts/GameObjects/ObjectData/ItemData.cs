@@ -18,4 +18,9 @@ public class ItemData : ObjectData {
 	{
 		return new LootableObject(position, rotation, name, modelName);
 	}
+
+    public virtual string getTooltipStatsString()
+    {
+        return "override this";
+    }
 }

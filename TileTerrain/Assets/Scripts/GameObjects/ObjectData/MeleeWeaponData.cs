@@ -42,4 +42,12 @@ public class MeleeWeaponData : WeaponData {
 	{
 		return true;
 	}
+
+    public override string getTooltipStatsString()
+    {
+        return "Combat: " + damage[0] +
+            "\nTree: " + damage[1] +
+            "\nStone: " + damage[2] +
+            "\nAttackspeed: " + attackSpeed;
+    }
 }

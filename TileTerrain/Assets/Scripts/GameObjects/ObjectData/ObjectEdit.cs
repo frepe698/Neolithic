@@ -93,6 +93,7 @@ namespace Edit
         {
             damage = data.damage;
             attackSpeed = data.attackSpeed;
+            attackSound = data.attackSound;
             hostile = data.hostile;
             lineofsight = data.lineofsight;
 
@@ -115,6 +116,7 @@ namespace Edit
         {
             damage = data.damage;
             attackSpeed = data.attackSpeed;
+            attackSound = data.attackSound;
             hostile = data.hostile;
             lineofsight = data.lineofsight;
 

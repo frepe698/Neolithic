@@ -9,4 +9,9 @@ public class ConsumableItemData : ItemData {
 	{
 		return new LootableConsumable(position, rotation, name, modelName);
 	}
+
+    public override string getTooltipStatsString()
+    {
+        return "Hunger change: " + hungerChange;
+    }
 }

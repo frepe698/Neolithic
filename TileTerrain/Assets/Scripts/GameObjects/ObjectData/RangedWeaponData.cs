@@ -47,4 +47,11 @@ public class RangedWeaponData : WeaponData {
 	{
 		return false;
 	}
+
+    public override string getTooltipStatsString()
+    {
+        return "Damage: " + damage +
+            "\nAttackspeed: " + attackSpeed +
+            "\nProjectile: " + projectileName;
+    }
 }

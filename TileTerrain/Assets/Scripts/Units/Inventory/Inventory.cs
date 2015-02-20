@@ -11,20 +11,11 @@ public class Inventory {
 	private List<ConsumableItem> consumableItems;
 	private List<MaterialItem> materialItems;
 
-	GameObject gui;
-
 	public Inventory()
 	{
 		craftedItems = new List<CraftedItem>();
 		consumableItems = new List<ConsumableItem>();
 		materialItems = new List<MaterialItem>();
-		initGUI();
-	}
-
-	private void initGUI()
-	{
-		gui = new GameObject("Inventory");
-		gui.transform.SetParent(GameObject.Find("Canvas").transform);
 	}
 
 	public void addItem(Item item)

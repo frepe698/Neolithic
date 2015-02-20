@@ -6,6 +6,7 @@ public class AIUnit : Unit {
 	private float commandTimer;
 	private int damage;
 	private float attackspeed;
+    private string attackSound;
 
 	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id) 
 		: base(unit, position, rotation, id)
@@ -27,6 +28,7 @@ public class AIUnit : Unit {
 			health = (float)data.health;
 			damage = data.damage;
 			attackspeed = data.attackSpeed;
+            attackSound = data.attackSound;
 			movespeed = data.movespeed;
 			lineOfSight = data.lineofsight;
 			size = data.size;
@@ -106,6 +108,11 @@ public class AIUnit : Unit {
 	{
 		return attackspeed;
 	}
+
+    public override string getAttackSound(int damageType)
+    {
+        return attackSound;
+    }
 
 	public override void takeDamage(float damage, int dealerID)
 	{
