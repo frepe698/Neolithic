@@ -224,10 +224,14 @@ public class Pathfinder {
 				int ceilx = startTile.x + Mathf.CeilToInt(xo*i);
 				int floory = startTile.y + Mathf.FloorToInt(yo*i);
 				int ceily = startTile.y + Mathf.CeilToInt(yo*i);
-				if((map.isValidTile(floorx, ceily) && !map.getTile(floorx, ceily).isWalkable(unitID)) ||
-				   (map.isValidTile(ceilx, floory) &&!map.getTile(ceilx, floory).isWalkable(unitID)) ||
-				   (map.isValidTile(ceilx, ceily) &&!map.getTile(ceilx, ceily).isWalkable(unitID)) ||
-				   (map.isValidTile(floorx, floory) &&!map.getTile(floorx, floory).isWalkable(unitID))) return false;
+                if ((map.isValidTile(floorx, ceily) && !map.getTile(floorx, ceily).isWalkable(unitID)) ||
+                   (map.isValidTile(ceilx, floory) && !map.getTile(ceilx, floory).isWalkable(unitID)) ||
+                   (map.isValidTile(ceilx, ceily) && !map.getTile(ceilx, ceily).isWalkable(unitID)) ||
+                   (map.isValidTile(floorx, floory) && !map.getTile(floorx, floory).isWalkable(unitID)))
+                {
+                    return false;
+
+                }
 			}
 //			else if(xcenter)
 //			{
@@ -243,6 +247,7 @@ public class Pathfinder {
 //			}
 			else if(!map.getTile(startTile.x + Mathf.RoundToInt(xo*i), startTile.y + Mathf.RoundToInt(yo*i)).isWalkable(unitID))
 			{
+
 				return false;
 			}
 		}
