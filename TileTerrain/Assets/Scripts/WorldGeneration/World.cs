@@ -348,6 +348,8 @@ public class World : MonoBehaviour {
 
 	public void addAnimals()
 	{
+
+       
 		for(int x = tileMap.basePos.x - baseSize; x <= tileMap.basePos.x + baseSize; x += baseSize*2)
 		{
 			for(int y = tileMap.basePos.y - baseSize; y <= tileMap.basePos.y + baseSize; y += baseSize*2)
@@ -362,7 +364,7 @@ public class World : MonoBehaviour {
 			{
 				if(tileMap.getTile(x, y).isWalkable(-1) && Random.value > 0.994f)
 				{
-					if(Random.value < 0.7f)
+					if(Random.value < 0.9f)
 					{
 						AIUnit unit = new AIUnit("hare", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
 						GameMaster.addUnit(unit);
@@ -375,6 +377,7 @@ public class World : MonoBehaviour {
 				}
 			}
 		}
+       
 	}
 	
 	void RecalculateTangents(Mesh mesh)

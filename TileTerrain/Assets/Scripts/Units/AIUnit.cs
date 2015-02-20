@@ -47,7 +47,7 @@ public class AIUnit : Unit {
 				{
 					if(!World.getMap().isValidTile(x,y)) continue;
 					Tile checkTile = World.getMap().getTile(x,y);
-					if(checkTile.containsUnits() && Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id))
+					if(checkTile.containsUnits() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
 					{
 						foreach(Unit unit in checkTile.getUnits())
 						{
@@ -74,7 +74,6 @@ public class AIUnit : Unit {
 					}
 				}
 			}
-
 			commandTimer-=Time.deltaTime;
 			if(commandTimer < 0)
 			{
