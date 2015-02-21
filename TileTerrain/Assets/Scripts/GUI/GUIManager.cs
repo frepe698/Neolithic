@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GUIManager : MonoBehaviour{
 
@@ -15,16 +16,16 @@ public class GUIManager : MonoBehaviour{
 	private Inventory inventory;
 
    
-	private Transform craftedItemParent;
-	private Transform consumableItemParent;
-	private Transform materialItemParent;
+	private RectTransform[] itemParents;
 	private ScrollRect inventoryScrollRect;
 	private RectTransform inventoryMask;
 
-	private List<Button> craftedItemButtons;
-	private List<Button> consumableItemButtons;
-	private List<Button> materialItemButtons;
-	private Button[] inventoryTabs;
+    private const int ITEM_TYPE_COUNT = 3;
+    private const float ITEM_LINE_HEIGHT = 10;
+	private List<Button>[] itemButtons;
+    private bool[] inventoryFoldOpen;
+	private RectTransform[] inventoryFolds;
+    private RectTransform itemHolder;
     private const string INVENTORY_BUTTON_NAME = "InventoryButton";
 
 	private int lastClickedItem = 0;
@@ -32,9 +33,9 @@ public class GUIManager : MonoBehaviour{
 	private readonly static float DOUBLECLICK_TIME = 0.5f;
 
 	private int selectedItemTab = 0;
-	private readonly static int TAB_CRAFTED = 0;
-	private readonly static int TAB_MATERIAL = 1;
-	private readonly static int TAB_CONSUMABLE = 2;
+	private const int TAB_CRAFTED = 0;
+	private const int TAB_MATERIAL = 1;
+	private const int TAB_CONSUMABLE = 2;
 
 	private int selectedItem = -1;
 	private Color itemTextColor = new Color(0.5f,0.5f,0.5f);
@@ -98,18 +99,23 @@ public class GUIManager : MonoBehaviour{
         //Inventory init
 		inventoryObject = canvas.FindChild("Inventory").gameObject;
 		Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
-		craftedItemParent = scrollMask.FindChild("CraftedItems");
-		consumableItemParent = scrollMask.FindChild("ConsumableItems");
-		materialItemParent = scrollMask.FindChild("MaterialItems");
 		inventoryScrollRect = scrollMask.GetComponent<ScrollRect>();
 		inventoryMask = scrollMask.GetComponent<RectTransform>();
 
-		inventoryTabs = new Button[3];
-		for(int i = 0; i < 3; i++)
+        inventoryFolds = new RectTransform[ITEM_TYPE_COUNT];
+        itemParents = new RectTransform[ITEM_TYPE_COUNT];
+        inventoryFoldOpen = new bool[ITEM_TYPE_COUNT];
+        itemButtons = new List<Button>[ITEM_TYPE_COUNT];
+
+        itemHolder = scrollMask.FindChild("Items").GetComponent<RectTransform>();
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
 		{
 			int index = i;
-			inventoryTabs[i] = inventoryObject.transform.FindChild("Tab"+i).GetComponent<Button>();
-			inventoryTabs[i].onClick.AddListener(() => inventoryTabButtonClick(index));
+            itemParents[i] = itemHolder.FindChild("Items" + i).GetComponent<RectTransform>();
+            inventoryFolds[i] = itemHolder.FindChild("ItemsFold" + i).GetComponent<RectTransform>();
+			inventoryFolds[i].GetComponent<Button>().onClick.AddListener(() => inventoryFoldButtonClick(index));
+            itemButtons[i] = new List<Button>();
+            inventoryFoldOpen[i] = true;
 		}
 
         //Crafting init
@@ -127,10 +133,11 @@ public class GUIManager : MonoBehaviour{
             int index = i;
             craftingTabs[i] = craftingObject.transform.FindChild("Tab" + i).GetComponent<Button>();
             craftingTabs[i].onClick.AddListener(() => craftingTabButtonClick(index));
+
+            itemCraftingButtons = new List<Button>();
+            materialCraftingButtons = new List<Button>();
+            consumableCraftingButtons = new List<Button>();
         }
-		itemCraftingButtons = new List<Button>();
-		materialCraftingButtons = new List<Button>();
-        consumableCraftingButtons = new List<Button>();
 		updateCrafting();
 
         //Tooltips init
@@ -201,6 +208,7 @@ public class GUIManager : MonoBehaviour{
                 int index;
                 if (int.TryParse(hgo.name.Remove(0, INVENTORY_BUTTON_NAME.Length), out index))
                 {
+#if false
                     string itemName = null;
                     if (index < craftedItemButtons.Count)
                     {
@@ -219,6 +227,7 @@ public class GUIManager : MonoBehaviour{
                     {
                         activateItemTooltip(itemName);
                     }
+#endif
                 }
             }
             else if (hgo.name.StartsWith(CRAFTING_BUTTON_NAME))
@@ -311,133 +320,88 @@ public class GUIManager : MonoBehaviour{
 	public void setInventory(Inventory inventory)
 	{
 		this.inventory = inventory;
-		craftedItemButtons = new List<Button>();
-		materialItemButtons = new List<Button>();
-		consumableItemButtons = new List<Button>();
+        itemButtons = new List<Button>[ITEM_TYPE_COUNT];
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            itemButtons[i] = new List<Button>();
+        }
+		
 		updateInventory();
 	}
 
 	private void updateInventory()
 	{
-		//TODO: fix the scroller when changing tabs
-		List<CraftedItem> manItems = inventory.getCraftedItems();
-		List<MaterialItem> resItems = inventory.getMaterialItems();
-		List<ConsumableItem> conItems = inventory.getConsumableItems();
+        List<Item>[] items = new List<Item>[ITEM_TYPE_COUNT];
+        items[TAB_CRAFTED] = new List<Item>();
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            items[i] = new List<Item>();
+        }
+        items[TAB_CRAFTED].AddRange(inventory.getCraftedItems().Cast<Item>());
+        items[TAB_MATERIAL].AddRange(inventory.getMaterialItems().Cast<Item>());
+        items[TAB_CONSUMABLE].AddRange(inventory.getConsumableItems().Cast<Item>());
 
 		GameObject prefab = (GameObject)Resources.Load ("GUI/InventoryItemButton");
 
         int addedIndex = 0;
-      
-		while(craftedItemButtons.Count < manItems.Count)
-		{
-			int index = craftedItemButtons.Count;
-			GameObject bo = (GameObject)Instantiate(prefab);
-            bo.name = INVENTORY_BUTTON_NAME + index;
-			bo.transform.SetParent(craftedItemParent);
 
-			RectTransform rect = bo.GetComponent<RectTransform>();
-			rect.localPosition = new Vector3(0, -20 - index*25, 0);
-			rect.transform.localScale = Vector3.one;
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            List<Button> buttons = itemButtons[i];
 
-			Text text = bo.transform.FindChild("Text").GetComponent<Text>();
-			text.text = manItems[index].getGameName();
-			text.color = itemTextColor;
+            for (int j = 0; j < buttons.Count; j++)
+            {
+                if (j >= items[i].Count)
+                {
+                    Destroy(buttons[j].gameObject);
+                    buttons.RemoveAt(j);
+                    j--;
+                    continue;
+                }
 
-			Button button = bo.GetComponent<Button>();
-			button.onClick.AddListener(() => inventoryItemButtonClick(index));
+                buttons[j].transform.FindChild("Text").GetComponent<Text>().text = items[i][j].getInventoryDisplay();
+                int buttonIndex = (j + addedIndex);
+                buttons[j].name = INVENTORY_BUTTON_NAME + (buttonIndex);
+                buttons[j].onClick.RemoveAllListeners();
+                buttons[j].onClick.AddListener(() => inventoryItemButtonClick(buttonIndex));
+            }
+            while (buttons.Count < items[i].Count)
+            {
+                int index = buttons.Count;
+                int buttonIndex = (index + addedIndex);
+                GameObject bo = (GameObject)Instantiate(prefab);
+                bo.name = INVENTORY_BUTTON_NAME + (buttonIndex);
+                bo.transform.SetParent(itemParents[i]);
 
-			craftedItemButtons.Add(button);
-		}
+                RectTransform rect = bo.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(0, 0 - index * ITEM_LINE_HEIGHT, 0);
+                rect.transform.localScale = Vector3.one;
 
-        addedIndex += craftedItemButtons.Count;
+                Text text = bo.transform.FindChild("Text").GetComponent<Text>();
+                text.text = items[i][index].getInventoryDisplay();
+                text.color = itemTextColor;
 
-		for(int i = 0; i < materialItemButtons.Count; i++)
-		{
-			if(i >= resItems.Count)
-			{
-				Destroy(materialItemButtons[i].gameObject);
-				materialItemButtons.RemoveAt(i);
-				i--;
-				continue;
-			}
+                Button button = bo.GetComponent<Button>();
+                button.onClick.AddListener(() => inventoryItemButtonClick(buttonIndex));
 
-			materialItemButtons[i].transform.FindChild("Text").GetComponent<Text>().text = resItems[i].getInventoryDisplay();
-            materialItemButtons[i].name = INVENTORY_BUTTON_NAME + (i + addedIndex);
-		}
+                buttons.Add(button);
+            }
+            addedIndex += buttons.Count;
+        }
 
-		while(materialItemButtons.Count < resItems.Count)
-		{
-			int index = materialItemButtons.Count;
-			GameObject bo = (GameObject)Instantiate(prefab);
-            bo.name = INVENTORY_BUTTON_NAME + (index + addedIndex);
-			bo.transform.SetParent(materialItemParent);
-			
-			RectTransform rect = bo.GetComponent<RectTransform>();
-			rect.localPosition = new Vector3(0, -20 - index*25, 0);
-			rect.transform.localScale = Vector3.one;
-			
-			Text text = bo.transform.FindChild("Text").GetComponent<Text>();
-			text.text = resItems[index].getInventoryDisplay();
-			text.color = itemTextColor;
-			
-			Button button = bo.GetComponent<Button>();
-			button.onClick.AddListener(() => inventoryItemButtonClick(index));
-			
-			materialItemButtons.Add(button);
-		}
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            float height = itemButtons[i].Count * ITEM_LINE_HEIGHT;
+            itemParents[i].sizeDelta = new Vector2(itemParents[i].sizeDelta.x, height);
+        }
 
-        addedIndex += materialItemButtons.Count;
-
-		for(int i = 0; i < consumableItemButtons.Count; i++)
-		{
-			if(i >= conItems.Count)
-			{
-				Destroy(consumableItemButtons[i].gameObject);
-				consumableItemButtons.RemoveAt(i);
-				i--;
-				continue;
-			}
-			
-			consumableItemButtons[i].transform.FindChild("Text").GetComponent<Text>().text = conItems[i].getInventoryDisplay();
-            Debug.Log((i + craftedItemButtons.Count + materialCraftingButtons.Count));
-            consumableItemButtons[i].name = INVENTORY_BUTTON_NAME + (i + addedIndex);
-		}
-		
-		while(consumableItemButtons.Count < conItems.Count)
-		{
-			int index = consumableItemButtons.Count;
-			GameObject bo = (GameObject)Instantiate(prefab);
-            bo.name = INVENTORY_BUTTON_NAME + (index + addedIndex);
-			bo.transform.SetParent(consumableItemParent);
-			
-			RectTransform rect = bo.GetComponent<RectTransform>();
-			rect.localPosition = new Vector3(0, -20 - index*25, 0);
-			rect.transform.localScale = Vector3.one;
-			
-			Text text = bo.transform.FindChild("Text").GetComponent<Text>();
-			Debug.Log (conItems[index].getAmount());
-			text.text = conItems[index].getInventoryDisplay();
-			text.color = itemTextColor;
-			
-			Button button = bo.GetComponent<Button>();
-			button.onClick.AddListener(() => inventoryItemButtonClick(index));
-			
-			consumableItemButtons.Add(button);
-		}
-
-		float cheight = craftedItemButtons.Count*25+12;
-		float mheight = materialItemButtons.Count*25+12;
-		float fheight = consumableItemButtons.Count*25+12;
-
-		craftedItemParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, cheight);
-		materialItemParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, mheight);
-		consumableItemParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, fheight);
-
-		onSelectItemTab();
+        updateItemFolds();
+		//onSelectItemTab();
 	}
 
 	public void onSelectItemTab()
 	{
+#if false
 		craftedItemParent.gameObject.SetActive(false);
 		materialItemParent.gameObject.SetActive(false);
 		consumableItemParent.gameObject.SetActive(false);
@@ -463,18 +427,56 @@ public class GUIManager : MonoBehaviour{
 			consumableItemParent.gameObject.SetActive(true);
 			inventoryTabs[TAB_CONSUMABLE].interactable = false;
 		}
+#endif
 	}
 
-	public void inventoryTabButtonClick(int index)
+    public void updateItemFolds()
+    {
+        float ypos = 0;
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            inventoryFolds[i].anchoredPosition = new Vector2(0, -ypos);
+            ypos += inventoryFolds[i].sizeDelta.y;
+            if (inventoryFoldOpen[i])
+            {
+                itemParents[i].gameObject.SetActive(true);
+                itemParents[i].anchoredPosition = new Vector2(0, -ypos);
+                ypos += itemParents[i].GetComponent<RectTransform>().sizeDelta.y;
+            }
+            else
+            {
+                itemParents[i].gameObject.SetActive(false);
+            }
+            
+        }
+        itemHolder.sizeDelta = new Vector2(itemHolder.sizeDelta.x, ypos);
+        inventoryScrollRect.vertical = inventoryMask.sizeDelta.y < ypos;
+    }
+
+    public void closeInventoryFold(int index)
+    {
+        inventoryFoldOpen[index] = false;
+        updateItemFolds();
+    }
+
+    public void openInventoryFold(int index)
+    {
+        inventoryFoldOpen[index] = true;
+        updateItemFolds();
+    }
+
+	public void inventoryFoldButtonClick(int index)
 	{
-		Debug.Log ("clicked tab " + index);
-		deselectItem();
-		selectedItemTab = index;
-		onSelectItemTab();
+		//deselectItem();
+		//selectedItemTab = index;
+		//onSelectItemTab();
+        inventoryFoldOpen[index] = !inventoryFoldOpen[index];
+        updateItemFolds();
 	}
 
 	public void deselectItem()
 	{
+#if false
 		if(selectedItemTab == TAB_CRAFTED)
 		{
 			if(selectedItem >= 0 && selectedItem < craftedItemButtons.Count)
@@ -489,6 +491,21 @@ public class GUIManager : MonoBehaviour{
 				materialItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
 			}
 		}
+#endif
+        if (selectedItem >= 0)
+        {
+            for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+            {
+                if (selectedItem < itemButtons[i].Count)
+                {
+                    itemButtons[i][selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
+                }
+                else
+                {
+                    selectedItem -= itemButtons[i].Count;
+                }
+            }
+        }
 		selectedItem = -1;
 	}
 
@@ -497,6 +514,7 @@ public class GUIManager : MonoBehaviour{
 		bool doubleclick = false;
 		if(Time.time <= clickTime + DOUBLECLICK_TIME && lastClickedItem == index)
 		{
+            Debug.Log("powjdpawijdawijpdwa");
 			doubleclick = true;
 			clickTime = 0;
 		}
@@ -504,6 +522,48 @@ public class GUIManager : MonoBehaviour{
 		{
 			clickTime = Time.time;
 		}
+
+        if (selectedItem != index)
+        {
+            //deselect the previous selected item
+            deselectItem();
+        }
+
+        //selected the new item
+        int selectedButton = index;
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            if (selectedButton < itemButtons[i].Count)
+            {
+                itemButtons[i][selectedButton].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
+                if (doubleclick)
+                {
+                    Debug.Log("doubleclicked");
+                    switch (i)
+                    {
+                        case(TAB_CRAFTED):
+                            Debug.Log("crafted");
+                            GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), selectedButton);
+                            break;
+                        case(TAB_MATERIAL):
+                            break;
+                        case(TAB_CONSUMABLE):
+                            GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), selectedButton);
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+                break;
+            }
+            else
+            {
+                selectedButton -= itemButtons[i].Count;
+            }
+        }
+        
+#if false
 		if(selectedItemTab == TAB_CRAFTED)
 		{
 			if(selectedItem >= 0 && selectedItem < craftedItemButtons.Count)
@@ -530,7 +590,8 @@ public class GUIManager : MonoBehaviour{
 			consumableItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
 			if(doubleclick) GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), index);
 		}
-
+#endif
+        Debug.Log(index);
 		lastClickedItem = index;
 		selectedItem = index;
 	}
