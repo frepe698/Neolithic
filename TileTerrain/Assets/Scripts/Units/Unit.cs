@@ -123,14 +123,45 @@ public class Unit {
 		if(moving && command != null)
 		{
             float deltaMove = Time.deltaTime * getAdjustedMovespeed();
-			
-			if(Vector2.Distance(destination, get2DPos()) < deltaMove)
-			{
-				position = new Vector3(destination.x,position.y, destination.y);
-				if(path.getCheckPointCount() > 0) destination = path.popCheckPoint();
-				else moving = false;
-			}
-			else
+            float distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+
+            if (distanceToCheckPoint < deltaMove)
+            {
+
+                position = new Vector3(destination.x, position.y, destination.y);
+                deltaMove -= distanceToCheckPoint;
+                if (path.getCheckPointCount() > 0) destination = path.popCheckPoint();
+                else moving = false;
+            }
+            /*
+            int counter = 0;
+            while (distanceToCheckPoint < deltaMove && path.getCheckPointCount() > 0)
+            {
+                counter++;
+                position = new Vector3(destination.x, position.y, destination.y);
+                deltaMove -= distanceToCheckPoint;
+                destination = path.popCheckPoint();
+                if (path.getCheckPointCount() == 0) moving = false;
+                distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+            }
+            Debug.Log(counter);
+                
+            */
+            //position = new Vector3(destination.x,position.y, destination.y);
+            //if(path.getCheckPointCount() > 0) destination = path.popCheckPoint();
+            //else moving = false;
+
+
+            /*
+            while (distanceToCheckPoint < deltaMove && path.getCheckPointCount() > 0)
+                {
+                    position = new Vector3(destination.x, position.y, destination.y);
+                    deltaMove -= distanceToCheckPoint;
+                    destination = path.popCheckPoint();
+                    if (path.getCheckPointCount() == 0) moving = false;
+                    distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+                }*/
+            if (moving)
 			{
 				Vector2 dir = (destination-get2DPos()).normalized;
 				//Here is some new stuff for unit collision
