@@ -45,6 +45,11 @@ public class Path {
 		return checkPoints.Count;
 	}
 
+    public List<Vector2> getCheckPoints()
+    {
+        return checkPoints;
+    }
+
 	public Vector2 getPoint(int index)
 	{
 		return checkPoints[index];

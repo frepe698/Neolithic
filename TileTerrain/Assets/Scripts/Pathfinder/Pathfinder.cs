@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public class Pathfinder {
 
 	private static readonly int NOT_WORTH_IT = 1000;
+    private static readonly int RESOLUTION = 20; //number of spline-samples between every pair of checkpoints.
 
 	private static readonly Vector2i[] neighborCoordinates = new Vector2i[]
 	{
@@ -110,8 +111,40 @@ public class Pathfinder {
 			currentNode = currentNode.getParent();
 		}
 		path.addCheckPoint(currentNode.pos);
-		//return path;
-		return smoothPath(path, unitID);
+		
+
+        //If path only contains 2 or less points we dont have to spline.
+        path = smoothPath(path, unitID);
+        if (path.getCheckPointCount() <= 2)
+            return path;
+
+        //get arguments for splinefunction
+        List<Vector2> checkPoints = path.getCheckPoints();
+        int numberOfCheckpoints = path.getCheckPointCount();
+        float[] x = new float[numberOfCheckpoints];
+        float[] y = new float[numberOfCheckpoints];
+        float[] xs = new float[(numberOfCheckpoints - 1) * RESOLUTION];
+        float[] ys = new float[(numberOfCheckpoints - 1) * RESOLUTION];
+        int i = 0;
+        foreach(Vector2 checkPoint in checkPoints)
+        {
+            x[i] = checkPoint.x;
+            y[i] = checkPoint.y;
+            i++;
+        }
+
+        //get spline and sample it with (numberOfCheckpoints - 1) * RESOLUTION samples.
+        CubicSpline.FitGeometric(x, y, (numberOfCheckpoints - 1) * RESOLUTION, out xs, out ys);
+
+        //add sampled values as checkpoints.
+        path = new Path();
+        for (int j = (numberOfCheckpoints - 1) * RESOLUTION - 1; j >= 0; j--)
+        {
+            path.addCheckPoint(new Vector2(xs[j],ys[j]));
+        }
+
+        return path;
+        
 	}
 
 	private static Path smoothPath(Path path, int unitID)
