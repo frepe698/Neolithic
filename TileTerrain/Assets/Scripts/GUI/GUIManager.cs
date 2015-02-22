@@ -74,6 +74,7 @@ public class GUIManager : MonoBehaviour{
     private Text itemTooltipStats;
     private Text itemTooltipDescription;
     private string itemTooltipIndexName = "";
+    private bool itemTooltipIsRecipe = false;
    // public Vector3 tooltipOffset = Vector3.zero;
     
     //Player stats
@@ -233,26 +234,25 @@ public class GUIManager : MonoBehaviour{
                 int index;
                 if (int.TryParse(hgo.name.Remove(0, INVENTORY_BUTTON_NAME.Length), out index))
                 {
-#if false
                     string itemName = null;
-                    if (index < craftedItemButtons.Count)
+                    if (index < itemButtons[0].Count)
                     {
                         itemName = inventory.getCraftedItems()[index].getName();
                     }
-                    else if (index < materialItemButtons.Count + craftedItemButtons.Count)
+                    else if (index < itemButtons[1].Count + itemButtons[0].Count)
                     {
-                        itemName = inventory.getMaterialItems()[index - craftedItemButtons.Count].getName();
+                        itemName = inventory.getMaterialItems()[index - itemButtons[0].Count].getName();
                     }
-                    else if (index < consumableItemButtons.Count + materialItemButtons.Count + craftedItemButtons.Count)
+                    else if (index < itemButtons[0].Count + itemButtons[1].Count + itemButtons[2].Count)
                     {
-                        itemName = inventory.getConsumableItems()[index - materialItemButtons.Count - craftedItemButtons.Count].getName();
+                        itemName = inventory.getConsumableItems()[index - itemButtons[1].Count - itemButtons[0].Count].getName();
                     }
 
                     if (itemName != null && !itemName.Equals(itemTooltipIndexName))
                     {
                         activateItemTooltip(itemName);
                     }
-#endif
+
                 }
             }
             else if (hgo.name.StartsWith(CRAFTING_BUTTON_NAME))
@@ -279,6 +279,10 @@ public class GUIManager : MonoBehaviour{
     {
         recipeTooltipIndex = -1;
         recipeTooltip.SetActive(false);
+        if (itemTooltipIsRecipe)
+        {
+            inactivateItemTooltip();
+        }
     }
 
     private void activateRecipeTooltip(int index)
@@ -298,7 +302,16 @@ public class GUIManager : MonoBehaviour{
             }
             recipeTooltipIngredients.text = ing;
             recipeTooltipDescription.text = data.tooltip;
+
+            ItemData item = DataHolder.Instance.getItemData(data.product);
+            if (item != null)
+            {
+                activateItemTooltip(item.name);
+                itemTooltipIsRecipe = true;
+            }
         }
+
+
         
 
         
@@ -357,6 +370,7 @@ public class GUIManager : MonoBehaviour{
         itemTooltipName.text = data.gameName;
 
         itemTooltipStats.text = data.getTooltipStatsString();
+        itemTooltipIsRecipe = false;
         //itemTooltipDescription.text = data.tooltip;
 
     }
@@ -672,11 +686,13 @@ public class GUIManager : MonoBehaviour{
 	public void toggleInventory()
 	{
 		activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
 	}
 
 	public void toggleCrafting()
 	{
-		activateCrafting(!craftingActive);
+        activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
 	}
 
 	private void updateCrafting()
@@ -895,12 +911,12 @@ public class GUIManager : MonoBehaviour{
 	{
 		inventoryActive = active;
 		inventoryObject.SetActive(inventoryActive);
+        craftingObject.SetActive(inventoryActive);
 	}
 
 	public void activateCrafting(bool active)
 	{
-		craftingActive = active;
-		craftingObject.SetActive(craftingActive);
+        
 	}
 
 	public bool isMouseOverGUI()
