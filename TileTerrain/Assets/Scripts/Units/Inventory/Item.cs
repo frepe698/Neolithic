@@ -25,5 +25,10 @@ public abstract class Item {
 		return name;
 	}
 
+    public Sprite getIcon()
+    {
+        return DataHolder.Instance.getItemData(getName()).getIcon();
+    }
+
 
 }

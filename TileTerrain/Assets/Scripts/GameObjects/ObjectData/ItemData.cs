@@ -5,6 +5,8 @@ using System.Xml.Serialization;
 using Edit;
 public class ItemData : ObjectData {
 
+    private Sprite icon;
+
     public ItemData()
     { 
     }
@@ -22,5 +24,15 @@ public class ItemData : ObjectData {
     public virtual string getTooltipStatsString()
     {
         return "override this";
+    }
+
+    public void setIcon(Sprite sprite)
+    {
+        this.icon = sprite;
+    }
+
+    public Sprite getIcon()
+    {
+        return icon;
     }
 }

@@ -168,8 +168,43 @@ public class DataHolder {
 			instance.projectileDataHolder = serializer.Deserialize(reader) as ProjectileDataHolder;
 		}
 
+        instance.initItemIcons();
+
 	}
 
+    private void initItemIcons()
+    {
+        Sprite[] icons = Resources.LoadAll<Sprite>("GUI/itemicons");
+
+        foreach (MaterialData data in materialDataHolder.materialData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
+        foreach (MeleeWeaponData data in weaponDataHolder.meleeWeaponData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
+        foreach (RangedWeaponData data in weaponDataHolder.rangedWeaponData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
+        foreach (ConsumableItemData data in consumableItemDataHolder.consumableItemData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
+    }
+
+    private Sprite findSprite(Sprite[] sprites, string name)
+    {
+        foreach (Sprite s in sprites)
+        {
+            if (s.name.ToLower().Equals(name.ToLower()))
+            {
+                return s;
+            }
+        }
+        return null;
+    }
 
 
 	public ResourceData getResourceData(string name)
@@ -247,8 +282,38 @@ public class DataHolder {
 		}
 		return null;
 	}
-	
-	public ItemRecipeData getItemRecipeData(string name)
+
+    public RecipeData getRecipeData(string name)
+    {
+        foreach (ItemRecipeData data in recipeDataHolder.itemRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (MaterialRecipeData data in recipeDataHolder.materialRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public RecipeData getRecipeData(int index)
+    {
+        int recipeIndex = index;
+        if (recipeIndex < recipeDataHolder.itemRecipeData.Length)
+        {
+            return recipeDataHolder.itemRecipeData[recipeIndex];
+        }
+        recipeIndex -= recipeDataHolder.itemRecipeData.Length;
+
+        if (recipeIndex < recipeDataHolder.materialRecipeData.Length)
+        {
+            return recipeDataHolder.materialRecipeData[recipeIndex];
+        }
+
+        return null;
+    }
+
+    public ItemRecipeData getItemRecipeData(string name)
 	{
 		foreach(ItemRecipeData data in recipeDataHolder.itemRecipeData)
 		{
@@ -256,6 +321,8 @@ public class DataHolder {
 		}
 		return null;
 	}
+
+   
 
 	public ItemRecipeData[] getItemRecipeData()
 	{

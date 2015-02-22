@@ -23,4 +23,5 @@ public class CraftedItem : Item {
 	{
 		return getGameName();
 	}
+
 }
