@@ -6,28 +6,88 @@
       <ingredients>
         <Ingredient>
           <name>stick</name>
-          <amount>1</amount>
+          <amount>2</amount>
         </Ingredient>
         <Ingredient>
           <name>flint</name>
-          <amount>1</amount>
+          <amount>3</amount>
         </Ingredient>
       </ingredients>
       <description>Craft a flint axe</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftStoneAxe" gameName="Stone Axe" modelName="">
+      <product>stoneAxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a Stone Axe</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
+      <product>ironAxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a Iron Axe</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
       <product>flintPickaxe</product>
       <ingredients>
         <Ingredient>
           <name>stick</name>
-          <amount>1</amount>
+          <amount>2</amount>
         </Ingredient>
         <Ingredient>
           <name>flint</name>
-          <amount>2</amount>
+          <amount>4</amount>
         </Ingredient>
       </ingredients>
       <description>Craft a flint pickaxe</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
+      <product>stonePickaxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>4</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a stone pickaxe</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
+      <product>ironPickaxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>4</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>log</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a iron pickaxe</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
       <product>superAxe</product>
