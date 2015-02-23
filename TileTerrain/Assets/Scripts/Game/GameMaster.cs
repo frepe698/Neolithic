@@ -219,10 +219,10 @@ public class GameMaster : MonoBehaviour {
 
 		string[] heroNames = new string[]
 		{
-			"vrodl",
-			"caveman",
 			"halftroll",
-			"vrodl"
+			"halftroll",
+			"halftroll",
+			"halftroll"
 		};
 		//spawn heroes
 		for(int i = 0; i < 4; i++)
