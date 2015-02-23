@@ -287,13 +287,11 @@ public class GUIManager : MonoBehaviour{
 
     private void activateRecipeTooltip(int index)
     {
-        recipeTooltipIndex = index;
-        recipeTooltip.SetActive(true);
-
-
         RecipeData data = DataHolder.Instance.getRecipeData(index);
         if (data != null)
         {
+            recipeTooltipIndex = index;
+            recipeTooltip.SetActive(true);
             recipeTooltipName.text = data.gameName;
             string ing = "";
             foreach (Ingredient i in data.ingredients)
@@ -301,7 +299,7 @@ public class GUIManager : MonoBehaviour{
                 ing += i.name + " x" + i.amount + "\n";
             }
             recipeTooltipIngredients.text = ing;
-            recipeTooltipDescription.text = data.tooltip;
+            recipeTooltipDescription.text = data.description;
 
             ItemData item = DataHolder.Instance.getItemData(data.product);
             if (item != null)
@@ -363,15 +361,19 @@ public class GUIManager : MonoBehaviour{
 
     private void activateItemTooltip(string name)
     {
-        itemTooltipIndexName = name;
-        itemTooltip.SetActive(true);
-        Debug.Log(name);
+        
         ItemData data = DataHolder.Instance.getItemData(name);
-        itemTooltipName.text = data.gameName;
+        if (data != null)
+        {
+            itemTooltipIndexName = name;
+            itemTooltip.SetActive(true);
+            itemTooltipName.text = data.gameName;
 
-        itemTooltipStats.text = data.getTooltipStatsString();
-        itemTooltipIsRecipe = false;
-        //itemTooltipDescription.text = data.tooltip;
+            itemTooltipStats.text = data.getTooltipStatsString();
+            itemTooltipDescription.text = data.description;
+            itemTooltipIsRecipe = false;
+        }
+        
 
     }
 
@@ -703,9 +705,9 @@ public class GUIManager : MonoBehaviour{
         {
             recipes[i] = new List<RecipeData>();
         }
-        recipes[TAB_CRAFTED].AddRange(DataHolder.Instance.getItemRecipeData().Cast<RecipeData>());
+        recipes[TAB_CRAFTED].AddRange(DataHolder.Instance.getEquipmentRecipeData().Cast<RecipeData>());
         recipes[TAB_MATERIAL].AddRange(DataHolder.Instance.getMaterialRecipeData().Cast<RecipeData>());
-        //recipes[TAB_CONSUMABLE].AddRange(inventory.getConsumablerecipes().Cast<RecipeData>());
+        recipes[TAB_CONSUMABLE].AddRange(DataHolder.Instance.getConsumableRecipeData().Cast<RecipeData>());
 
         GameObject prefab = (GameObject)Resources.Load("GUI/CraftingButton");
 

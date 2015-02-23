@@ -6,6 +6,8 @@ using Edit;
 public class ItemData : ObjectData {
 
     private Sprite icon;
+    [XmlElement(IsNullable = false)]
+    public readonly string description;
 
     public ItemData()
     { 
@@ -13,7 +15,8 @@ public class ItemData : ObjectData {
 
     public ItemData(ItemEdit edit)
         : base(edit)
-    { 
+    {
+        if(edit.description != null && !edit.description.Trim().Equals("")) description = edit.description;
     }
 
 	public virtual LootableObject getLootableObject(Vector3 position, Quaternion rotation)

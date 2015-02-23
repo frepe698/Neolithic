@@ -4,14 +4,13 @@ using System.Xml;
 using System.Xml.Serialization;
 using Edit;
 
-public class MaterialRecipeData : RecipeData
-{
+public class ConsumableRecipeData : RecipeData {
 
-    public MaterialRecipeData()
-    {
+    public ConsumableRecipeData()
+    { 
     }
 
-    public MaterialRecipeData(MaterialRecipeEdit edit)
+    public ConsumableRecipeData(ConsumableRecipeEdit edit)
         : base(edit)
     {
 
@@ -19,6 +18,6 @@ public class MaterialRecipeData : RecipeData
 
     public override Item getCraftedItem()
     {
-        return new MaterialItem(product);
+        return new ConsumableItem(product);
     }
 }

@@ -42,25 +42,43 @@ public class DataHolder {
 	[XmlRoot("ConsumableItemsRoot")]
 	public class ConsumableItemDataHolder
 	{
-		[XmlArray("ConsumableItems"), XmlArrayItem("ConsumableItemData")]
-		public readonly ConsumableItemData[] consumableItemData;
+		
 	}
 
-	[XmlRoot("MaterialsRoot")]
-	public class MaterialDataHolder
+	[XmlRoot("ItemRoot")]
+	public class ItemDataHolder
 	{
+        public ItemDataHolder() { }
+        public ItemDataHolder(MaterialData[] materialData, ConsumableItemData[] consumableItemData) 
+        {
+            this.materialData = materialData;
+            this.consumableItemData = consumableItemData;
+        }
 		[XmlArray("Materials"), XmlArrayItem("MaterialData")]
 		public readonly MaterialData[] materialData;
+
+        [XmlArray("ConsumableItems"), XmlArrayItem("ConsumableItemData")]
+        public readonly ConsumableItemData[] consumableItemData;
 	}
 
 	[XmlRoot("RecipesRoot")]
 	public class RecipeDataHolder
 	{
-		[XmlArray("ItemRecipes"), XmlArrayItem("ItemRecipeData")]
-		public readonly ItemRecipeData[] itemRecipeData;
+        public RecipeDataHolder() { }
+        public RecipeDataHolder(EquipmentRecipeData[] equipment, MaterialRecipeData[] material, ConsumableRecipeData[] consumable)
+        {
+            this.equipmentRecipeData = equipment;
+            this.materialRecipeData = material;
+            this.consumableRecipeData = consumable;
+        }
+		[XmlArray("EquipmentRecipes"), XmlArrayItem("EquipmentRecipeData")]
+		public readonly EquipmentRecipeData[] equipmentRecipeData;
 		
 		[XmlArray("MaterialRecipes"), XmlArrayItem("MaterialRecipeData")]
 		public readonly MaterialRecipeData[] materialRecipeData;
+
+        [XmlArray("ConsumableRecipes"), XmlArrayItem("ConsumableRecipeData")]
+        public readonly ConsumableRecipeData[] consumableRecipeData;
 	}
 
 	[XmlRoot("ResourcesRoot")]
@@ -88,7 +106,7 @@ public class DataHolder {
 
 	private ConsumableItemDataHolder consumableItemDataHolder;
 
-	private MaterialDataHolder materialDataHolder;
+	private ItemDataHolder itemDataHolder;
 
 	private RecipeDataHolder recipeDataHolder;
 
@@ -140,11 +158,11 @@ public class DataHolder {
 			instance.consumableItemDataHolder = serializer.Deserialize(reader) as ConsumableItemDataHolder;
 		}
 
-		data = (TextAsset)Resources.Load ("Data/materialdata");
-		serializer = new XmlSerializer(typeof(MaterialDataHolder));
+		data = (TextAsset)Resources.Load ("Data/itemdata");
+		serializer = new XmlSerializer(typeof(ItemDataHolder));
 		using(StringReader reader = new System.IO.StringReader(data.text))
 		{
-			instance.materialDataHolder = serializer.Deserialize(reader) as MaterialDataHolder;
+			instance.itemDataHolder = serializer.Deserialize(reader) as ItemDataHolder;
 		}
 
 		data = (TextAsset)Resources.Load ("Data/recipedata");
@@ -176,7 +194,7 @@ public class DataHolder {
     {
         Sprite[] icons = Resources.LoadAll<Sprite>("GUI/itemicons");
 
-        foreach (MaterialData data in materialDataHolder.materialData)
+        foreach (MaterialData data in itemDataHolder.materialData)
         {
             data.setIcon(findSprite(icons, data.modelName));
         }
@@ -188,7 +206,7 @@ public class DataHolder {
         {
             data.setIcon(findSprite(icons, data.modelName));
         }
-        foreach (ConsumableItemData data in consumableItemDataHolder.consumableItemData)
+        foreach (ConsumableItemData data in itemDataHolder.consumableItemData)
         {
             data.setIcon(findSprite(icons, data.modelName));
         }
@@ -218,7 +236,7 @@ public class DataHolder {
 
 	public ItemData getItemData(string name)
 	{
-		foreach(MaterialData data in materialDataHolder.materialData)
+		foreach(MaterialData data in itemDataHolder.materialData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
@@ -230,7 +248,7 @@ public class DataHolder {
 		{
 			if(data.name.Equals(name)) return data;
 		}
-		foreach(ConsumableItemData data in consumableItemDataHolder.consumableItemData)
+		foreach(ConsumableItemData data in itemDataHolder.consumableItemData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
@@ -267,7 +285,7 @@ public class DataHolder {
 
 	public ConsumableItemData getConsumableItemData(string name)
 	{
-		foreach(ConsumableItemData data in consumableItemDataHolder.consumableItemData)
+		foreach(ConsumableItemData data in itemDataHolder.consumableItemData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
@@ -276,7 +294,7 @@ public class DataHolder {
 
 	public MaterialData getMaterialData(string name)
 	{
-		foreach(MaterialData data in materialDataHolder.materialData)
+		foreach(MaterialData data in itemDataHolder.materialData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
@@ -285,11 +303,15 @@ public class DataHolder {
 
     public RecipeData getRecipeData(string name)
     {
-        foreach (ItemRecipeData data in recipeDataHolder.itemRecipeData)
+        foreach (EquipmentRecipeData data in recipeDataHolder.equipmentRecipeData)
         {
             if (data.name.Equals(name)) return data;
         }
         foreach (MaterialRecipeData data in recipeDataHolder.materialRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (ConsumableRecipeData data in recipeDataHolder.consumableRecipeData)
         {
             if (data.name.Equals(name)) return data;
         }
@@ -299,34 +321,38 @@ public class DataHolder {
     public RecipeData getRecipeData(int index)
     {
         int recipeIndex = index;
-        if (recipeIndex < recipeDataHolder.itemRecipeData.Length)
+        if (recipeIndex < recipeDataHolder.equipmentRecipeData.Length)
         {
-            return recipeDataHolder.itemRecipeData[recipeIndex];
+            return recipeDataHolder.equipmentRecipeData[recipeIndex];
         }
-        recipeIndex -= recipeDataHolder.itemRecipeData.Length;
+        recipeIndex -= recipeDataHolder.equipmentRecipeData.Length;
 
         if (recipeIndex < recipeDataHolder.materialRecipeData.Length)
         {
             return recipeDataHolder.materialRecipeData[recipeIndex];
         }
+        recipeIndex -= recipeDataHolder.materialRecipeData.Length;
+
+        if (recipeIndex < recipeDataHolder.consumableRecipeData.Length)
+        {
+            return recipeDataHolder.consumableRecipeData[recipeIndex];
+        }
 
         return null;
     }
 
-    public ItemRecipeData getItemRecipeData(string name)
+    public EquipmentRecipeData getEquipmentRecipeData(string name)
 	{
-		foreach(ItemRecipeData data in recipeDataHolder.itemRecipeData)
+		foreach(EquipmentRecipeData data in recipeDataHolder.equipmentRecipeData)
 		{
 			if(data.name.Equals(name)) return data;
 		}
 		return null;
 	}
 
-   
-
-	public ItemRecipeData[] getItemRecipeData()
+	public EquipmentRecipeData[] getEquipmentRecipeData()
 	{
-		return recipeDataHolder.itemRecipeData;
+		return recipeDataHolder.equipmentRecipeData;
 	}
 
 	
@@ -343,6 +369,20 @@ public class DataHolder {
 	{
 		return recipeDataHolder.materialRecipeData;
 	}
+
+    public ConsumableRecipeData getConsumableRecipeData(string name)
+    {
+        foreach (ConsumableRecipeData data in recipeDataHolder.consumableRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public ConsumableRecipeData[] getConsumableRecipeData()
+    {
+        return recipeDataHolder.consumableRecipeData;
+    }
 	
 	
 	public ProjectileData getProjectileData(string name)

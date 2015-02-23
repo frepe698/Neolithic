@@ -26,11 +26,19 @@ public class UnitEditor : ObjectEditor {
         UnitEditor window = (UnitEditor)EditorWindow.GetWindow(typeof(UnitEditor));
     }
 
-    protected override void loadFile()
+    protected override string getStandardFilePath()
     {
-        filePath = null;
-        filePath = EditorUtility.OpenFilePanel("Open unit data", Application.dataPath + "/Resources/Data", "xml");
-        if (filePath != null)
+        return Application.dataPath + "/Resources/Data/unitdata.xml";
+    }
+
+    protected override void loadFile(string filePath)
+    {
+        if (filePath == null)
+        {
+            filePath = EditorUtility.OpenFilePanel("Open unit data", Application.dataPath + "/Resources/Data", "xml");
+        }
+
+        if (filePath != null && !filePath.Equals(""))
         {
             DataHolder.UnitDataHolder unitDataHolder;
 
@@ -49,13 +57,15 @@ public class UnitEditor : ObjectEditor {
             {
                 aiUnits.Add(new AIUnitEdit(rdata));
             }
+
+            this.filePath = filePath;
         }
         
     }
 
     protected override void saveFile()
     {
-        if (filePath == null)
+        if (filePath == null && !filePath.Equals(""))
         {
             saveAsFile();
             return;
@@ -161,7 +171,7 @@ public class UnitEditor : ObjectEditor {
         int i = 0;
         foreach (HeroEdit edit in heroes)
         {
-            result[i] = edit.gameName;
+            result[i] = edit.name;
             i++;
         }
         return result;
@@ -173,7 +183,7 @@ public class UnitEditor : ObjectEditor {
         int i = 0;
         foreach (AIUnitEdit edit in aiUnits)
         {
-            result[i] = edit.gameName;
+            result[i] = edit.name;
             i++;
         }
         return result;

@@ -427,7 +427,7 @@ public abstract class GameController : MonoBehaviour{
 	protected void approveItemCraft(int unitID, string name)
 	{
 		Inventory inv = GameMaster.getHero(unitID).getInventory();
-		inv.craftItem(DataHolder.Instance.getItemRecipeData(name));
+		inv.craftItem(DataHolder.Instance.getRecipeData(name));
 	}
 
 	[RPC]
@@ -451,17 +451,6 @@ public abstract class GameController : MonoBehaviour{
 
 		hero.changeHunger(item.getHungerChange());
 		hero.getInventory().consumeItem(itemIndex);
-	}
-
-
-	[RPC]
-	public abstract void requestMaterialCraft(int unitID, string name);
-	
-	[RPC]
-	protected void approveMaterialCraft(int unitID, string name)
-	{
-		Inventory inv = GameMaster.getHero(unitID).getInventory();
-		inv.craftMaterial(DataHolder.Instance.getMaterialRecipeData(name));
 	}
 
 	protected abstract IEnumerator lagMove(int unitID, float x, float y, float lag);

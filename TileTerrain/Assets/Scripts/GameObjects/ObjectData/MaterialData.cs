@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Edit;
 
 public class MaterialData : ItemData{
 
-	public readonly string tooltip;
+    public MaterialData()
+    { 
+    }
+
+    public MaterialData(MaterialEdit edit)
+        : base(edit)
+    {
+
+    }
 
     public override string getTooltipStatsString()
     {
-        return tooltip;
+        return description;
     }
 }

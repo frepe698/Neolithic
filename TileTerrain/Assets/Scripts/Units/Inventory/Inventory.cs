@@ -56,7 +56,7 @@ public class Inventory {
 		hasBeenChanged = true;
 	}
 
-	public void craftItem(ItemRecipeData recipe)
+	public void craftItem(RecipeData recipe)
 	{
 		foreach(Ingredient i in recipe.ingredients)
 		{
@@ -66,7 +66,7 @@ public class Inventory {
 				materialItems.Remove(mi);
 			}
 		}
-		addItem(new CraftedItem(recipe.product));
+		addItem(recipe.getCraftedItem());
 	}
 
 	public void craftMaterial(MaterialRecipeData recipe)

@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
+using Edit;
 
-public class RecipeData : ObjectData
+public abstract class RecipeData : ObjectData
 {
 
     public readonly string product;
@@ -11,5 +12,18 @@ public class RecipeData : ObjectData
     [XmlArray("ingredients"), XmlArrayItem("Ingredient")]
     public readonly Ingredient[] ingredients;
 
-    public readonly string tooltip;
+    public readonly string description;
+
+    public RecipeData()
+    { 
+    }
+
+    public RecipeData(RecipeEdit edit)
+        : base(edit)
+    {
+        product = edit.product;
+        ingredients = edit.getIngredients();
+    }
+
+    public abstract Item getCraftedItem();
 }

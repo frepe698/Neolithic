@@ -148,18 +148,9 @@ public class ServerController : GameController {
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{
-		if(GameMaster.getHero(unitID).getInventory().hasIngredients(DataHolder.Instance.getItemRecipeData(name).ingredients))
+		if(GameMaster.getHero(unitID).getInventory().hasIngredients(DataHolder.Instance.getRecipeData(name).ingredients))
 		{
 			gameMaster.getNetView().RPC ("approveItemCraft", RPCMode.All, unitID, name);
-		}
-	}
-
-	[RPC]
-	public override void requestMaterialCraft(int unitID, string name)
-	{
-		if(GameMaster.getHero(unitID).getInventory().hasIngredients(DataHolder.Instance.getMaterialRecipeData(name).ingredients))
-		{
-			gameMaster.getNetView().RPC ("approveMaterialCraft", RPCMode.All, unitID, name);
 		}
 	}
 

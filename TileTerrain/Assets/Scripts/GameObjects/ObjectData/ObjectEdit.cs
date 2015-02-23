@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 namespace Edit
@@ -168,17 +169,64 @@ namespace Edit
     [Serializable]
     public abstract class ItemEdit : ObjectEdit
     {
+        public string description;
         public ItemEdit()
         { 
         }
         public ItemEdit(ItemData data)
             : base(data)
-        { 
+        {
+            description = data.description;
         }
 
         public ItemEdit(ItemEdit data)
             : base(data)
         {
+            description = data.description;
+        }
+    }
+
+    [Serializable]
+    public class MaterialEdit : ItemEdit
+    {
+        public MaterialEdit()
+        {
+            name = "new material";
+            gameName = "new material";
+        }
+
+        public MaterialEdit(MaterialData data)
+            : base(data)
+        {
+        }
+
+        public MaterialEdit(MaterialEdit data)
+            : base(data)
+        {
+        }
+    }
+
+    [Serializable]
+    public class ConsumableEdit : ItemEdit
+    {
+        public int hungerChange;
+
+        public ConsumableEdit()
+        {
+            name = "new consumable";
+            gameName = "new consumable";
+        }
+
+        public ConsumableEdit(ConsumableItemData data)
+            : base(data)
+        {
+            hungerChange = data.hungerChange;
+        }
+
+        public ConsumableEdit(ConsumableEdit data)
+            : base(data)
+        {
+            hungerChange = data.hungerChange;
         }
     }
 
@@ -391,7 +439,131 @@ namespace Edit
         }
     }
 
-    
+    [Serializable]
+    public class RecipeEdit : ObjectEdit
+    {
+        public string product;
+        public List<IngredientEdit> ingredients;
+        public string description;
+
+        public RecipeEdit()
+        {
+            name = "new recipe";
+            gameName = "new recipe";
+
+            ingredients = new List<IngredientEdit>();
+        }
+
+        public RecipeEdit(RecipeData data)
+            : base(data)
+        {
+            product = data.product;
+            ingredients = new List<IngredientEdit>();
+            foreach(Ingredient i in data.ingredients)
+            {
+                ingredients.Add(new IngredientEdit(i));
+            }
+
+            description = data.description;
+        }
+
+        public RecipeEdit(RecipeEdit data)
+            : base(data)
+        {
+            product = data.product;
+            ingredients = new List<IngredientEdit>();
+            foreach(IngredientEdit i in data.ingredients)
+            {
+                ingredients.Add(new IngredientEdit(i));
+            }
+            description = data.description;
+        }
+
+        public Ingredient[] getIngredients()
+        {
+            Ingredient[] result = new Ingredient[ingredients.Count];
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                result[i] = new Ingredient(ingredients[i]);
+            }
+
+            return result;
+        }
+    }
+
+    [Serializable]
+    public class EquipmentRecipeEdit : RecipeEdit
+    {
+        public EquipmentRecipeEdit()
+        { 
+        }
+        public EquipmentRecipeEdit(EquipmentRecipeData data)
+            : base(data)
+        {
+        }
+
+        public EquipmentRecipeEdit(EquipmentRecipeEdit data)
+            : base(data)
+        {
+        }
+    }
+
+    [Serializable]
+    public class MaterialRecipeEdit : RecipeEdit
+    {
+        public MaterialRecipeEdit()
+        {
+        }
+        public MaterialRecipeEdit(MaterialRecipeData data)
+            : base(data)
+        {
+        }
+
+        public MaterialRecipeEdit(MaterialRecipeEdit data)
+            : base(data)
+        {
+        }
+    }
+
+    [Serializable]
+    public class ConsumableRecipeEdit : RecipeEdit
+    {
+        public ConsumableRecipeEdit()
+        {
+        }
+        public ConsumableRecipeEdit(ConsumableRecipeData data)
+            : base(data)
+        {
+        }
+
+        public ConsumableRecipeEdit(ConsumableRecipeEdit data)
+            : base(data)
+        {
+        }
+    }
+
+    [Serializable]
+    public class IngredientEdit
+    {
+        public string name;
+        public int amount;
+
+        public IngredientEdit()
+        { 
+        }
+
+        public IngredientEdit(Ingredient data)
+        {
+            this.name = data.name;
+            this.amount = data.amount;
+        }
+
+        public IngredientEdit(IngredientEdit data)
+        {
+            this.name = data.name;
+            this.amount = data.amount;
+        }
+    }
 
 
 }

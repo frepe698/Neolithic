@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ItemRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Materials>
+    <MaterialData name="log" gameName="Log" modelName="log">
+      <description>Used for building wood stuff</description>
+    </MaterialData>
+    <MaterialData name="stick" gameName="Stick" modelName="stick">
+      <description>Used for crafting items</description>
+    </MaterialData>
+    <MaterialData name="stone" gameName="Stone" modelName="stone">
+      <description>Used for crafting items and building stone stuff</description>
+    </MaterialData>
+    <MaterialData name="iron" gameName="Iron" modelName="iron">
+      <description>Used for crafting advanced items</description>
+    </MaterialData>
+    <MaterialData name="gold" gameName="Gold" modelName="gold">
+      <description>Can be sacrificed to the gods</description>
+    </MaterialData>
+    <MaterialData name="cep" gameName="Cep" modelName="cep">
+      <description>An edible shroom</description>
+    </MaterialData>
+    <MaterialData name="deathcap" gameName="Deathcap" modelName="deathcap">
+      <description>AKA the berzerker shroom</description>
+    </MaterialData>
+    <MaterialData name="puffball" gameName="Puffball" modelName="puffball">
+      <description>Can make smoke</description>
+    </MaterialData>
+  </Materials>
+  <ConsumableItems>
+    <ConsumableItemData name="meat" gameName="Meat" modelName="meat">
+      <description>Can be eaten</description>
+      <hungerChange>40</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="trolldryck" gameName="Trolldryck" modelName="gold">
+      <description>A magical potion</description>
+      <hungerChange>-100</hungerChange>
+    </ConsumableItemData>
+  </ConsumableItems>
+</ItemRoot>
