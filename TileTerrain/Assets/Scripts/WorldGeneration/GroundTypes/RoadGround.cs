@@ -5,7 +5,7 @@ public class RoadGround : GroundType {
 
 	private static readonly string[] startingLootTypes = new string[]
 	{
-		"stone",
+		"flint",
 		"stick",
 		"flintAxe",
 		"flintPickaxe"

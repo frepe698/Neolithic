@@ -603,7 +603,6 @@ public class GUIManager : MonoBehaviour{
 		bool doubleclick = false;
 		if(Time.time <= clickTime + DOUBLECLICK_TIME && lastClickedItem == index)
 		{
-            Debug.Log("powjdpawijdawijpdwa");
 			doubleclick = true;
 			clickTime = 0;
 		}
@@ -627,11 +626,9 @@ public class GUIManager : MonoBehaviour{
                 itemButtons[i][selectedButton].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
                 if (doubleclick)
                 {
-                    Debug.Log("doubleclicked");
                     switch (i)
                     {
                         case(TAB_CRAFTED):
-                            Debug.Log("crafted");
                             GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), selectedButton);
                             break;
                         case(TAB_MATERIAL):
@@ -651,36 +648,7 @@ public class GUIManager : MonoBehaviour{
                 selectedButton -= itemButtons[i].Count;
             }
         }
-        
-#if false
-		if(selectedItemTab == TAB_CRAFTED)
-		{
-			if(selectedItem >= 0 && selectedItem < craftedItemButtons.Count)
-			{
-				craftedItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			craftedItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-			if(doubleclick) GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), index);
-		}
-		else if(selectedItemTab == TAB_MATERIAL)
-		{
-			if(selectedItem >= 0 && selectedItem < materialItemButtons.Count)
-			{
-				materialItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			materialItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-		}
-		else if(selectedItemTab == TAB_CONSUMABLE)
-		{
-			if(selectedItem >= 0 && selectedItem < consumableItemButtons.Count)
-			{
-				consumableItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			consumableItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-			if(doubleclick) GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), index);
-		}
-#endif
-        Debug.Log(index);
+       
 		lastClickedItem = index;
 		selectedItem = index;
 	}

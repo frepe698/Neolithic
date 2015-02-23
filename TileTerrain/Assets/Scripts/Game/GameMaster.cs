@@ -393,7 +393,6 @@ public class GameMaster : MonoBehaviour {
             for (int i = 0; i < safedrops.Length; i++)
             {
                 string itemName = safedrops[i];
-                Debug.Log(itemName);
                 ItemData itemData = DataHolder.Instance.getItemData(itemName);
                 if (itemData != null)
                 {

@@ -25,6 +25,9 @@
     <MaterialData name="puffball" gameName="Puffball" modelName="puffball">
       <description>Can make smoke</description>
     </MaterialData>
+    <MaterialData name="flint" gameName="Flint" modelName="flint">
+      <description>Sharp stone</description>
+    </MaterialData>
   </Materials>
   <ConsumableItems>
     <ConsumableItemData name="meat" gameName="Meat" modelName="meat">

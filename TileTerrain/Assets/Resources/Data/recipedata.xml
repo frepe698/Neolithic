@@ -9,10 +9,11 @@
           <amount>1</amount>
         </Ingredient>
         <Ingredient>
-          <name>stone</name>
+          <name>flint</name>
           <amount>1</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a flint axe</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
       <product>flintPickaxe</product>
@@ -22,10 +23,11 @@
           <amount>1</amount>
         </Ingredient>
         <Ingredient>
-          <name>stone</name>
+          <name>flint</name>
           <amount>2</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a flint pickaxe</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
       <product>superAxe</product>
@@ -39,6 +41,7 @@
           <amount>2</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a super axe</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
       <product>torch</product>
@@ -52,6 +55,7 @@
           <amount>1</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a torch</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
       <product>shortbow</product>
@@ -61,6 +65,7 @@
           <amount>2</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a short bow</description>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftQuillrain" gameName="Quill Rain" modelName="">
       <product>quillrain</product>
@@ -74,6 +79,41 @@
           <amount>1</amount>
         </Ingredient>
       </ingredients>
+      <description>Craft a quill rain</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftSharpenedstick" gameName="Sharpened Stick" modelName="">
+      <product>sharpenedstick</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Sharpen a stick</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftWoodenclub" gameName="Wooden Club" modelName="">
+      <product>woodenclub</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Take a log and make a club</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod">
+      <product>fishingrod</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a fishing rod</description>
     </EquipmentRecipeData>
   </EquipmentRecipes>
   <MaterialRecipes>
@@ -85,6 +125,7 @@
           <amount>2</amount>
         </Ingredient>
       </ingredients>
+      <description>Make gold from stone</description>
     </MaterialRecipeData>
   </MaterialRecipes>
   <ConsumableRecipes>
@@ -100,6 +141,7 @@
           <amount>1</amount>
         </Ingredient>
       </ingredients>
+      <description>A magical potion</description>
     </ConsumableRecipeData>
   </ConsumableRecipes>
 </RecipesRoot>

@@ -95,7 +95,8 @@ public class World : MonoBehaviour {
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stone"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/stone"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/flint"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/gold"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/iron"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/deathcap"), 50, true);

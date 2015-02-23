@@ -23,6 +23,7 @@ public abstract class RecipeData : ObjectData
     {
         product = edit.product;
         ingredients = edit.getIngredients();
+        description = edit.description;
     }
 
     public abstract Item getCraftedItem();

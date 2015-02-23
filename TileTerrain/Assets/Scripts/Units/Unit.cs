@@ -171,6 +171,8 @@ public class Unit {
 				float distanceToCenter = Mathf.Abs( (newTile.y - newPos.z)*(newTile.y - newPos.z) + (newTile.x - newPos.x)*(newTile.x - newPos.x));
 				if(newTile != tile)
 				{
+
+                    //ERROR: This checks tiles outside of the tilemap
 					if(!World.tileMap.getTile(newTile).isWalkable(id) && distanceToCenter < 0.3f)
 					{
 						Vector2 start = new Vector2(getTile().x + 0.5f, getTile().y + 0.5f);

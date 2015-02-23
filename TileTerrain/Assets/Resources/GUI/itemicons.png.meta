@@ -18,6 +18,8 @@ TextureImporter:
     21300026: log
     21300028: flintpickaxe
     21300030: quillrain
+    21300032: flint
+    21300034: meat
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -186,6 +188,26 @@ TextureImporter:
         y: 900
         width: 54
         height: 54
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: flint
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 967
+        width: 58
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: meat
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 967
+        width: 56
+        height: 49
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

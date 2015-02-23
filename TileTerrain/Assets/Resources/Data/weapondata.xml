@@ -116,6 +116,75 @@
         <string>attackTorch01</string>
       </attackSounds>
     </MeleeWeaponData>
+    <MeleeWeaponData name="sharpenedstick" gameName="Sharpened Stick" modelName="sharpenedstick">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.5</attackSpeed>
+      <damage>
+        <int>20</int>
+        <int>5</int>
+        <int>1</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="woodenclub" gameName="Wooden Club" modelName="woodenclub">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.1</attackSpeed>
+      <damage>
+        <int>30</int>
+        <int>10</int>
+        <int>2</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="fishingrod" gameName="Fishing Rod" modelName="fishingrod">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>2</attackSpeed>
+      <damage>
+        <int>5</int>
+        <int>1</int>
+        <int>1</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
   </MeleeWeapons>
   <RangedWeapons>
     <RangedWeaponData name="shortbow" gameName="Short Bow" modelName="shortbow">
