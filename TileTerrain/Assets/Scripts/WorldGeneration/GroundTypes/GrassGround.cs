@@ -14,7 +14,9 @@ public class GrassGround : GroundType {
 	{
 		"stone",
 		"stick",
-		"stick",
+        "nettle",
+        "nettle",
+        "nettle",
 	};
 	
 	private static readonly string[] grass = new string[]

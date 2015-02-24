@@ -28,6 +28,12 @@
     <MaterialData name="flint" gameName="Flint" modelName="flint">
       <description>Sharp stone</description>
     </MaterialData>
+    <MaterialData name="nettle" gameName="Nettle" modelName="nettle">
+      <description>A sticky plant</description>
+    </MaterialData>
+    <MaterialData name="rope" gameName="Rope" modelName="rope">
+      <description>Can be used in many ways</description>
+    </MaterialData>
   </Materials>
   <ConsumableItems>
     <ConsumableItemData name="meat" gameName="Meat" modelName="meat">
