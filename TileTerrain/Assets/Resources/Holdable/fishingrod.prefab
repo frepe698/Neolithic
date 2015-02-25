@@ -133,7 +133,7 @@ InteractiveCloth:
   m_AttachedColliders:
   - m_Collider: {fileID: 6500000}
     m_TwoWayInteraction: 1
-    m_Tearable: 1
+    m_Tearable: 0
 --- !u!161 &16100000
 ClothRenderer:
   m_ObjectHideFlags: 1
