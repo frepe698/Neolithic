@@ -20,6 +20,13 @@ TextureImporter:
     21300030: quillrain
     21300032: flint
     21300034: meat
+    21300036: fishingrod
+    21300038: sharpenedstick
+    21300040: stoneaxe
+    21300042: woodenclub
+    21300044: ironaxe
+    21300046: stonepickaxe
+    21300048: nettle
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -208,6 +215,76 @@ TextureImporter:
         y: 967
         width: 56
         height: 49
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fishingrod
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 900
+        width: 57
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sharpenedstick
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 898
+        width: 57
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: stoneaxe
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 897
+        width: 58
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: woodenclub
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 896
+        width: 53
+        height: 62
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ironaxe
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 895
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: stonepickaxe
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 897
+        width: 58
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: nettle
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 961
+        width: 56
+        height: 61
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

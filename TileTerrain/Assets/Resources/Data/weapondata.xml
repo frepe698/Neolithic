@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <WeaponsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MeleeWeapons>
-    <MeleeWeaponData name="stoneAxe" gameName="Stone Axe" modelName="flintAxe">
+    <MeleeWeaponData name="stoneAxe" gameName="Stone Axe" modelName="stoneaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_axe</idleAnim>
@@ -47,7 +47,7 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
-    <MeleeWeaponData name="ironAxe" gameName="Iron Axe" modelName="flintAxe">
+    <MeleeWeaponData name="ironAxe" gameName="Iron Axe" modelName="ironaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_axe</idleAnim>
@@ -93,7 +93,7 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
-    <MeleeWeaponData name="stonePickaxe" gameName="Stone Pickaxe" modelName="flintpickaxe">
+    <MeleeWeaponData name="stonePickaxe" gameName="Stone Pickaxe" modelName="stonepickaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_axe</idleAnim>

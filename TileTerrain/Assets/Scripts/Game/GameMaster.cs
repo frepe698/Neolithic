@@ -219,10 +219,10 @@ public class GameMaster : MonoBehaviour {
 
 		string[] heroNames = new string[]
 		{
-			"vrodl",
-			"caveman",
 			"halftroll",
-			"vrodl"
+			"halftroll",
+			"halftroll",
+			"halftroll"
 		};
 		//spawn heroes
 		for(int i = 0; i < 4; i++)
@@ -303,6 +303,7 @@ public class GameMaster : MonoBehaviour {
 
 	public static void removeUnit(Unit unit)
 	{
+        //Fix: if a unit is "afk" and you shoot it with an arrow, this function checks a tile outside of the map
 		World.getMap().getTile(unit.getTile()).removeUnit (unit);
 		unit.setAwake(false);
 		unit.inactivate();
