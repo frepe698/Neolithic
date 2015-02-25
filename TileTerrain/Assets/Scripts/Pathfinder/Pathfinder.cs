@@ -19,7 +19,12 @@ public class Pathfinder {
 		new Vector2i(-1, 0),
 		new Vector2i(0, -1),
 		new Vector2i(1, 0),
-		new Vector2i(0, 1)
+		new Vector2i(0, 1),
+
+        new Vector2i(1,1),
+        new Vector2i(1,-1),
+        new Vector2i(-1,-1),
+        new Vector2i(-1,1),
 	};
 
 	public static Path findPath(TileMap map, Vector2 start, Vector2 end, int unitID)
@@ -50,7 +55,7 @@ public class Pathfinder {
 			PathNode current = openSet[0];
 			if(current.tile == endTile){
 				current.pos = end;
-				return createPath(current, unitID);
+				return createPath(map, current, unitID);
 			}
 			if(current.hCost < closestNode.hCost) closestNode = current;
 			worthCounter++;
@@ -63,15 +68,22 @@ public class Pathfinder {
 			closedSet.Add(current);
 
 			// Add neighbors
-			for(int i = 0; i < 4; i++)
+			for(int i = 0; i < 8; i++)
 			{
 				int x = current.tile.x + neighborCoordinates[i].x;
 				int y = current.tile.y + neighborCoordinates[i].y;
-				if((map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID)))
+                bool canDiagonal = true;
+                if(i > 3) //Diagonal tiles
+                {
+                    Vector2i checkTileX = new Vector2i(current.tile.x + neighborCoordinates[i].x, current.tile.y);
+                    Vector2i checkTileY = new Vector2i(current.tile.x , current.tile.y + neighborCoordinates[i].y);
+                    if (!map.getTile(checkTileY).isWalkable(unitID) && !map.getTile(checkTileX).isWalkable(unitID)) canDiagonal = false;
+                }
+				if(map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID) && canDiagonal)
 				{
 
 					PathNode neighbor = new PathNode(new Vector2(x + 0.5f, y + 0.5f), current);
-					if(containsNode(closedSet, neighbor) || Vector2i.getManhattan(current.tile, neighbor.tile) > 1)
+					if(containsNode(closedSet, neighbor) /*|| Vector2i.getManhattan(current.tile, neighbor.tile) > 1*/)
 					{
 						continue;
 					}
@@ -101,7 +113,7 @@ public class Pathfinder {
 		return new Path();
 	}
 
-	public static Path createPath(PathNode goal, int unitID)
+	public static Path createPath(TileMap map, PathNode goal, int unitID)
 	{
 		Path path = new Path();
 		PathNode currentNode = goal;
@@ -111,10 +123,10 @@ public class Pathfinder {
 			currentNode = currentNode.getParent();
 		}
 		path.addCheckPoint(currentNode.pos);
-		
 
         //If path only contains 2 or less points we dont have to spline.
-        path = smoothPath(path, unitID);
+        path = smoothPath(map, path, unitID);
+        return path;
         if (path.getCheckPointCount() <= 2)
             return path;
 
@@ -143,93 +155,146 @@ public class Pathfinder {
             path.addCheckPoint(new Vector2(xs[j],ys[j]));
         }
 
+        //path = trimPath(path, unitID);
         return path;
         
 	}
 
-	private static Path smoothPath(Path path, int unitID)
+	private static Path smoothPath(TileMap map, Path path, int unitID)
 	{
 		if(path.getCheckPointCount() < 3) return path;
-		//Remove v's
-		float add = 0.3f;
-//		for(int i = 0; i < path.getCheckPointCount()-2; i++)
-//		{
-//
-//			Vector2i p1 = new Vector2i(path.getPoint(i));
-//			Vector2i p2 = new Vector2i(path.getPoint(i+1));
-//			Vector2i p3 = new Vector2i(path.getPoint(i+2));
-//
-//			if((p1.x == p3.x && p1.x != p2.x))
-//			{
-//				int dx = p1.x - p2.x;
-//				int dy = p1.y - p2.y;
-//
-//				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-//				path.addCheckPoint(i+2, new Vector2(0, dy*-add*2)+path.getPoint(i+1));
-//			}
-//			else if(p1.y == p3.y && p1.y != p2.y)
-//			{
-//				int dx = p1.x - p2.x;
-//				int dy = p1.y - p2.y;
-//				
-//				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-//				path.addCheckPoint(i+2, new Vector2(dx*-add*2, 0)+path.getPoint(i+1));
-//			}
-//		}
-		//remove L's
+        
+        /*
+        //remove unnecessary points
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+            {
+                path.removePoint(i + 1);
+                i--;
+            }
+        }
 
+        //remove unnecessary points
+        for (int i = path.getCheckPointCount() - 1; i >= 2; i--)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i - 2), unitID))
+            {
+                path.removePoint(i - 1);
+            }
+        }
+        Done:
+        */
+
+        removeExcessPoints(map, path, 0, path.getCheckPointCount() - 1, unitID);
+        
+        
+        //create curves
 		for(int i = 0; i < path.getCheckPointCount()-2; i++)
 		{
 			
 			Vector2i p1 = new Vector2i(path.getPoint(i));
 			Vector2i p2 = new Vector2i(path.getPoint(i+1));
 			Vector2i p3 = new Vector2i(path.getPoint(i+2));
-			
-			if((p1.x != p3.x && p1.y != p3.y))
-			{
-				if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i+2), unitID))
-				{
-					path.removePoint(i+1);
-					continue;
 
-				}
-				float dx = p1.x - p3.x;
-				if(p1.x == p2.x)
-				{
-					dx = p3.x - p1.x;
-				}
+            //float dx = Mathf.Abs(p1.x - p3.x);
+            //float dy = Mathf.Abs(p1.y - p3.y);
 
-				float dy = p1.y - p3.y;
-				if(p1.y == p2.y)
-				{
-					dy = p3.y - p1.y;
-				}
-				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-			}
-
+            if ((p1.x != p3.x && p1.y != p3.y)) //The points form a curved shape
+            {
+                if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+                {
+                    path.removePoint(i + 1);
+                    continue;
+                }
+                path.createCurve(i, i + 2, 3);
+                i = i + 3;
+            }
 		}
-
-		for(int i = 0; i < path.getCheckPointCount()-2; i++)
-		{
-			if(path.getCheckPointCount() < 3) goto Done;
-			if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i+2), unitID))
-			{
-				path.removePoint(i+1);
-				i--;
-			}
-		}
-		//TODO: kan va lite buggig :)
-		for(int i = path.getCheckPointCount()-1; i >= 2; i--)
-		{
-			if(path.getCheckPointCount() < 3) goto Done;
-			if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i-2), unitID))
-			{
-				path.removePoint(i-1);
-			}
-		}
-	Done:
-		return path;
+        return path;
 	}
+
+    public static void removeExcessPoints(TileMap map, Path path, int startIndex, int endIndex, int unitID)
+    {
+        int diff = endIndex - startIndex;
+        int midPoint = startIndex + diff / 2;
+        if (diff <= 1) return; //points next to each other
+
+        if(unhinderedTilePath(map, path.getPoint(startIndex), path.getPoint(endIndex), unitID))
+        {
+            for (int i = 1; i < diff; i++)
+            {
+                path.removePoint(startIndex + 1);
+            }
+        }
+        else 
+        {
+            removeExcessPoints(map, path, midPoint, endIndex, unitID);
+            removeExcessPoints(map, path, startIndex, midPoint, unitID);
+        }
+    }
+
+    public static Path trimPath(Path path, int unitID)
+    {
+        if (path.getCheckPointCount() < 3) return path;
+        float add = 0.3f;
+        
+        //remove L's
+
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+
+            Vector2i p1 = new Vector2i(path.getPoint(i));
+            Vector2i p2 = new Vector2i(path.getPoint(i + 1));
+            Vector2i p3 = new Vector2i(path.getPoint(i + 2));
+
+            if ((p1.x != p3.x && p1.y != p3.y))
+            {
+                if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+                {
+                    path.removePoint(i + 1);
+                    continue;
+
+                }
+                float dx = p1.x - p3.x;
+                if (p1.x == p2.x)
+                {
+                    dx = p3.x - p1.x;
+                }
+
+                float dy = p1.y - p3.y;
+                if (p1.y == p2.y)
+                {
+                    dy = p3.y - p1.y;
+                }
+                path.addToPoint(i + 1, new Vector2(dx * add, dy * add));
+            }
+
+        }
+
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+            {
+                path.removePoint(i + 1);
+                i--;
+            }
+        }
+        //TODO: kan va lite buggig :)
+        for (int i = path.getCheckPointCount() - 1; i >= 2; i--)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i - 2), unitID))
+            {
+                path.removePoint(i - 1);
+            }
+        }
+        Done:
+        return path;
+    }
 	
 	public static bool unhinderedTilePath(TileMap map, Vector2 start, Vector2 end, int unitID)
 	{
