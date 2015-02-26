@@ -2415,7 +2415,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 2f3dd972ca82ae04e83e76787b9af937, type: 2}
+  - {fileID: 2100000, guid: b72f33b55683de644adbc01c5921a7de, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2519,7 +2519,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 2f3dd972ca82ae04e83e76787b9af937, type: 2}
+  - {fileID: 2100000, guid: e13631fd5a89fed4caddf5732cd7bc3f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2530,7 +2530,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300000, guid: dc6dd4d392aee364cbdccb2a6c3e3b1a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: fe0983b9ca0adb5428a8d022ea321e73, type: 3}
   m_Bones:
   - {fileID: 400132}
   - {fileID: 400130}
@@ -2618,2131 +2618,1675 @@ SkinnedCloth:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100156}
   m_Enabled: 1
-  m_BendingStiffness: .519999981
+  m_BendingStiffness: .5
   m_StretchingStiffness: 1
   m_Damping: 0
   m_Thickness: .200000003
   m_UseGravity: 1
   m_SelfCollision: 0
-  m_ExternalAcceleration: {x: 0, y: 0, z: 10}
-  m_RandomAcceleration: {x: 10, y: 0, z: 10}
-  m_WorldVelocityScale: .5
-  m_WorldAccelerationScale: 2.0999999
+  m_ExternalAcceleration: {x: 0, y: 0, z: 0}
+  m_RandomAcceleration: {x: 0, y: 0, z: 0}
+  m_WorldVelocityScale: 1.47000003
+  m_WorldAccelerationScale: 3.03999996
   m_Coefficients:
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .0500000007
-    maxDistanceBias: .5
+  - maxDistance: .0299999993
+    maxDistanceBias: 0
     collisionSphereRadius: .5
     collisionSphereDistance: 0
 --- !u!1001 &100100000

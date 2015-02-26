@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: fur
-  m_Shader: {fileID: 4800000, guid: 6e9860766d176284ebac76a148c705c9, type: 3}
+  m_Name: furchesttexture
+  m_Shader: {fileID: 4800000, guid: 77d1a27bb5560b845aa277df8bf4fa65, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -18,16 +18,20 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: eba2f23f7895e954cad458bfa11647e6, type: 3}
-          m_Scale: {x: 3, y: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 2aeb93fe2411f38488d508caf1ddd844, type: 3}
-          m_Scale: {x: 4, y: 4}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .285714298
       data:
         first:
           name: _Highlight
