@@ -77,7 +77,7 @@ public class Pathfinder {
                 {
                     Vector2i checkTileX = new Vector2i(current.tile.x + neighborCoordinates[i].x, current.tile.y);
                     Vector2i checkTileY = new Vector2i(current.tile.x , current.tile.y + neighborCoordinates[i].y);
-                    if (!map.getTile(checkTileY).isWalkable(unitID) && !map.getTile(checkTileX).isWalkable(unitID)) canDiagonal = false;
+                    if ( !map.isValidTile(checkTileX) || !map.isValidTile(checkTileY) || (!map.getTile(checkTileY).isWalkable(unitID) && !map.getTile(checkTileX).isWalkable(unitID))) canDiagonal = false;
                 }
 				if(map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID) && canDiagonal)
 				{
@@ -202,7 +202,9 @@ public class Pathfinder {
             //float dx = Mathf.Abs(p1.x - p3.x);
             //float dy = Mathf.Abs(p1.y - p3.y);
 
-            if ((p1.x != p3.x && p1.y != p3.y)) //The points form a curved shape
+            if ((p1.x != p3.x && p1.y != p3.y) ||  //The points form a L shape
+                (p1.x == p3.x && p1.x != p2.x) ||  //The points form a V shape
+                (p1.y == p3.y && p1.y != p2.y))    //The points form a V shape
             {
                 if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
                 {
@@ -296,7 +298,79 @@ public class Pathfinder {
         return path;
     }
 	
-	public static bool unhinderedTilePath(TileMap map, Vector2 start, Vector2 end, int unitID)
+    public static bool unhinderedTilePath(TileMap map, Vector2 start, Vector2 end, int unitID)
+    {
+        if (new Vector2i(start) == new Vector2i(end)) return true;
+        float xmin = Mathf.Min(start.x, end.x);
+        float xmax = Mathf.Max(start.x, end.x);
+        float ymin = Mathf.Min(start.y, end.y);
+        float ymax = Mathf.Max(start.y, end.y);
+
+        float dx = end.x - start.x;
+        float dy = end.y - start.y;
+
+        int xintersections = Mathf.Abs(Mathf.FloorToInt(dx));
+        int yintersections = Mathf.Abs(Mathf.FloorToInt(dy));
+
+        int firstX = Mathf.CeilToInt(xmin);
+        
+        for (int x = 0; x < xintersections; x++)
+        {
+            Vector2 intersection = Line.LineIntersectionPoint(
+                new Vector2(firstX + x, ymin-1),
+                new Vector2(firstX + x, ymax+1),
+                start,
+                end);
+
+            //Intersection is far from cross
+            if (Mathf.Abs(intersection.y - Mathf.Round(intersection.y)) > 0.05f)
+            {
+                Vector2i iTile = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.FloorToInt(intersection.y));
+                if (!map.isValidTile(iTile)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID)) return false;
+            }
+            else
+            {
+                Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y - 1));
+                if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+            }
+        }
+        
+        
+
+        int firstY = Mathf.CeilToInt(ymin);
+
+        for (int y = 0; y < yintersections; y++)
+        {
+            Vector2 intersection = Line.LineIntersectionPoint(
+                new Vector2(xmin - 1, firstY + y),
+                new Vector2(xmax + 1, firstY + y),
+                start,
+                end);
+
+            //Intersection is far from cross
+            if (Mathf.Abs(intersection.x - Mathf.Round(intersection.x)) > 0.05f)
+            {
+                Vector2i iTile = new Vector2i(Mathf.FloorToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                if (!map.isValidTile(iTile)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID)) return false;
+            }
+            else
+            {
+                Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x - 1), Mathf.RoundToInt(intersection.y));
+                if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+            }
+        }
+
+        Debug.Log("Path is clear");
+        return true;
+
+    }
+	public static bool unhinderedPath(TileMap map, Vector2 start, Vector2 end, int unitID)
 	{
 		Vector2i startTile = new Vector2i(start);
 		Vector2i endTile = new Vector2i(end); 

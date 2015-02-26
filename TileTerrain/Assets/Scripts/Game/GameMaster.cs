@@ -162,7 +162,7 @@ public class GameMaster : MonoBehaviour {
 	{
 		foreach(Unit unit in awakeUnits)
 		{
-			unit.updateAI();
+			//unit.updateAI();
 		}
 	}
 
