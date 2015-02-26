@@ -77,7 +77,7 @@ public class Pathfinder {
                 {
                     Vector2i checkTileX = new Vector2i(current.tile.x + neighborCoordinates[i].x, current.tile.y);
                     Vector2i checkTileY = new Vector2i(current.tile.x , current.tile.y + neighborCoordinates[i].y);
-                    if ( !map.isValidTile(checkTileX) || !map.isValidTile(checkTileY) || (!map.getTile(checkTileY).isWalkable(unitID) && !map.getTile(checkTileX).isWalkable(unitID))) canDiagonal = false;
+                    if ( !map.isValidTile(checkTileX) || !map.isValidTile(checkTileY) || (!map.getTile(checkTileY).isWalkable(unitID) || !map.getTile(checkTileX).isWalkable(unitID))) canDiagonal = false;
                 }
 				if(map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID) && canDiagonal)
 				{
@@ -306,28 +306,45 @@ public class Pathfinder {
         float ymin = Mathf.Min(start.y, end.y);
         float ymax = Mathf.Max(start.y, end.y);
 
-        float dx = end.x - start.x;
-        float dy = end.y - start.y;
+        int dx = Mathf.FloorToInt(end.x) - Mathf.FloorToInt(start.x);
+        int dy = Mathf.FloorToInt(end.y) - Mathf.FloorToInt(start.y);
 
-        int xintersections = Mathf.Abs(Mathf.FloorToInt(dx));
-        int yintersections = Mathf.Abs(Mathf.FloorToInt(dy));
-
-        int firstX = Mathf.CeilToInt(xmin);
+        int xintersections = Mathf.Abs(dx);
+        int yintersections = Mathf.Abs(dy);
         
-        for (int x = 0; x < xintersections; x++)
-        {
-            Vector2 intersection = Line.LineIntersectionPoint(
-                new Vector2(firstX + x, ymin-1),
-                new Vector2(firstX + x, ymax+1),
-                start,
-                end);
+        int yAdd = 0;
+        if (dx * dy < 0) yAdd = -1;
+ 
+        int xdir =(int)( dx / (xintersections + 0.0000001f));
+        int ydir = (int)(dy / (yintersections + 0.0000001f));
 
+#if false
+        int firstX = Mathf.RoundToInt(start.x + 0.5f * xdir);
+        for (int x = 0; x < xintersections; x++ )
+        {
+            int lineX = firstX + x * xdir;
+            Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(lineX, ymin - 1),
+                    new Vector2(lineX, ymax + 1),
+                    start,
+                    end);
             //Intersection is far from cross
             if (Mathf.Abs(intersection.y - Mathf.Round(intersection.y)) > 0.05f)
             {
                 Vector2i iTile = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.FloorToInt(intersection.y));
                 if (!map.isValidTile(iTile)) return false;
-                if (!map.getTile(iTile).isWalkable(unitID)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID))
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                    return false;
+                }
+                else 
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+                
+                }
             }
             else
             {
@@ -337,25 +354,36 @@ public class Pathfinder {
                 if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
             }
         }
-        
-        
 
-        int firstY = Mathf.CeilToInt(ymin);
+        int firstY = Mathf.RoundToInt(start.y + 0.5f*ydir);
 
         for (int y = 0; y < yintersections; y++)
         {
+            int lineY = firstY + y * ydir;
             Vector2 intersection = Line.LineIntersectionPoint(
-                new Vector2(xmin - 1, firstY + y),
-                new Vector2(xmax + 1, firstY + y),
-                start,
-                end);
+                    new Vector2(xmin - 1, lineY),
+                    new Vector2(xmax + 1, lineY),
+                    start,
+                    end);
 
             //Intersection is far from cross
             if (Mathf.Abs(intersection.x - Mathf.Round(intersection.x)) > 0.05f)
             {
                 Vector2i iTile = new Vector2i(Mathf.FloorToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+
                 if (!map.isValidTile(iTile)) return false;
-                if (!map.getTile(iTile).isWalkable(unitID)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID))
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                    return false;
+                }
+                else
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+
+                }
             }
             else
             {
@@ -365,7 +393,84 @@ public class Pathfinder {
                 if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
             }
         }
+#endif
+#if true
+            int firstX = Mathf.CeilToInt(xmin);
+            for (int x = 0; x < xintersections; x++)
+            {
+                Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(firstX + x, ymin-1),
+                    new Vector2(firstX + x, ymax+1),
+                    start,
+                    end);
 
+                //Intersection is far from cross
+                if (Mathf.Abs(intersection.y - Mathf.Round(intersection.y)) > 0.05f)
+                {
+                    Vector2i iTile = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.FloorToInt(intersection.y));
+                    if (!map.isValidTile(iTile)) return false;
+                    if (!map.getTile(iTile).isWalkable(unitID))
+                    {
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                        return false;
+                    }
+                    else 
+                    {
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+                
+                    }
+                }
+                else
+                {
+                    Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                    Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y - 1));
+                    if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                    if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+                }
+            }
+        
+        
+
+            int firstY = Mathf.CeilToInt(ymin);
+
+            for (int y = 0; y < yintersections; y++)
+            {
+                Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(xmin - 1, firstY + y),
+                    new Vector2(xmax + 1, firstY + y),
+                    start,
+                    end);
+
+                //Intersection is far from cross
+                if (Mathf.Abs(intersection.x - Mathf.Round(intersection.x)) > 0.05f)
+                {
+                    Vector2i iTile = new Vector2i(Mathf.FloorToInt(intersection.x), Mathf.RoundToInt(intersection.y + yAdd));
+
+                    if (!map.isValidTile(iTile)) return false;
+                    if (!map.getTile(iTile).isWalkable(unitID))
+                    {
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                        return false;
+                    }
+                    else 
+                    {
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+                    
+                    }
+                }
+                else
+                {
+                    Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                    Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x - 1), Mathf.RoundToInt(intersection.y));
+                    if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                    if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+                }
+            }
+#endif
         Debug.Log("Path is clear");
         return true;
 
