@@ -198,7 +198,7 @@ public class GUIManager : MonoBehaviour{
 		{
 			updateInventory();
 		}
-		mouseOverGUI = eventSystem.IsPointerOverGameObject();
+		//mouseOverGUI = eventSystem.IsPointerOverGameObject();
         if (mouseOverGUI)
         {
             updateMouseCollision();
