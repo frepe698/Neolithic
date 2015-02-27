@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//#define DEBUGLINE
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 /* Every tile can have at most one static object. If there is an object on a tile it is 
@@ -8,6 +9,8 @@ using System.Collections.Generic;
  * to the click. If there is no adjacent tile available, the tile first walkable tile along the bird path to the player from the click is chosen as
  * destination
  */
+
+
 
 public class Pathfinder {
 
@@ -394,6 +397,7 @@ public class Pathfinder {
             }
         }
 #endif
+
 #if true
             int firstX = Mathf.CeilToInt(xmin);
             for (int x = 0; x < xintersections; x++)
@@ -411,15 +415,18 @@ public class Pathfinder {
                     if (!map.isValidTile(iTile)) return false;
                     if (!map.getTile(iTile).isWalkable(unitID))
                     {
+#if DEBUGLINE
                         Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
                         Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+#endif
                         return false;
                     }
                     else 
                     {
+#if DEBUGLINE
                         Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
                         Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
-                
+#endif                
                     }
                 }
                 else
@@ -451,15 +458,18 @@ public class Pathfinder {
                     if (!map.isValidTile(iTile)) return false;
                     if (!map.getTile(iTile).isWalkable(unitID))
                     {
+#if DEBUGLINE
                         Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
                         Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+#endif
                         return false;
                     }
                     else 
                     {
+#if DEBUGLINE
                         Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
                         Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
-                    
+#endif                    
                     }
                 }
                 else
@@ -471,7 +481,6 @@ public class Pathfinder {
                 }
             }
 #endif
-        Debug.Log("Path is clear");
         return true;
 
     }

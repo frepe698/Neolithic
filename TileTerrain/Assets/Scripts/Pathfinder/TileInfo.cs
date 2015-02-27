@@ -13,7 +13,7 @@ public class TileInfo {
 		this.distanceToUnit = Vector2.Distance(unitPoint, point);
 		this.point = point;
 
-		Debug.DrawLine(new Vector3(tile.x + 0.5f, 1, tile.y + 0.5f), new Vector3(point.x, 1, point.y), Color.white, 4);
+		//Debug.DrawLine(new Vector3(tile.x + 0.5f, 1, tile.y + 0.5f), new Vector3(point.x, 1, point.y), Color.white, 4);
 	}
 
 	public float getDistance()

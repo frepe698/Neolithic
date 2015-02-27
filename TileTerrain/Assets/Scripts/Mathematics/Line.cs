@@ -88,8 +88,8 @@ public class Line {
     public static Vector2 LineIntersectionPoint(Vector2 ps1, Vector2 pe1, Vector2 ps2,
     Vector2 pe2)
     {
-        Debug.DrawLine(new Vector3(ps1.x, 3, ps1.y), new Vector3(pe1.x, 3, pe1.y), Color.blue, 1);
-        Debug.DrawLine(new Vector3(ps2.x, 3, ps2.y), new Vector3(pe2.x, 3, pe2.y), Color.red, 1);
+        //Debug.DrawLine(new Vector3(ps1.x, 3, ps1.y), new Vector3(pe1.x, 3, pe1.y), Color.blue, 1);
+        //Debug.DrawLine(new Vector3(ps2.x, 3, ps2.y), new Vector3(pe2.x, 3, pe2.y), Color.red, 1);
         // Get A,B,C of first line - points : ps1 to pe1
         float A1 = pe1.y - ps1.y;
         float B1 = ps1.x - pe1.x;
