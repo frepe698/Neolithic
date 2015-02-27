@@ -219,15 +219,15 @@ public class Unit {
         
         
         
-        Vector3 target = this.rotation;
-        Vector3 current = unit.transform.eulerAngles;
+        Quaternion target = Quaternion.Euler(this.rotation);
+        Quaternion current = unit.transform.rotation;
 
         
-        float donePercentage = Mathf.Min(1F, current.y / 3);
+       
         
-        Vector3 newAngle = Vector3.Slerp(current, target, donePercentage);
+        Quaternion newAngle = Quaternion.RotateTowards(current, target, 720*Time.deltaTime);
         
-        unit.transform.eulerAngles = newAngle;
+        unit.transform.rotation = newAngle;
       
 
         
