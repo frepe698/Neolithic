@@ -353,10 +353,12 @@ public class Unit {
 				path = Pathfinder.findPath(World.tileMap,get2DPos(),point,id);
 				if (path.getCheckPointCount()>0)
 				{
-					for(int i = 0; i < path.getCheckPointCount()-1; i++)
-					{
-						Debug.DrawLine(new Vector3(path.getPoint(i).x, 4, path.getPoint(i).y), new Vector3(path.getPoint(i+1).x, 4, path.getPoint(i+1).y), Color.white, 3);
-					}
+#if false
+                    for (int i = 0; i < path.getCheckPointCount() - 1; i++)
+                    {
+                        Debug.DrawLine(new Vector3(path.getPoint(i).x, 4, path.getPoint(i).y), new Vector3(path.getPoint(i + 1).x, 4, path.getPoint(i + 1).y), Color.white, 3);
+                    } 
+#endif
 					moving = true;
 					destination = path.popCheckPoint();
 				}
