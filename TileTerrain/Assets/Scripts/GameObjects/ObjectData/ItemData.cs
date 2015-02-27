@@ -24,6 +24,16 @@ public class ItemData : ObjectData {
 		return new LootableObject(position, rotation, name, modelName);
 	}
 
+    public virtual LootableObject getLootableObject(Vector2 position2D, Quaternion rotation)
+    {
+        return new LootableObject(position2D, rotation, name, modelName);
+    }
+
+    public virtual LootableObject getLootableObject(Vector2 position2D, float yrotation)
+    {
+        return new LootableObject(position2D, yrotation, name, modelName);
+    }
+
     public virtual string getTooltipStatsString()
     {
         return "override this";

@@ -10,9 +10,22 @@ public class OnlineClient : NetworkConnection {
 		this.hostData = hostData;
 	}
 
-	public override void connect ()
+	public override bool connect ()
 	{
 		Network.Connect(hostData); 
 		connected = true;
+        return true;
 	}
+
+    public override bool disconnect()
+    {
+        Network.Disconnect();
+        connected = false;
+        return true;
+    }
+
+    public override int getPing()
+    {
+        return Network.GetAveragePing(Network.player);
+    }
 }

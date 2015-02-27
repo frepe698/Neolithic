@@ -57,6 +57,12 @@ public class World : MonoBehaviour {
 		groundMaterial = (Material)Resources.Load ("terrain");
 	}
 
+    void OnDestroy()
+    {
+        tileMap = null;
+        activeTiles.Clear();
+    }
+
 	public void initWorld()
 	{
 		if(seed != -1)
@@ -683,12 +689,12 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.ShrinkPools();
 	}
 	
-	public float getHeight(Vector2 point)
+	public static float getHeight(Vector2 point)
 	{
 		RaycastHit hit;
 		if(Physics.Raycast(new Vector3(point.x, 50, point.y), Vector3.down, out hit, Mathf.Infinity , 1 << 8))
 		{
-			return hit.point.y;
+			return hit.point.y;           
 		}
 		return 0;
 		//		int x = (int)point.x;
@@ -724,6 +730,18 @@ public class World : MonoBehaviour {
 		//		return height;
 		
 	}
+
+    public static float getHeight(Vector2 point, out Vector3 normal)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(point.x, 50, point.y), Vector3.down, out hit, Mathf.Infinity, 1 << 8))
+        {
+            normal = hit.normal;
+            return hit.point.y;
+        }
+        normal = new Vector3(0, 1, 0);
+        return 0;
+    }
 	
 	public float getSectionVertHeight(int x, int y)
 	{

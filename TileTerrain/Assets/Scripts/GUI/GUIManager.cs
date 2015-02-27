@@ -11,6 +11,14 @@ public class GUIManager : MonoBehaviour{
 
 	private Transform canvas;
 
+    //Ingame menu
+    private GameObject ingameMenuObject;
+    private bool ingameMenuActive = false;
+    private const int MENU_BUTTON_RESUME = 0;
+    private const int MENU_BUTTON_SETTINGS = 1;
+    private const int MENU_BUTTON_MAINMENU = 2;
+    private const int MENU_BUTTON_DESKTOP = 3;
+
     //Inventory
 	private GameObject inventoryObject;
 	private Inventory inventory;
@@ -101,6 +109,17 @@ public class GUIManager : MonoBehaviour{
 		Transform rightPanel = canvas.FindChild("RightPanel");
 		hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
 		coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
+
+        //Ingame Menu init
+        ingameMenuObject = canvas.FindChild("IngameMenu").gameObject;
+        for (int i = 0; i < 4; i++)
+        {
+            Button b = ingameMenuObject.transform.FindChild("Button" + i).GetComponent<Button>();
+            int index = i;
+            b.onClick.AddListener(() => ingameMenuButtonClick(index));
+        }
+        ingameMenuActive = false;
+        ingameMenuObject.SetActive(ingameMenuActive);
 
         //Inventory init
 		inventoryObject = canvas.FindChild("Inventory").gameObject;
@@ -199,7 +218,7 @@ public class GUIManager : MonoBehaviour{
         frames++;
         if (nextUpdateTimer >= 1)
         {
-            fpsDisplay.text = "fps: " + frames;
+            fpsDisplay.text = "fps: " + frames + "vsync = " + QualitySettings.vSyncCount + " - ping: " + NetworkMaster.getAveragePing();
             nextUpdateTimer--;
             frames = 0;
         }
@@ -273,6 +292,35 @@ public class GUIManager : MonoBehaviour{
             inactivateItemTooltip();
         }
 
+    }
+
+    public void ingameMenuButtonClick(int index)
+    {
+        Debug.Log("clicked " + index);
+        switch (index)
+        {
+            case(MENU_BUTTON_RESUME):
+                toggleIngameMenu();
+                break;
+            case(MENU_BUTTON_SETTINGS):
+                break;
+            case(MENU_BUTTON_MAINMENU):
+                NetworkMaster.disconnect();
+                Application.LoadLevel(0);
+                break;
+            case(MENU_BUTTON_DESKTOP):
+                NetworkMaster.disconnect();
+                Application.Quit();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void toggleIngameMenu()
+    {
+        ingameMenuActive = !ingameMenuActive;
+        ingameMenuObject.SetActive(ingameMenuActive);
     }
 
     private void inactivateRecipeTooltip()

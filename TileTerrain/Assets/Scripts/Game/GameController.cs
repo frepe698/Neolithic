@@ -139,6 +139,10 @@ public abstract class GameController : MonoBehaviour{
 		{
 			gameMaster.getGUIManager().toggleCrafting();
 		}
+        if (Input.GetKeyDown("escape"))
+        {
+            gameMaster.getGUIManager().toggleIngameMenu();
+        }
 		if(Input.GetKeyDown("g"))
 		{
 			GameMaster.getWorld().toggleDrawGrid();

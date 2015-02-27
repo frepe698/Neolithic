@@ -17,6 +17,25 @@ public class LootableObject {
         this.name = name;
 		this.poolName = poolName;
 	}
+
+    public LootableObject(Vector2 position2D, Quaternion rotation, string name, string poolName)
+    {
+        this.position = new Vector3(position2D.x, World.getHeight(position2D), position2D.y);
+        this.rotation = rotation;
+        this.name = name;
+        this.poolName = poolName;
+    }
+
+    public LootableObject(Vector2 position2D, float yrotation, string name, string poolName)
+    {
+        Vector3 groundNormal;
+        float groundHeight = World.getHeight(position2D, out groundNormal);
+        this.position = new Vector3(position2D.x, groundHeight, position2D.y);
+        this.rotation.eulerAngles = new Vector3(Mathf.Sin(yrotation * Mathf.Deg2Rad)*Mathf.Rad2Deg * groundNormal.z, yrotation, Mathf.Cos(yrotation * Mathf.Deg2Rad)*Mathf.Rad2Deg * groundNormal.x);
+        
+        this.name = name;
+        this.poolName = poolName;
+    }
 	
 	public bool Activate()
 	{
