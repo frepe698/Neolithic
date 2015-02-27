@@ -217,21 +217,10 @@ public class Unit {
 
 		unit.transform.position = this.position;
         
-        
-        
         Quaternion target = Quaternion.Euler(this.rotation);
         Quaternion current = unit.transform.rotation;
-
-        
-       
-        
-        Quaternion newAngle = Quaternion.RotateTowards(current, target, 720*Time.deltaTime);
-        
+        Quaternion newAngle = Quaternion.RotateTowards(current, target, 1080*Time.deltaTime);
         unit.transform.rotation = newAngle;
-      
-
-        
-       
 
 		unit.transform.localScale = this.scale;
 
