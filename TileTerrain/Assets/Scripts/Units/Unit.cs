@@ -194,7 +194,7 @@ public class Unit {
 				}
 				tile = newTile;
 				position =  newPos;
-				rotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0);
+                setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
 				ground();
                 setAnimation(getRunAnim(), getAdjustedMovespeed() / BASE_MOVESPEED);
 
@@ -216,7 +216,23 @@ public class Unit {
 		if(!isActive()) return;
 
 		unit.transform.position = this.position;
-		unit.transform.eulerAngles = this.rotation;
+        
+        
+        
+        Vector3 target = this.rotation;
+        Vector3 current = unit.transform.eulerAngles;
+
+        
+        float donePercentage = Mathf.Min(1F, current.y / 3);
+        
+        Vector3 newAngle = Vector3.Slerp(current, target, donePercentage);
+        
+        unit.transform.eulerAngles = newAngle;
+      
+
+        
+       
+
 		unit.transform.localScale = this.scale;
 
 	}
@@ -326,7 +342,7 @@ public class Unit {
 		if(Vector2.Distance(point, get2DPos()) < deltaMove)
 		{
 			Vector2 dir = (point-get2DPos()).normalized;
-			rotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0);
+            setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
 			return;
 		}
 		
