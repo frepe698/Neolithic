@@ -2,13 +2,23 @@
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
+using Edit;
 
-public class MaterialRecipeData : ObjectData {
-	
-	public readonly string product;
-	
-	[XmlArray("ingredients"), XmlArrayItem("Ingredient")]
-	public readonly Ingredient[] ingredients;
-	
-	public readonly string tooltip;
+public class MaterialRecipeData : RecipeData
+{
+
+    public MaterialRecipeData()
+    {
+    }
+
+    public MaterialRecipeData(MaterialRecipeEdit edit)
+        : base(edit)
+    {
+
+    }
+
+    public override Item getCraftedItem()
+    {
+        return new MaterialItem(product);
+    }
 }

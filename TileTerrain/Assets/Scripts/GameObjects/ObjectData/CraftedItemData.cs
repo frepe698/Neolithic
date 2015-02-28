@@ -21,4 +21,14 @@ public abstract class CraftedItemData : ItemData {
 	{
 		return new LootableItem(position, rotation, name, modelName);
 	}
+
+    public override LootableObject getLootableObject(Vector2 position2D, Quaternion rotation)
+    {
+        return new LootableItem(position2D, rotation, name, modelName);
+    }
+
+    public override LootableObject getLootableObject(Vector2 position2D, float yrotation)
+    {
+        return new LootableItem(position2D, yrotation, name, modelName);
+    }
 }

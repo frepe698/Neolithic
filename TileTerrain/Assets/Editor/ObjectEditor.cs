@@ -59,20 +59,25 @@ public abstract class ObjectEditor : EditorWindow {
         if (!indexOutOfBounds(deleteWindowListIndex, deleteWindowIndex)) GUI.Window(DELETEWINDOWID, new Rect(200, this.position.height - 150, 200, 100), deleteWindow, "Delete");
         EndWindows();
 
-        if (GUI.Button(new Rect(150, this.position.height - 40, 50, 30), "SAVE"))
+        if (GUI.Button(new Rect(150, this.position.height - 80, 50, 30), "SAVE"))
         {
             saveFile();
         }
-        if (GUI.Button(new Rect(210, this.position.height - 40, 70, 30), "SAVE AS"))
+        if (GUI.Button(new Rect(210, this.position.height - 80, 70, 30), "SAVE AS"))
         {
             saveAsFile();
         }
-        if (GUI.Button(new Rect(290, this.position.height - 40, 50, 30), "LOAD"))
+        if (GUI.Button(new Rect(290, this.position.height - 80, 50, 30), "OPEN"))
         {
-            loadFile();
+            loadFile(null);
         }
 
-        if(filePath != null) GUI.Label(new Rect(350, this.position.height - 35, 800, 20), "Filepath: " + filePath);
+        if (GUI.Button(new Rect(350, this.position.height - 80, 100, 30), "OPEN BASE"))
+        {
+            loadFile(getStandardFilePath());
+        }
+
+        if(filePath != null) GUI.Label(new Rect(150, this.position.height - 35, 800, 20), "Filepath: " + filePath);
 
     }
 
@@ -182,13 +187,14 @@ public abstract class ObjectEditor : EditorWindow {
         }
     }
 
-    protected virtual void loadFile()
-    { 
+    protected virtual void loadFile(string filePath)
+    {
     }
 
     protected virtual void saveFile()
     { 
     }
+
     protected virtual void saveAsFile()
     {
         filePath = null;
@@ -197,6 +203,11 @@ public abstract class ObjectEditor : EditorWindow {
         {
             saveFile();
         }
+    }
+
+    protected virtual string getStandardFilePath()
+    {
+        return null;
     }
 
 }

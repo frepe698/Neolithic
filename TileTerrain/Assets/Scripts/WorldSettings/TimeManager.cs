@@ -134,5 +134,10 @@ public class TimeManager{
             return instance;
         }
     }
+
+    public static void removeInstance()
+    {
+        instance = null;
+    }
 	
 }

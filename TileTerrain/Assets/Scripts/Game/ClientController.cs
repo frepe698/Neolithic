@@ -95,18 +95,11 @@ public class ClientController : GameController {
 	}
 
 
-	[RPC]
-	public override void requestItemCraft(int unitID, string name)
-	{
-		gameMaster.getNetView().RPC("requestItemCraft", RPCMode.Server, unitID, name);
-	}
-
-
-	[RPC]
-	public override void requestMaterialCraft(int unitID, string name)
-	{
-		gameMaster.getNetView().RPC("requestMaterialCraft", RPCMode.Server, unitID, name);
-	}
+    [RPC]
+    public override void requestItemCraft(int unitID, string name)
+    {
+        gameMaster.getNetView().RPC("requestItemCraft", RPCMode.Server, unitID, name);
+    }
 
 	public override void update()
 	{

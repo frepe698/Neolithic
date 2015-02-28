@@ -57,6 +57,12 @@ public class World : MonoBehaviour {
 		groundMaterial = (Material)Resources.Load ("terrain");
 	}
 
+    void OnDestroy()
+    {
+        tileMap = null;
+        activeTiles.Clear();
+    }
+
 	public void initWorld()
 	{
 		if(seed != -1)
@@ -95,14 +101,16 @@ public class World : MonoBehaviour {
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stone"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/stone"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/flint"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/gold"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/iron"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/deathcap"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/cep"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/puffball"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/meat"), 20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Harvestable/blueberrybush"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/blueberrybush"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/nettle"), 50, true);
 		
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/grass01"), 400, true);
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/fern01"), 150, true);
@@ -681,12 +689,12 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.ShrinkPools();
 	}
 	
-	public float getHeight(Vector2 point)
+	public static float getHeight(Vector2 point)
 	{
 		RaycastHit hit;
 		if(Physics.Raycast(new Vector3(point.x, 50, point.y), Vector3.down, out hit, Mathf.Infinity , 1 << 8))
 		{
-			return hit.point.y;
+			return hit.point.y;           
 		}
 		return 0;
 		//		int x = (int)point.x;
@@ -722,6 +730,18 @@ public class World : MonoBehaviour {
 		//		return height;
 		
 	}
+
+    public static float getHeight(Vector2 point, out Vector3 normal)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(point.x, 50, point.y), Vector3.down, out hit, Mathf.Infinity, 1 << 8))
+        {
+            normal = hit.normal;
+            return hit.point.y;
+        }
+        normal = new Vector3(0, 1, 0);
+        return 0;
+    }
 	
 	public float getSectionVertHeight(int x, int y)
 	{

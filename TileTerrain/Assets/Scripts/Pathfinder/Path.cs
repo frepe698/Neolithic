@@ -23,6 +23,7 @@ public class Path {
 		checkPoints.Insert (0, checkPoint);
 	}
 
+
 	public void addCheckPoint(int index, Vector2 checkPoint)
 	{
 		checkPoints.Insert (index, checkPoint);
@@ -69,6 +70,41 @@ public class Path {
 	{
 		checkPoints.RemoveAt(index);
 	}
+
+    public void createCurve(int startIndex, int endIndex, int resolution)
+    {
+        int pointCount = endIndex - startIndex + 1;
+        int newPointCount = (pointCount - 1) * resolution;
+        float[] x = new float[pointCount];
+        float[] y = new float[pointCount];
+
+        float[] xs = new float[newPointCount];
+        float[] ys = new float[newPointCount];
+
+        //get values from old checkpoints
+        for (int i = 0; i < pointCount; i++ )
+        {
+            x[i] = checkPoints[startIndex + i].x;
+            y[i] = checkPoints[startIndex + i].y;
+        }
+
+        //calculate new checkpoints
+        CubicSpline.FitGeometric(x, y, newPointCount, out xs, out ys);
+
+        //remove old checkpoints
+        for(int i = 0; i < pointCount; i++)
+        {
+            checkPoints.RemoveAt(startIndex);
+        }
+
+        //Add new checkpoints
+        for(int i = 0; i < newPointCount; i++)
+        {
+            addCheckPoint(startIndex + i, new Vector2(xs[i], ys[i]));
+        }
+    }
+
+    
 	
 
 

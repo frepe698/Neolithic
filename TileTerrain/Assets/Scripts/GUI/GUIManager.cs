@@ -11,20 +11,28 @@ public class GUIManager : MonoBehaviour{
 
 	private Transform canvas;
 
+    //Ingame menu
+    private GameObject ingameMenuObject;
+    private bool ingameMenuActive = false;
+    private const int MENU_BUTTON_RESUME = 0;
+    private const int MENU_BUTTON_SETTINGS = 1;
+    private const int MENU_BUTTON_MAINMENU = 2;
+    private const int MENU_BUTTON_DESKTOP = 3;
+
     //Inventory
 	private GameObject inventoryObject;
 	private Inventory inventory;
-
    
 	private RectTransform[] itemParents;
 	private ScrollRect inventoryScrollRect;
 	private RectTransform inventoryMask;
 
     private const int ITEM_TYPE_COUNT = 3;
-    private const float ITEM_LINE_HEIGHT = 10;
+    private const float ITEM_LINE_HEIGHT = 14;
 	private List<Button>[] itemButtons;
     private bool[] inventoryFoldOpen;
 	private RectTransform[] inventoryFolds;
+    private RectTransform[] inventoryFoldArrows;
     private RectTransform itemHolder;
     private const string INVENTORY_BUTTON_NAME = "InventoryButton";
 
@@ -38,7 +46,7 @@ public class GUIManager : MonoBehaviour{
 	private const int TAB_CONSUMABLE = 2;
 
 	private int selectedItem = -1;
-	private Color itemTextColor = new Color(0.5f,0.5f,0.5f);
+	private Color itemTextColor = new Color(0,0,0);
 	private Color selectedItemTextColor = new Color(1,1,1);
 
 	private bool inventoryActive;
@@ -47,16 +55,16 @@ public class GUIManager : MonoBehaviour{
     //Crafting window
 	private GameObject craftingObject;
 
-    private Transform itemRecipeParent;
-    private Transform materialRecipeParent;
-    private Transform consumableRecipeParent;
+    private RectTransform[] recipeParents;
     private ScrollRect craftingScrollRect;
     private RectTransform craftingMask;
 
-	private List<Button> itemCraftingButtons;
-    private List<Button> materialCraftingButtons;
-    private List<Button> consumableCraftingButtons;
-    private Button[] craftingTabs;
+    private const int RECIPE_TYPE_COUNT = 3;
+	private List<Button>[] craftingButtons;
+    private bool[] recipeFoldOpen;
+    private RectTransform[] recipeFolds;
+    private RectTransform[] recipeFoldArrows;
+    private RectTransform recipeHolder;
     private const string CRAFTING_BUTTON_NAME = "CraftingButton";
 
     private int selectedCraftingTab = 0;
@@ -74,6 +82,7 @@ public class GUIManager : MonoBehaviour{
     private Text itemTooltipStats;
     private Text itemTooltipDescription;
     private string itemTooltipIndexName = "";
+    private bool itemTooltipIsRecipe = false;
    // public Vector3 tooltipOffset = Vector3.zero;
     
     //Player stats
@@ -81,6 +90,11 @@ public class GUIManager : MonoBehaviour{
 	private RectTransform energybarTransform;
 	private RectTransform hungerbarTransform;
 	private RectTransform coldbarTransform;
+
+    //FPS display
+    private Text fpsDisplay;
+    private float nextUpdateTimer;
+    private int frames;
 
 	private bool mouseOverGUI = false;
 
@@ -96,6 +110,17 @@ public class GUIManager : MonoBehaviour{
 		hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
 		coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
 
+        //Ingame Menu init
+        ingameMenuObject = canvas.FindChild("IngameMenu").gameObject;
+        for (int i = 0; i < 4; i++)
+        {
+            Button b = ingameMenuObject.transform.FindChild("Button" + i).GetComponent<Button>();
+            int index = i;
+            b.onClick.AddListener(() => ingameMenuButtonClick(index));
+        }
+        ingameMenuActive = false;
+        ingameMenuObject.SetActive(ingameMenuActive);
+
         //Inventory init
 		inventoryObject = canvas.FindChild("Inventory").gameObject;
 		Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
@@ -103,6 +128,7 @@ public class GUIManager : MonoBehaviour{
 		inventoryMask = scrollMask.GetComponent<RectTransform>();
 
         inventoryFolds = new RectTransform[ITEM_TYPE_COUNT];
+        inventoryFoldArrows = new RectTransform[ITEM_TYPE_COUNT];
         itemParents = new RectTransform[ITEM_TYPE_COUNT];
         inventoryFoldOpen = new bool[ITEM_TYPE_COUNT];
         itemButtons = new List<Button>[ITEM_TYPE_COUNT];
@@ -114,29 +140,35 @@ public class GUIManager : MonoBehaviour{
             itemParents[i] = itemHolder.FindChild("Items" + i).GetComponent<RectTransform>();
             inventoryFolds[i] = itemHolder.FindChild("ItemsFold" + i).GetComponent<RectTransform>();
 			inventoryFolds[i].GetComponent<Button>().onClick.AddListener(() => inventoryFoldButtonClick(index));
+            inventoryFoldArrows[i] = inventoryFolds[i].FindChild("Arrow").GetComponent<RectTransform>();
             itemButtons[i] = new List<Button>();
             inventoryFoldOpen[i] = true;
 		}
+        
 
         //Crafting init
 		craftingObject = canvas.FindChild("Crafting").gameObject;
         Transform cscrollMask = craftingObject.transform.FindChild("ScrollMask");
-        itemRecipeParent = cscrollMask.FindChild("ItemRecipes");
-        materialRecipeParent = cscrollMask.FindChild("MaterialRecipes");
-        consumableRecipeParent = cscrollMask.FindChild("ConsumableRecipes");
         craftingScrollRect = cscrollMask.GetComponent<ScrollRect>();
         craftingMask = cscrollMask.GetComponent<RectTransform>();
 
-        craftingTabs = new Button[3];
+       
+        recipeFolds = new RectTransform[RECIPE_TYPE_COUNT];
+        recipeFoldArrows = new RectTransform[RECIPE_TYPE_COUNT];
+        recipeParents = new RectTransform[RECIPE_TYPE_COUNT];
+        recipeFoldOpen = new bool[RECIPE_TYPE_COUNT];
+        craftingButtons = new List<Button>[RECIPE_TYPE_COUNT];
+
+        recipeHolder = cscrollMask.FindChild("Recipes").GetComponent<RectTransform>();
         for (int i = 0; i < 3; i++)
         {
             int index = i;
-            craftingTabs[i] = craftingObject.transform.FindChild("Tab" + i).GetComponent<Button>();
-            craftingTabs[i].onClick.AddListener(() => craftingTabButtonClick(index));
-
-            itemCraftingButtons = new List<Button>();
-            materialCraftingButtons = new List<Button>();
-            consumableCraftingButtons = new List<Button>();
+            recipeParents[i] = recipeHolder.FindChild("Recipes" + i).GetComponent<RectTransform>();
+            recipeFolds[i] = recipeHolder.transform.FindChild("RecipeFold" + i).GetComponent<RectTransform>();
+            recipeFolds[i].GetComponent<Button>().onClick.AddListener(() => recipeFoldButtonClick(index));
+            recipeFoldArrows[i] = recipeFolds[i].FindChild("Arrow").GetComponent<RectTransform>();
+            craftingButtons[i] = new List<Button>();
+            recipeFoldOpen[i] = true;
         }
 		updateCrafting();
 
@@ -153,6 +185,9 @@ public class GUIManager : MonoBehaviour{
         itemTooltipDescription = itemTooltip.transform.FindChild("Description").GetComponent<Text>();
         itemTooltip.SetActive(false);
 
+        //Fps display
+        fpsDisplay = canvas.FindChild("FPSDisplay").GetComponent<Text>();
+
 		activateInventory(false);
 		activateCrafting(false);
 	}
@@ -163,7 +198,7 @@ public class GUIManager : MonoBehaviour{
 		{
 			updateInventory();
 		}
-		mouseOverGUI = eventSystem.IsPointerOverGameObject();
+		//mouseOverGUI = eventSystem.IsPointerOverGameObject();
         if (mouseOverGUI)
         {
             updateMouseCollision();
@@ -177,6 +212,16 @@ public class GUIManager : MonoBehaviour{
 		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / hero.getMaxHealth()) * 100);
 		energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / hero.getMaxEnergy()) * 100);
 		hungerbarTransform.sizeDelta = new Vector2(100, (hero.getHunger()/hero.getMaxHunger())*100);
+
+        //Fps display
+        nextUpdateTimer += Time.deltaTime;
+        frames++;
+        if (nextUpdateTimer >= 1)
+        {
+            fpsDisplay.text = "fps: " + frames + "vsync = " + QualitySettings.vSyncCount + " - ping: " + NetworkMaster.getAveragePing();
+            nextUpdateTimer--;
+            frames = 0;
+        }
 	}
 
     public void updateMouseCollision()
@@ -208,26 +253,25 @@ public class GUIManager : MonoBehaviour{
                 int index;
                 if (int.TryParse(hgo.name.Remove(0, INVENTORY_BUTTON_NAME.Length), out index))
                 {
-#if false
                     string itemName = null;
-                    if (index < craftedItemButtons.Count)
+                    if (index < itemButtons[0].Count)
                     {
                         itemName = inventory.getCraftedItems()[index].getName();
                     }
-                    else if (index < materialItemButtons.Count + craftedItemButtons.Count)
+                    else if (index < itemButtons[1].Count + itemButtons[0].Count)
                     {
-                        itemName = inventory.getMaterialItems()[index - craftedItemButtons.Count].getName();
+                        itemName = inventory.getMaterialItems()[index - itemButtons[0].Count].getName();
                     }
-                    else if (index < consumableItemButtons.Count + materialItemButtons.Count + craftedItemButtons.Count)
+                    else if (index < itemButtons[0].Count + itemButtons[1].Count + itemButtons[2].Count)
                     {
-                        itemName = inventory.getConsumableItems()[index - materialItemButtons.Count - craftedItemButtons.Count].getName();
+                        itemName = inventory.getConsumableItems()[index - itemButtons[1].Count - itemButtons[0].Count].getName();
                     }
 
                     if (itemName != null && !itemName.Equals(itemTooltipIndexName))
                     {
                         activateItemTooltip(itemName);
                     }
-#endif
+
                 }
             }
             else if (hgo.name.StartsWith(CRAFTING_BUTTON_NAME))
@@ -250,19 +294,77 @@ public class GUIManager : MonoBehaviour{
 
     }
 
+    public void ingameMenuButtonClick(int index)
+    {
+        Debug.Log("clicked " + index);
+        switch (index)
+        {
+            case(MENU_BUTTON_RESUME):
+                toggleIngameMenu();
+                break;
+            case(MENU_BUTTON_SETTINGS):
+                break;
+            case(MENU_BUTTON_MAINMENU):
+                NetworkMaster.disconnect();
+                Application.LoadLevel(0);
+                break;
+            case(MENU_BUTTON_DESKTOP):
+                NetworkMaster.disconnect();
+                Application.Quit();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void toggleIngameMenu()
+    {
+        ingameMenuActive = !ingameMenuActive;
+        ingameMenuObject.SetActive(ingameMenuActive);
+    }
+
     private void inactivateRecipeTooltip()
     {
         recipeTooltipIndex = -1;
         recipeTooltip.SetActive(false);
+        if (itemTooltipIsRecipe)
+        {
+            inactivateItemTooltip();
+        }
     }
 
     private void activateRecipeTooltip(int index)
     {
-        recipeTooltipIndex = index;
-        recipeTooltip.SetActive(true);
+        RecipeData data = DataHolder.Instance.getRecipeData(index);
+        if (data != null)
+        {
+            recipeTooltipIndex = index;
+            recipeTooltip.SetActive(true);
+            recipeTooltipName.text = data.gameName;
+            string ing = "";
+            foreach (Ingredient i in data.ingredients)
+            {
+                ing += i.name + " x" + i.amount + "\n";
+            }
+            recipeTooltipIngredients.text = ing;
+            recipeTooltipDescription.text = data.description;
+
+            ItemData item = DataHolder.Instance.getItemData(data.product);
+            if (item != null)
+            {
+                activateItemTooltip(item.name);
+                itemTooltipIsRecipe = true;
+            }
+        }
+
+
+        
+
+        
+#if false
         if (index < itemCraftingButtons.Count)
         {
-#if false
+
             RectTransform cwrect = craftingObject.GetComponent<RectTransform>();
             RectTransform ttrect = recipeTooltip.GetComponent<RectTransform>();
             Vector3 pos = itemCraftingButtons[index].GetComponent<RectTransform>().localPosition + tooltipOffset;
@@ -273,7 +375,7 @@ public class GUIManager : MonoBehaviour{
             ttrect.localPosition = pos;
 
             recipeTooltip.transform.SetAsLastSibling();
-#endif
+
             ItemRecipeData data = DataHolder.Instance.getItemRecipeData()[index];
             recipeTooltipName.text = data.gameName;
             string ing = "";
@@ -296,6 +398,7 @@ public class GUIManager : MonoBehaviour{
             recipeTooltipIngredients.text = ing;
             recipeTooltipDescription.text = data.tooltip;
         }
+#endif
     }
 
     private void inactivateItemTooltip()
@@ -306,14 +409,19 @@ public class GUIManager : MonoBehaviour{
 
     private void activateItemTooltip(string name)
     {
-        itemTooltipIndexName = name;
-        itemTooltip.SetActive(true);
-        Debug.Log(name);
+        
         ItemData data = DataHolder.Instance.getItemData(name);
-        itemTooltipName.text = data.gameName;
+        if (data != null)
+        {
+            itemTooltipIndexName = name;
+            itemTooltip.SetActive(true);
+            itemTooltipName.text = data.gameName;
 
-        itemTooltipStats.text = data.getTooltipStatsString();
-        //itemTooltipDescription.text = data.tooltip;
+            itemTooltipStats.text = data.getTooltipStatsString();
+            itemTooltipDescription.text = data.description;
+            itemTooltipIsRecipe = false;
+        }
+        
 
     }
 
@@ -359,7 +467,19 @@ public class GUIManager : MonoBehaviour{
                     continue;
                 }
 
-                buttons[j].transform.FindChild("Text").GetComponent<Text>().text = items[i][j].getInventoryDisplay();
+                Item item = items[i][j];
+                buttons[j].transform.FindChild("Text").GetComponent<Text>().text = item.getInventoryDisplay();
+                Sprite sprite = item.getIcon();
+                if (sprite != null)
+                {
+                    Image image = buttons[j].transform.FindChild("Icon").GetComponent<Image>();
+                    image.enabled = true;
+                    image.sprite = sprite;
+                }
+                else
+                {
+                    buttons[j].transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                }
                 int buttonIndex = (j + addedIndex);
                 buttons[j].name = INVENTORY_BUTTON_NAME + (buttonIndex);
                 buttons[j].onClick.RemoveAllListeners();
@@ -374,12 +494,26 @@ public class GUIManager : MonoBehaviour{
                 bo.transform.SetParent(itemParents[i]);
 
                 RectTransform rect = bo.GetComponent<RectTransform>();
-                rect.localPosition = new Vector3(0, 0 - index * ITEM_LINE_HEIGHT, 0);
+                rect.localPosition = new Vector3(8, 0 - index * ITEM_LINE_HEIGHT, 0);
                 rect.transform.localScale = Vector3.one;
 
+                Item item = items[i][index];
                 Text text = bo.transform.FindChild("Text").GetComponent<Text>();
-                text.text = items[i][index].getInventoryDisplay();
+                text.text = item.getInventoryDisplay();
                 text.color = itemTextColor;
+
+                Sprite sprite = item.getIcon();
+                if (sprite != null)
+                {
+                    Image image = bo.transform.FindChild("Icon").GetComponent<Image>();
+                    image.enabled = true;
+                    image.sprite = sprite;
+                }
+                else
+                {
+                    bo.transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                }
+
 
                 Button button = bo.GetComponent<Button>();
                 button.onClick.AddListener(() => inventoryItemButtonClick(buttonIndex));
@@ -396,8 +530,8 @@ public class GUIManager : MonoBehaviour{
         }
 
         updateItemFolds();
-		//onSelectItemTab();
 	}
+
 
 	public void onSelectItemTab()
 	{
@@ -442,10 +576,13 @@ public class GUIManager : MonoBehaviour{
                 itemParents[i].gameObject.SetActive(true);
                 itemParents[i].anchoredPosition = new Vector2(0, -ypos);
                 ypos += itemParents[i].GetComponent<RectTransform>().sizeDelta.y;
+
+                inventoryFoldArrows[i].localEulerAngles = new Vector3(0, 0, 0);
             }
             else
             {
                 itemParents[i].gameObject.SetActive(false);
+                inventoryFoldArrows[i].localEulerAngles = new Vector3(0, 0, 90);
             }
             
         }
@@ -514,7 +651,6 @@ public class GUIManager : MonoBehaviour{
 		bool doubleclick = false;
 		if(Time.time <= clickTime + DOUBLECLICK_TIME && lastClickedItem == index)
 		{
-            Debug.Log("powjdpawijdawijpdwa");
 			doubleclick = true;
 			clickTime = 0;
 		}
@@ -538,11 +674,9 @@ public class GUIManager : MonoBehaviour{
                 itemButtons[i][selectedButton].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
                 if (doubleclick)
                 {
-                    Debug.Log("doubleclicked");
                     switch (i)
                     {
                         case(TAB_CRAFTED):
-                            Debug.Log("crafted");
                             GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), selectedButton);
                             break;
                         case(TAB_MATERIAL):
@@ -562,36 +696,7 @@ public class GUIManager : MonoBehaviour{
                 selectedButton -= itemButtons[i].Count;
             }
         }
-        
-#if false
-		if(selectedItemTab == TAB_CRAFTED)
-		{
-			if(selectedItem >= 0 && selectedItem < craftedItemButtons.Count)
-			{
-				craftedItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			craftedItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-			if(doubleclick) GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), index);
-		}
-		else if(selectedItemTab == TAB_MATERIAL)
-		{
-			if(selectedItem >= 0 && selectedItem < materialItemButtons.Count)
-			{
-				materialItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			materialItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-		}
-		else if(selectedItemTab == TAB_CONSUMABLE)
-		{
-			if(selectedItem >= 0 && selectedItem < consumableItemButtons.Count)
-			{
-				consumableItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-			consumableItemButtons[index].transform.FindChild("Text").GetComponent<Text>().color = selectedItemTextColor;
-			if(doubleclick) GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), index);
-		}
-#endif
-        Debug.Log(index);
+       
 		lastClickedItem = index;
 		selectedItem = index;
 	}
@@ -599,15 +704,90 @@ public class GUIManager : MonoBehaviour{
 	public void toggleInventory()
 	{
 		activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
 	}
 
 	public void toggleCrafting()
 	{
-		activateCrafting(!craftingActive);
+        activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
 	}
 
 	private void updateCrafting()
 	{
+        List<RecipeData>[] recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
+        recipes[TAB_CRAFTED] = new List<RecipeData>();
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            recipes[i] = new List<RecipeData>();
+        }
+        recipes[TAB_CRAFTED].AddRange(DataHolder.Instance.getEquipmentRecipeData().Cast<RecipeData>());
+        recipes[TAB_MATERIAL].AddRange(DataHolder.Instance.getMaterialRecipeData().Cast<RecipeData>());
+        recipes[TAB_CONSUMABLE].AddRange(DataHolder.Instance.getConsumableRecipeData().Cast<RecipeData>());
+
+        GameObject prefab = (GameObject)Resources.Load("GUI/CraftingButton");
+
+        int addedIndex = 0;
+
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            List<Button> buttons = craftingButtons[i];
+            
+            while (buttons.Count < recipes[i].Count)
+            {
+                int index = buttons.Count;
+                int buttonIndex = (index + addedIndex);
+                GameObject bo = (GameObject)Instantiate(prefab);
+                bo.name = CRAFTING_BUTTON_NAME + (buttonIndex);
+                bo.transform.SetParent(recipeParents[i]);
+
+                RectTransform rect = bo.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(8, 0 - index * ITEM_LINE_HEIGHT, 0);
+                rect.transform.localScale = Vector3.one;
+
+                RecipeData recipe = recipes[i][index];
+                Text text = bo.transform.FindChild("Text").GetComponent<Text>();
+                text.text = recipe.gameName;
+                text.color = itemTextColor;
+
+                ItemData item = DataHolder.Instance.getItemData(recipe.product);
+                if (item != null)
+                {
+                    Sprite sprite = item.getIcon();
+                    if (sprite != null)
+                    {
+                        Image image = bo.transform.FindChild("Icon").GetComponent<Image>();
+                        image.enabled = true;
+                        image.sprite = sprite;
+                    }
+                    else
+                    {
+                        bo.transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                    }
+                }
+                else
+                {
+                    bo.transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                }
+
+
+                Button button = bo.GetComponent<Button>();
+                button.onClick.AddListener(() => craftItemButtonClick(recipe.name));
+
+                buttons.Add(button);
+            }
+            addedIndex += buttons.Count;
+        }
+
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            float height = craftingButtons[i].Count * ITEM_LINE_HEIGHT;
+            recipeParents[i].sizeDelta = new Vector2(recipeParents[i].sizeDelta.x, height);
+        }
+
+        updateRecipeFolds();
+#if false
+        Debug.Log("Update Crafting");
 		ItemRecipeData[] itemRecipes = DataHolder.Instance.getItemRecipeData();
 		GameObject prefab = (GameObject)Resources.Load ("GUI/CraftingButton");
 
@@ -654,7 +834,7 @@ public class GUIManager : MonoBehaviour{
         itemRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, cheight);
         materialRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, mheight);
         consumableRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, fheight);
-
+#endif
 	}
 
     public void craftingTabButtonClick(int index)
@@ -664,8 +844,45 @@ public class GUIManager : MonoBehaviour{
         onSelectCraftingTab();
     }
 
+
+    public void updateRecipeFolds()
+    {
+        float ypos = 0;
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            recipeFolds[i].anchoredPosition = new Vector2(0, -ypos);
+            ypos += recipeFolds[i].sizeDelta.y;
+            if (recipeFoldOpen[i])
+            {
+                recipeParents[i].gameObject.SetActive(true);
+                recipeParents[i].anchoredPosition = new Vector2(0, -ypos);
+                ypos += recipeParents[i].GetComponent<RectTransform>().sizeDelta.y;
+
+                recipeFoldArrows[i].localEulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                recipeParents[i].gameObject.SetActive(false);
+                recipeFoldArrows[i].localEulerAngles = new Vector3(0, 0, 90);
+            }
+
+        }
+        recipeHolder.sizeDelta = new Vector2(recipeHolder.sizeDelta.x, ypos);
+        craftingScrollRect.vertical = craftingMask.sizeDelta.y < ypos;
+    }
+
+    public void recipeFoldButtonClick(int index)
+    {
+        //deselectrecipe();
+        //selectedrecipeTab = index;
+        //onSelectItemTab();
+        recipeFoldOpen[index] = !recipeFoldOpen[index];
+        updateRecipeFolds();
+    }
+
     public void onSelectCraftingTab()
     {
+#if false
         itemRecipeParent.gameObject.SetActive(false);
         materialRecipeParent.gameObject.SetActive(false);
         consumableRecipeParent.gameObject.SetActive(false);
@@ -691,11 +908,12 @@ public class GUIManager : MonoBehaviour{
             consumableRecipeParent.gameObject.SetActive(true);
             craftingTabs[TAB_CONSUMABLE].interactable = false;
         }
+#endif
     }
 
 	public void craftItemButtonClick(string name)
 	{
-		if(inventory.hasIngredients(DataHolder.Instance.getItemRecipeData(name).ingredients))
+		if(inventory.hasIngredients(DataHolder.Instance.getRecipeData(name).ingredients))
 		{
 			Debug.Log ("can craft");
 			GameMaster.getGameController().requestItemCraft(GameMaster.getPlayerUnitID(), name);
@@ -707,30 +925,16 @@ public class GUIManager : MonoBehaviour{
 
 	}
 
-	public void craftMaterialButtonClick(string name)
-	{
-		Debug.Log("Clicked" + name);
-		if(inventory.hasIngredients(DataHolder.Instance.getMaterialRecipeData(name).ingredients))
-		{
-			Debug.Log ("Can craft");
-			GameMaster.getGameController ().requestMaterialCraft (GameMaster.getPlayerUnitID(), name);
-		}
-		else
-		{
-			Debug.Log ("Cant afford this");
-		}
-	}
-
 	public void activateInventory(bool active)
 	{
 		inventoryActive = active;
 		inventoryObject.SetActive(inventoryActive);
+        craftingObject.SetActive(inventoryActive);
 	}
 
 	public void activateCrafting(bool active)
 	{
-		craftingActive = active;
-		craftingObject.SetActive(craftingActive);
+        
 	}
 
 	public bool isMouseOverGUI()

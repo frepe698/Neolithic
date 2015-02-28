@@ -24,11 +24,19 @@ public class ResourceEditor : ObjectEditor
         ResourceEditor window = (ResourceEditor)EditorWindow.GetWindow(typeof(ResourceEditor));
     }
 
-    protected override void loadFile()
+    protected override string getStandardFilePath()
     {
-        filePath = null;
-        filePath = EditorUtility.OpenFilePanel("Open resource data", Application.dataPath + "/Resources/Data", "xml");
-        if (filePath != null)
+        return Application.dataPath + "/Resources/Data/resourcedata.xml";
+    }
+
+    protected override void loadFile(string filePath)
+    {
+        if (filePath == null)
+        {
+            filePath = EditorUtility.OpenFilePanel("Open item data", Application.dataPath + "/Resources/Data", "xml");
+        }
+
+        if (filePath != null && !filePath.Equals(""))
         {
             DataHolder.ResourceDataHolder resourceDataHolder;
 
@@ -43,13 +51,15 @@ public class ResourceEditor : ObjectEditor
             {
                 resources.Add(new ResourceEdit(rdata));
             }
+
+            this.filePath = filePath;
         }
 
     }
 
     protected override void saveFile()
     {
-        if (filePath == null)
+        if (filePath == null && !filePath.Equals(""))
         {
             saveAsFile();
             return;
@@ -128,7 +138,7 @@ public class ResourceEditor : ObjectEditor
         int i = 0;
         foreach (ResourceEdit edit in resources)
         {
-            result[i] = edit.gameName;
+            result[i] = edit.name;
             i++;
         }
         return result;

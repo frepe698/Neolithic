@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <WeaponsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MeleeWeapons>
+    <MeleeWeaponData name="stoneAxe" gameName="Stone Axe" modelName="stoneaxe">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1</attackSpeed>
+      <damage>
+        <int>10</int>
+        <int>15</int>
+        <int>3</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
     <MeleeWeaponData name="flintAxe" gameName="Flint Axe" modelName="flintAxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
@@ -12,6 +35,29 @@
         <int>15</int>
         <int>25</int>
         <int>5</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="ironAxe" gameName="Iron Axe" modelName="ironaxe">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1</attackSpeed>
+      <damage>
+        <int>30</int>
+        <int>40</int>
+        <int>10</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -47,6 +93,29 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
+    <MeleeWeaponData name="stonePickaxe" gameName="Stone Pickaxe" modelName="stonepickaxe">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.2</attackSpeed>
+      <damage>
+        <int>10</int>
+        <int>10</int>
+        <int>15</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
     <MeleeWeaponData name="flintPickaxe" gameName="Flint Pickaxe" modelName="flintpickaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
@@ -70,17 +139,40 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
+    <MeleeWeaponData name="ironPickaxe" gameName="Iron Pickaxe" modelName="flintpickaxe">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.2</attackSpeed>
+      <damage>
+        <int>20</int>
+        <int>20</int>
+        <int>35</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
     <MeleeWeaponData name="unarmed" gameName="Unarmed" modelName="unarmed">
       <durability>0</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_unarmed</idleAnim>
       <runAnim>run_unarmed</runAnim>
       <lootAnim>loot_unarmed</lootAnim>
-      <attackSpeed>2.38</attackSpeed>
+      <attackSpeed>1.02</attackSpeed>
       <damage>
-        <int>38</int>
-        <int>37</int>
-        <int>43</int>
+        <int>5</int>
+        <int>10</int>
+        <int>1</int>
       </damage>
       <attackAnims>
         <string>chop_unarmed</string>
@@ -114,6 +206,75 @@
         <string>attackTorch01</string>
         <string>attackTorch01</string>
         <string>attackTorch01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="sharpenedstick" gameName="Sharpened Stick" modelName="sharpenedstick">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.5</attackSpeed>
+      <damage>
+        <int>20</int>
+        <int>5</int>
+        <int>1</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="woodenclub" gameName="Wooden Club" modelName="woodenclub">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>1.1</attackSpeed>
+      <damage>
+        <int>30</int>
+        <int>10</int>
+        <int>2</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
+      </attackSounds>
+    </MeleeWeaponData>
+    <MeleeWeaponData name="fishingrod" gameName="Fishing Rod" modelName="fishingrod">
+      <durability>100</durability>
+      <rightHand>true</rightHand>
+      <idleAnim>idle_axe</idleAnim>
+      <runAnim>run_axe</runAnim>
+      <lootAnim>loot_axe</lootAnim>
+      <attackSpeed>2</attackSpeed>
+      <damage>
+        <int>5</int>
+        <int>1</int>
+        <int>1</int>
+      </damage>
+      <attackAnims>
+        <string>attack_axe</string>
+        <string>chop_axe</string>
+        <string>mine_axe</string>
+      </attackAnims>
+      <attackSounds>
+        <string>attackAxe01</string>
+        <string>chop01</string>
+        <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
   </MeleeWeapons>

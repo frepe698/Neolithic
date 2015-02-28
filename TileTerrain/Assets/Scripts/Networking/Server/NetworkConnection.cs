@@ -6,7 +6,8 @@ public abstract class NetworkConnection {
 
 	protected bool connected = false;
 
-	public abstract void connect();
+    public abstract bool connect();
+    public abstract bool disconnect();
 
 	public virtual int getPlayerID()
 	{
@@ -17,5 +18,7 @@ public abstract class NetworkConnection {
 	{
 		return connected;
 	}
+
+    public abstract int getPing();
 	
 }

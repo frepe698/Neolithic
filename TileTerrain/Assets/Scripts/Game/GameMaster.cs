@@ -219,10 +219,10 @@ public class GameMaster : MonoBehaviour {
 
 		string[] heroNames = new string[]
 		{
-			"vrodl",
-			"caveman",
 			"halftroll",
-			"vrodl"
+			"halftroll",
+			"halftroll",
+			"halftroll"
 		};
 		//spawn heroes
 		for(int i = 0; i < 4; i++)
@@ -303,6 +303,7 @@ public class GameMaster : MonoBehaviour {
 
 	public static void removeUnit(Unit unit)
 	{
+        //Fix: if a unit is "afk" and you shoot it with an arrow, this function checks a tile outside of the map
 		World.getMap().getTile(unit.getTile()).removeUnit (unit);
 		unit.setAwake(false);
 		unit.inactivate();
@@ -355,8 +356,8 @@ public class GameMaster : MonoBehaviour {
 			ItemData itemData = DataHolder.Instance.getItemData(itemName);
 			if(itemData != null)
 			{
-				World.getMap().getTile(x,y).addLoot (itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x,y).height, y + Random.Range(0f, 1.0f)),
-				                                                                Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector2(x + Random.Range(0f, 1.0f), y + Random.Range(0f, 1.0f)),
+                                                                                Random.Range(0, 360)));
 			}
 			
 		}
@@ -371,8 +372,8 @@ public class GameMaster : MonoBehaviour {
 				ItemData itemData = DataHolder.Instance.getItemData(itemName);
 				if(itemData != null)
 				{
-					World.getMap().getTile(x,y).addLoot (itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x,y).height, y + Random.Range(0f, 1.0f)),
-					                                                                Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                    World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector2(x + Random.Range(0f, 1.0f), y + Random.Range(0f, 1.0f)),
+					                                                                Random.Range(0, 360)));
 				}
 			}
 		}
@@ -393,12 +394,11 @@ public class GameMaster : MonoBehaviour {
             for (int i = 0; i < safedrops.Length; i++)
             {
                 string itemName = safedrops[i];
-                Debug.Log(itemName);
                 ItemData itemData = DataHolder.Instance.getItemData(itemName);
                 if (itemData != null)
                 {
-                    World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x, y).height, y + Random.Range(0f, 1.0f)),
-                                                                                    Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                    World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector2(x + Random.Range(0f, 1.0f), y + Random.Range(0f, 1.0f)),
+                                                                                    Random.Range(0, 360)));
                 }
 
             }
@@ -414,8 +414,8 @@ public class GameMaster : MonoBehaviour {
 				ItemData itemData = DataHolder.Instance.getItemData(itemName);
 				if(itemData != null)
 				{
-					World.getMap().getTile(x,y).addLoot (itemData.getLootableObject(new Vector3(x + Random.Range(0f, 1.0f), World.getMap().getTile(x,y).height, y + Random.Range(0f, 1.0f)),
-					                                                                Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                    World.getMap().getTile(x, y).addLoot(itemData.getLootableObject(new Vector2(x + Random.Range(0f, 1.0f), y + Random.Range(0f, 1.0f)),
+                                                                                    Random.Range(0, 360)));
 				}
 			}
 		}
@@ -445,5 +445,19 @@ public class GameMaster : MonoBehaviour {
 	{
 		return playerUnitID;
 	}
+
+    void OnDestroy()
+    {
+        ObjectPoolingManager.removeInstance();
+        RenderDataPool.removeInstance();
+        TimeManager.removeInstance();
+
+        heroes.Clear();
+	    units.Clear();
+	    awakeUnits.Clear();
+
+	    projectiles.Clear();
+        hero = null;
+    }
 	
 }

@@ -123,24 +123,56 @@ public class Unit {
 		if(moving && command != null)
 		{
             float deltaMove = Time.deltaTime * getAdjustedMovespeed();
-			
-			if(Vector2.Distance(destination, get2DPos()) < deltaMove)
-			{
-				position = new Vector3(destination.x,position.y, destination.y);
-				if(path.getCheckPointCount() > 0) destination = path.popCheckPoint();
-				else moving = false;
-			}
-			else
+            float distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+
+            if (distanceToCheckPoint < deltaMove)
+            {
+
+                position = new Vector3(destination.x, position.y, destination.y);
+                deltaMove -= distanceToCheckPoint;
+                if (path.getCheckPointCount() > 0) destination = path.popCheckPoint();
+                else moving = false;
+            }
+            /*
+            int counter = 0;
+            while (distanceToCheckPoint < deltaMove && path.getCheckPointCount() > 0)
+            {
+                counter++;
+                position = new Vector3(destination.x, position.y, destination.y);
+                deltaMove -= distanceToCheckPoint;
+                destination = path.popCheckPoint();
+                if (path.getCheckPointCount() == 0) moving = false;
+                distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+            }
+            Debug.Log(counter);
+                
+            */
+            //position = new Vector3(destination.x,position.y, destination.y);
+            //if(path.getCheckPointCount() > 0) destination = path.popCheckPoint();
+            //else moving = false;
+
+
+            /*
+            while (distanceToCheckPoint < deltaMove && path.getCheckPointCount() > 0)
+                {
+                    position = new Vector3(destination.x, position.y, destination.y);
+                    deltaMove -= distanceToCheckPoint;
+                    destination = path.popCheckPoint();
+                    if (path.getCheckPointCount() == 0) moving = false;
+                    distanceToCheckPoint = Vector2.Distance(destination, get2DPos());
+                }*/
+            if (moving)
 			{
 				Vector2 dir = (destination-get2DPos()).normalized;
 				//Here is some new stuff for unit collision
 				
 				Vector3 newPos = position + new Vector3(dir.x, 0, dir.y)*(deltaMove);
 				Vector2i newTile = new Vector2i(newPos);
-				float distanceToCenter = Mathf.Abs( (newTile.y - newPos.z)*(newTile.y - newPos.z) + (newTile.x - newPos.x)*(newTile.x - newPos.x));
 				if(newTile != tile)
 				{
-					if(!World.tileMap.getTile(newTile).isWalkable(id) && distanceToCenter < 0.3f)
+
+                    //ERROR: This checks tiles outside of the tilemap
+					if(!World.tileMap.getTile(newTile).isWalkable(id))
 					{
 						Vector2 start = new Vector2(getTile().x + 0.5f, getTile().y + 0.5f);
 						path = Pathfinder.findPath(World.tileMap,start,command.getDestination(),id); //start was get2DPos earlier
@@ -162,7 +194,7 @@ public class Unit {
 				}
 				tile = newTile;
 				position =  newPos;
-				rotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0);
+                setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
 				ground();
                 setAnimation(getRunAnim(), getAdjustedMovespeed() / BASE_MOVESPEED);
 
@@ -184,7 +216,12 @@ public class Unit {
 		if(!isActive()) return;
 
 		unit.transform.position = this.position;
-		unit.transform.eulerAngles = this.rotation;
+        
+        Quaternion target = Quaternion.Euler(this.rotation);
+        Quaternion current = unit.transform.rotation;
+        Quaternion newAngle = Quaternion.RotateTowards(current, target, 1080*Time.deltaTime);
+        unit.transform.rotation = newAngle;
+
 		unit.transform.localScale = this.scale;
 
 	}
@@ -294,7 +331,7 @@ public class Unit {
 		if(Vector2.Distance(point, get2DPos()) < deltaMove)
 		{
 			Vector2 dir = (point-get2DPos()).normalized;
-			rotation = new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0);
+            setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
 			return;
 		}
 		
@@ -321,10 +358,12 @@ public class Unit {
 				path = Pathfinder.findPath(World.tileMap,get2DPos(),point,id);
 				if (path.getCheckPointCount()>0)
 				{
-					for(int i = 0; i < path.getCheckPointCount()-1; i++)
-					{
-						Debug.DrawLine(new Vector3(path.getPoint(i).x, 4, path.getPoint(i).y), new Vector3(path.getPoint(i+1).x, 4, path.getPoint(i+1).y), Color.white, 3);
-					}
+#if false
+                    for (int i = 0; i < path.getCheckPointCount() - 1; i++)
+                    {
+                        Debug.DrawLine(new Vector3(path.getPoint(i).x, 4, path.getPoint(i).y), new Vector3(path.getPoint(i + 1).x, 4, path.getPoint(i + 1).y), Color.white, 3);
+                    } 
+#endif
 					moving = true;
 					destination = path.popCheckPoint();
 				}

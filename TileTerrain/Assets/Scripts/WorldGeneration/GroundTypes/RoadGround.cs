@@ -5,10 +5,8 @@ public class RoadGround : GroundType {
 
 	private static readonly string[] startingLootTypes = new string[]
 	{
-		"stone",
 		"stick",
-		"flintAxe",
-		"flintPickaxe"
+	    "stone",
 	};
 
 	public override ResourceObject getRandomResource(Vector3 position)
@@ -44,10 +42,10 @@ public class RoadGround : GroundType {
 	{
 		float rand = Random.value;
 		int lootCount = 0;
-		if(rand > 0.94)
+		if(rand > 0.99)
 		{
 			lootCount++;
-			if(rand > 0.98)
+			if(rand > 0.99)
 			{
 				lootCount++;
 			}

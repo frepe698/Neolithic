@@ -33,13 +33,34 @@ public class NetworkMaster{
 		return connection != null && connection.isConnected();
 	}
 
-	public static void connect()
+    public static int getAveragePing()
+    {
+        if (connection != null)
+            return connection.getPing();
+
+        return 0;
+    }
+
+	public static bool connect()
 	{
 		if(connection != null)
 		{
-			connection.connect();
+			return connection.connect();
 		}
+        return false;
 	}
+
+    public static bool disconnect()
+    {
+        if (connection != null)
+        {
+            if (connection.disconnect())
+            {
+                connection = null;
+            }
+        }
+        return false;
+    }
 
 	public static int getPlayerID()
 	{

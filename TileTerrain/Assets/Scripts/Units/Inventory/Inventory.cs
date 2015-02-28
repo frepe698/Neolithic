@@ -44,7 +44,6 @@ public class Inventory {
 			if(listConItem != null)
 			{
 				listConItem.add();
-				Debug.Log ("added amount " + listConItem.getAmount());
 			}
 			else
 			{
@@ -56,30 +55,33 @@ public class Inventory {
 		hasBeenChanged = true;
 	}
 
-	public void craftItem(ItemRecipeData recipe)
+	public bool craftItem(RecipeData recipe)
 	{
 		foreach(Ingredient i in recipe.ingredients)
 		{
-			MaterialItem mi =findMaterialItem(i.name); 
-			if(mi.remove(i.amount))
-			{
-				materialItems.Remove(mi);
-			}
-		}
-		addItem(new CraftedItem(recipe.product));
-	}
+			MaterialItem mi = findMaterialItem(i.name);
+            if (mi != null && mi.getAmount() >= i.amount)
+            {
+                if (mi.remove(i.amount))
+                {
+                    materialItems.Remove(mi);
+                }
+                continue;
+            }
 
-	public void craftMaterial(MaterialRecipeData recipe)
-	{
-		foreach(Ingredient i in recipe.ingredients)
-		{
-			MaterialItem mi =findMaterialItem(i.name); 
-			if(mi.remove(i.amount))
-			{
-				materialItems.Remove(mi);
-			}
+            ConsumableItem ci = findConsumableItem(i.name);
+            if (ci != null && ci.getAmount() >= i.amount)
+            {
+                if (ci.remove(i.amount))
+                {
+                    consumableItems.Remove(ci);
+                }
+                continue;
+            }
+            return false;
 		}
-		addItem(new MaterialItem(recipe.product));
+		addItem(recipe.getCraftedItem());
+        return true;
 	}
 
 	public void consumeItem(int index)
@@ -187,7 +189,14 @@ public class Inventory {
 		foreach(Ingredient i in ingredients)
 		{
 			MaterialItem mi = findMaterialItem(i.name);
-			if(mi == null || mi.getAmount() < i.amount) return false;
+            if (mi == null || mi.getAmount() < i.amount)
+            {
+                ConsumableItem ci = findConsumableItem(i.name);
+                if (ci == null || ci.getAmount() < i.amount)
+                {
+                    return false;
+                }
+            }
 		}
 
 		return true;

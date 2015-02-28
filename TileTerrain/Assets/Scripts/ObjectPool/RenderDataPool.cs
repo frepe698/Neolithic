@@ -53,6 +53,11 @@ public class RenderDataPool
 			return instance;
 		}
 	}
+
+    public static void removeInstance()
+    {
+        instance = null;
+    }
 	
 	/// <summary>
 	/// Create a new object pool of the objects you wish to pool

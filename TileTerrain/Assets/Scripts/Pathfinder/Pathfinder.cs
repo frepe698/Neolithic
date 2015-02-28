@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//#define DEBUGLINE
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 /* Every tile can have at most one static object. If there is an object on a tile it is 
@@ -8,6 +9,8 @@ using System.Collections.Generic;
  * to the click. If there is no adjacent tile available, the tile first walkable tile along the bird path to the player from the click is chosen as
  * destination
  */
+
+
 
 public class Pathfinder {
 
@@ -19,7 +22,12 @@ public class Pathfinder {
 		new Vector2i(-1, 0),
 		new Vector2i(0, -1),
 		new Vector2i(1, 0),
-		new Vector2i(0, 1)
+		new Vector2i(0, 1),
+
+        new Vector2i(1,1),
+        new Vector2i(1,-1),
+        new Vector2i(-1,-1),
+        new Vector2i(-1,1),
 	};
 
 	public static Path findPath(TileMap map, Vector2 start, Vector2 end, int unitID)
@@ -50,7 +58,7 @@ public class Pathfinder {
 			PathNode current = openSet[0];
 			if(current.tile == endTile){
 				current.pos = end;
-				return createPath(current, unitID);
+				return createPath(map, current, unitID);
 			}
 			if(current.hCost < closestNode.hCost) closestNode = current;
 			worthCounter++;
@@ -63,15 +71,22 @@ public class Pathfinder {
 			closedSet.Add(current);
 
 			// Add neighbors
-			for(int i = 0; i < 4; i++)
+			for(int i = 0; i < 8; i++)
 			{
 				int x = current.tile.x + neighborCoordinates[i].x;
 				int y = current.tile.y + neighborCoordinates[i].y;
-				if((map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID)))
+                bool canDiagonal = true;
+                if(i > 3) //Diagonal tiles
+                {
+                    Vector2i checkTileX = new Vector2i(current.tile.x + neighborCoordinates[i].x, current.tile.y);
+                    Vector2i checkTileY = new Vector2i(current.tile.x , current.tile.y + neighborCoordinates[i].y);
+                    if ( !map.isValidTile(checkTileX) || !map.isValidTile(checkTileY) || (!map.getTile(checkTileY).isWalkable(unitID) || !map.getTile(checkTileX).isWalkable(unitID))) canDiagonal = false;
+                }
+				if(map.isValidTile(x,y) && map.getTile(x, y).isWalkable(unitID) && canDiagonal)
 				{
 
 					PathNode neighbor = new PathNode(new Vector2(x + 0.5f, y + 0.5f), current);
-					if(containsNode(closedSet, neighbor) || Vector2i.getManhattan(current.tile, neighbor.tile) > 1)
+					if(containsNode(closedSet, neighbor) /*|| Vector2i.getManhattan(current.tile, neighbor.tile) > 1*/)
 					{
 						continue;
 					}
@@ -101,7 +116,7 @@ public class Pathfinder {
 		return new Path();
 	}
 
-	public static Path createPath(PathNode goal, int unitID)
+	public static Path createPath(TileMap map, PathNode goal, int unitID)
 	{
 		Path path = new Path();
 		PathNode currentNode = goal;
@@ -111,10 +126,10 @@ public class Pathfinder {
 			currentNode = currentNode.getParent();
 		}
 		path.addCheckPoint(currentNode.pos);
-		
 
         //If path only contains 2 or less points we dont have to spline.
-        path = smoothPath(path, unitID);
+        path = smoothPath(map, path, unitID);
+        return path;
         if (path.getCheckPointCount() <= 2)
             return path;
 
@@ -143,95 +158,333 @@ public class Pathfinder {
             path.addCheckPoint(new Vector2(xs[j],ys[j]));
         }
 
+        //path = trimPath(path, unitID);
         return path;
         
 	}
 
-	private static Path smoothPath(Path path, int unitID)
+	private static Path smoothPath(TileMap map, Path path, int unitID)
 	{
 		if(path.getCheckPointCount() < 3) return path;
-		//Remove v's
-		float add = 0.3f;
-//		for(int i = 0; i < path.getCheckPointCount()-2; i++)
-//		{
-//
-//			Vector2i p1 = new Vector2i(path.getPoint(i));
-//			Vector2i p2 = new Vector2i(path.getPoint(i+1));
-//			Vector2i p3 = new Vector2i(path.getPoint(i+2));
-//
-//			if((p1.x == p3.x && p1.x != p2.x))
-//			{
-//				int dx = p1.x - p2.x;
-//				int dy = p1.y - p2.y;
-//
-//				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-//				path.addCheckPoint(i+2, new Vector2(0, dy*-add*2)+path.getPoint(i+1));
-//			}
-//			else if(p1.y == p3.y && p1.y != p2.y)
-//			{
-//				int dx = p1.x - p2.x;
-//				int dy = p1.y - p2.y;
-//				
-//				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-//				path.addCheckPoint(i+2, new Vector2(dx*-add*2, 0)+path.getPoint(i+1));
-//			}
-//		}
-		//remove L's
+        
+        /*
+        //remove unnecessary points
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+            {
+                path.removePoint(i + 1);
+                i--;
+            }
+        }
 
+        //remove unnecessary points
+        for (int i = path.getCheckPointCount() - 1; i >= 2; i--)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i - 2), unitID))
+            {
+                path.removePoint(i - 1);
+            }
+        }
+        Done:
+        */
+
+        removeExcessPoints(map, path, 0, path.getCheckPointCount() - 1, unitID);
+        
+        
+        //create curves
 		for(int i = 0; i < path.getCheckPointCount()-2; i++)
 		{
 			
 			Vector2i p1 = new Vector2i(path.getPoint(i));
 			Vector2i p2 = new Vector2i(path.getPoint(i+1));
 			Vector2i p3 = new Vector2i(path.getPoint(i+2));
-			
-			if((p1.x != p3.x && p1.y != p3.y))
-			{
-				if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i+2), unitID))
-				{
-					path.removePoint(i+1);
-					continue;
 
-				}
-				float dx = p1.x - p3.x;
-				if(p1.x == p2.x)
-				{
-					dx = p3.x - p1.x;
-				}
+            //float dx = Mathf.Abs(p1.x - p3.x);
+            //float dy = Mathf.Abs(p1.y - p3.y);
 
-				float dy = p1.y - p3.y;
-				if(p1.y == p2.y)
-				{
-					dy = p3.y - p1.y;
-				}
-				path.addToPoint(i+1, new Vector2(dx * add, dy*add));
-			}
-
+            if ((p1.x != p3.x && p1.y != p3.y) ||  //The points form a L shape
+                (p1.x == p3.x && p1.x != p2.x) ||  //The points form a V shape
+                (p1.y == p3.y && p1.y != p2.y))    //The points form a V shape
+            {
+                if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+                {
+                    path.removePoint(i + 1);
+                    continue;
+                }
+                path.createCurve(i, i + 2, 3);
+                i = i + 3;
+            }
 		}
-
-		for(int i = 0; i < path.getCheckPointCount()-2; i++)
-		{
-			if(path.getCheckPointCount() < 3) goto Done;
-			if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i+2), unitID))
-			{
-				path.removePoint(i+1);
-				i--;
-			}
-		}
-		//TODO: kan va lite buggig :)
-		for(int i = path.getCheckPointCount()-1; i >= 2; i--)
-		{
-			if(path.getCheckPointCount() < 3) goto Done;
-			if(unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i-2), unitID))
-			{
-				path.removePoint(i-1);
-			}
-		}
-	Done:
-		return path;
+        return path;
 	}
+
+    public static void removeExcessPoints(TileMap map, Path path, int startIndex, int endIndex, int unitID)
+    {
+        int diff = endIndex - startIndex;
+        int midPoint = startIndex + diff / 2;
+        if (diff <= 1) return; //points next to each other
+
+        if(unhinderedTilePath(map, path.getPoint(startIndex), path.getPoint(endIndex), unitID))
+        {
+            for (int i = 1; i < diff; i++)
+            {
+                path.removePoint(startIndex + 1);
+            }
+        }
+        else 
+        {
+            removeExcessPoints(map, path, midPoint, endIndex, unitID);
+            removeExcessPoints(map, path, startIndex, midPoint, unitID);
+        }
+    }
+
+    public static Path trimPath(Path path, int unitID)
+    {
+        if (path.getCheckPointCount() < 3) return path;
+        float add = 0.3f;
+        
+        //remove L's
+
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+
+            Vector2i p1 = new Vector2i(path.getPoint(i));
+            Vector2i p2 = new Vector2i(path.getPoint(i + 1));
+            Vector2i p3 = new Vector2i(path.getPoint(i + 2));
+
+            if ((p1.x != p3.x && p1.y != p3.y))
+            {
+                if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+                {
+                    path.removePoint(i + 1);
+                    continue;
+
+                }
+                float dx = p1.x - p3.x;
+                if (p1.x == p2.x)
+                {
+                    dx = p3.x - p1.x;
+                }
+
+                float dy = p1.y - p3.y;
+                if (p1.y == p2.y)
+                {
+                    dy = p3.y - p1.y;
+                }
+                path.addToPoint(i + 1, new Vector2(dx * add, dy * add));
+            }
+
+        }
+
+        for (int i = 0; i < path.getCheckPointCount() - 2; i++)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i + 2), unitID))
+            {
+                path.removePoint(i + 1);
+                i--;
+            }
+        }
+        //TODO: kan va lite buggig :)
+        for (int i = path.getCheckPointCount() - 1; i >= 2; i--)
+        {
+            if (path.getCheckPointCount() < 3) goto Done;
+            if (unhinderedTilePath(World.getMap(), path.getPoint(i), path.getPoint(i - 2), unitID))
+            {
+                path.removePoint(i - 1);
+            }
+        }
+        Done:
+        return path;
+    }
 	
-	public static bool unhinderedTilePath(TileMap map, Vector2 start, Vector2 end, int unitID)
+    public static bool unhinderedTilePath(TileMap map, Vector2 start, Vector2 end, int unitID)
+    {
+        if (new Vector2i(start) == new Vector2i(end)) return true;
+        float xmin = Mathf.Min(start.x, end.x);
+        float xmax = Mathf.Max(start.x, end.x);
+        float ymin = Mathf.Min(start.y, end.y);
+        float ymax = Mathf.Max(start.y, end.y);
+
+        int dx = Mathf.FloorToInt(end.x) - Mathf.FloorToInt(start.x);
+        int dy = Mathf.FloorToInt(end.y) - Mathf.FloorToInt(start.y);
+
+        int xintersections = Mathf.Abs(dx);
+        int yintersections = Mathf.Abs(dy);
+        
+        int yAdd = 0;
+        if (dx * dy < 0) yAdd = -1;
+ 
+        int xdir =(int)( dx / (xintersections + 0.0000001f));
+        int ydir = (int)(dy / (yintersections + 0.0000001f));
+
+#if false
+        int firstX = Mathf.RoundToInt(start.x + 0.5f * xdir);
+        for (int x = 0; x < xintersections; x++ )
+        {
+            int lineX = firstX + x * xdir;
+            Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(lineX, ymin - 1),
+                    new Vector2(lineX, ymax + 1),
+                    start,
+                    end);
+            //Intersection is far from cross
+            if (Mathf.Abs(intersection.y - Mathf.Round(intersection.y)) > 0.05f)
+            {
+                Vector2i iTile = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.FloorToInt(intersection.y));
+                if (!map.isValidTile(iTile)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID))
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                    return false;
+                }
+                else 
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+                
+                }
+            }
+            else
+            {
+                Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y - 1));
+                if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+            }
+        }
+
+        int firstY = Mathf.RoundToInt(start.y + 0.5f*ydir);
+
+        for (int y = 0; y < yintersections; y++)
+        {
+            int lineY = firstY + y * ydir;
+            Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(xmin - 1, lineY),
+                    new Vector2(xmax + 1, lineY),
+                    start,
+                    end);
+
+            //Intersection is far from cross
+            if (Mathf.Abs(intersection.x - Mathf.Round(intersection.x)) > 0.05f)
+            {
+                Vector2i iTile = new Vector2i(Mathf.FloorToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+
+                if (!map.isValidTile(iTile)) return false;
+                if (!map.getTile(iTile).isWalkable(unitID))
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+                    return false;
+                }
+                else
+                {
+                    Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                    Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+
+                }
+            }
+            else
+            {
+                Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x - 1), Mathf.RoundToInt(intersection.y));
+                if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+            }
+        }
+#endif
+
+#if true
+            int firstX = Mathf.CeilToInt(xmin);
+            for (int x = 0; x < xintersections; x++)
+            {
+                Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(firstX + x, ymin-1),
+                    new Vector2(firstX + x, ymax+1),
+                    start,
+                    end);
+
+                //Intersection is far from cross
+                if (Mathf.Abs(intersection.y - Mathf.Round(intersection.y)) > 0.05f)
+                {
+                    Vector2i iTile = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.FloorToInt(intersection.y));
+                    if (!map.isValidTile(iTile)) return false;
+                    if (!map.getTile(iTile).isWalkable(unitID))
+                    {
+#if DEBUGLINE
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+#endif
+                        return false;
+                    }
+                    else 
+                    {
+#if DEBUGLINE
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+#endif                
+                    }
+                }
+                else
+                {
+                    Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                    Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y - 1));
+                    if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                    if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+                }
+            }
+        
+        
+
+            int firstY = Mathf.CeilToInt(ymin);
+
+            for (int y = 0; y < yintersections; y++)
+            {
+                Vector2 intersection = Line.LineIntersectionPoint(
+                    new Vector2(xmin - 1, firstY + y),
+                    new Vector2(xmax + 1, firstY + y),
+                    start,
+                    end);
+
+                //Intersection is far from cross
+                if (Mathf.Abs(intersection.x - Mathf.Round(intersection.x)) > 0.05f)
+                {
+                    Vector2i iTile = new Vector2i(Mathf.FloorToInt(intersection.x), Mathf.RoundToInt(intersection.y + yAdd));
+
+                    if (!map.isValidTile(iTile)) return false;
+                    if (!map.getTile(iTile).isWalkable(unitID))
+                    {
+#if DEBUGLINE
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.yellow, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.yellow, 3);
+#endif
+                        return false;
+                    }
+                    else 
+                    {
+#if DEBUGLINE
+                        Debug.DrawLine(new Vector3(iTile.x, 2, iTile.y), new Vector3(iTile.x + 1, 2, iTile.y + 1), Color.magenta, 3);
+                        Debug.DrawLine(new Vector3(iTile.x + 1, 2, iTile.y), new Vector3(iTile.x, 2, iTile.y + 1), Color.magenta, 3);
+#endif                    
+                    }
+                }
+                else
+                {
+                    Vector2i iTile1 = new Vector2i(Mathf.RoundToInt(intersection.x), Mathf.RoundToInt(intersection.y));
+                    Vector2i iTile2 = new Vector2i(Mathf.RoundToInt(intersection.x - 1), Mathf.RoundToInt(intersection.y));
+                    if (!map.isValidTile(iTile1) || !map.isValidTile(iTile2)) return false;
+                    if (!map.getTile(iTile1).isWalkable(unitID) || !map.getTile(iTile2).isWalkable(unitID)) return false;
+                }
+            }
+#endif
+        return true;
+
+    }
+	public static bool unhinderedPath(TileMap map, Vector2 start, Vector2 end, int unitID)
 	{
 		Vector2i startTile = new Vector2i(start);
 		Vector2i endTile = new Vector2i(end); 

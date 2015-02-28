@@ -28,11 +28,19 @@ public class WeaponEditor : ObjectEditor {
         //loadFile();
     }
 
-    protected override void loadFile()
+    protected override string getStandardFilePath()
     {
-        filePath = null;
-        filePath = EditorUtility.OpenFilePanel("Open weapon data", Application.dataPath + "/Resources/Data", "xml");
-        if (filePath != null)
+        return Application.dataPath + "/Resources/Data/weapondata.xml";
+    }
+
+    protected override void loadFile(string filePath)
+    {
+        if (filePath == null)
+        {
+            filePath = EditorUtility.OpenFilePanel("Open weapon data", Application.dataPath + "/Resources/Data", "xml");
+        }
+
+        if (filePath != null && !filePath.Equals(""))
         {
             DataHolder.WeaponDataHolder weaponDataHolder;
 
@@ -51,13 +59,15 @@ public class WeaponEditor : ObjectEditor {
             {
                 rangedWeapons.Add(new RangedWeaponEdit(rdata));
             }
+
+            this.filePath = filePath;
         }
 
     }
 
     protected override void saveFile()
     {
-        if (filePath == null)
+        if (filePath == null && !filePath.Equals(""))
         {
             saveAsFile();
             return;
@@ -167,7 +177,7 @@ public class WeaponEditor : ObjectEditor {
         int i = 0;
         foreach (MeleeWeaponEdit edit in meleeWeapons)
         {
-            result[i] = edit.gameName;
+            result[i] = edit.name;
             i++;
         }
         return result;
@@ -179,7 +189,7 @@ public class WeaponEditor : ObjectEditor {
         int i = 0;
         foreach (RangedWeaponEdit edit in rangedWeapons)
         {
-            result[i] = edit.gameName;
+            result[i] = edit.name;
             i++;
         }
         return result;
