@@ -108,7 +108,8 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/deathcap"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/cep"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/puffball"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/meat"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/meat"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/harepelt"), 20, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/blueberrybush"), 50, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/nettle"), 50, true);
 		

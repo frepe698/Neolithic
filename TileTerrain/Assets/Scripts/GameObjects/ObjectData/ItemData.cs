@@ -3,7 +3,7 @@ using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using Edit;
-public class ItemData : ObjectData {
+public abstract class ItemData : ObjectData {
 
     private Sprite icon;
     [XmlElement(IsNullable = false)]

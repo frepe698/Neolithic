@@ -225,6 +225,16 @@
       </ingredients>
       <description>Make rope from nettles</description>
     </MaterialRecipeData>
+    <MaterialRecipeData name="craftFur" gameName="Fur From Hare">
+      <product>fur</product>
+      <ingredients>
+        <Ingredient>
+          <name>harepelt</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Make fur from hare pelt</description>
+    </MaterialRecipeData>
   </MaterialRecipes>
   <ConsumableRecipes>
     <ConsumableRecipeData name="craftTrolldryck" gameName="Trolldryck" modelName="">
