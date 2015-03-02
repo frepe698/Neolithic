@@ -32,7 +32,13 @@ public class MaterialItem : Item {
 
 	public override string getGameName()
 	{
-		return DataHolder.Instance.getMaterialData(getName()).gameName;
+        MaterialData data = DataHolder.Instance.getMaterialData(getName());
+        if (data == null)
+        {
+            Debug.LogError("Could not find material data for " + getName());
+            return null;
+        }
+		return data.gameName;
 	}
 
 	public override string getInventoryDisplay()

@@ -4,11 +4,165 @@ ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
+    100002: arm.L
+    100004: arm.R
+    100006: armTwist1.L
+    100008: armTwist1.R
+    100010: armTwist2.L
+    100012: armTwist2.R
+    100014: bicep.L
+    100016: bicep.R
+    100018: chest
+    100020: elbow_target.L
+    100022: elbow_target.R
+    100024: f_index_1.L
+    100026: f_index_1.R
+    100028: f_index_2.L
+    100030: f_index_2.R
+    100032: f_index_3.L
+    100034: f_index_3.R
+    100036: f_long_1.L
+    100038: f_long_1.R
+    100040: f_long_2.L
+    100042: f_long_2.R
+    100044: f_long_3.L
+    100046: f_long_3.R
+    100048: f_pinky1.L
+    100050: f_pinky1.R
+    100052: f_pinky2.L
+    100054: f_pinky2.R
+    100056: f_pinky3.L
+    100058: f_pinky3.R
+    100060: f_ring_1.L
+    100062: f_ring_1.R
+    100064: f_ring_2.L
+    100066: f_ring_2.R
+    100068: f_ring_3.L
+    100070: f_ring_3.R
+    100072: f_thumb_1.L
+    100074: f_thumb_1.R
+    100076: f_thumb_2.L
+    100078: f_thumb_2.R
+    100080: f_thumb_3.L
+    100082: f_thumb_3.R
+    100084: foot.L
+    100086: foot.R
+    100088: halftroll_rabithat
+    100090: hand.L
+    100092: hand.R
+    100094: hand_followL.L
+    100096: hand_followL.R
+    100098: hand_followR.R
+    100100: head
+    100102: hips
+    100104: hold.L
+    100106: hold.R
+    100108: IKarm.L
+    100110: IKarm.R
+    100112: IKleg.L
+    100114: IKleg.R
+    100116: knee_target.L
+    100118: knee_target.R
+    100120: neck
+    100122: rig
+    100124: shin.L
+    100126: shin.R
+    100128: shoulder.L
+    100130: shoulder.R
+    100132: skirtBack.L
+    100134: skirtBack.R
+    100136: skirtFront.L
+    100138: skirtFront.R
+    100140: spine1
+    100142: spine2
+    100144: thigh.L
+    100146: thigh.R
+    100148: toes.L
+    100150: toes.R
     400000: //RootNode
+    400002: arm.L
+    400004: arm.R
+    400006: armTwist1.L
+    400008: armTwist1.R
+    400010: armTwist2.L
+    400012: armTwist2.R
+    400014: bicep.L
+    400016: bicep.R
+    400018: chest
+    400020: elbow_target.L
+    400022: elbow_target.R
+    400024: f_index_1.L
+    400026: f_index_1.R
+    400028: f_index_2.L
+    400030: f_index_2.R
+    400032: f_index_3.L
+    400034: f_index_3.R
+    400036: f_long_1.L
+    400038: f_long_1.R
+    400040: f_long_2.L
+    400042: f_long_2.R
+    400044: f_long_3.L
+    400046: f_long_3.R
+    400048: f_pinky1.L
+    400050: f_pinky1.R
+    400052: f_pinky2.L
+    400054: f_pinky2.R
+    400056: f_pinky3.L
+    400058: f_pinky3.R
+    400060: f_ring_1.L
+    400062: f_ring_1.R
+    400064: f_ring_2.L
+    400066: f_ring_2.R
+    400068: f_ring_3.L
+    400070: f_ring_3.R
+    400072: f_thumb_1.L
+    400074: f_thumb_1.R
+    400076: f_thumb_2.L
+    400078: f_thumb_2.R
+    400080: f_thumb_3.L
+    400082: f_thumb_3.R
+    400084: foot.L
+    400086: foot.R
+    400088: halftroll_rabithat
+    400090: hand.L
+    400092: hand.R
+    400094: hand_followL.L
+    400096: hand_followL.R
+    400098: hand_followR.R
+    400100: head
+    400102: hips
+    400104: hold.L
+    400106: hold.R
+    400108: IKarm.L
+    400110: IKarm.R
+    400112: IKleg.L
+    400114: IKleg.R
+    400116: knee_target.L
+    400118: knee_target.R
+    400120: neck
+    400122: rig
+    400124: shin.L
+    400126: shin.R
+    400128: shoulder.L
+    400130: shoulder.R
+    400132: skirtBack.L
+    400134: skirtBack.R
+    400136: skirtFront.L
+    400138: skirtFront.R
+    400140: spine1
+    400142: spine2
+    400144: thigh.L
+    400146: thigh.R
+    400148: toes.L
+    400150: toes.R
     2300000: //RootNode
+    2300002: halftroll_rabithat
     3300000: //RootNode
+    3300002: halftroll_rabithat
     4300000: halftroll_rabithat
     9500000: //RootNode
+    11100000: //RootNode
+    13700000: halftroll_rabithat
   materials:
     importMaterials: 1
     materialName: 0
@@ -60,6 +214,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 1
   additionalBone: 0
   userData: 

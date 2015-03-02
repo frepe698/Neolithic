@@ -203,6 +203,36 @@
       </ingredients>
       <description>Craft a fishing rod</description>
     </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftHarehat" gameName="Hare Hat">
+      <product>harehat</product>
+      <ingredients>
+        <Ingredient>
+          <name>harepelt</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Funny hat</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftFurarmor" gameName="Fur Armor">
+      <product>furarmor</product>
+      <ingredients>
+        <Ingredient>
+          <name>fur</name>
+          <amount>3</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Make a warm fur armor</description>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftFuzzyboots" gameName="Fuzzy Boots">
+      <product>fuzzyboots</product>
+      <ingredients>
+        <Ingredient>
+          <name>fur</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Make a pair of fuzzy boots</description>
+    </EquipmentRecipeData>
   </EquipmentRecipes>
   <MaterialRecipes>
     <MaterialRecipeData name="craftGold" gameName="Gold" modelName="">
@@ -224,6 +254,16 @@
         </Ingredient>
       </ingredients>
       <description>Make rope from nettles</description>
+    </MaterialRecipeData>
+    <MaterialRecipeData name="craftFur" gameName="Fur From Hare">
+      <product>fur</product>
+      <ingredients>
+        <Ingredient>
+          <name>harepelt</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Make fur from hare pelt</description>
     </MaterialRecipeData>
   </MaterialRecipes>
   <ConsumableRecipes>

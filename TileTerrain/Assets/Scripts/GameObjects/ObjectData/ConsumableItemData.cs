@@ -21,6 +21,16 @@ public class ConsumableItemData : ItemData {
 		return new LootableConsumable(position, rotation, name, modelName);
 	}
 
+    public override LootableObject getLootableObject(Vector2 position2D, Quaternion rotation)
+    {
+        return new LootableConsumable(position2D, rotation, name, modelName);
+    }
+
+    public override LootableObject getLootableObject(Vector2 position2D, float yrotation)
+    {
+        return new LootableConsumable(position2D, yrotation, name, modelName);
+    }
+
     public override string getTooltipStatsString()
     {
         return "Hunger change: " + hungerChange;

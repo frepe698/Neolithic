@@ -359,6 +359,7 @@ public class UnitEditor : ObjectEditor {
         if (selectedhero >= 0)
         {
             HeroEdit temp = new HeroEdit(heroes[selectedhero]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             heroes.Insert(selectedhero + 1, temp);
             selectedhero++;
@@ -366,6 +367,7 @@ public class UnitEditor : ObjectEditor {
         else if (selectedai >= 0)
         {
             AIUnitEdit temp = new AIUnitEdit(aiUnits[selectedai]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             aiUnits.Insert(selectedai + 1, temp);
             selectedai++;

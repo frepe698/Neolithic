@@ -34,6 +34,12 @@
     <MaterialData name="rope" gameName="Rope" modelName="rope">
       <description>Can be used in many ways</description>
     </MaterialData>
+    <MaterialData name="harepelt" gameName="Hare Pelt" modelName="harepelt">
+      <description>Unprocessed pelt of a hare</description>
+    </MaterialData>
+    <MaterialData name="fur" gameName="Fur" modelName="fur">
+      <description>Fur ready to use</description>
+    </MaterialData>
   </Materials>
   <ConsumableItems>
     <ConsumableItemData name="meat" gameName="Meat" modelName="meat">

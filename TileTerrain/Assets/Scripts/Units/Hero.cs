@@ -6,6 +6,8 @@ public class Hero : Unit {
 	private Inventory inventory;
 	private WeaponData heldItem;
 
+    private ArmorData[] equipedArmor = new ArmorData[3];
+
 
 	//HERO STATS
 
@@ -82,7 +84,7 @@ public class Hero : Unit {
 		unit.transform.localScale = scale;
 		this.unitController = unit.GetComponent<UnitController>();
 		unitController.setID(id);
-		unitController.setItem(heldItem);
+		unitController.setWeapon(heldItem);
 	}
 
 	public void updateStats()
@@ -105,8 +107,20 @@ public class Hero : Unit {
 
 	public void setItem(string item)
 	{
-		heldItem = DataHolder.Instance.getWeaponData(item);
-		if(isActive()) unit.GetComponent<UnitController>().setItem(heldItem);
+        CraftedItemData newItemData = DataHolder.Instance.getCraftedItemData(item);
+
+        if (newItemData is WeaponData)
+        {
+            heldItem = (WeaponData)newItemData;
+            if (isActive()) unit.GetComponent<UnitController>().setWeapon(heldItem);
+        }
+        else if (newItemData is ArmorData)
+        {
+            ArmorData data = (ArmorData)newItemData;
+            equipedArmor[data.armorType] = data;
+            if (isActive()) unit.GetComponent<UnitController>().setArmor(unitName, data);
+        }
+	
 	}
 	
 
