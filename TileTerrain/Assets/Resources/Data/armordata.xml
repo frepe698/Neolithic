@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ArmorRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Armor>
+    <ArmorData name="harehat" gameName="Hare Hat" modelName="harehat">
+      <durability>200</durability>
+      <armor>1</armor>
+      <speedPenalty>0</speedPenalty>
+      <armorType>0</armorType>
+    </ArmorData>
+    <ArmorData name="furarmor" gameName="Fur Armor" modelName="furarmor">
+      <durability>300</durability>
+      <armor>10</armor>
+      <speedPenalty>2</speedPenalty>
+      <armorType>1</armorType>
+    </ArmorData>
+    <ArmorData name="fuzzyboots" gameName="Fuzzy Boots" modelName="fuzzyboots">
+      <durability>100</durability>
+      <armor>1</armor>
+      <speedPenalty>-2</speedPenalty>
+      <armorType>2</armorType>
+    </ArmorData>
+  </Armor>
+</ArmorRoot>

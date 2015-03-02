@@ -27,6 +27,12 @@ TextureImporter:
     21300044: ironaxe
     21300046: stonepickaxe
     21300048: nettle
+    21300050: fur
+    21300052: harepelt
+    21300054: rope
+    21300056: furarmor
+    21300058: fuzzyboots
+    21300060: harehat
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -285,6 +291,66 @@ TextureImporter:
         y: 961
         width: 56
         height: 61
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fur
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 961
+        width: 66
+        height: 62
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: harepelt
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rope
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 897
+        width: 64
+        height: 60
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: furarmor
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 705
+        width: 59
+        height: 60
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fuzzyboots
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 709
+        width: 59
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: harehat
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 707
+        width: 45
+        height: 59
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

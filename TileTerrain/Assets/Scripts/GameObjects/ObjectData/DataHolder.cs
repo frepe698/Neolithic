@@ -39,6 +39,19 @@ public class DataHolder {
 		public readonly RangedWeaponData[] rangedWeaponData;
 	}
 
+    [XmlRoot("ArmorRoot")]
+    public class ArmorDataHolder
+    {
+        public ArmorDataHolder() { }
+        public ArmorDataHolder(ArmorData[] armorData)
+        {
+            this.armorData = armorData;
+        }
+
+        [XmlArray("Armor"), XmlArrayItem("ArmorData")]
+        public readonly ArmorData[] armorData;
+    }
+
 	[XmlRoot("ConsumableItemsRoot")]
 	public class ConsumableItemDataHolder
 	{
@@ -104,6 +117,8 @@ public class DataHolder {
 
 	private WeaponDataHolder weaponDataHolder;
 
+    private ArmorDataHolder armorDataHolder;
+
 	private ConsumableItemDataHolder consumableItemDataHolder;
 
 	private ItemDataHolder itemDataHolder;
@@ -150,6 +165,13 @@ public class DataHolder {
 		{
 			instance.weaponDataHolder = serializer.Deserialize(reader) as WeaponDataHolder;
 		}
+
+        data = (TextAsset)Resources.Load("Data/armordata");
+        serializer = new XmlSerializer(typeof(ArmorDataHolder));
+        using (StringReader reader = new System.IO.StringReader(data.text))
+        {
+            instance.armorDataHolder = serializer.Deserialize(reader) as ArmorDataHolder;
+        }
 
 		data = (TextAsset)Resources.Load ("Data/consumableitemdata");
 		serializer = new XmlSerializer(typeof(ConsumableItemDataHolder));
@@ -206,6 +228,10 @@ public class DataHolder {
         {
             data.setIcon(findSprite(icons, data.modelName));
         }
+        foreach (ArmorData data in armorDataHolder.armorData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
         foreach (ConsumableItemData data in itemDataHolder.consumableItemData)
         {
             data.setIcon(findSprite(icons, data.modelName));
@@ -248,6 +274,10 @@ public class DataHolder {
 		{
 			if(data.name.Equals(name)) return data;
 		}
+        foreach (ArmorData data in armorDataHolder.armorData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
 		foreach(ConsumableItemData data in itemDataHolder.consumableItemData)
 		{
 			if(data.name.Equals(name)) return data;
@@ -265,6 +295,10 @@ public class DataHolder {
 		{
 			if(data.name.Equals(name)) return data;
 		}
+        foreach (ArmorData data in armorDataHolder.armorData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
 
 		return null;
 	}
@@ -282,6 +316,15 @@ public class DataHolder {
 		
 		return null;
 	}
+
+    public ArmorData getArmorData(string name)
+    {
+        foreach (ArmorData data in armorDataHolder.armorData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 
 	public ConsumableItemData getConsumableItemData(string name)
 	{

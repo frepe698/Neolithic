@@ -384,6 +384,7 @@ public class WeaponEditor : ObjectEditor {
         if (selectedmelee >= 0)
         {
             MeleeWeaponEdit temp = new MeleeWeaponEdit(meleeWeapons[selectedmelee]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             meleeWeapons.Insert(selectedmelee + 1, temp);
             selectedmelee++;
@@ -391,6 +392,7 @@ public class WeaponEditor : ObjectEditor {
         else if (selectedranged >= 0)
         {
             RangedWeaponEdit temp = new RangedWeaponEdit(rangedWeapons[selectedranged]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             rangedWeapons.Insert(selectedranged + 1, temp);
             selectedranged++;

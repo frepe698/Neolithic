@@ -249,6 +249,7 @@ public class ResourceEditor : ObjectEditor
         if (selectedres >= 0)
         {
             ResourceEdit temp = new ResourceEdit(resources[selectedres]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             resources.Insert(selectedres + 1, temp);
             selectedres++;

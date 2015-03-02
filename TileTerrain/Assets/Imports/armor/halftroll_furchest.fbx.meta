@@ -155,8 +155,11 @@ ModelImporter:
     400146: thigh.R
     400148: toes.L
     400150: toes.R
+    2300000: halftroll_fur
+    3300000: halftroll_fur
     4300000: halftroll_fur
     9500000: //RootNode
+    11100000: //RootNode
     13700000: halftroll_fur
   materials:
     importMaterials: 1
@@ -209,6 +212,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   additionalBone: 0
   userData: 

@@ -250,6 +250,44 @@ namespace Edit
     }
 
     [Serializable]
+    public class ArmorEdit : CraftedEdit
+    {
+        public ArmorEdit()
+        {
+            this.name = "new armor";
+            this.gameName = "new armor";
+        }
+
+        public ArmorEdit(ArmorData data)
+            : base(data)
+        {
+            this.armor = data.armor;
+            this.speedPenalty = data.speedPenalty;
+            this.armorType = (ArmorType)data.armorType;
+        }
+
+        public ArmorEdit(ArmorEdit data)
+            : base(data)
+        {
+            this.armor = data.armor;
+            this.speedPenalty = data.speedPenalty;
+            this.armorType = data.armorType;
+        }
+
+        public int armor;
+        public int speedPenalty;
+        public ArmorType armorType;
+    }
+
+    [Serializable]
+    public enum ArmorType
+    {
+        Head,
+        Chest,
+        Boots,
+    }
+
+    [Serializable]
     public abstract class WeaponEdit : CraftedEdit
     {
         public WeaponEdit(WeaponData data)
@@ -439,6 +477,7 @@ namespace Edit
         }
     }
 
+    #region Recipe Edits
     [Serializable]
     public class RecipeEdit : ObjectEdit
     {
@@ -564,6 +603,7 @@ namespace Edit
             this.amount = data.amount;
         }
     }
+#endregion
 
 
 }

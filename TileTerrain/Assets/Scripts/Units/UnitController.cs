@@ -14,6 +14,13 @@ public class UnitController : MonoBehaviour {
 	private Transform itemTransformR;
 	private Transform itemTransformL;
 
+    private readonly string[] armorRendererNames = 
+    {
+        "headarmor",
+        "chestarmor",
+        "bootsarmor",
+    };
+
 	private AudioSource audioSource;
 		
 	void Start () {
@@ -26,7 +33,7 @@ public class UnitController : MonoBehaviour {
 		
 	}
 
-	public void setWeaponAnimation(string animation, bool rightHand, float speed = 1)
+    public void setWeaponAnimation(string animation, bool rightHand, float speed = 1)
 	{
 		if(animation != null)
 		{
@@ -77,7 +84,7 @@ public class UnitController : MonoBehaviour {
 		audioSource.PlayOneShot(clip);
 	}
 
-	public void setItem(WeaponData item)
+	public void setWeapon(WeaponData item)
 	{
 		if(itemTransformR != null) Destroy(itemTransformR.gameObject);
 		if(itemTransformL != null) Destroy(itemTransformL.gameObject);
@@ -122,6 +129,25 @@ public class UnitController : MonoBehaviour {
 			itemTransformL.localEulerAngles = new Vector3(0,180,-90);
 		}
 	}
+
+    public void setArmor(string unitName, ArmorData data)
+    {
+        string datapath = "Armor/"+unitName+"/"+data.modelName;
+        GameObject armor = (GameObject)Resources.Load(datapath);
+        SkinnedMeshRenderer loadedArmorRenderer = armor.GetComponent<SkinnedMeshRenderer>();
+        if (loadedArmorRenderer == null)
+        {
+            Debug.LogWarning("Could not load armor at " + datapath);
+        }
+        SkinnedMeshRenderer unitArmorRenderer = transform.FindChild(armorRendererNames[data.armorType]).GetComponent<SkinnedMeshRenderer>();
+        if (unitArmorRenderer != null)
+        {
+            unitArmorRenderer.sharedMesh = loadedArmorRenderer.sharedMesh;
+            unitArmorRenderer.materials = loadedArmorRenderer.sharedMaterials;
+            unitArmorRenderer.enabled = true;
+        }
+        
+    }
 
 	public void setID(int id)
 	{

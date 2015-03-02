@@ -485,6 +485,7 @@ public class RecipeEditor : ObjectEditor
         if (selectedequipment >= 0)
         {
             EquipmentRecipeEdit temp = new EquipmentRecipeEdit(equipment[selectedequipment]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             equipment.Insert(selectedequipment + 1, temp);
             selectedequipment++;
@@ -492,6 +493,7 @@ public class RecipeEditor : ObjectEditor
         else if (selectedmaterial >= 0)
         {
             MaterialRecipeEdit temp = new MaterialRecipeEdit(materials[selectedmaterial]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             materials.Insert(selectedmaterial + 1, temp);
             selectedmaterial++;
@@ -499,6 +501,7 @@ public class RecipeEditor : ObjectEditor
         else if (selectedconsumable >= 0)
         {
             ConsumableRecipeEdit temp = new ConsumableRecipeEdit(consumable[selectedconsumable]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             consumable.Insert(selectedconsumable + 1, temp);
             selectedconsumable++;

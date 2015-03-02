@@ -335,6 +335,7 @@ public class ItemEditor : ObjectEditor
         if (selectedmaterial >= 0)
         {
             MaterialEdit temp = new MaterialEdit(materials[selectedmaterial]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             materials.Insert(selectedmaterial + 1, temp);
             selectedmaterial++;
@@ -342,6 +343,7 @@ public class ItemEditor : ObjectEditor
         else if (selectedconsumable >= 0)
         {
             ConsumableEdit temp = new ConsumableEdit(consumables[selectedconsumable]);
+            temp.name += "(Copy)";
             temp.gameName += "(Copy)";
             consumables.Insert(selectedconsumable + 1, temp);
             selectedconsumable++;
