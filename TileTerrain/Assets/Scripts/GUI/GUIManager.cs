@@ -246,7 +246,7 @@ public class GUIManager : MonoBehaviour{
         if (chatOutputOpen)
         {
             float newHeight = chatOutputText.rectTransform.sizeDelta.y;
-            if (newHeight != chatOutputHeight)
+            if (newHeight > chatOutputHeight)
             {
                 chatScrollbar.value = 0;
                 chatOutputHeight = newHeight;

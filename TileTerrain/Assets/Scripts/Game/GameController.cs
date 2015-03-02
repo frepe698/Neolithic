@@ -546,7 +546,7 @@ public abstract class GameController : MonoBehaviour{
     public abstract void sendChatMessage(string msg);
 
     [RPC]
-    protected void recieveChatMessage(int unitID, string msg)
+    public void recieveChatMessage(int unitID, string msg)
     {
         gameMaster.getGUIManager().addChatMessage(unitID + ": " + msg);
     }

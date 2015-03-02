@@ -3,25 +3,51 @@ using System.Collections;
 using System;
 
 public class CheatCommand {
-
+    private const string helpString = "Commands:\n!spawn (string aiUnitName)\n!give (string itemName, int amount = 1)\n!warp (float xpos, float ypos)"; 
     private static readonly string[] commands = 
     {
         "spawn",
         "give",
         "warp",
+        "help",
     };
 
     public const int SPAWN = 0;
     public const int GIVE = 1;
     public const int WARP = 2;
+    public const int HELP = 3;
 
     public static void sendCommandFromString(string str)
     {
         string[] substrings = str.Split(' ');
 
         int commandID = Array.IndexOf<string>(commands, substrings[0]);
-
-        sendCommand(commandID, str.Substring(substrings[0].Length));
+        
+        if (commandID >= 0)
+        {
+            if (commandID == HELP)
+            {
+                GameMaster.getGameController().recieveChatMessage(-1, helpString);
+            }
+            else
+            {
+                string paramstring = str.Substring(substrings[0].Length);
+                object[] parameters = getParametersFromString(commandID, paramstring);
+                if (parameters == null)
+                {
+                    GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters!");
+                }
+                else if (paramsAreValid(commandID, parameters)) ;
+                {
+                    sendCommand(commandID, paramstring);
+                }
+            }
+        }
+        else
+        {
+            GameMaster.getGameController().recieveChatMessage(-1, "Invalid command: " + substrings[0] + ", type !help to show all commands.");
+        }
+        
     }
     public static object[] getParametersFromString(int commandID, string parameters)
     {
@@ -62,6 +88,67 @@ public class CheatCommand {
         }
 
         return null;
+    }
+
+    public static bool paramsAreValid(int commandID, params object[] parameters)
+    {
+        switch (commandID)
+        {
+            case (SPAWN):
+                {
+                    if (parameters.Length != 1)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: string aiUnitName");
+                        return false;
+                    }
+                    if (DataHolder.Instance.getAIUnitData((string)parameters[0]) != null) return true;
+                    else
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Couldn't find unitdata for " + (string)parameters[0]);
+                        return false;
+                    }
+                }
+            case (GIVE):
+                {
+                    if (parameters.Length > 2)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: string itemName, int amount = 1");
+                        return false;
+                    }
+                    if (DataHolder.Instance.getItemData((string)parameters[0]) == null)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Couldn't find itemdata for " + (string)parameters[0]);
+                        return false;
+                    }
+                    int i;
+                    if (parameters.Length > 1 && !int.TryParse((string)parameters[1], out i))
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Parameter 2 should be an int");
+                        return false;
+                    }
+                    return true;
+
+                }
+            case (WARP):
+                {
+                    if (parameters.Length != 2)
+                    {
+                        float x, y;
+                        if (!float.TryParse((string)parameters[1], out x) || !float.TryParse((string)parameters[2], out y))
+                        {
+                            GameMaster.getGameController().recieveChatMessage(-1, "Parameter 1 and 2 should be floats");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: float x, float y");
+                        return false;
+                    }
+                    return true;
+                }
+        }
+        return false;
     }
 
     public static void sendCommand(int commandID, string parameters)
