@@ -4,7 +4,7 @@ using System.Collections;
 public class DawnTime : TimeSetting {
 
     public DawnTime()
-        : base(60,
+        : base(5,
         new Color(0,0,0),
         new Color(0.6f, 0.5f, 0.4f), 
         new Vector3(25, 25, 0), 

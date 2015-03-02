@@ -56,7 +56,7 @@ public class TimeSetting  {
         this.moonRotation += moonDirection * deltaTime;
         this.sunLightColor += sunLightChange * deltaTime;
     }
-    public void start()
+    public virtual void start()
     {
         this.elapsedTime = 0;
         this.sunRotation = sunStartRotation;

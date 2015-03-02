@@ -66,7 +66,7 @@ public class Hero : Unit {
 			size = data.size;
             modelName = data.modelName;
 		}
-
+        init();
 		inventory = new Inventory();
 		setItem("unarmed");
 		activate();

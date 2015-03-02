@@ -3,7 +3,21 @@ using System.Collections;
 
 public class OfflineController : GameController {
 
+    [RPC]
+    public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
+    {
+        approveAIUnitSpawn(unitID, name, x, y);
+    }
 
+    public override void requestSpawnerRespawn(int spawnerID)
+    {
+        approveSpawnerRespawn(spawnerID);
+    }
+
+    public override void requestSpawnerRemoveAll(int spawnerID)
+    {
+        approveSpawnerRemoveAll(spawnerID);
+    }
 
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
@@ -176,6 +190,11 @@ public class OfflineController : GameController {
     public override void sendChatMessage(string msg)
     {
         recieveChatMessage(GameMaster.getPlayerUnitID(), msg);
+    }
+
+    public override void requestRemoveUnit(int unitID)
+    {
+        approveRemoveUnit(unitID);
     }
 	
 

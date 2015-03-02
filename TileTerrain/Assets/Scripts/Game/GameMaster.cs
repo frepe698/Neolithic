@@ -8,6 +8,7 @@ public class GameMaster : MonoBehaviour {
 	static List<Hero> heroes = new List<Hero>();
 	static List<Unit> units = new List<Unit>();
 	static List<Unit> awakeUnits = new List<Unit>();
+    static List<UnitSpawner> unitSpawners = new List<UnitSpawner>();
 
 	static List<Projectile> projectiles = new List<Projectile>();
 
@@ -71,7 +72,9 @@ public class GameMaster : MonoBehaviour {
 			gameController.init(this, playerUnitID);
 		}
 		spawnHeroes();
-		world.addAnimals();
+	    world.addAnimals();
+
+        world.addSpawners();
 		setPlayerUnit(playerUnitID);
 		
 		playerCamera = Camera.main;
@@ -214,6 +217,53 @@ public class GameMaster : MonoBehaviour {
 		updateCamera();
 	}
 	
+    public static void respawnAllSpawners()
+    {
+        foreach (UnitSpawner spawner in unitSpawners)
+        {
+           gameController.requestSpawnerRespawn(spawner.getID());
+        }
+    }
+
+    public static void allSpawnersRemoveUnits()
+    {
+        foreach (UnitSpawner spawner in unitSpawners)
+        {
+            gameController.requestSpawnerRemoveAll(spawner.getID());
+        }
+    }
+    public static void spawnerRespawn(int spawnerID)
+    {
+        foreach(UnitSpawner spawner in unitSpawners)
+        {
+            if(spawner.getID() == spawnerID)
+            {
+                spawner.respawnUnits();
+            }
+        }
+    }
+
+    public static void spawnerRemoveAll(int spawnerID)
+    {
+        foreach (UnitSpawner spawner in unitSpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.removeUnits();
+            }
+        }
+    }
+    public static void addSpawner(string name, int maxUnits, Vector2i pos)
+    {
+        UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextSpawnerID());
+        unitSpawners.Add(spawner);
+    }
+
+    public static int getNextSpawnerID()
+    {
+        if (unitSpawners == null || unitSpawners.Count == 0) return 0;
+        return unitSpawners[unitSpawners.Count].getID() + 1;
+    }
 	private void spawnHeroes()
 	{
 
@@ -303,8 +353,10 @@ public class GameMaster : MonoBehaviour {
 
 	public static void removeUnit(Unit unit)
 	{
+        if (unit == null) return;
         //Fix: if a unit is "afk" and you shoot it with an arrow, this function checks a tile outside of the map
 		World.getMap().getTile(unit.getTile()).removeUnit (unit);
+        unit.setAlive(false);
 		unit.setAwake(false);
 		unit.inactivate();
 		units.Remove(unit);

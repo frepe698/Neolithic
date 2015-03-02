@@ -48,8 +48,7 @@ public class Unit {
 		this.rotation = rotation;
 		this.scale = new Vector3(1,1,1);
 		this.id = id;
-		tile = getTile();;
-		World.tileMap.getTile(tile).addUnit(this);
+		
 	}
 
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
@@ -59,10 +58,14 @@ public class Unit {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.id = id;
-		tile = getTile();
-		World.tileMap.getTile(tile).addUnit(this);
+		
 	}
 
+    public void init()
+    {
+        tile = getTile();
+        World.tileMap.getTile(tile).addUnit(this);
+    }
 	public virtual void activate()
 	{
 		if(isActive()) return; // already active

@@ -4,7 +4,7 @@ using System.Collections;
 public class DayTime : TimeSetting {
 
     public DayTime()
-        : base(120,
+        : base(10,
         new Color(0.5f, 0.5f, 0.45f),
         new Color(0.5f, 0.5f, 0.45f),
         new Vector3(70, 20, 0),
@@ -14,6 +14,12 @@ public class DayTime : TimeSetting {
         new Vector3(50, 0, 50))
     {
 
+    }
+
+    public override void start()
+    {
+        base.start();
+        GameMaster.allSpawnersRemoveUnits();
     }
 	
 }
