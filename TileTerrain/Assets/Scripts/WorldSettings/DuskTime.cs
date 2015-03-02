@@ -4,7 +4,7 @@ using System.Collections;
 public class DuskTime : TimeSetting {
 
     public DuskTime()
-        : base(60,
+        : base(5,
         new Color(0.6f, 0.5f, 0.3f),
         new Color(0,0,0),
         new Vector3(125, 25, 0),

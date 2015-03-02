@@ -34,6 +34,35 @@ public abstract class GameController : MonoBehaviour{
 		attackCursor = Resources.Load<Texture2D>("GUI/Cursors/attack_cursor");
 	}
 
+    //Spawn a unit
+    [RPC]
+    public abstract void requestAIUnitSpawn(int unitID, string name, float x, float y);
+
+    [RPC]
+    public void approveAIUnitSpawn(int unitID, string name, float x, float y)
+    {
+        AIUnit unit = new AIUnit(name, new Vector3(x, 0, y), Vector3.zero, unitID);
+		GameMaster.addUnit(unit);
+    }
+
+    //Spawner respawns all units that are dead
+    public abstract void requestSpawnerRespawn(int spawnerID);
+
+    [RPC]
+    public void approveSpawnerRespawn(int spawnerID)
+    {
+        GameMaster.spawnerRespawn(spawnerID);
+    }
+
+    //Spawner removes all its units
+    public abstract void requestSpawnerRemoveAll(int spawnerID);
+
+    [RPC]
+    public void approveSpawnerRemoveAll(int spawnerID)
+    {
+        GameMaster.spawnerRemoveAll(spawnerID);
+    }
+    
 	[RPC]
 	public abstract void requestMoveCommand(int unitID, float x, float y);
 	
@@ -353,7 +382,15 @@ public abstract class GameController : MonoBehaviour{
 
 	public abstract void requestProjectileHit(float damage, int unitID, int targetID);
 
+    [RPC]
+    public abstract void requestRemoveUnit(int unitID);
 
+    [RPC]
+    public void approveRemoveUnit(int unitID)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        unit.setAlive(false);
+    }
 
 	[RPC]
 	protected void killUnit(int targetID, int unitID)

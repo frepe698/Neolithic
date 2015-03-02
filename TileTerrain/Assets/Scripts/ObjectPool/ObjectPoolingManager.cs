@@ -104,7 +104,7 @@ public class ObjectPoolingManager
 	{
         if (objName == null)
         {
-            Debug.LogWarning("object name is nulll");
+            Debug.LogWarning("object name is null");
             return null;
         }
 		//Find the right pool and ask it for an object.

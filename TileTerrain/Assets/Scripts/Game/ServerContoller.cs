@@ -4,7 +4,23 @@ using System.Collections;
 public class ServerController : GameController {
 
 
+    [RPC]
+    public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
+    {
+        gameMaster.getNetView().RPC("approveAIUnitSpawn", RPCMode.All, unitID, name, x, y);
+    }
 
+    
+    public override void requestSpawnerRespawn(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveSpawnerRespawn", RPCMode.All, spawnerID);
+    }
+
+
+    public override void requestSpawnerRemoveAll(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveSpawnerRemoveAll", RPCMode.All, spawnerID);
+    }
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
@@ -172,5 +188,11 @@ public class ServerController : GameController {
 		}
 
 	}
+
+    [RPC]
+    public override void requestRemoveUnit(int unitID)
+    {
+        gameMaster.getNetView().RPC("approveRemoveUnit", RPCMode.All, unitID);
+    }
 
 }

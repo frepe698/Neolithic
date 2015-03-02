@@ -3,7 +3,21 @@ using System.Collections;
 
 public class ClientController : GameController {
 
+    [RPC]
+    public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
+    {
+        //Do NADA
+    }
 
+    public override void requestSpawnerRespawn(int spawnerID)
+    {
+        //Do nada
+    }
+
+    public override void requestSpawnerRemoveAll(int spawnerID)
+    {
+        //Do nada
+    }
 
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
@@ -80,6 +94,12 @@ public class ClientController : GameController {
 	{
 		//do nada
 	}
+
+    [RPC]
+    public override void requestRemoveUnit(int unitID)
+    {
+        gameMaster.getNetView().RPC("requestRemoveUnit", RPCMode.Server, unitID);
+    }
 	
 
 	[RPC]

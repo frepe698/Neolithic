@@ -354,6 +354,12 @@ public class World : MonoBehaviour {
 		}
 	}
 
+    public void addSpawners()
+    {
+
+        GameMaster.addSpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
+    }
+
 	public void addAnimals()
 	{
 

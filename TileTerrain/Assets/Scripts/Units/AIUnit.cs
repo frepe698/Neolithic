@@ -34,6 +34,8 @@ public class AIUnit : Unit {
 			size = data.size;
             modelName = data.modelName;
 		}
+        init();
+
 	}
 
 	public override void updateAI()
