@@ -80,6 +80,17 @@ public class ClientController : GameController {
 	{
 		//do nada
 	}
+
+    [RPC]
+    public override void requestCheatCommand(int unitID, int commandID, string parameters)
+    {
+        gameMaster.getNetView().RPC("requestCheatCommand", RPCMode.Server, unitID, commandID, parameters);
+    }
+
+    public override void sendChatMessage(string msg)
+    {
+        gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, GameMaster.getPlayerUnitID(), msg);
+    }
 	
 
 	[RPC]

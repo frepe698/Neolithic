@@ -166,6 +166,17 @@ public class OfflineController : GameController {
 			changeEnergy(unitID, -5);
 		}
 	}
+
+    [RPC]
+    public override void requestCheatCommand(int unitID, int commandID, string parameters)
+    {
+        approveCheatCommand(unitID, commandID, parameters);
+    }
+
+    public override void sendChatMessage(string msg)
+    {
+        recieveChatMessage(GameMaster.getPlayerUnitID(), msg);
+    }
 	
 
 }

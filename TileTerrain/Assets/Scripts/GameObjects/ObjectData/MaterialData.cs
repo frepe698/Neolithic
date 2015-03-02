@@ -18,4 +18,9 @@ public class MaterialData : ItemData{
     {
         return description;
     }
+
+    public override Item getItem()
+    {
+        return new MaterialItem(name);
+    }
 }

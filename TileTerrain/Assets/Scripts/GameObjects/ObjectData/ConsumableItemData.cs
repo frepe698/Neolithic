@@ -35,4 +35,9 @@ public class ConsumableItemData : ItemData {
     {
         return "Hunger change: " + hungerChange;
     }
+
+    public override Item getItem()
+    {
+        return new ConsumableItem(name);
+    }
 }

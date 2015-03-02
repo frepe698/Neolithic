@@ -173,4 +173,14 @@ public class ServerController : GameController {
 
 	}
 
+    [RPC]
+    public override void requestCheatCommand(int unitID, int commandID, string parameters)
+    {
+        gameMaster.getNetView().RPC("approveCheatCommand", RPCMode.All, unitID, commandID, parameters);
+    }
+
+    public override void sendChatMessage(string msg)
+    {
+        gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, GameMaster.getPlayerUnitID(), msg);
+    }
 }
