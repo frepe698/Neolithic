@@ -34,6 +34,8 @@ public abstract class ItemData : ObjectData {
         return new LootableObject(position2D, yrotation, name, modelName);
     }
 
+    public abstract Item getItem();
+
     public virtual string getTooltipStatsString()
     {
         return "override this";

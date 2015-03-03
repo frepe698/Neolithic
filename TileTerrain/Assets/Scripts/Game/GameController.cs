@@ -160,30 +160,38 @@ public abstract class GameController : MonoBehaviour{
 	{
 		if(clickTimer > 0) clickTimer -= Time.deltaTime;
 
-		if(Input.GetKeyDown("i"))
-		{
-			gameMaster.getGUIManager().toggleInventory();
-		}
-		if(Input.GetKeyDown("c"))
-		{
-			gameMaster.getGUIManager().toggleCrafting();
-		}
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("return"))
         {
-            gameMaster.getGUIManager().toggleIngameMenu();
+            gameMaster.getGUIManager().toggleChatInput();
         }
-		if(Input.GetKeyDown("g"))
-		{
-			GameMaster.getWorld().toggleDrawGrid();
-		}
-		if(Input.GetKey ("up"))
-		{
-			GameMaster.getWorld().changeSnowAmount(Time.deltaTime*0.5f);
-		}
-		if(Input.GetKey ("down"))
-		{
-			GameMaster.getWorld().changeSnowAmount(Time.deltaTime*-0.5f);
-		}
+        if (gameMaster.getGUIManager().takeKeyboardInput())
+        {
+            if (Input.GetKeyDown("i"))
+            {
+                gameMaster.getGUIManager().toggleInventory();
+            }
+            if (Input.GetKeyDown("c"))
+            {
+                gameMaster.getGUIManager().toggleCrafting();
+            }
+            if (Input.GetKeyDown("escape"))
+            {
+                gameMaster.getGUIManager().toggleIngameMenu();
+            }
+            if (Input.GetKeyDown("g"))
+            {
+                GameMaster.getWorld().toggleDrawGrid();
+            }
+            if (Input.GetKey("up"))
+            {
+                GameMaster.getWorld().changeSnowAmount(Time.deltaTime * 0.5f);
+            }
+            if (Input.GetKey("down"))
+            {
+                GameMaster.getWorld().changeSnowAmount(Time.deltaTime * -0.5f);
+            }
+        }
+		
 		if(!gameMaster.getGUIManager().isMouseOverGUI())
 		{
 
@@ -398,7 +406,6 @@ public abstract class GameController : MonoBehaviour{
 		Unit unit = GameMaster.getUnit (targetID); 
 		unit.setAlive(false);
 		requestUnitLootDrop(unit.getName(), unit.getTile());
-		//TODO LOOT DROPPPPP
 	}
 	
 	[RPC]
@@ -493,6 +500,56 @@ public abstract class GameController : MonoBehaviour{
 		hero.changeHunger(item.getHungerChange());
 		hero.getInventory().consumeItem(itemIndex);
 	}
+
+    [RPC]
+    public abstract void requestCheatCommand(int unitID, int commandID, string parameters);
+
+    [RPC]
+    protected void approveCheatCommand(int unitID, int commandID, string parameterString)
+    {
+        object[] parameters = CheatCommand.getParametersFromString(commandID, parameterString);
+        if (parameters == null) return;
+        Hero commander = GameMaster.getHero(unitID);
+        if(commander == null) return;
+        switch(commandID)
+        {
+            case(CheatCommand.SPAWN):
+            {
+                AIUnitData unitData = DataHolder.Instance.getAIUnitData((string)parameters[0]);
+                if(unitData == null) return;
+                GameMaster.addUnit(new AIUnit(unitData.name, commander.getPosition() + Vector3.forward, Vector3.zero, GameMaster.getNextUnitID()));
+            }
+            break;
+
+            case(CheatCommand.GIVE):
+            {
+                ItemData itemData = DataHolder.Instance.getItemData((string)parameters[0]);
+                if(itemData == null) return;
+                int amount = 1;
+                if(parameters.Length > 1) amount = (int)parameters[1];
+                for(int i = 0; i < amount; i++)
+                {
+                    commander.getInventory().addItem(itemData.getItem());
+                }
+            }
+            break;
+
+            case(CheatCommand.WARP):
+            {
+                if(parameters.Length != 2) return;
+                commander.warp(new Vector3((float)parameters[0], 0, (float)parameters[1]));
+            }
+            break;
+        }
+    }
+
+    public abstract void sendChatMessage(string msg);
+
+    [RPC]
+    public void recieveChatMessage(int unitID, string msg)
+    {
+        gameMaster.getGUIManager().addChatMessage(unitID + ": " + msg);
+    }
 
 	protected abstract IEnumerator lagMove(int unitID, float x, float y, float lag);
 

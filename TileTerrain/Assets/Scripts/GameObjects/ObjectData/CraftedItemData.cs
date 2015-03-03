@@ -31,4 +31,9 @@ public abstract class CraftedItemData : ItemData {
     {
         return new LootableItem(position2D, yrotation, name, modelName);
     }
+
+    public override Item getItem()
+    {
+        return new CraftedItem(name);
+    }
 }

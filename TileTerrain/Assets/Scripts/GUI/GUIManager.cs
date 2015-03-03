@@ -19,6 +19,18 @@ public class GUIManager : MonoBehaviour{
     private const int MENU_BUTTON_MAINMENU = 2;
     private const int MENU_BUTTON_DESKTOP = 3;
 
+    //Chat
+    private GameObject chatObject;
+    private GameObject chatInputObject;
+    private InputField chatInputField;
+    private Text chatOutputText;
+    private float chatOutputHeight = 0;
+    private Scrollbar chatScrollbar;
+    private bool justOpenedChat = false;
+    private bool chatting = false;
+    private bool chatOutputOpen = false;
+    private float chatCloseTime = 0;
+
     //Inventory
 	private GameObject inventoryObject;
 	private Inventory inventory;
@@ -121,6 +133,18 @@ public class GUIManager : MonoBehaviour{
         ingameMenuActive = false;
         ingameMenuObject.SetActive(ingameMenuActive);
 
+        //Chat
+        chatObject = canvas.FindChild("Chat").gameObject;
+        chatInputObject = chatObject.transform.FindChild("ChatInput").gameObject;
+        chatInputField = chatInputObject.GetComponent<InputField>();
+        chatOutputText = chatObject.transform.FindChild("ChatOutputScrollmask").FindChild("ChatOutput").GetComponent<Text>();
+        chatScrollbar = chatObject.transform.FindChild("Scrollbar").GetComponent<Scrollbar>();
+
+
+        //chatObject.SetActive(chatting);
+        //chatInputObject.SetActive(chatting);
+
+
         //Inventory init
 		inventoryObject = canvas.FindChild("Inventory").gameObject;
 		Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
@@ -194,6 +218,41 @@ public class GUIManager : MonoBehaviour{
 
 	public void update()
 	{
+        if (chatting)
+        {
+            if (justOpenedChat)
+            {
+                chatInputField.ActivateInputField();
+                chatInputField.Select();
+                justOpenedChat = false;
+            }
+            chatInputField.text = chatInputField.text.Replace("\n", "").Replace("\r", "");
+            chatObject.SetActive(true);
+            chatOutputOpen = true;
+            chatInputObject.SetActive(true);
+        }
+        else
+        {
+            chatInputField.DeactivateInputField();
+            chatInputObject.SetActive(false);
+
+            if (Time.time >= chatCloseTime)
+            {
+                chatObject.SetActive(false);
+                chatOutputOpen = false;
+            }
+        }
+
+        if (chatOutputOpen)
+        {
+            float newHeight = chatOutputText.rectTransform.sizeDelta.y;
+            if (newHeight > chatOutputHeight)
+            {
+                chatScrollbar.value = 0;
+                chatOutputHeight = newHeight;
+            }
+        }
+
 		if(inventory != null && inventory.shouldUpdate())
 		{
 			updateInventory();
@@ -873,9 +932,6 @@ public class GUIManager : MonoBehaviour{
 
     public void recipeFoldButtonClick(int index)
     {
-        //deselectrecipe();
-        //selectedrecipeTab = index;
-        //onSelectItemTab();
         recipeFoldOpen[index] = !recipeFoldOpen[index];
         updateRecipeFolds();
     }
@@ -941,4 +997,44 @@ public class GUIManager : MonoBehaviour{
 	{
 		return mouseOverGUI;
 	}
+
+    public bool takeKeyboardInput()
+    {
+        return !chatting;
+    }
+
+    public void addChatMessage(string msg)
+    {
+        chatOutputText.text += msg + "\n";
+        chatCloseTime = Time.time + 5;
+        chatObject.SetActive(true);
+        chatOutputOpen = true;
+    }
+
+    public void toggleChatInput()
+    {
+        if (chatting)
+        {
+            //send message
+            if (chatInputField.text.StartsWith("!"))
+            {
+                CheatCommand.sendCommandFromString(chatInputField.text.Substring(1));
+            }
+            else
+            {
+                GameMaster.getGameController().sendChatMessage(chatInputField.text);
+            }
+            
+            chatting = false;
+
+        }
+        else
+        {
+            chatting = true;
+            chatObject.SetActive(true);
+            chatInputObject.SetActive(true);
+            justOpenedChat = true;
+        }
+        
+    }
 }
