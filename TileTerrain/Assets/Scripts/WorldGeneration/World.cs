@@ -184,7 +184,7 @@ public class World : MonoBehaviour {
 		
 		int xtri = WorldSection.SIZE*2;
 		int ytri = WorldSection.SIZE;
-		
+
 		Vector3[,] terrainNormals = new Vector3[xtri*sectionCount,ytri*sectionCount];
 		
 		for(int x = 0; x < sectionCount; x++)
@@ -192,7 +192,7 @@ public class World : MonoBehaviour {
 			for(int y = 0; y < sectionCount; y++)
 			{
 				WorldSection ws = new WorldSection(new Vector2i(x, y));
-				
+
 				for(int tx = x*xtri; tx < (x+1)*xtri; tx++)
 				{
 					for(int ty = y*ytri; ty < (y+1)*ytri; ty++)
