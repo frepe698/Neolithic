@@ -92,5 +92,26 @@
       <minDrops>1</minDrops>
       <maxDrops>5</maxDrops>
     </AIUnitData>
+    <AIUnitData name="battlepig" gameName="Battle Pig" modelName="battlepig">
+      <health>10000</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>0</movespeed>
+      <size>1</size>
+      <damage>1</damage>
+      <attackSpeed>1</attackSpeed>
+      <attackSound>punch02</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>1</lineofsight>
+      <safeDrops>
+        <string />
+      </safeDrops>
+      <randomDrops>
+        <string />
+      </randomDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>0</maxDrops>
+    </AIUnitData>
   </AIUnits>
 </UnitsRoot>

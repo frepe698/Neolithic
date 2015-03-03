@@ -5,7 +5,7 @@ public class WorldSection {
 
 	public static readonly int SIZE = 64;
 
-	private Vector2i tileMapPos;
+	private readonly Vector2i tileMapPos;
 
 	private Vector3[] newVertices;
 	private Vector2[] newUV;
@@ -54,42 +54,14 @@ public class WorldSection {
 		}
 	}
 
-	void createMeshFromTileMapOverlap()
-	{
-		int size = SIZE+2;
-		int vertCount = size+1;
-		newVertices = new Vector3[(vertCount)*(vertCount)];
-		triangles = new int[size*size*6];
-		
-		int lastTile = 0;
-		for(int x = 0; x < vertCount; x++)
-		{
-			for(int y = 0; y < vertCount; y++)
-			{
-				newVertices[x*vertCount + y] = new Vector3(x-1, calcVertHeightOverlap(x-1+tileMapPos.x, y-1+tileMapPos.y), y-1);
-				
-				if(y < size && x < size)
-				{
-					int vert = x*vertCount + y;
-					triangles[(lastTile*6) + 0] = vert + 0;
-					triangles[(lastTile*6) + 1] = vert + 1;
-					triangles[(lastTile*6) + 2] = vert + vertCount;
-					
-					triangles[(lastTile*6) + 3] = vert + vertCount;
-					triangles[(lastTile*6) + 4] = vert + 1;
-					triangles[(lastTile*6) + 5] = vert + vertCount+1;
-					lastTile++;
-				}
-			}
-		}
-	}
 
 	public Vector3 getTriangleNormal(int index)
 	{
+        index *= 3;
 		Vector3 v1 = newVertices[triangles[index+1]] - newVertices[triangles[index]];
 		Vector3 v2 = newVertices[triangles[index+2]] - newVertices[triangles[index]];
 
-		return Vector3.Cross(v1, v2);
+		return Vector3.Normalize(Vector3.Cross(v1, v2));
 	}
 
 	public void calculateNormals(Vector3[,] triNormals)
@@ -102,24 +74,26 @@ public class WorldSection {
 			{
 				int mapX = (x + tileMapPos.x)*2;
 				int mapY = y + tileMapPos.y;
+                
 				Vector3 normal = Vector3.zero;
 				bool up = mapY > 0;
-				bool right = mapX < World.sectionCount*SIZE;
+				bool right = mapX < World.sectionCount*SIZE*2;
 				bool down = mapY < World.sectionCount*SIZE;
 				bool left = mapX > 0;
-				if(up)
-				{
-					
-					if(right)
-					{
+                if (up)
+                {
+
+                    if (right)
+                    {
                         normal += triNormals[mapX, mapY - 1];
-						normal += triNormals[mapX + 1, mapY-1];
-					}
+                        normal += triNormals[mapX + 1, mapY - 1];
+                    }
                     else
                     {
+                       
                         normal += new Vector3(0, 2, 0);
                     }
-                    if(left)
+                    if (left)
                     {
                         normal += triNormals[mapX - 1, mapY - 1];
                     }
@@ -128,7 +102,12 @@ public class WorldSection {
                         normal += new Vector3(0, 1, 0);
                     }
 
-				}
+                }
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
 				
 				if(down)
 				{
@@ -147,10 +126,23 @@ public class WorldSection {
                     }
                     else
                     {
-                        normal += new Vector3(0, 1, 0);
+                       normal += new Vector3(0, 1, 0);
                     }
 				}
-                normals[x + y * vertCount] = normal.normalized;
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
+
+                normals[x + y * vertCount] = Vector3.Normalize(normal);
+                if ((x == 0 && y == SIZE) || (x == SIZE && y == 0) || (x == 0 && y == 0) || (x == SIZE && y == SIZE)) 
+                {
+                    Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + mapX + ", " + mapY + ": " + normals[x + y * vertCount]);
+                    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount]);
+                    World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount] + normals[x + y * vertCount]);
+                
+                }
 			}
 		}
 		if(mesh == null)
@@ -161,7 +153,21 @@ public class WorldSection {
 		calculateTangents(mesh);
 	}
 
-	private void generateMesh()
+    public void setNormals(Vector3[] normals)
+    {
+        int startIndex = tileMapPos.x * tileMapPos.y;
+        Vector3[] newNormals = new Vector3[newVertices.Length];
+        for (int i = 0; i < newVertices.Length; i++)
+        {
+            newNormals[i] = normals[i + startIndex]; 
+        }
+
+        if (mesh == null) generateMesh();
+        mesh.normals = newNormals;
+        calculateTangents(mesh);
+    }
+
+    private void generateMesh()
 	{
 		mesh = new Mesh();
 		
@@ -295,7 +301,23 @@ public class WorldSection {
 		for(int i = 0; i < count; i++)
 		{
 			Vector3 n = normals[i];
-			tangents[i] = new Vector4(n.x, n.y, n.z, 1);
+            Vector3 t;
+
+            Vector3 c1 = Vector3.Cross(n, new Vector3(0.0f, 0.0f, 1.0f));
+            Vector3 c2 = Vector3.Cross(n, new Vector3(0.0f, 1.0f, 0.0f));
+
+            if (Vector3.Magnitude(c1) > Vector3.Magnitude(c2))
+            {
+                t = c1;
+            }
+            else
+            {
+                t = c2;
+            }
+
+            Vector3.Normalize(t);
+
+            tangents[i] = new Vector4(t.x, t.y, t.z, 1);
 		}
 
 		mesh.tangents = tangents;

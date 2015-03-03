@@ -36,8 +36,8 @@ public class AIUnitData : UnitData {
         hostile = data.hostile;
         lineofsight = data.lineofsight;
 
-        safeDrops = data.safeDrops.Trim().Split('\n');
-        randomDrops = data.randomDrops.Trim().Split('\n');
+        if(data.safeDrops != null) safeDrops = data.safeDrops.Trim().Split('\n');
+        if(data.randomDrops != null) randomDrops = data.randomDrops.Trim().Split('\n');
 
         minDrops = data.minDrops;
         maxDrops = data.maxDrops;

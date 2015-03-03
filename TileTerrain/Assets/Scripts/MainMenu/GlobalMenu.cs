@@ -4,7 +4,7 @@ using System.Collections;
 public class GlobalMenu : MonoBehaviour {
 
 	void Start () {
-		audio.Play ();	
+		GetComponent<AudioSource>().Play ();	
 	}
 
 }

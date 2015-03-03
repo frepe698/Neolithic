@@ -11,12 +11,12 @@ public class MenuUnit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(animation.isPlaying == false)
-			animation.CrossFade("idle_unarmed");
+		if(GetComponent<Animation>().isPlaying == false)
+			GetComponent<Animation>().CrossFade("idle_unarmed");
 	}
 
 	public void onSelect()
 	{
-		animation.CrossFade("chop_unarmed");
+		GetComponent<Animation>().CrossFade("chop_unarmed");
 	}
 }

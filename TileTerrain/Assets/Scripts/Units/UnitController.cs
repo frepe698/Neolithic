@@ -40,23 +40,23 @@ public class UnitController : MonoBehaviour {
 			if(rightHand)
 			{
 				if(itemTransformR == null) return;
-				AnimationState anim = itemTransformR.animation[animation];
+				AnimationState anim = itemTransformR.GetComponent<Animation>()[animation];
 				if(anim != null)
 				{
 					anim.speed = speed;
-					itemTransformR.animation.Stop();
-					itemTransformR.animation.Play(animation);
+					itemTransformR.GetComponent<Animation>().Stop();
+					itemTransformR.GetComponent<Animation>().Play(animation);
 				}
 			}
 			else
 			{
 				if(itemTransformL == null) return;
-				AnimationState anim = itemTransformL.animation[animation];
+				AnimationState anim = itemTransformL.GetComponent<Animation>()[animation];
 				if(anim != null)
 				{
 					anim.speed = speed;
-					itemTransformL.animation.Stop();
-					itemTransformL.animation.Play(animation);
+					itemTransformL.GetComponent<Animation>().Stop();
+					itemTransformL.GetComponent<Animation>().Play(animation);
 				}
 			}
 		}
@@ -64,16 +64,16 @@ public class UnitController : MonoBehaviour {
 
 	public void setAnimationRestart(string animation, float speed = 1)
 	{
-		this.animation.Stop(animation);
-		this.animation[animation].speed = speed;
-		this.animation.CrossFade(animation, 0.2f);
+		this.GetComponent<Animation>().Stop(animation);
+		this.GetComponent<Animation>()[animation].speed = speed;
+		this.GetComponent<Animation>().CrossFade(animation, 0.2f);
 	}
 
 	
 	public void setAnimation(string animation, float speed = 1)
 	{
-		this.animation[animation].speed = speed;
-		this.animation.CrossFade(animation, 0.2f);
+		this.GetComponent<Animation>()[animation].speed = speed;
+		this.GetComponent<Animation>().CrossFade(animation, 0.2f);
 	}
 
 	public void playSound(string sound)

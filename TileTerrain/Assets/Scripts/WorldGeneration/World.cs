@@ -51,11 +51,16 @@ public class World : MonoBehaviour {
 	public static int seed = -1;
 	
 	private Unit controlledUnit;
+
+    public static List<Vector3> normalsstart = new List<Vector3>();
+    public static List<Vector3> normalsend = new List<Vector3>();
 	
 	void Awake () {
 		waterMaterial = (Material)Resources.Load ("water");
 		groundMaterial = (Material)Resources.Load ("terrain");
+
 	}
+
 
     void OnDestroy()
     {
@@ -192,28 +197,30 @@ public class World : MonoBehaviour {
 			for(int y = 0; y < sectionCount; y++)
 			{
 				WorldSection ws = new WorldSection(new Vector2i(x, y));
-
-				for(int tx = x*xtri; tx < (x+1)*xtri; tx++)
-				{
-					for(int ty = y*ytri; ty < (y+1)*ytri; ty++)
-					{
-						int stx = tx - x*xtri;
-						int sty = ty - y*ytri;
-						terrainNormals[tx,ty] = ws.getTriangleNormal(stx + sty*xtri);
-					}
-				}
+                for (int tx = x * xtri; tx < (x + 1) * xtri; tx++)
+                {
+                    for (int ty = y * ytri; ty < (y + 1) * ytri; ty++)
+                    {
+                        int stx = tx - x * xtri;
+                        int sty = ty - y * ytri;
+                        terrainNormals[tx, ty] = ws.getTriangleNormal(stx + sty * xtri);
+                    }
+                }
 				
 				sections[x, y] = ws;
 				
 			}
 		}
+
+       // Vector3[] normals = calculateNormals(terrainNormals);
 		
 		groundRenderers = new MeshRenderer[sectionCount*sectionCount];
 		for(int x = 0; x < sectionCount; x++)
 		{
 			for(int y = 0; y < sectionCount; y++)
 			{
-				sections[x, y].calculateNormals(terrainNormals);
+                sections[x, y].calculateNormals(terrainNormals);
+                //sections[x, y].setNormals(normals);
 				
 				GameObject section = new GameObject("World Section("+x+","+y+")");
 				section.tag = "Ground";
@@ -258,6 +265,82 @@ public class World : MonoBehaviour {
 		}
 		//initTerrainTexture();
 	}
+
+    Vector3[] calculateNormals(Vector3[,] triNormals)
+    {
+        int vertCount = sectionCount * WorldSection.SIZE + 1;
+		Vector3[] normals = new Vector3[vertCount * vertCount];
+        for (int x = 0; x < vertCount; x++)
+        {
+            for (int y = 0; y < vertCount; y++)
+            {
+                int mapX = x * 2;
+                int mapY = y;
+                Vector3 normal = Vector3.zero;
+                bool up = mapY > 0;
+                bool right = mapX < vertCount * 2 - 2;
+                bool down = mapY < vertCount - 2;
+                bool left = mapX > 0;
+                if (up)
+                {
+
+                    if (right)
+                    {
+                        normal += triNormals[mapX, mapY - 1];
+                        normal += triNormals[mapX + 1, mapY - 1];
+                    }
+                    else
+                    {
+                        //Debug.Log(x);
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if (left)
+                    {
+                        normal += triNormals[mapX - 1, mapY - 1];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
+
+                }
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
+
+                if (down)
+                {
+                    if (left)
+                    {
+                        normal += triNormals[mapX - 1, mapY];
+                        normal += triNormals[mapX - 2, mapY];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if (right)
+                    {
+                        normal += triNormals[mapX, mapY];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
+                }
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
+                normals[x + y * vertCount] = normal.normalized;
+            }
+        }
+
+        return normals;
+    }
 
 	void initTerrainTexture()
 	{
@@ -524,6 +607,11 @@ public class World : MonoBehaviour {
 		{
 			tile.renderEyecandy();
 		}
+
+        for (int i = 0; i < normalsstart.Count; i++)
+        {
+            Debug.DrawLine(normalsstart[i], normalsend[i], Color.white);
+        }
 	}
 
 	public static void addActiveTile(Tile tile)

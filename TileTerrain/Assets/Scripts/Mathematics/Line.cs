@@ -249,7 +249,7 @@ public class Line {
 
 	public void draw(Color color)
 	{
-		Debug.DrawLine(new Vector3(start.x, 2, start.y), new Vector3(end.x, 2, end.y), color);
+		Debug.DrawLine(start, end, color);
 	}
 
 	public float distanceFromPoint(Vector2 p) {

@@ -82,6 +82,38 @@ ModelImporter:
     100152: hand_followR.R
     100154: hold.L
     100156: hold.R
+    100158: armTwist1.L_end
+    100160: armTwist1.R_end
+    100162: armTwist2.L_end
+    100164: armTwist2.R_end
+    100166: elbow_target.L_end
+    100168: elbow_target.R_end
+    100170: f_index_3.L_end
+    100172: f_index_3.R_end
+    100174: f_long_3.L_end
+    100176: f_long_3.R_end
+    100178: f_pinky3.L_end
+    100180: f_pinky3.R_end
+    100182: f_ring_3.L_end
+    100184: f_ring_3.R_end
+    100186: f_thumb_3.L_end
+    100188: f_thumb_3.R_end
+    100190: hand_followL.L_end
+    100192: hand_followL.R_end
+    100194: hand_followR.R_end
+    100196: head_end
+    100198: IKarm.L_end
+    100200: IKarm.R_end
+    100202: knee_target.L_end
+    100204: knee_target.R_end
+    100206: shin.L_end
+    100208: shin.R_end
+    100210: skirtBack.L_end
+    100212: skirtBack.R_end
+    100214: skirtFront.L_end
+    100216: skirtFront.R_end
+    100218: toes.L_end
+    100220: toes.R_end
     400000: arm.L
     400002: arm.R
     400004: armTwist1.L
@@ -161,6 +193,38 @@ ModelImporter:
     400152: hand_followR.R
     400154: hold.L
     400156: hold.R
+    400158: armTwist1.L_end
+    400160: armTwist1.R_end
+    400162: armTwist2.L_end
+    400164: armTwist2.R_end
+    400166: elbow_target.L_end
+    400168: elbow_target.R_end
+    400170: f_index_3.L_end
+    400172: f_index_3.R_end
+    400174: f_long_3.L_end
+    400176: f_long_3.R_end
+    400178: f_pinky3.L_end
+    400180: f_pinky3.R_end
+    400182: f_ring_3.L_end
+    400184: f_ring_3.R_end
+    400186: f_thumb_3.L_end
+    400188: f_thumb_3.R_end
+    400190: hand_followL.L_end
+    400192: hand_followL.R_end
+    400194: hand_followR.R_end
+    400196: head_end
+    400198: IKarm.L_end
+    400200: IKarm.R_end
+    400202: knee_target.L_end
+    400204: knee_target.R_end
+    400206: shin.L_end
+    400208: shin.R_end
+    400210: skirtBack.L_end
+    400212: skirtBack.R_end
+    400214: skirtFront.L_end
+    400216: skirtFront.R_end
+    400218: toes.L_end
+    400220: toes.R_end
     2300000: halftroll
     3300000: halftroll
     4300000: halftroll
@@ -196,14 +260,14 @@ ModelImporter:
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
-    animationWrapMode: 0
+    animationWrapMode: 2
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
       name: chop_axe
       takeName: rig|chop_axe
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -535,7 +599,7 @@ ModelImporter:
       name: idle_axe
       takeName: rig|idle_axe
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
