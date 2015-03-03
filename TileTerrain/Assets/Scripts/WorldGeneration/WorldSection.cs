@@ -100,42 +100,57 @@ public class WorldSection {
 		{
 			for(int y = 0; y < vertCount; y++)
 			{
-				int mapX = 1;
-				int mapY = 1;
+				int mapX = (x + tileMapPos.x)*2;
+				int mapY = y + tileMapPos.y;
 				Vector3 normal = Vector3.zero;
-				bool up = tileMapPos.y > 0 || y > 0;
-				bool right = tileMapPos.x < (World.sectionCount-1)*SIZE || x < SIZE;
-				bool down = tileMapPos.y < (World.sectionCount-1)*SIZE || y < SIZE;
-				bool left = tileMapPos.x > 0 || x > 0;
+				bool up = mapY > 0;
+				bool right = mapX < World.sectionCount*SIZE;
+				bool down = mapY < World.sectionCount*SIZE;
+				bool left = mapX > 0;
 				if(up)
 				{
-					normal += triNormals[mapX, mapY-1];
+					
 					if(right)
 					{
-						normal += triNormals[mapX, mapY-1];
+                        normal += triNormals[mapX, mapY - 1];
+						normal += triNormals[mapX + 1, mapY-1];
 					}
+                    else
+                    {
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if(left)
+                    {
+                        normal += triNormals[mapX - 1, mapY - 1];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
 
 				}
-				if(right)
-				{
-					normal += triNormals[mapX, mapY];
-				}
+				
 				if(down)
 				{
-					normal += triNormals[mapX, mapY];
 					if(left)
 					{
-						normal += triNormals[mapX-1, mapY];
+						normal += triNormals[mapX - 1, mapY];
+                        normal += triNormals[mapX - 2, mapY]; 
 					}
+                    else
+                    {
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if(right)
+                    {
+                        normal += triNormals[mapX, mapY];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
 				}
-				if(left)
-				{
-					normal += triNormals[mapX-1, mapY];
-				}
-
-				//normals[x + y*vertCount] = normal.normalized;
-				normals[x + y*vertCount] = Vector3.up;
-
+                normals[x + y * vertCount] = normal.normalized;
 			}
 		}
 		if(mesh == null)
