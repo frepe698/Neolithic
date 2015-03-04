@@ -610,7 +610,15 @@ public class World : MonoBehaviour {
 
         for (int i = 0; i < normalsstart.Count; i++)
         {
-            Debug.DrawLine(normalsstart[i], normalsend[i], Color.white);
+            if (i % 4 == 0) Debug.DrawLine(normalsstart[i], normalsend[i], Color.white);
+            if (i % 4 == 1) Debug.DrawLine(normalsstart[i], normalsend[i], Color.black);
+            if (i % 4 == 2) Debug.DrawLine(normalsstart[i], normalsend[i], Color.blue);
+            if (i % 4 == 3)
+            {
+                Debug.DrawLine(normalsstart[i], normalsend[i], Color.yellow);
+             //   Debug.Log(normalsend[i] - normalsstart[i]);
+
+            }
         }
 	}
 

@@ -68,9 +68,9 @@ public class WorldSection {
 	{
 		int vertCount = SIZE+1;
 		normals = new Vector3[vertCount*vertCount];
-		for(int x = 0; x < vertCount; x++)
+		for(int y = 0; y < vertCount; y++)
 		{
-			for(int y = 0; y < vertCount; y++)
+			for(int x = 0; x < vertCount; x++)
 			{
 				int mapX = (x + tileMapPos.x)*2;
 				int mapY = y + tileMapPos.y;
@@ -135,10 +135,10 @@ public class WorldSection {
                 }
 
 
-                normals[x + y * vertCount] = Vector3.Normalize(normal);
-                if ((x == 0 && y == SIZE) || (x == SIZE && y == 0) || (x == 0 && y == 0) || (x == SIZE && y == SIZE)) 
+                normals[y + x * vertCount] = Vector3.Normalize(normal);
+                if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) ||*/ (x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
                 {
-                    Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + mapX + ", " + mapY + ": " + normals[x + y * vertCount]);
+                    //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
                     World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount]);
                     World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount] + normals[x + y * vertCount]);
                 
@@ -152,6 +152,7 @@ public class WorldSection {
 		mesh.normals = normals;
 		calculateTangents(mesh);
 	}
+    //Räknar vi ut i fel x led och y led?
 
     public void setNormals(Vector3[] normals)
     {
