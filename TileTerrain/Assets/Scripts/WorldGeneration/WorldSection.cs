@@ -166,6 +166,7 @@ public class WorldSection {
         if (mesh == null) generateMesh();
         mesh.normals = newNormals;
         calculateTangents(mesh);
+        //World.RecalculateTangents(mesh);
     }
 
     private void generateMesh()
@@ -318,7 +319,7 @@ public class WorldSection {
 
             Vector3.Normalize(t);
 
-            tangents[i] = new Vector4(t.x, t.y, t.z, 1);
+            tangents[i] = new Vector4(n.x, n.y, n.z, 1);
 		}
 
 		mesh.tangents = tangents;

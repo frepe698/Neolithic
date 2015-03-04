@@ -229,7 +229,7 @@ public class World : MonoBehaviour {
 				
 				MeshRenderer renderer = section.AddComponent<MeshRenderer>();
 				
-				renderer.castShadows = true;
+				renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				renderer.material = material;
 				
 				groundRenderers[x + y * sectionCount] = renderer;
@@ -478,7 +478,7 @@ public class World : MonoBehaviour {
        
 	}
 	
-	void RecalculateTangents(Mesh mesh)
+	public static void RecalculateTangents(Mesh mesh)
 	{
 		int triangleCount = mesh.triangles.Length;
 		int vertexCount = mesh.vertices.Length;
