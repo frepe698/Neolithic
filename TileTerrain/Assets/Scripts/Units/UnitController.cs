@@ -130,7 +130,16 @@ public class UnitController : MonoBehaviour {
 		}
 	}
 
-    public void setArmor(string unitName, ArmorData data)
+    public void unequipArmor(int armorType)
+    {
+        SkinnedMeshRenderer unitArmorRenderer = transform.FindChild(armorRendererNames[armorType]).GetComponent<SkinnedMeshRenderer>();
+        if (unitArmorRenderer != null)
+        {
+            unitArmorRenderer.enabled = false;
+        }
+    }
+
+    public void equipArmor(string unitName, ArmorData data)
     {
         string datapath = "Armor/"+unitName+"/"+data.modelName;
         GameObject armor = (GameObject)Resources.Load(datapath);

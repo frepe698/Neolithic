@@ -190,6 +190,22 @@ public abstract class GameController : MonoBehaviour{
             {
                 GameMaster.getWorld().changeSnowAmount(Time.deltaTime * -0.5f);
             }
+
+            //item quick use
+            for (int i = 0; i < GUIManager.QUICK_USE_ITEM_COUNT; i++)
+            {
+                if (Input.GetKeyDown((i+1).ToString()))
+                {
+                    if (Input.GetKey("left shift"))
+                    {
+                        gameMaster.getGUIManager().setQuickUseItem(i);
+                    }
+                    else
+                    {
+                        gameMaster.getGUIManager().quickUseItem(i);
+                    }
+                }
+            }
         }
 		
 		if(!gameMaster.getGUIManager().isMouseOverGUI())
@@ -485,7 +501,7 @@ public abstract class GameController : MonoBehaviour{
 	protected void approveItemChange(int unitID, int itemIndex)
 	{
 		Hero hero = GameMaster.getHero(unitID);
-		hero.setItem(hero.getInventory().getCraftedItems()[itemIndex].getName());
+		hero.setItem(itemIndex);
 	}
 
 	[RPC]

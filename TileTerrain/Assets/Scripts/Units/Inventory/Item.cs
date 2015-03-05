@@ -17,7 +17,7 @@ public abstract class Item {
 
 	public virtual string getGameName()
 	{
-		return "gameName";
+		return getData().gameName;
 	}
 
 	public virtual string getInventoryDisplay()
@@ -27,7 +27,14 @@ public abstract class Item {
 
     public Sprite getIcon()
     {
-        return DataHolder.Instance.getItemData(getName()).getIcon();
+        return getData().getIcon();
+    }
+
+    public abstract ItemData getData();
+
+    public virtual int getAmount()
+    {
+        return 1;
     }
 
 

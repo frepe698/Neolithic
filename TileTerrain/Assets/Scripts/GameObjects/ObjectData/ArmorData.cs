@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using Edit;
 
-public class ArmorData : CraftedItemData {
+public class ArmorData : EquipmentData {
 
     public readonly int armor;
     public readonly int speedPenalty;

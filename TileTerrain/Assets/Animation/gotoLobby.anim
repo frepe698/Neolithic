@@ -6,8 +6,8 @@ AnimationClip:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: gotoLobby
-  serializedVersion: 4
-  m_AnimationType: 2
+  serializedVersion: 6
+  m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
   m_RotationCurves: []
@@ -17,9 +17,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: {x: -.0199999996, y: -1.50999999, z: -8.95596313}
+        value: {x: -.0199999996, y: -1.50999999, z: -8.78999996}
         inSlope: {x: 0, y: 0, z: -.114455216}
         outSlope: {x: 0, y: 0, z: -.114455216}
+        tangentMode: 0
+      - time: .316666663
+        value: {x: -.0199999996, y: -1.50999999, z: -9.59000015}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - time: 1.41666663
         value: {x: -.0199999996, y: -1.50999999, z: 4.71333647}
@@ -72,6 +77,11 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
+      - time: .316666663
+        value: -.0199999996
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
       - time: 1.41666663
         value: -.0199999996
         inSlope: 0
@@ -91,6 +101,11 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
+      - time: .316666663
+        value: -1.50999999
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
       - time: 1.41666663
         value: -1.50999999
         inSlope: 0
@@ -106,9 +121,14 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: -8.95596313
+        value: -8.78999996
         inSlope: -.114455216
         outSlope: -.114455216
+        tangentMode: 0
+      - time: .316666663
+        value: -9.59000015
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
       - time: 1.41666663
         value: 4.71333647
@@ -122,4 +142,7 @@ AnimationClip:
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 1
+  m_HasMotionFloatCurves: 0
+  m_GenerateMotionCurves: 0
   m_Events: []

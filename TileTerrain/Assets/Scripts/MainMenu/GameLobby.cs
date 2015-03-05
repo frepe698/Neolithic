@@ -82,7 +82,8 @@ public class GameLobby : MonoBehaviour {
 
 	public void buttonLeave()
 	{
-
+        NetworkMaster.disconnect();
+        GetComponent<Animator>().SetTrigger("gotoMainMenu");
 	}
 
 	public void buttonHero(int index)

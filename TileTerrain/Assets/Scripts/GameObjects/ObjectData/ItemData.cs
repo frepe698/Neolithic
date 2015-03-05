@@ -50,4 +50,5 @@ public abstract class ItemData : ObjectData {
     {
         return icon;
     }
+
 }

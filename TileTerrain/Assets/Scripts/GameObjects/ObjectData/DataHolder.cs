@@ -285,7 +285,7 @@ public class DataHolder {
 		return null;
 	}
 
-	public CraftedItemData getCraftedItemData(string name)
+	public EquipmentData getEquipmentData(string name)
 	{
 		foreach(MeleeWeaponData data in weaponDataHolder.meleeWeaponData)
 		{

@@ -1,4 +1,4 @@
-﻿Shader "Transparent/Cutout/DiffuseNoCull" {
+﻿Shader "Legacy Shaders/Transparent/Cutout/DiffuseNoCull" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
 	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
@@ -20,13 +20,11 @@ SubShader {
 
 	struct Input {
 		float2 uv_MainTex;
-		float3 viewDir;
 	};
 
 	void surf (Input IN, inout SurfaceOutput o) {
 		if(_Highlight > 0)
 		{
-			//half rim = 1.5 - saturate(dot (normalize(IN.viewDir), o.Normal));
             o.Emission = half3(0.05f, 0.05f, 0);
 		}
 		fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
@@ -37,5 +35,5 @@ SubShader {
 	ENDCG
 	}
 
-	Fallback "Transparent/Cutout/VertexLit"
+	Fallback "Legacy Shaders/Transparent/Cutout/Diffuse"
 }

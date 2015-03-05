@@ -37,7 +37,7 @@ public class CheatCommand {
                 {
                     GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters!");
                 }
-                else if (paramsAreValid(commandID, parameters)) ;
+                else if (paramsAreValid(commandID, parameters))
                 {
                     sendCommand(commandID, paramstring);
                 }
@@ -121,7 +121,7 @@ public class CheatCommand {
                         return false;
                     }
                     int i;
-                    if (parameters.Length > 1 && !int.TryParse((string)parameters[1], out i))
+                    if (parameters.Length > 1 && !(int.TryParse(parameters[1].ToString(), out i)))
                     {
                         GameMaster.getGameController().recieveChatMessage(-1, "Parameter 2 should be an int");
                         return false;
@@ -131,10 +131,10 @@ public class CheatCommand {
                 }
             case (WARP):
                 {
-                    if (parameters.Length != 2)
+                    if (parameters.Length == 2)
                     {
                         float x, y;
-                        if (!float.TryParse((string)parameters[1], out x) || !float.TryParse((string)parameters[2], out y))
+                        if (!float.TryParse(parameters[0].ToString(), out x) || !float.TryParse(parameters[1].ToString(), out y))
                         {
                             GameMaster.getGameController().recieveChatMessage(-1, "Parameter 1 and 2 should be floats");
                             return false;

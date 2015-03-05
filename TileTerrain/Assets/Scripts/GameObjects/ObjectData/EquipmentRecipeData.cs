@@ -19,6 +19,6 @@ public class EquipmentRecipeData : RecipeData
 
     public override Item getCraftedItem()
     {
-        return new CraftedItem(product);
+        return new EquipmentItem(product);
     }
 }

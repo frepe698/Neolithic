@@ -3,19 +3,20 @@ using System.Collections;
 
 public class ConsumableItem : Item {
 
+    private ConsumableItemData data;
 	private int amount;
 
 	public ConsumableItem(string name) : base(name)
 	{
-
+        data = DataHolder.Instance.getConsumableItemData(name);
 	}
 
 	public int getHungerChange()
 	{
-		return DataHolder.Instance.getConsumableItemData(getName()).hungerChange;
+		return data.hungerChange;
 	}
 
-	public int getAmount()
+	public override int getAmount()
 	{
 		return amount;
 	}
@@ -37,11 +38,16 @@ public class ConsumableItem : Item {
 
 	public override string getGameName()
 	{
-		return DataHolder.Instance.getConsumableItemData(getName()).gameName;
+		return data.gameName;
 	}
 
 	public override string getInventoryDisplay()
 	{
 		return getGameName() + "["+amount+"]";
 	}
+
+    public override ItemData getData()
+    {
+        return data;
+    }
 }

@@ -68,7 +68,7 @@ public class Hero : Unit {
 		}
         init();
 		inventory = new Inventory();
-		setItem("unarmed");
+		setItem(DataHolder.Instance.getEquipmentData("unarmed"));
 		activate();
 	}
 
@@ -105,9 +105,10 @@ public class Hero : Unit {
 		return inventory;
 	}
 
-	public void setItem(string item)
+	public void setItem(int itemIndex)
 	{
-        CraftedItemData newItemData = DataHolder.Instance.getCraftedItemData(item);
+        EquipmentData newItemData;
+        bool equip = inventory.setEquipedItem(itemIndex, out newItemData);
 
         if (newItemData is WeaponData)
         {
@@ -117,11 +118,36 @@ public class Hero : Unit {
         else if (newItemData is ArmorData)
         {
             ArmorData data = (ArmorData)newItemData;
-            equipedArmor[data.armorType] = data;
-            if (isActive()) unit.GetComponent<UnitController>().setArmor(unitName, data);
+            if (equip)
+            {
+                equipedArmor[data.armorType] = data;
+                if (isActive()) unit.GetComponent<UnitController>().equipArmor(unitName, data);
+            }
+            else //unequip
+            {
+                equipedArmor[data.armorType] = null;
+                if (isActive()) unit.GetComponent<UnitController>().unequipArmor(data.armorType);
+            }
         }
 	
 	}
+
+    public void setItem(EquipmentData itemData)
+    {
+
+        if (itemData is WeaponData)
+        {
+            heldItem = (WeaponData)itemData;
+            if (isActive()) unit.GetComponent<UnitController>().setWeapon(heldItem);
+        }
+        else if (itemData is ArmorData)
+        {
+            ArmorData data = (ArmorData)itemData;
+            equipedArmor[data.armorType] = data;
+            if (isActive()) unit.GetComponent<UnitController>().equipArmor(unitName, data);
+        }
+
+    }
 	
 
 	public override float getAttackSpeed()

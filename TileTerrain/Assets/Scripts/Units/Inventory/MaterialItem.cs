@@ -3,14 +3,15 @@ using System.Collections;
 
 public class MaterialItem : Item {
 
+    private MaterialData data;
 	private int amount;
 
 	public MaterialItem(string name) :base(name)
 	{
-		
+        data = DataHolder.Instance.getMaterialData(name);
 	}
 
-	public int getAmount()
+	public override int getAmount()
 	{
 		return amount;
 	}
@@ -32,7 +33,6 @@ public class MaterialItem : Item {
 
 	public override string getGameName()
 	{
-        MaterialData data = DataHolder.Instance.getMaterialData(getName());
         if (data == null)
         {
             Debug.LogError("Could not find material data for " + getName());
@@ -45,4 +45,9 @@ public class MaterialItem : Item {
 	{
 		return getGameName() + "["+amount+"]";
 	}
+
+    public override ItemData getData()
+    {
+        return data;
+    }
 }

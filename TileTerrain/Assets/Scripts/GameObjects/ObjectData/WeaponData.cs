@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using Edit;
 
-public abstract class WeaponData : CraftedItemData {
+public abstract class WeaponData : EquipmentData {
 
 	public readonly bool rightHand = true;
 

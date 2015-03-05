@@ -236,7 +236,7 @@ namespace Edit
         public CraftedEdit()
         { 
         }
-        public CraftedEdit(CraftedItemData data) : base(data)
+        public CraftedEdit(EquipmentData data) : base(data)
         {
             durability = data.durability;
         }

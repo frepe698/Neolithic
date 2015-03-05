@@ -39,7 +39,7 @@ public class GUIManager : MonoBehaviour{
 	private ScrollRect inventoryScrollRect;
 	private RectTransform inventoryMask;
 
-    private const int ITEM_TYPE_COUNT = 3;
+    public const int ITEM_TYPE_COUNT = 3;
     private const float ITEM_LINE_HEIGHT = 14;
 	private List<Button>[] itemButtons;
     private bool[] inventoryFoldOpen;
@@ -52,7 +52,6 @@ public class GUIManager : MonoBehaviour{
 	private float clickTime = 0;
 	private readonly static float DOUBLECLICK_TIME = 0.5f;
 
-	private int selectedItemTab = 0;
 	private const int TAB_CRAFTED = 0;
 	private const int TAB_MATERIAL = 1;
 	private const int TAB_CONSUMABLE = 2;
@@ -71,7 +70,7 @@ public class GUIManager : MonoBehaviour{
     private ScrollRect craftingScrollRect;
     private RectTransform craftingMask;
 
-    private const int RECIPE_TYPE_COUNT = 3;
+    public const int RECIPE_TYPE_COUNT = 3;
 	private List<Button>[] craftingButtons;
     private bool[] recipeFoldOpen;
     private RectTransform[] recipeFolds;
@@ -102,6 +101,13 @@ public class GUIManager : MonoBehaviour{
 	private RectTransform energybarTransform;
 	private RectTransform hungerbarTransform;
 	private RectTransform coldbarTransform;
+
+    //Item quick use
+    public const int QUICK_USE_ITEM_COUNT = 5;
+    private QuickUseItem[] quickUseItems;
+    private Image[] quickUseItemImages;
+    private Image[] quickUseItemEquipedImages;
+    private Text[] quickUseItemAmount;
 
     //FPS display
     private Text fpsDisplay;
@@ -209,6 +215,20 @@ public class GUIManager : MonoBehaviour{
         itemTooltipDescription = itemTooltip.transform.FindChild("Description").GetComponent<Text>();
         itemTooltip.SetActive(false);
 
+        //Left panel init
+        Transform leftPanel = canvas.FindChild("LeftPanel");
+        quickUseItems = new QuickUseItem[QUICK_USE_ITEM_COUNT];
+        quickUseItemImages = new Image[QUICK_USE_ITEM_COUNT];
+        quickUseItemEquipedImages = new Image[QUICK_USE_ITEM_COUNT];
+        quickUseItemAmount = new Text[QUICK_USE_ITEM_COUNT];
+        for (int i = 0; i < QUICK_USE_ITEM_COUNT; i++)
+        {
+            quickUseItemImages[i] = leftPanel.FindChild("Item" + i).GetComponent<Image>();
+            quickUseItemEquipedImages[i] = quickUseItemImages[i].transform.FindChild("Equiped").GetComponent<Image>();
+            quickUseItemAmount[i] = quickUseItemImages[i].transform.FindChild("Amount").GetComponent<Text>();
+            quickUseItems[i] = new QuickUseEquipment();
+        }
+
         //Fps display
         fpsDisplay = canvas.FindChild("FPSDisplay").GetComponent<Text>();
 
@@ -253,9 +273,9 @@ public class GUIManager : MonoBehaviour{
             }
         }
 
-		if(inventory != null && inventory.shouldUpdate())
+		if(inventory != null)
 		{
-			updateInventory();
+            if (inventory.shouldUpdate()) updateInventory();
 		}
 		mouseOverGUI = eventSystem.IsPointerOverGameObject();
         if (mouseOverGUI)
@@ -315,7 +335,7 @@ public class GUIManager : MonoBehaviour{
                     string itemName = null;
                     if (index < itemButtons[0].Count)
                     {
-                        itemName = inventory.getCraftedItems()[index].getName();
+                        itemName = inventory.getEquipmentItems()[index].getName();
                     }
                     else if (index < itemButtons[1].Count + itemButtons[0].Count)
                     {
@@ -415,10 +435,6 @@ public class GUIManager : MonoBehaviour{
                 itemTooltipIsRecipe = true;
             }
         }
-
-
-        
-
         
 #if false
         if (index < itemCraftingButtons.Count)
@@ -487,6 +503,9 @@ public class GUIManager : MonoBehaviour{
 	public void setInventory(Inventory inventory)
 	{
 		this.inventory = inventory;
+        inventory.addedItemListener += new ChangedEventHandler(onAddedItem);
+        inventory.removedItemListener += new ChangedEventHandler(onRemovedItem);
+        inventory.changeItemListener += new System.EventHandler(onQuickUseItemUpdate);
         itemButtons = new List<Button>[ITEM_TYPE_COUNT];
         for (int i = 0; i < ITEM_TYPE_COUNT; i++)
         {
@@ -494,9 +513,115 @@ public class GUIManager : MonoBehaviour{
         }
 		
 		updateInventory();
+        updateQuickUseItems();
 	}
 
-	private void updateInventory()
+    private void updateQuickUseItems()
+    {
+        for (int i = 0; i < QUICK_USE_ITEM_COUNT; i++)
+        {
+            if (quickUseItems[i] != null)
+            {
+                Item item = quickUseItems[i].getItem(inventory);
+                if (item != null)
+                {
+                    quickUseItemImages[i].sprite = item.getIcon();
+                    quickUseItemImages[i].enabled = true;
+
+                    if (item is EquipmentItem && ((EquipmentItem)item).isEquiped())
+                    {
+                        quickUseItemEquipedImages[i].enabled = true;
+                    }
+                    else
+                    {
+                        quickUseItemEquipedImages[i].enabled = false;
+                    }
+
+                    if (item.getAmount() > 1)
+                    {
+                        quickUseItemAmount[i].enabled = true;
+                        quickUseItemAmount[i].text = "x"+item.getAmount().ToString();
+                    }
+                    else
+                    {
+                        quickUseItemAmount[i].enabled = false;
+                    }
+
+                    continue;
+                }
+            }
+
+            quickUseItemImages[i].enabled = false;
+            quickUseItemEquipedImages[i].enabled = false;
+            quickUseItemImages[i].color = Color.white;
+            quickUseItemAmount[i].enabled = false;
+        }
+    }
+
+    private void onAddedItem(object sender, ItemArgs addedItem)
+    {
+        for (int i = 0; i < QUICK_USE_ITEM_COUNT; i++)
+        {
+            if (quickUseItems[i].onAddItem(addedItem.itemType, addedItem.itemIndex, inventory))
+            {
+                break;
+            }
+        }
+        updateQuickUseItems();
+    }
+
+    private void onRemovedItem(object sender, ItemArgs removedItem)
+    {
+        for (int i = 0; i < QUICK_USE_ITEM_COUNT; i++)
+        {
+            quickUseItems[i].onRemoveItem(removedItem.itemType, removedItem.itemIndex);
+        }
+        updateQuickUseItems();
+    }
+
+    private void onQuickUseItemUpdate(object sender, System.EventArgs args)
+    {
+        updateQuickUseItems();
+    }
+
+    public void setQuickUseItem(int quickUseIndex)
+    {
+        if (quickUseIndex < 0 || selectedItem < 0) return;
+        int itemIndex = selectedItem;
+       
+        if (itemIndex < inventory.getEquipmentItems().Count)
+        {
+            quickUseItems[quickUseIndex] = new QuickUseEquipment(itemIndex, inventory);
+            updateQuickUseItems();
+            return;
+        }
+        itemIndex -= inventory.getEquipmentItems().Count;
+
+        if (itemIndex < inventory.getMaterialItems().Count)
+        {
+            quickUseItems[quickUseIndex] = new QuickUseMaterial(itemIndex, inventory);
+            updateQuickUseItems();
+            return;
+        }
+        itemIndex -= inventory.getMaterialItems().Count;
+        
+        if (itemIndex < inventory.getConsumableItems().Count)
+        {
+            quickUseItems[quickUseIndex] = new QuickUseConsumable(itemIndex, inventory);
+            updateQuickUseItems();
+            return;
+        }
+        itemIndex -= inventory.getConsumableItems().Count;
+
+        updateQuickUseItems();
+    }
+
+    public Item getQuickUseItem(int quickUseIndex)
+    {
+        return quickUseItems[quickUseIndex].getItem(inventory);
+    }
+
+    private void updateInventory()
 	{
         List<Item>[] items = new List<Item>[ITEM_TYPE_COUNT];
         items[TAB_CRAFTED] = new List<Item>();
@@ -504,7 +629,7 @@ public class GUIManager : MonoBehaviour{
         {
             items[i] = new List<Item>();
         }
-        items[TAB_CRAFTED].AddRange(inventory.getCraftedItems().Cast<Item>());
+        items[TAB_CRAFTED].AddRange(inventory.getEquipmentItems().Cast<Item>());
         items[TAB_MATERIAL].AddRange(inventory.getMaterialItems().Cast<Item>());
         items[TAB_CONSUMABLE].AddRange(inventory.getConsumableItems().Cast<Item>());
 
@@ -591,38 +716,6 @@ public class GUIManager : MonoBehaviour{
         updateItemFolds();
 	}
 
-
-	public void onSelectItemTab()
-	{
-#if false
-		craftedItemParent.gameObject.SetActive(false);
-		materialItemParent.gameObject.SetActive(false);
-		consumableItemParent.gameObject.SetActive(false);
-		inventoryTabs[TAB_CRAFTED].interactable = true;
-		inventoryTabs[TAB_MATERIAL].interactable = true;
-		inventoryTabs[TAB_CONSUMABLE].interactable = true;
-
-		if(selectedItemTab == TAB_CRAFTED)
-		{
-			inventoryScrollRect.vertical = inventoryMask.sizeDelta.y < craftedItemButtons.Count*25+12;
-			craftedItemParent.gameObject.SetActive(true);
-			inventoryTabs[TAB_CRAFTED].interactable = false;
-		}
-		else if(selectedItemTab == TAB_MATERIAL)
-		{
-			inventoryScrollRect.vertical = inventoryMask.sizeDelta.y < materialItemButtons.Count*25+12;
-			materialItemParent.gameObject.SetActive(true);
-			inventoryTabs[TAB_MATERIAL].interactable = false;
-		}
-		else if(selectedItemTab == TAB_CONSUMABLE)
-		{
-			inventoryScrollRect.vertical = inventoryMask.sizeDelta.y < consumableItemButtons.Count*25+12;
-			consumableItemParent.gameObject.SetActive(true);
-			inventoryTabs[TAB_CONSUMABLE].interactable = false;
-		}
-#endif
-	}
-
     public void updateItemFolds()
     {
         float ypos = 0;
@@ -663,31 +756,12 @@ public class GUIManager : MonoBehaviour{
 
 	public void inventoryFoldButtonClick(int index)
 	{
-		//deselectItem();
-		//selectedItemTab = index;
-		//onSelectItemTab();
         inventoryFoldOpen[index] = !inventoryFoldOpen[index];
         updateItemFolds();
 	}
 
 	public void deselectItem()
 	{
-#if false
-		if(selectedItemTab == TAB_CRAFTED)
-		{
-			if(selectedItem >= 0 && selectedItem < craftedItemButtons.Count)
-			{
-				craftedItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-		}
-		else
-		{
-			if(selectedItem >= 0 && selectedItem < materialItemButtons.Count)
-			{
-				materialItemButtons[selectedItem].transform.FindChild("Text").GetComponent<Text>().color = itemTextColor;
-			}
-		}
-#endif
         if (selectedItem >= 0)
         {
             for (int i = 0; i < ITEM_TYPE_COUNT; i++)
@@ -759,6 +833,22 @@ public class GUIManager : MonoBehaviour{
 		lastClickedItem = index;
 		selectedItem = index;
 	}
+
+    public void quickUseItem(int index)
+    {
+        if (quickUseItems[index] != null)
+        {
+            Item item = quickUseItems[index].getItem(inventory);
+            if (item is EquipmentItem)
+            {
+                GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
+            }
+            else if (item is ConsumableItem)
+            {
+                GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
+            }
+        }
+    }
 
 	public void toggleInventory()
 	{
@@ -1036,5 +1126,10 @@ public class GUIManager : MonoBehaviour{
             justOpenedChat = true;
         }
         
+    }
+
+    public int getSelectedItemIndex()
+    {
+        return selectedItem;
     }
 }
