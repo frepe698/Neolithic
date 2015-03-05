@@ -130,7 +130,7 @@
 //			}
 //			else
 //			{
-//				combinedNormal = tex2D (_BumpTexture, uv + float2(0.375, 0.75-border)).rgb * 1;
+//				combinedNormal = UnpackNormal(tex2D (_BumpTexture, uv + float2(0.375, 0.75-border)));//.rgb * 1;
 //			}
           	
           	

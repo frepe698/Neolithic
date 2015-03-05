@@ -37,7 +37,7 @@ public class CheatCommand {
                 {
                     GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters!");
                 }
-                else if (paramsAreValid(commandID, parameters)) ;
+                else if (paramsAreValid(commandID, parameters))
                 {
                     sendCommand(commandID, paramstring);
                 }
