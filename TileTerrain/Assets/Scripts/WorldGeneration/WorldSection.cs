@@ -136,11 +136,12 @@ public class WorldSection {
 
 
                 normals[y + x * vertCount] = Vector3.Normalize(normal);
+              //  normals[y + x * vertCount] = new Vector3(0,1,0);
                 if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) ||*/ (x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
                 {
                     //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
-                    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount]);
-                    World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount] + normals[x + y * vertCount]);
+                //    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount]);
+                  //  World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount] + normals[x + y * vertCount]);
                 
                 }
 			}
@@ -150,7 +151,7 @@ public class WorldSection {
 			generateMesh();
 		}
 		mesh.normals = normals;
-		calculateTangents(mesh);
+		calculateTangents();
 	}
     //Räknar vi ut i fel x led och y led?
 
@@ -165,7 +166,7 @@ public class WorldSection {
 
         if (mesh == null) generateMesh();
         mesh.normals = newNormals;
-        calculateTangents(mesh);
+        calculateTangents();
         //World.RecalculateTangents(mesh);
     }
 
@@ -294,7 +295,7 @@ public class WorldSection {
 		return textures;
 	}
 
-	void calculateTangents(Mesh mesh)
+	void calculateTangents()
 	{
 		Vector3[] normals = mesh.normals;
 		int count = normals.Length;
