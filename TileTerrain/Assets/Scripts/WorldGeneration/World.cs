@@ -442,7 +442,11 @@ public class World : MonoBehaviour {
     public void addSpawners()
     {
 
-        GameMaster.addSpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
+        GameMaster.addDaySpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
+        foreach(Cave cave in tileMap.getCaves())
+        {
+            GameMaster.addDaySpawner("wolf", 4, cave.bossPos);
+        }
     }
 
 	public void addAnimals()

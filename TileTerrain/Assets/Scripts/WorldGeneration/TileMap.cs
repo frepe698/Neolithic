@@ -242,13 +242,26 @@ public class TileMap {
         int width = cave.width;
         int height = cave.height;
 
+        int ex, ey, bx, by;
         //Randomizing entrance and boss spawn
-        int ex = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
-        int ey = cave.MARGIN + (height - cave.MARGIN*2) * Random.Range(0, 2); //either side of the cave
-        cave.entrancePos = new Vector2i(ex, ey) + cave.position;
+        if(width > height)
+        {
+            ey = Random.Range(cave.MARGIN, height - cave.MARGIN); //somewhere along the y axis
+            ex = cave.MARGIN + (width - cave.MARGIN * 2) * Random.Range(0, 2); //either side of the cave
+
+            by = Random.Range(cave.MARGIN, height - cave.MARGIN); //somewhere along y axis
+            bx = width - ex; //other side of the cave
+        }
+        else
+        {
+            ex = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
+            ey = cave.MARGIN + (height - cave.MARGIN * 2) * Random.Range(0, 2); //either side of the cave
+
+            bx = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
+            by = height - ey; //other side of the cave
         
-        int bx = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
-        int by = height - ey; //other side of the cave
+        }
+        cave.entrancePos = new Vector2i(ex, ey) + cave.position;
         cave.bossPos = new Vector2i(bx, by) + cave.position;
 
         Debug.Log("Entrance: " + cave.entrancePos.x + ", " + cave.entrancePos.y);
@@ -263,7 +276,7 @@ public class TileMap {
         {
             for(int y = cave.position.y; y < cave.position.y + height; y++)
             {
-                tiles[x, y].ground = (short)GroundType.Type.Mountain;
+                tiles[x, y].ground = (short)GroundType.Type.Grass;
             }
         }
         setCaveFloor(cave);        
@@ -287,7 +300,11 @@ public class TileMap {
 
                 if (absX < 0) totalX = 0;
                 if (absY < 0) totalY = 0;
-                setAreaHeight(1, new Vector2i(lastx, lasty), Random.Range(1, 3));
+
+                Vector2i center = new Vector2i(lastx, lasty);
+                int radius = Random.Range(1,3);
+                setAreaHeight(1, center, radius);
+                setAreaGround((int)GroundType.Type.SnowMountain, center, radius);
                 if (totalY == 0)
                 {
                     int change = (int)((totalX / Mathf.Abs(totalX)));
@@ -321,6 +338,8 @@ public class TileMap {
                 }
             }
         }
+        setAreaHeight(1, cave.bossPos, cave.MARGIN - 2);
+        
     }
 	
 	public void generateRest()
@@ -690,6 +709,17 @@ public class TileMap {
 			}
 		}
 	}
+
+    private void setAreaGround(int ground, Vector2i center, int radius)
+    {
+        for (int x = center.x - radius; x < center.x + radius + 1; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius + 1; y++)
+            {
+                if (isValidTile(x, y)) tiles[x, y].ground = (short)ground;
+            }
+        }
+    }
 
 	private void riverSlice(int minHeight, int maxHeight, Vector2i center, Vector2i direction, int radius)
 	{

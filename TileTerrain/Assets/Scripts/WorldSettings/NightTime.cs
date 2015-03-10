@@ -19,6 +19,6 @@ public class NightTime : TimeSetting {
     public override void start()
     {
         base.start();
-        GameMaster.respawnAllSpawners();
+        GameMaster.respawnAllNightSpawners();
     }
 }

@@ -8,7 +8,8 @@ public class GameMaster : MonoBehaviour {
 	static List<Hero> heroes = new List<Hero>();
 	static List<Unit> units = new List<Unit>();
 	static List<Unit> awakeUnits = new List<Unit>();
-    static List<UnitSpawner> unitSpawners = new List<UnitSpawner>();
+    static List<UnitSpawner> daySpawners = new List<UnitSpawner>();
+    static List<UnitSpawner> nightSpawners = new List<UnitSpawner>();
 
 	static List<Projectile> projectiles = new List<Projectile>();
 
@@ -72,10 +73,11 @@ public class GameMaster : MonoBehaviour {
 			gameController.init(this, playerUnitID);
 		}
 		spawnHeroes();
+        setPlayerUnit(playerUnitID);
+
 	    world.addAnimals();
 
         world.addSpawners();
-		setPlayerUnit(playerUnitID);
 		
 		playerCamera = Camera.main;
 		zoom = minzoom;
@@ -219,24 +221,71 @@ public class GameMaster : MonoBehaviour {
 	
     public static void respawnAllSpawners()
     {
-        foreach (UnitSpawner spawner in unitSpawners)
+        foreach (UnitSpawner spawner in daySpawners)
         {
            gameController.requestSpawnerRespawn(spawner.getID());
+        }
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            gameController.requestSpawnerRespawn(spawner.getID());
+        }
+    }
+
+    public static void respawnAllNightSpawners()
+    {
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            gameController.requestSpawnerRespawn(spawner.getID());
+        }
+    }
+
+    public static void respawnAllDaySpawners()
+    {
+        foreach (UnitSpawner spawner in daySpawners)
+        {
+            gameController.requestSpawnerRespawn(spawner.getID());
         }
     }
 
     public static void allSpawnersRemoveUnits()
     {
-        foreach (UnitSpawner spawner in unitSpawners)
+        foreach (UnitSpawner spawner in daySpawners)
+        {
+            gameController.requestSpawnerRemoveAll(spawner.getID());
+        }
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            gameController.requestSpawnerRemoveAll(spawner.getID());
+        }
+    }
+
+    public static void allDaySpawnersRemoveUnits()
+    {
+        foreach (UnitSpawner spawner in daySpawners)
+        {
+            gameController.requestSpawnerRemoveAll(spawner.getID());
+        }
+    }
+
+    public static void allNightSpawnersRemoveUnits()
+    {
+        foreach (UnitSpawner spawner in nightSpawners)
         {
             gameController.requestSpawnerRemoveAll(spawner.getID());
         }
     }
     public static void spawnerRespawn(int spawnerID)
     {
-        foreach(UnitSpawner spawner in unitSpawners)
+        foreach(UnitSpawner spawner in daySpawners)
         {
             if(spawner.getID() == spawnerID)
+            {
+                spawner.respawnUnits();
+            }
+        }
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            if (spawner.getID() == spawnerID)
             {
                 spawner.respawnUnits();
             }
@@ -245,7 +294,14 @@ public class GameMaster : MonoBehaviour {
 
     public static void spawnerRemoveAll(int spawnerID)
     {
-        foreach (UnitSpawner spawner in unitSpawners)
+        foreach (UnitSpawner spawner in daySpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.removeUnits();
+            }
+        }
+        foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
             {
@@ -253,16 +309,26 @@ public class GameMaster : MonoBehaviour {
             }
         }
     }
-    public static void addSpawner(string name, int maxUnits, Vector2i pos)
+    public static void addDaySpawner(string name, int maxUnits, Vector2i pos)
     {
-        UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextSpawnerID());
-        unitSpawners.Add(spawner);
+        UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextDaySpawnerID());
+        daySpawners.Add(spawner);
     }
 
-    public static int getNextSpawnerID()
+    public static void addNightSpawner(string name, int maxUnits, Vector2i pos)
     {
-        if (unitSpawners == null || unitSpawners.Count == 0) return 0;
-        return unitSpawners[unitSpawners.Count].getID() + 1;
+        UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextNightSpawnerID());
+        nightSpawners.Add(spawner);
+    }
+    public static int getNextDaySpawnerID()
+    {
+        if (daySpawners == null || daySpawners.Count == 0) return 0;
+        return daySpawners[daySpawners.Count - 1].getID() + 1;
+    }
+    public static int getNextNightSpawnerID()
+    {
+        if (nightSpawners == null || nightSpawners.Count == 0) return 0;
+        return nightSpawners[nightSpawners.Count - 1].getID() + 1;
     }
 	private void spawnHeroes()
 	{

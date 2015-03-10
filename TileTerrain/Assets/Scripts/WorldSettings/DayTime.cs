@@ -19,7 +19,9 @@ public class DayTime : TimeSetting {
     public override void start()
     {
         base.start();
-        GameMaster.allSpawnersRemoveUnits();
+        GameMaster.allNightSpawnersRemoveUnits();
+        GameMaster.respawnAllDaySpawners();
+        
     }
 	
 }
