@@ -3,8 +3,8 @@ using System.Collections;
 
 public class DuskTime : TimeSetting {
 
-    public DuskTime()
-        : base(5,
+    public DuskTime(int length = 60)
+        : base(length,
         new Color(0.6f, 0.5f, 0.3f),
         new Color(0,0,0),
         new Vector3(125, 25, 0),

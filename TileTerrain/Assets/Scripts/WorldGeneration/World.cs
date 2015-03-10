@@ -76,7 +76,8 @@ public class World : MonoBehaviour {
 		}
 		generateHeights();
 		tileMap.generateGround();
-		generateWorldSections();
+        tileMap.generateCaves();
+		generateWorldSectionsNew();
 		initObjectPools();
 		generateWater();
 		addObjects();
@@ -173,7 +174,7 @@ public class World : MonoBehaviour {
 	
 	void generateWorldSections()
 	{
-		sections = new WorldSection[sectionCount, sectionCount];
+		sections = new WorldSection[tileMap.sectionCount, tileMap.sectionCount];
 		int[,] tileMapColor = new int[tileMap.getSize(),tileMap.getSize()];
 		for(int x = 0; x < tileMap.getSize(); x++)
 		{
@@ -182,19 +183,19 @@ public class World : MonoBehaviour {
 				tileMapColor[x, y] = tileMap.getTile(x, y).getColor();
 			}
 		}
-		//Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, (sectionCount*WorldSection.SIZE*2) + 1);
-		Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, sectionCount*WorldSection.SIZE + 1);
+		//Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, (tileMap.sectionCount*WorldSection.SIZE*2) + 1);
+		Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount*WorldSection.SIZE);
 		Material material = (Material)Resources.Load("terrain");
 		
 		
 		int xtri = WorldSection.SIZE*2;
 		int ytri = WorldSection.SIZE;
 
-		Vector3[,] terrainNormals = new Vector3[xtri*sectionCount,ytri*sectionCount];
+		Vector3[,] terrainNormals = new Vector3[xtri*tileMap.sectionCount,ytri*tileMap.sectionCount];
 		
-		for(int x = 0; x < sectionCount; x++)
+		for(int x = 0; x < tileMap.sectionCount; x++)
 		{
-			for(int y = 0; y < sectionCount; y++)
+			for(int y = 0; y < tileMap.sectionCount; y++)
 			{
 				WorldSection ws = new WorldSection(new Vector2i(x, y));
                 for (int tx = x * xtri; tx < (x + 1) * xtri; tx++)
@@ -214,10 +215,10 @@ public class World : MonoBehaviour {
 
        // Vector3[] normals = calculateNormals(terrainNormals);
 		
-		groundRenderers = new MeshRenderer[sectionCount*sectionCount];
-		for(int x = 0; x < sectionCount; x++)
+		groundRenderers = new MeshRenderer[tileMap.sectionCount*tileMap.sectionCount];
+		for(int x = 0; x < tileMap.sectionCount; x++)
 		{
-			for(int y = 0; y < sectionCount; y++)
+			for(int y = 0; y < tileMap.sectionCount; y++)
 			{
                 sections[x, y].calculateNormals(terrainNormals);
                 //sections[x, y].setNormals(normals);
@@ -232,7 +233,7 @@ public class World : MonoBehaviour {
 				renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				renderer.material = material;
 				
-				groundRenderers[x + y * sectionCount] = renderer;
+				groundRenderers[x + y * tileMap.sectionCount] = renderer;
 				
 				MeshCollider col = section.AddComponent<MeshCollider>();
 				col.sharedMesh = filter.mesh;
@@ -252,7 +253,7 @@ public class World : MonoBehaviour {
 				groundRenderer.material.SetTexture("_Splat"+i, textures[i]);
 			}
 			
-			int scale = (sectionCount*WorldSection.SIZE) / 16;
+			int scale = (tileMap.sectionCount*WorldSection.SIZE) / 16;
 			groundRenderer.material.SetTextureScale("_ColorTexture", new Vector2(scale, scale));
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture2", new Vector2(scale, scale));
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture3", new Vector2(scale, scale));
@@ -261,14 +262,14 @@ public class World : MonoBehaviour {
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture6", new Vector2(scale, scale));
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture7", new Vector2(scale, scale));
 			//		groundRenderer.sharedMaterial.SetTextureScale("_Texture8", new Vector2(scale, scale));
-			groundRenderer.material.SetTextureScale("_GridTexture", new Vector2(sectionCount*WorldSection.SIZE, sectionCount*WorldSection.SIZE));
+			groundRenderer.material.SetTextureScale("_GridTexture", new Vector2(tileMap.sectionCount*WorldSection.SIZE, tileMap.sectionCount*WorldSection.SIZE));
 		}
 		//initTerrainTexture();
 	}
 
     Vector3[] calculateNormals(Vector3[,] triNormals)
     {
-        int vertCount = sectionCount * WorldSection.SIZE + 1;
+        int vertCount = tileMap.sectionCount * WorldSection.SIZE + 1;
 		Vector3[] normals = new Vector3[vertCount * vertCount];
         for (int x = 0; x < vertCount; x++)
         {
@@ -388,7 +389,7 @@ public class World : MonoBehaviour {
 	
 	void generateHeights()
 	{
-		tileMap = new TileMap(sectionCount*WorldSection.SIZE+1);
+		tileMap = new TileMap(4,1);
 		tileMap.generateDiamond();
 		tileMap.generateRiver(new Vector2i((tileMap.getSize() - 1), (tileMap.getSize() - 1)/2), new Vector2i((tileMap.getSize() - 1)/2,(tileMap.getSize() - 1)),
 		                      6, 30, -2, 0, 8, 3); 
@@ -401,9 +402,9 @@ public class World : MonoBehaviour {
 	
 	void addObjects()
 	{
-		for(int x = 0; x < getMapSize(); x++)
+		for(int x = 0; x < getMainMapSize(); x++)
 		{
-			for(int y = 0; y < getMapSize(); y++)
+			for(int y = 0; y < getMainMapSize(); y++)
 			{
 				Tile tile = tileMap.getTile(x, y);
 				GroundType ground = tile.getGroundType();
@@ -456,9 +457,9 @@ public class World : MonoBehaviour {
 				GameMaster.addUnit(unit);
 			}
 		}
-		for(int x = 0; x < getMapSize(); x++)
+		for(int x = 0; x < getMainMapSize(); x++)
 		{
-			for(int y = 0; y < getMapSize(); y++)
+			for(int y = 0; y < getMainMapSize(); y++)
 			{
 				if(tileMap.getTile(x, y).isWalkable(-1) && Random.value > 0.994f)
 				{
@@ -551,9 +552,9 @@ public class World : MonoBehaviour {
 		
 		Vector3[] verts = new Vector3[4];
 		verts[0] = new Vector3(0,0, 0);
-		verts[1] = new Vector3(getMapSize(),0,0);
-		verts[2] = new Vector3(0,0,getMapSize());
-		verts[3] = new Vector3(getMapSize(),0,getMapSize());
+		verts[1] = new Vector3(getMainMapSize(),0,0);
+		verts[2] = new Vector3(0,0,getMainMapSize());
+		verts[3] = new Vector3(getMainMapSize(),0,getMainMapSize());
 		
 		int[] tris = new int[6];
 		tris[0] = 0;
@@ -611,11 +612,11 @@ public class World : MonoBehaviour {
         for (int i = 0; i < normalsstart.Count; i++)
         {
             if (i % 4 == 0) Debug.DrawLine(normalsstart[i], normalsend[i], Color.white);
-            if (i % 4 == 1) Debug.DrawLine(normalsstart[i], normalsend[i], Color.black);
+            if (i % 4 == 1) Debug.DrawLine(normalsstart[i], normalsend[i], Color.yellow);
             if (i % 4 == 2) Debug.DrawLine(normalsstart[i], normalsend[i], Color.blue);
             if (i % 4 == 3)
             {
-                Debug.DrawLine(normalsstart[i], normalsend[i], Color.yellow);
+                Debug.DrawLine(normalsstart[i], normalsend[i], Color.magenta);
              //   Debug.Log(normalsend[i] - normalsstart[i]);
 
             }
@@ -852,7 +853,7 @@ public class World : MonoBehaviour {
 		int sx = x/(WorldSection.SIZE);
 		int sy = y/(WorldSection.SIZE);
 		Debug.Log (sx + ":" + x + ", " + sy + ":" + y);
-		if(sx >= sectionCount || sy >= sectionCount)
+		if(sx >= tileMap.sectionCount || sy >= tileMap.sectionCount)
 		{
 			Debug.Log (x + ", " + y);
 			return 1;
@@ -868,8 +869,13 @@ public class World : MonoBehaviour {
 	
 	public static int getMapSize()
 	{
-		return sectionCount*WorldSection.SIZE;
+		return tileMap.getSize();
 	}
+
+    public static int getMainMapSize()
+    {
+        return tileMap.getMainMapSize();
+    }
 	
 	public static TileMap getMap()
 	{
@@ -905,6 +911,101 @@ public class World : MonoBehaviour {
 			renderer.material.SetFloat("_SnowAmount", snowAmount);
 		}
 	}
+
+    void generateWorldSectionsNew()
+    {
+        sections = new WorldSection[tileMap.sectionCount, tileMap.sectionCount];
+        int[,] tileMapColor = new int[tileMap.getSize(), tileMap.getSize()];
+        for (int y = 0; y < tileMap.getSize(); y++)
+        {
+            for (int x = 0; x < tileMap.getSize(); x++)
+            {
+                tileMapColor[x, y] = tileMap.getTile(x, y).getColor();
+            }
+        }
+        //Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, (tileMap.sectionCount*WorldSection.SIZE*2) + 1);
+        Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount * WorldSection.SIZE);
+        Material material = (Material)Resources.Load("terrain");
+
+
+        int xtri = WorldSection.SIZE * 2;
+        int ytri = WorldSection.SIZE;
+
+        Vector3[,] terrainNormals = new Vector3[xtri * tileMap.sectionCount, ytri * tileMap.sectionCount];
+
+        for (int y = 0; y < tileMap.sectionCount; y++)
+        {
+            for (int x = 0; x < tileMap.sectionCount; x++)
+            {
+                WorldSection ws = new WorldSection(new Vector2i(x, y));
+                for (int ty = y * ytri; ty < (y + 1) * ytri; ty++)
+                {
+                    for (int tx = x * xtri; tx < (x + 1) * xtri; tx++)
+                    {
+                        int stx = tx - x * xtri;
+                        int sty = ty - y * ytri;
+                        terrainNormals[tx, ty] = ws.getTriangleNormal(stx + sty * xtri);
+                    }
+                }
+
+                sections[x, y] = ws;
+
+            }
+        }
+
+        // Vector3[] normals = calculateNormals(terrainNormals);
+
+        groundRenderers = new MeshRenderer[tileMap.sectionCount * tileMap.sectionCount];
+        for (int y = 0; y < tileMap.sectionCount; y++)
+        {
+            for (int x = 0; x < tileMap.sectionCount; x++)
+            {
+                sections[x, y].calculateNormals(terrainNormals);
+                //sections[x, y].setNormals(normals);
+
+                GameObject section = new GameObject("World Section(" + x + "," + y + ")");
+                section.tag = "Ground";
+                MeshFilter filter = section.AddComponent<MeshFilter>();
+                filter.mesh = sections[x, y].getMesh();
+
+                MeshRenderer renderer = section.AddComponent<MeshRenderer>();
+
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.material = material;
+
+                groundRenderers[x + y * tileMap.sectionCount] = renderer;
+
+                MeshCollider col = section.AddComponent<MeshCollider>();
+                col.sharedMesh = filter.mesh;
+
+                section.transform.SetParent(transform);
+                section.transform.localPosition = new Vector3(x * WorldSection.SIZE, 0, y * WorldSection.SIZE);
+                section.layer = 8;
+
+
+            }
+        }
+
+        foreach (MeshRenderer groundRenderer in groundRenderers)
+        {
+            for (int i = 0; i < SplatMapColor.colorCount; i++)
+            {
+                groundRenderer.material.SetTexture("_Splat" + i, textures[i]);
+            }
+
+            int scale = (tileMap.sectionCount * WorldSection.SIZE) / 16;
+            groundRenderer.material.SetTextureScale("_ColorTexture", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture2", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture3", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture4", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture5", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture6", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture7", new Vector2(scale, scale));
+            //		groundRenderer.sharedMaterial.SetTextureScale("_Texture8", new Vector2(scale, scale));
+            groundRenderer.material.SetTextureScale("_GridTexture", new Vector2(tileMap.sectionCount * WorldSection.SIZE, tileMap.sectionCount * WorldSection.SIZE));
+        }
+        //initTerrainTexture();
+    }
 	
 	
 }

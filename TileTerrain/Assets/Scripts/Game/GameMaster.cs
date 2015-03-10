@@ -280,7 +280,8 @@ public class GameMaster : MonoBehaviour {
 			//GameObject vrodlGo = (GameObject)Instantiate(vrodl, new Vector3(World.tileMap.basePos.x+i*2, 0, World.tileMap.basePos.y), Quaternion.identity);
 			//Hero vrodlU = vrodlGo.GetComponent<Hero>();
 			//vrodlU.init(i);
-			Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.summonPos[i].x, 0, World.tileMap.summonPos[i].y), new Vector3(0,0,0) , i);
+            //Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.getCaveEntrance(i).x, 0, World.tileMap.getCaveEntrance(i).y), new Vector3(0, 0, 0), i);
+            Hero hero = new Hero(heroNames[i], new Vector3(10, 0, 10), new Vector3(0, 0, 0), i);
 			heroes.Add(hero);
 			units.Add(hero);
 			hero.activate();

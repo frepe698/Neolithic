@@ -3,8 +3,8 @@ using System.Collections;
 
 public class DayTime : TimeSetting {
 
-    public DayTime()
-        : base(10,
+    public DayTime(int length = 120)
+        : base(length,
         new Color(0.5f, 0.5f, 0.45f),
         new Color(0.5f, 0.5f, 0.45f),
         new Vector3(70, 20, 0),

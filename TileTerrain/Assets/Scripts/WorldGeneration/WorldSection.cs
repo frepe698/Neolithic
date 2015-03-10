@@ -61,16 +61,27 @@ public class WorldSection {
 		Vector3 v1 = newVertices[triangles[index+1]] - newVertices[triangles[index]];
 		Vector3 v2 = newVertices[triangles[index+2]] - newVertices[triangles[index]];
 
-		return Vector3.Normalize(Vector3.Cross(v1, v2));
+        Vector3 normal = Vector3.Normalize(Vector3.Cross(v1, v2)); 
+
+       /* if(false)
+        {
+            Debug.Log("Index: " + index + ": " + newVertices[triangles[index]] + ": " + normal);
+
+            World.normalsstart.Add(newVertices[triangles[index]] + new Vector3(tileMapPos.x, 0, tileMapPos.y));
+            World.normalsend.Add(newVertices[triangles[index]] + normal + new Vector3(tileMapPos.x, 0, tileMapPos.y));
+
+        }*/
+              
+		return normal;
 	}
 
 	public void calculateNormals(Vector3[,] triNormals)
 	{
 		int vertCount = SIZE+1;
 		normals = new Vector3[vertCount*vertCount];
-		for(int y = 0; y < vertCount; y++)
+		for(int x = 0; x < vertCount; x++)
 		{
-			for(int x = 0; x < vertCount; x++)
+			for(int y = 0; y < vertCount; y++)
 			{
 				int mapX = (x + tileMapPos.x)*2;
 				int mapY = y + tileMapPos.y;
@@ -136,14 +147,14 @@ public class WorldSection {
 
 
                 normals[y + x * vertCount] = Vector3.Normalize(normal);
-              //  normals[y + x * vertCount] = new Vector3(0,1,0);
-                if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) ||*/ (x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
-                {
-                    //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
-                //    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount]);
-                  //  World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[x + y * vertCount] + normals[x + y * vertCount]);
+                //normals[y + x * vertCount] = new Vector3(0,1,0);
+                //if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) || */(x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
+                //{
+                      //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
+                      //World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
+                      //World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
                 
-                }
+                //}
 			}
 		}
 		if(mesh == null)
@@ -153,6 +164,96 @@ public class WorldSection {
 		mesh.normals = normals;
 		calculateTangents();
 	}
+
+    public void calculateNormalsNew(Vector3[,] triNormals)
+    {
+        int vertCount = SIZE + 1;
+        normals = new Vector3[vertCount * vertCount];
+        for (int x = 0; x < vertCount; x++)
+        {
+            for (int y = 0; y < vertCount; y++)
+            {
+                int mapX = (x + tileMapPos.x) * 2;
+                int mapY = y + tileMapPos.y;
+
+                Vector3 normal = Vector3.zero;
+                bool up = mapY > 0;
+                bool right = mapX < World.sectionCount * SIZE * 2;
+                bool down = mapY < World.sectionCount * SIZE;
+                bool left = mapX > 0;
+                if (up)
+                {
+
+                    if (right)
+                    {
+                        normal += triNormals[mapX, mapY - 1];
+                        normal += triNormals[mapX + 1, mapY - 1];
+                    }
+                    else
+                    {
+
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if (left)
+                    {
+                        normal += triNormals[mapX - 1, mapY - 1];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
+
+                }
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
+
+                if (down)
+                {
+                    if (left)
+                    {
+                        normal += triNormals[mapX - 1, mapY];
+                        normal += triNormals[mapX - 2, mapY];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 2, 0);
+                    }
+                    if (right)
+                    {
+                        normal += triNormals[mapX, mapY];
+                    }
+                    else
+                    {
+                        normal += new Vector3(0, 1, 0);
+                    }
+                }
+                else
+                {
+                    normal += new Vector3(0, 3, 0);
+                }
+
+
+                normals[y + x * vertCount] = Vector3.Normalize(normal);
+                //normals[y + x * vertCount] = new Vector3(0,1,0);
+                if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) || */(x == 0 || y == 0) || (x == SIZE || y == SIZE))
+                {
+                    Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
+                    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
+                    World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
+
+                }
+            }
+        }
+        if (mesh == null)
+        {
+            generateMesh();
+        }
+        mesh.normals = normals;
+        calculateTangents();
+    }
     //Räknar vi ut i fel x led och y led?
 
     public void setNormals(Vector3[] normals)
@@ -320,7 +421,7 @@ public class WorldSection {
 
             Vector3.Normalize(t);
 
-            tangents[i] = new Vector4(n.x, n.y, n.z, 1);
+            tangents[i] = new Vector4(t.x, t.y, t.z, 1);
 		}
 
 		mesh.tangents = tangents;

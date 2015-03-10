@@ -3,8 +3,8 @@ using System.Collections;
 
 public class NightTime : TimeSetting {
 
-    public NightTime()
-        : base(10,
+    public NightTime(int length = 120)
+        : base(length,
         new Color(0,0,0),
         new Color(0,0,0),
         new Vector3(270, 25, 0),

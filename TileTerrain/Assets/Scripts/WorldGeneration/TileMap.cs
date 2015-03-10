@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class TileMap {
 
-	private int mapSize;
+    private int mapSize;
+	private int mainMapSize;
+    public readonly int sectionCount;
+    public readonly int mainMapSectionCount;
 	private Tile[,] tiles;
 
 	// Key locations
@@ -13,6 +16,8 @@ public class TileMap {
 	Vector2i[] summonPosDirections = new Vector2i[]{new Vector2i(0, -1), new Vector2i(1, 0), new Vector2i(0, 1), new Vector2i(-1, 0)};
 	Road[] roads;
 	Line[] roadAreas;
+
+    private List<Cave> caves;
 
 	public int grassTiles = 0;
 	public int roadTiles = 0;
@@ -24,15 +29,17 @@ public class TileMap {
 
 	private readonly static int KEY_RES = 8;
 
-	public TileMap(int size)
+	public TileMap(int mainMapSections, int caveSections)
 	{
-		reset(size);
-		grassTiles = size*size;
+		initTiles((mainMapSections + caveSections) * WorldSection.SIZE);
+        mainMapSize = mainMapSections * WorldSection.SIZE + 1;
+        sectionCount = mainMapSections + caveSections;
+        this.mainMapSectionCount = mainMapSections;
 	}
 
-	public void reset(int size)
+	public void initTiles(int size)
 	{
-		mapSize = size;
+        mapSize = size;
 		tiles = new Tile[size, size];
 		for(int x = 0; x < size; x++)
 		{
@@ -46,7 +53,7 @@ public class TileMap {
 	public void generateBase()
 	{
 		//basePos = new Vector2(Random.Range(mapSize/2 - halfBaseBounds, mapSize/2+halfBaseBounds), Random.Range(mapSize/2 - halfBaseBounds, mapSize/2+halfBaseBounds));
-		basePos = (new Vector2i(Random.Range (0, 2), Random.Range(0, 2)) + new Vector2i(mapSize/KEY_RES/2, mapSize/KEY_RES/2))*KEY_RES;
+		basePos = (new Vector2i(Random.Range (0, 2), Random.Range(0, 2)) + new Vector2i(mainMapSize/KEY_RES/2, mainMapSize/KEY_RES/2))*KEY_RES;
 		tiles[(int)basePos.x, (int)basePos.y].height = (short)Mathf.Max(tiles[(int)basePos.x, (int)basePos.y].height, 1);
 		short baseHeight = (short)Mathf.Max(calculateAvgHeight(basePos.x, basePos.y, World.baseSize/2), 2);
 		
@@ -105,7 +112,7 @@ public class TileMap {
 			float baseToI = Vector2i.getAngle(basePos, summonPos[i]);
 			float baseToI2 = Vector2i.getAngle(basePos, summonPos[(i+1)%4]);
 			float angle = baseToI + Mathf.DeltaAngle(baseToI, baseToI2)/2;
-			roadAreas[i] = new Line(basePos, basePos + new Vector2i((int)Mathf.Cos(Mathf.Deg2Rad*angle), (int)Mathf.Sin (Mathf.Deg2Rad*angle))*mapSize);
+			roadAreas[i] = new Line(basePos, basePos + new Vector2i((int)Mathf.Cos(Mathf.Deg2Rad*angle), (int)Mathf.Sin (Mathf.Deg2Rad*angle))*mainMapSize);
 		}
 		
 		roads = new Road[4];
@@ -168,18 +175,18 @@ public class TileMap {
 	
 	public void generateKeyHeights()
 	{
-		for(int x = 0; x < mapSize/KEY_RES/2; x++)
+		for(int x = 0; x < mainMapSize/KEY_RES/2; x++)
 		{
-			for(int y = 0; y < mapSize/KEY_RES/2; y++)
+			for(int y = 0; y < mainMapSize/KEY_RES/2; y++)
 			{
 				//					float m = mapSize/8;
 				//					short maxHeight = (short)(((m-x)/m + (m-y)/m)*50);
 				tiles[x*KEY_RES*2, y*KEY_RES*2].height = (short)(Random.Range(World.minHeight, World.maxHeight));
 			}
 		}
-		for(int x = 0; x < mapSize/KEY_RES; x++)
+		for(int x = 0; x < mainMapSize/KEY_RES; x++)
 		{
-			for(int y = 0; y < mapSize/KEY_RES; y++)
+			for(int y = 0; y < mainMapSize/KEY_RES; y++)
 			{
 				//					float m = mapSize/8;
 				//					short maxHeight = (short)(((m-x)/m + (m-y)/m)*50);
@@ -187,12 +194,140 @@ public class TileMap {
 			}
 		}
 	}
+
+    public void generateCaves()
+    {
+        caves = new List<Cave>();
+        for(int x = mainMapSectionCount; x < sectionCount; x++)
+        {
+            for (int y = 0; y < mainMapSectionCount; y+=2)
+            {
+                Cave cave = new Cave(new Rect(x * WorldSection.SIZE, 
+                    y * WorldSection.SIZE, 
+                    WorldSection.SIZE,
+                    WorldSection.SIZE*2));
+                generateCave(cave);
+                caves.Add(cave);
+                
+            }
+        }
+        for(int x = 0; x < mainMapSectionCount; x+=2)
+        {
+            for (int y = mainMapSectionCount; y < sectionCount; y++)
+            {
+                Cave cave = new Cave(new Rect(x * WorldSection.SIZE,
+                    y * WorldSection.SIZE,
+                    WorldSection.SIZE * 2,
+                    WorldSection.SIZE));
+                generateCave(cave);
+                caves.Add(cave);
+            }
+        }
+
+        //GENERATE THE HALL
+        if(sectionCount - mainMapSectionCount > 0)
+        {
+            Cave theHall = new Cave(new Rect(mainMapSectionCount * WorldSection.SIZE,
+            mainMapSectionCount * WorldSection.SIZE,
+            WorldSection.SIZE,
+            WorldSection.SIZE));
+            generateCave(theHall);
+            caves.Add(theHall);
+        }
+        
+    }
+
+    private void generateCave(Cave cave)
+    {
+        int width = cave.width;
+        int height = cave.height;
+
+        //Randomizing entrance and boss spawn
+        int ex = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
+        int ey = cave.MARGIN + (height - cave.MARGIN*2) * Random.Range(0, 2); //either side of the cave
+        cave.entrancePos = new Vector2i(ex, ey) + cave.position;
+        
+        int bx = Random.Range(cave.MARGIN, width - cave.MARGIN); //somewhere along the x axis
+        int by = height - ey; //other side of the cave
+        cave.bossPos = new Vector2i(bx, by) + cave.position;
+
+        Debug.Log("Entrance: " + cave.entrancePos.x + ", " + cave.entrancePos.y);
+        Debug.Log("Boss: " + cave.bossPos.x + ", " + cave.bossPos.y);
+
+        //Make a road from entrance to boss
+        cave.waypoints.Add(cave.entrancePos);
+        cave.waypoints.Add(cave.bossPos);
+
+        //Set ground type
+        for(int x = cave.position.x; x < cave.position.x + width; x++)
+        {
+            for(int y = cave.position.y; y < cave.position.y + height; y++)
+            {
+                tiles[x, y].ground = (short)GroundType.Type.Mountain;
+            }
+        }
+        setCaveFloor(cave);        
+
+    }
+
+    private void setCaveFloor(Cave cave)
+    {
+        for (int w = 0; w < cave.waypoints.Count - 1; w++)
+        {
+            Vector2i dir = cave.waypoints[w + 1] - cave.waypoints[w];
+            int lastx = cave.waypoints[w].x;
+            int lasty = cave.waypoints[w].y;
+            int totalX = dir.x;
+            int totalY = dir.y;
+            int absX = Mathf.Abs(totalX);
+            int absY = Mathf.Abs(totalY);
+
+            while (absX > 0 || absY > 0)
+            {
+
+                if (absX < 0) totalX = 0;
+                if (absY < 0) totalY = 0;
+                setAreaHeight(1, new Vector2i(lastx, lasty), Random.Range(1, 3));
+                if (totalY == 0)
+                {
+                    int change = (int)((totalX / Mathf.Abs(totalX)));
+                    lastx += change;
+                    totalX -= change;
+                    absX -= Mathf.Abs(change);
+                }
+                else if (totalX == 0)
+                {
+                    int change = (int)((totalY / Mathf.Abs(totalY)));
+                    lasty += change;
+                    totalY -= change;
+                    absY -= Mathf.Abs(change);
+                }
+                else
+                {
+                    if (Random.value > 0.5)
+                    {
+                        int change = (int)((totalX / Mathf.Abs(totalX)));
+                        lastx += change;
+                        totalX -= change;
+                        absX -= Mathf.Abs(change);
+                    }
+                    else
+                    {
+                        int change = (int)((totalY / Mathf.Abs(totalY)));
+                        lasty += change;
+                        totalY -= change;
+                        absY -= Mathf.Abs(change);
+                    }
+                }
+            }
+        }
+    }
 	
 	public void generateRest()
 	{
-		for(int x = 0; x < mapSize/4; x++)
+		for(int x = 0; x < mainMapSize/4; x++)
 		{
-			for(int y = 0; y < mapSize/4; y++)
+			for(int y = 0; y < mainMapSize/4; y++)
 			{
 				if(tiles[x*4, y*4].state != Tile.stFixed)
 				{
@@ -201,9 +336,9 @@ public class TileMap {
 			}
 		}
 		
-		for(int x = 0; x < mapSize/2; x++)
+		for(int x = 0; x < mainMapSize/2; x++)
 		{
-			for(int y = 0; y < mapSize/2; y++)
+			for(int y = 0; y < mainMapSize/2; y++)
 			{
 				if(tiles[x*2, y*2].state != Tile.stFixed)
 				{
@@ -212,9 +347,9 @@ public class TileMap {
 			}
 		}
 		
-		for(int x = 0; x < mapSize; x++)
+		for(int x = 0; x < mainMapSize; x++)
 		{
-			for(int y = 0; y < mapSize; y++)
+			for(int y = 0; y < mainMapSize; y++)
 			{
 				if(tiles[x, y].state != Tile.stFixed)
 				{
@@ -226,9 +361,9 @@ public class TileMap {
 
 	public void smoothMap(int scale, int radius)
 	{
-		for(int x = 0; x < mapSize/scale; x++)
+		for(int x = 0; x < mainMapSize/scale; x++)
 		{
-			for(int y = 0; y < mapSize/scale; y++)
+			for(int y = 0; y < mainMapSize/scale; y++)
 			{
 				if(true)
 				{
@@ -240,9 +375,9 @@ public class TileMap {
 
 	public void smoothGround(int scale, int radius)
 	{
-		for(int x = 0; x < mapSize/scale; x++)
+		for(int x = 0; x < mainMapSize/scale; x++)
 		{
-			for(int y = 0; y < mapSize/scale; y++)
+			for(int y = 0; y < mainMapSize/scale; y++)
 			{
 				Tile t = tiles[x*scale, y*scale];
 				if(t.ground < 0) t.ground = calculateAvgGround(x*scale, y*scale, radius);
@@ -302,7 +437,7 @@ public class TileMap {
 
 	public void generateDiamond()
 	{
-		int end = mapSize - 1;
+		int end = mainMapSize - 1;
 
 		/* 10  	8  	5
 		 * 
@@ -311,7 +446,6 @@ public class TileMap {
 		 * 3   	1  	0	
 		 *
 		 */
-		 
 
 
 		//TOP ROW
@@ -351,17 +485,17 @@ public class TileMap {
 		int scale = (int)(roughness*(size/2 + 4));
 		if(half < stop) return;
 
-		for(int y = half; y < mapSize-1; y+=size)
+		for(int y = half; y < mainMapSize-1; y+=size)
 		{
-			for(int x = half; x < mapSize-1; x+=size)
+			for(int x = half; x < mainMapSize-1; x+=size)
 			{
 				//if(tiles[x, y].state != Tile.stFixed) square(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale));
 				square(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale), minHeight, maxHeight);
 			}
 		}
-		for(int y = 0; y <= mapSize-1; y+=half)
+		for(int y = 0; y <= mainMapSize-1; y+=half)
 		{
-			for(int x = (y + half) % size; x <= mapSize-1; x+=size)
+			for(int x = (y + half) % size; x <= mainMapSize-1; x+=size)
 			{
 				//if(tiles[x, y].state != Tile.stFixed)diamond(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale));
 				diamond(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale), minHeight, maxHeight);
@@ -475,8 +609,8 @@ public class TileMap {
 			int x = start.x + i*xStep + Random.Range(-sectionWidth/2, sectionWidth/2);
 			int y = start.y + i*yStep + Random.Range (-sectionHeight/2, sectionHeight/2);
 
-			x = Mathf.Clamp(x, 0 + width, mapSize - 1 - width);
-			y = Mathf.Clamp(y, 0 + width, mapSize - 1 - width);
+			x = Mathf.Clamp(x, 0 + width, mainMapSize - 1 - width);
+			y = Mathf.Clamp(y, 0 + width, mainMapSize - 1 - width);
 			checkPoints.Add(new Vector2i(x,y));
 		}
 		//Adding endpoint
@@ -604,12 +738,12 @@ public class TileMap {
 	public void generateGround()
 	{
 		tiles[0, 0].ground = 1;
-		tiles[mapSize-1, 0].ground = 1;
-		tiles[mapSize-1, mapSize-1].ground = 2;
-		tiles[0, mapSize-1].ground = 1;
-		tiles[mapSize/2, mapSize/2].ground = 0;
+		tiles[mainMapSize-1, 0].ground = 1;
+		tiles[mainMapSize-1, mainMapSize-1].ground = 2;
+		tiles[0, mainMapSize-1].ground = 1;
+		tiles[mainMapSize/2, mainMapSize/2].ground = 0;
 		
-		divideGround(mapSize-1, 1, 0, 2);
+		divideGround(mainMapSize-1, 1, 0, 2);
 		//smoothGround(1,4);
 		setGroundTiles();
 	}
@@ -620,16 +754,16 @@ public class TileMap {
 		int scale = (int)(groundRoughness*size);
 		if(half < stop) return;
 		
-		for(int y = half; y < mapSize-1; y+=size)
+		for(int y = half; y < mainMapSize-1; y+=size)
 		{
-			for(int x = half; x < mapSize-1; x+=size)
+			for(int x = half; x < mainMapSize-1; x+=size)
 			{
 				squareGround(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale), minHeight, maxHeight);
 			}
 		}
-		for(int y = 0; y <= mapSize-1; y+=half)
+		for(int y = 0; y <= mainMapSize-1; y+=half)
 		{
-			for(int x = (y + half) % size; x <= mapSize-1; x+=size)
+			for(int x = (y + half) % size; x <= mainMapSize-1; x+=size)
 			{
 				diamondGround(x, y, half, Mathf.RoundToInt(Random.value * scale * 2 - scale), minHeight, maxHeight);
 			}
@@ -639,9 +773,9 @@ public class TileMap {
 
 	void setGroundTiles()
 	{
-		for(int x = 0; x < mapSize; x++)
+		for(int x = 0; x < mainMapSize; x++)
 		{
-			for(int y = 0; y < mapSize; y++)
+			for(int y = 0; y < mainMapSize; y++)
 			{
 				if(tiles[x, y].height <= World.WATER_LEVEL)
 				{
@@ -768,7 +902,7 @@ public class TileMap {
 		{
 			for(int j = y-r; j < y+r+1; j+=r)
 			{
-				if(i > 0 && i < mapSize && j > 0 && j < mapSize)
+				if(i > 0 && i < mainMapSize && j > 0 && j < mainMapSize)
 				{
 					if(tiles[i, j].state != Tile.stUnset)
 					{
@@ -791,7 +925,7 @@ public class TileMap {
 		{
 			for(int j = y-r; j < y+r+1; j+=r)
 			{
-				if(i > 0 && i < mapSize && j > 0 && j < mapSize)
+				if(i > 0 && i < mainMapSize && j > 0 && j < mainMapSize)
 				{
 					if(tiles[i, j].ground >= 0 && tiles[i, j].ground != (short)GroundType.Type.Road)
 					{
@@ -808,7 +942,7 @@ public class TileMap {
 
 	Vector2i keyHeightBounds(Vector2i pos)
 	{
-		int size = mapSize/KEY_RES - 1;
+		int size = mainMapSize/KEY_RES - 1;
 		if(pos.x < 1)
 		{
 			pos.x = 1;
@@ -863,13 +997,17 @@ public class TileMap {
 		return mapSize;
 	}
 
+    public int getMainMapSize()
+    {
+        return mainMapSize - 1;
+    }
 	public void updateTileTypeCount()
 	{
 		grassTiles = 0;
 		roadTiles = 0;
-		for(int x = 0; x < mapSize; x++)
+		for(int x = 0; x < mainMapSize; x++)
 		{
-			for(int y = 0; y < mapSize; y++)
+			for(int y = 0; y < mainMapSize; y++)
 			{
 				if(tiles[x,y].state == Tile.stFixed)
 					roadTiles++;
@@ -878,4 +1016,19 @@ public class TileMap {
 			}
 		}
 	}
+
+    public List<Cave> getCaves()
+    {
+        return caves;
+    }
+
+    public Cave getCave(int index)
+    {
+        return caves[index];
+    }
+
+    public Vector2i getCaveEntrance(int index)
+    {
+        return caves[index].entrancePos;
+    }
 }
