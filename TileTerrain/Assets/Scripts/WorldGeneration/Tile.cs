@@ -12,7 +12,7 @@ public class Tile {
 	private short s;
 
 
-	private ResourceObject resourceObject;
+	private TileObject tileObject;
 	private List<LootableObject> lootableObjects = new List<LootableObject>();
 	private List<EyecandyObject> eyecandyObjects = new List<EyecandyObject>();
 	private List<Unit> units = new List<Unit>();
@@ -82,16 +82,21 @@ public class Tile {
 
 	public bool isWalkable(int id)
 	{
-		if((units.Count == 0 && resourceObject == null) || (units.Count == 1 && containsUnit(id))) return true;
+		if((units.Count == 0 && tileObject == null) || (units.Count == 1 && containsUnit(id))) return true;
 
-		if(resourceObject != null || units.Count > 0) return false;
+		if(tileObject != null || units.Count > 0) return false;
 		return true;
 
 	}
 
-	public bool hasResource()
+    public bool hasResourceObject()
+    {
+        return tileObject != null && tileObject is ResourceObject;
+    }
+
+	public bool hasTileObject()
 	{
-		return resourceObject != null;
+		return tileObject != null;
 	}
 
 	public void renderEyecandy()
@@ -103,21 +108,26 @@ public class Tile {
 	}
 	
 
-	public void setResourceObject(ResourceObject obj)
+	public void setTileObject(ResourceObject obj)
 	{
-		resourceObject = obj;
+		tileObject = obj;
 	}
 
 	public ResourceObject getResourceObject()
 	{
-		return resourceObject;
+		return tileObject as ResourceObject;
 	}
+
+    public TileObject getTileObject()
+    {
+        return tileObject;
+    }
 
 	public void activateTile()
 	{
 		World.addActiveTile(this);
 		active = true;
-		if(resourceObject != null) resourceObject.Activate();
+		if(tileObject != null) tileObject.Activate();
 		foreach(LootableObject loot in lootableObjects)
 		{
 			loot.Activate();
@@ -142,7 +152,7 @@ public class Tile {
 		World.removeActiveTile(this);
 		//if(!active) return;
 		active = false;
-		if(resourceObject != null) resourceObject.Inactivate();
+		if(tileObject != null) tileObject.Inactivate();
 		foreach(LootableObject loot in lootableObjects)
 		{
 			loot.Inactivate();
@@ -169,12 +179,12 @@ public class Tile {
 		return groundTypes[groundType];
 	}
 
-	public string removeResourceObject()
+	public string removeTileObject()
 	{
-		if(resourceObject == null) return "";
-		string name = resourceObject.getName();
-		resourceObject.Inactivate();
-		resourceObject = null;
+		if(tileObject == null) return "";
+		string name = tileObject.getName();
+		tileObject.Inactivate();
+		tileObject = null;
 		return name;
 	}
 
@@ -279,6 +289,6 @@ public class Tile {
 
 	public bool blocksProjectile()
 	{
-		return (hasResource() && resourceObject.blocksProjectile());
+		return (hasTileObject() && tileObject.blocksProjectile());
 	}
 }

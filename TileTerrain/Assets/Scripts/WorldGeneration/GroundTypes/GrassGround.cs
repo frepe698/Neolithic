@@ -168,7 +168,7 @@ public class GrassGround : GroundType {
         {
             for (int y = tile.y - 1; y < tile.y + 2; y++)
             {
-                if (map.isValidTile(x, y) && map.getTile(x, y).hasResource())
+                if (map.isValidTile(x, y) && map.getTile(x, y).hasTileObject())
                 {
                     return true;
                 }

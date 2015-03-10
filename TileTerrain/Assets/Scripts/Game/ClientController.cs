@@ -31,6 +31,12 @@ public class ClientController : GameController {
 		gameMaster.getNetView().RPC ("requestGatherCommand", RPCMode.Server, unitID, goalX, goalY);
 	}
 
+    [RPC]
+    public override void requestActionCommand(int unitID, float goalX, float goalY)
+    {
+        gameMaster.getNetView().RPC("requestActionCommand", RPCMode.Server, unitID, goalX, goalY);
+    }
+
 	[RPC]
 	public override void requestAttackCommand(int unitID, int targetID)
 	{
@@ -63,6 +69,11 @@ public class ClientController : GameController {
 	{
 		//do nada
 	}
+
+    public override void requestWarp(int unitID, Vector2i tile)
+    {
+        //do nada
+    }
 
 	public override void requestAttack(int unitID, int targetID)
 	{

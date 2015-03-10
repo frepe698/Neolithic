@@ -416,14 +416,20 @@ public class Unit {
 		GameMaster.getGameController().requestLoot(id, new Vector2i(lootableObject.get2DPos().x, lootableObject.get2DPos().y), lootableObject.getID());
 	}
 
+    public void warp(WarpObject warpObject)
+    {
+        GameMaster.getGameController().requestWarp(id, new Vector2i(warpObject.get2DPos()));
+    }
+
 	public Vector3 getPosition()
 	{
 		return position;
 	}
 
-	public void warp(Vector3 position)
+	public void warp(Vector2 position)
 	{
-		this.position = position;
+		this.position = new Vector3(position.x, 0, position.y);
+        ground();
 	}
 
 	public Vector3 getRotation()

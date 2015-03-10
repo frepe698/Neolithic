@@ -411,7 +411,7 @@ public class World : MonoBehaviour {
 				if(ground.spawnResource())
 				{
 					Vector2 pos = new Vector2(x + 0.4f+Random.value*0.2f, y + 0.4f+Random.value*0.2f);
-					tile.setResourceObject(ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y)));
+					tile.setTileObject(ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y)));
 				}
 				else
 				{
@@ -654,7 +654,7 @@ public class World : MonoBehaviour {
 			{
 				if(tileMap.isValidTile(x, y))
 				{
-					if(tileMap.getTile(x,y).hasResource())
+					if(tileMap.getTile(x,y).hasTileObject())
 					{
 						tileMap.getTile(x, y).inactivateTile();
 					}
@@ -679,7 +679,7 @@ public class World : MonoBehaviour {
 			{
 				if(tileMap.isValidTile(x, y))
 				{
-					if(tileMap.getTile(x,y).hasResource())
+					if(tileMap.getTile(x,y).hasTileObject())
 					{
 						tileMap.getTile(x, y).activateTile();
 					}
@@ -714,7 +714,7 @@ public class World : MonoBehaviour {
 			int x = newPos.x + resourceTileActivationRange * dx;
 			for(int y = newPos.y-resourceTileActivationRange; y < newPos.y+resourceTileActivationRange+1; y++)
 			{
-				if(tileMap.isValidTile(x, y) && tileMap.getTile(x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && tileMap.getTile(x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).activateTile();
 				}
@@ -723,7 +723,7 @@ public class World : MonoBehaviour {
 			x = newPos.x - resourceTileInactivationRange * dx;
 			for(int y = newPos.y-resourceTileInactivationRange; y < newPos.y+resourceTileInactivationRange+1; y++)
 			{
-				if(tileMap.isValidTile(x, y) && tileMap.getTile(x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && tileMap.getTile(x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).inactivateTile();
 				}
@@ -743,7 +743,7 @@ public class World : MonoBehaviour {
 			x = newPos.x - eyecandyTileInactivationRange * dx;
 			for(int y = newPos.y-eyecandyTileInactivationRange; y < newPos.y+eyecandyTileInactivationRange+1; y++)
 			{
-				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).inactivateTile();
 				}
@@ -756,7 +756,7 @@ public class World : MonoBehaviour {
 			int y = newPos.y + resourceTileActivationRange * dy;
 			for(int x = newPos.x-resourceTileActivationRange; x < newPos.x+resourceTileActivationRange+1; x++)
 			{
-				if(tileMap.isValidTile(x, y) && tileMap.getTile (x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && tileMap.getTile (x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).activateTile();
 				}
@@ -765,7 +765,7 @@ public class World : MonoBehaviour {
 			y = newPos.y - resourceTileInactivationRange * dy;
 			for(int x = newPos.x-resourceTileInactivationRange; x < newPos.x+resourceTileInactivationRange+1; x++)
 			{
-				if(tileMap.isValidTile(x, y) && tileMap.getTile (x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && tileMap.getTile (x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).inactivateTile();
 				}
@@ -775,7 +775,7 @@ public class World : MonoBehaviour {
 			y = newPos.y + eyecandyTileActivationRange * dy;
 			for(int x = newPos.x-eyecandyTileActivationRange; x < newPos.x+eyecandyTileActivationRange+1; x++)
 			{
-				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x, y).hasResource())
+				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x, y).hasTileObject())
 				{
 					tileMap.getTile(x, y).activateTile();
 				}
@@ -784,7 +784,7 @@ public class World : MonoBehaviour {
 			y = newPos.y - eyecandyTileInactivationRange * dy;
 			for(int x = newPos.x-eyecandyTileInactivationRange; x < newPos.x+eyecandyTileInactivationRange+1; x++)
 			{
-				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x,y).hasResource())
+				if(tileMap.isValidTile(x, y) && !tileMap.getTile (x,y).hasTileObject())
 				{
 					tileMap.getTile(x, y).inactivateTile();
 				}
