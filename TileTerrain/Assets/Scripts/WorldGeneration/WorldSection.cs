@@ -146,8 +146,8 @@ public class WorldSection {
                 }
 
 
-                normals[y + x * vertCount] = Vector3.Normalize(normal);
-                //normals[y + x * vertCount] = new Vector3(0,1,0);
+                //normals[y + x * vertCount] = Vector3.Normalize(normal);
+                normals[y + x * vertCount] = new Vector3(0,1,0);
                 //if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) || */(x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
                 //{
                       //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
@@ -421,7 +421,7 @@ public class WorldSection {
 
             Vector3.Normalize(t);
 
-            tangents[i] = new Vector4(t.x, t.y, t.z, 1);
+            tangents[i] = new Vector4(n.x, n.y, n.z, 1);
 		}
 
 		mesh.tangents = tangents;

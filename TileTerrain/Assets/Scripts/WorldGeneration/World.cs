@@ -391,7 +391,7 @@ public class World : MonoBehaviour {
 	{
 		tileMap = new TileMap(4,1);
 		tileMap.generateDiamond();
-		tileMap.generateRiver(new Vector2i((tileMap.getSize() - 1), (tileMap.getSize() - 1)/2), new Vector2i((tileMap.getSize() - 1)/2,(tileMap.getSize() - 1)),
+		tileMap.generateRiver(new Vector2i((tileMap.getMainMapSize() - 1), (tileMap.getMainMapSize() - 1)/2), new Vector2i((tileMap.getMainMapSize() - 1)/2,(tileMap.getMainMapSize() - 1)),
 		                      6, 30, -2, 0, 8, 3); 
 		
 		tileMap.smoothMap(4, 2);
