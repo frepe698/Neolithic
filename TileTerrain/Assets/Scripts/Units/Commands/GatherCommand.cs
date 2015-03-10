@@ -46,7 +46,7 @@ public class GatherCommand : Command {
 				}
 			}
 		}
-		else if( Vector2.Distance(unit.get2DPos(), destination) < resourceObject.getGatherRadius() )
+		else if( Vector2.Distance(unit.get2DPos(), destination) < resourceObject.getActionRadius() )
 		{
 
 			unit.setMoving(false);

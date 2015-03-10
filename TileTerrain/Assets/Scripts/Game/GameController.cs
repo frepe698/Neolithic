@@ -97,6 +97,23 @@ public abstract class GameController : MonoBehaviour{
 		unit.giveGatherCommand(new Vector2(goalX, goalY));
 	}
 
+    [RPC]
+    public abstract void requestActionCommand(int unitID, float goalX, float goalY);
+
+    [RPC]
+    protected void approveActionCommand(int unitID, float goalX, float goalY, Vector3 startPos)
+    {
+        Vector2i startTile = new Vector2i(startPos.x, startPos.z);
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit.getTile() != startTile)
+        {
+            unit.setPosition(startPos);
+        }
+
+        WarpObject warpObject = World.tileMap.getTile((int)goalX, (int)goalY).getTileObject() as WarpObject;
+        if(warpObject != null) unit.giveCommand(new ActionCommand(unit, warpObject));
+    }
+
 	[RPC]
 	public abstract void requestAttackCommand(int unitID, int targetID);
 
@@ -247,21 +264,32 @@ public abstract class GameController : MonoBehaviour{
 
 					targetPoint = rayhit.transform.position;
 				}
-				else if(holdTag == "Unit")
-				{
-					Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
-					targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
-					foreach(Material mat in targetRenderer.materials)
-					{
-						mat.SetFloat("_Highlight", 1);
-					}
+                else if (holdTag == "Action")
+                {
+                    Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
+                    targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
+                    foreach (Material mat in targetRenderer.materials)
+                    {
+                        mat.SetFloat("_Highlight", 1);
+                    }
 
-					targetPoint = rayhit.transform.position;
-				}
-				else if(holdTag == "Ground")
-				{
-					Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
-				}
+                    targetPoint = rayhit.transform.position;
+                }
+                else if (holdTag == "Unit")
+                {
+                    Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+                    targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
+                    foreach (Material mat in targetRenderer.materials)
+                    {
+                        mat.SetFloat("_Highlight", 1);
+                    }
+
+                    targetPoint = rayhit.transform.position;
+                }
+                else if (holdTag == "Ground")
+                {
+                    Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
+                }
 
 				if(Input.GetKey("q"))
 				{
@@ -298,32 +326,38 @@ public abstract class GameController : MonoBehaviour{
 						}
 
 					}
-					else if(targetTag == "Unit")
-					{
-						targetSelected = false;
-						UnitController target = hit.transform.GetComponent<UnitController>();
-						targetUnitID = target.getID();
-						if(targetUnitID != unitID)
-						{
-							if(GameMaster.getPlayerHero().isMelee())
-							{
-								requestAttackCommand(unitID, targetUnitID);
-							}
-							else 
-							{
-								requestRangedAttackCommand(unitID, target.transform.position + Vector3.up);
-							}
-						}
-						else
-						{
-							targetUnitID = -1;
-						}
-					}
-					else if(targetTag == "Ground")
-					{
-						targetSelected = false;
-						requestMoveCommand(unitID, hit.point.x, hit.point.z);
-					}
+                    else if (targetTag == "Action")
+                    {
+                        targetSelected = true;
+                        targetPosition = hit.transform.position;
+                        requestActionCommand(unitID, targetPosition.x, targetPosition.z);
+                    }
+                    else if (targetTag == "Unit")
+                    {
+                        targetSelected = false;
+                        UnitController target = hit.transform.GetComponent<UnitController>();
+                        targetUnitID = target.getID();
+                        if (targetUnitID != unitID)
+                        {
+                            if (GameMaster.getPlayerHero().isMelee())
+                            {
+                                requestAttackCommand(unitID, targetUnitID);
+                            }
+                            else
+                            {
+                                requestRangedAttackCommand(unitID, target.transform.position + Vector3.up);
+                            }
+                        }
+                        else
+                        {
+                            targetUnitID = -1;
+                        }
+                    }
+                    else if (targetTag == "Ground")
+                    {
+                        targetSelected = false;
+                        requestMoveCommand(unitID, hit.point.x, hit.point.z);
+                    }
 					
 				}
 			}
@@ -364,6 +398,10 @@ public abstract class GameController : MonoBehaviour{
 							requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
 						}
 					}
+                    else if (targetTag == "Action")
+                    {
+                        requestActionCommand(unitID, targetPosition.x, targetPosition.z);
+                    }
 
 				}
 				else if(targetUnitID >= 0)
@@ -390,10 +428,17 @@ public abstract class GameController : MonoBehaviour{
 		StartCoroutine(lagMove(unitID, x, y, lag));
 	}
 
+    [RPC]
+    protected void warpUnit(int unitID, float x, float y)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        if(unit != null) unit.warp(new Vector2(x, y));
+    }
+
 	[RPC]
 	protected void gatherResource(int x, int y)
 	{
-		string name = World.tileMap.getTile(x,y).removeResourceObject();
+		string name = World.tileMap.getTile(x,y).removeTileObject();
 		requestResourceLootDrop(name, new Vector2i(x,y));
 	}
 
@@ -478,6 +523,8 @@ public abstract class GameController : MonoBehaviour{
 	}
 	public abstract void requestGather(int unitID, Vector2i tile);
 
+    public abstract void requestWarp(int unitID, Vector2i tile);
+
 	public abstract void requestAttack(int unitID, int targetID);
 
 	public abstract void requestFireProjectile(int unitID, Vector3 target);
@@ -553,7 +600,7 @@ public abstract class GameController : MonoBehaviour{
             case(CheatCommand.WARP):
             {
                 if(parameters.Length != 2) return;
-                commander.warp(new Vector3((float)parameters[0], 0, (float)parameters[1]));
+                commander.warp(new Vector2((float)parameters[0],(float)parameters[1]));
             }
             break;
         }

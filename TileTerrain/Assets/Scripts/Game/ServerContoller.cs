@@ -39,6 +39,17 @@ public class ServerController : GameController {
 		}
 	}
 
+    [RPC]
+    public override void requestActionCommand(int unitID, float goalX, float goalY)
+    {
+        Unit unit = GameMaster.getHero(unitID);
+        WarpObject wrp = World.tileMap.getTile((int)goalX, (int)goalY).getTileObject() as WarpObject;
+        if (wrp != null && unit != null && unit.canStartCommand(new ActionCommand(unit, wrp)))
+        {
+            gameMaster.getNetView().RPC("approveActionCommand", RPCMode.All, unitID, goalX, goalY, GameMaster.getHero(unitID).getPosition());
+        }
+    }
+
 	[RPC]
 	public override void requestAttackCommand(int unitID, int targetID)
 	{
@@ -98,6 +109,16 @@ public class ServerController : GameController {
 			}
 		}
 	}
+
+    public override void requestWarp(int unitID, Vector2i tile)
+    {
+        WarpObject warpObject = World.tileMap.getTile(tile).getTileObject() as WarpObject;
+        if (warpObject != null)
+        {
+            Unit unit = GameMaster.getUnit(unitID);
+            if (unit != null) gameMaster.getNetView().RPC("warpUnit", RPCMode.All, unitID, warpObject.get2DPos().x, warpObject.get2DPos().y);
+        }
+    }
 
 	public override void requestAttack(int unitID, int targetID)
 	{
