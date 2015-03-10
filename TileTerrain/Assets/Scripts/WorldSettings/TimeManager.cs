@@ -10,7 +10,7 @@ public class TimeManager{
 
     private readonly static float TIMESPEED = 1;
 
-    private static TimeSetting[] times = new TimeSetting[]{new DayTime(300), new DuskTime(), new NightTime(), new DawnTime()};
+    private static TimeSetting[] times = new TimeSetting[]{new DayTime(5), new DuskTime(5), new NightTime(5), new DawnTime(5)};
     private TimeSetting currentTime;
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
@@ -26,26 +26,34 @@ public class TimeManager{
     private Vector3 sunRotation;
     private Vector3 moonRotation;
 
+    private Color sunColor;
+    private Color moonColor;
+
+    private static readonly Color black = new Color(0, 0, 0);
+
     private static object syncRoot = new System.Object();
     private static volatile TimeManager instance;
 
     private Light sun;
     private Light moon;
-    
+
+    private bool inDoors = false;
     public TimeManager()
     {
         currentTime = times[0];
         currentTime.start();
         sun = new GameObject("sun").AddComponent<Light>();
         sunRotation = currentTime.getSunRotation();
-        sun.color = currentTime.getSunLightColor();
+        sunColor = currentTime.getSunLightColor();
+        sun.color = sunColor;
         sun.type = LightType.Directional;
         sun.shadows = LightShadows.Hard;
         sun.shadowStrength = 0.4f;
         
         moon = new GameObject("moon").AddComponent<Light>();
         moonRotation = currentTime.getMoonRotation();
-        moon.color = currentTime.getMoonLightColor();
+        moonColor = currentTime.getMoonLightColor();
+        moon.color = moonColor;
         moon.type = LightType.Directional;
         moon.shadows = LightShadows.Hard;
         moon.shadowStrength = 0.4f;
@@ -66,8 +74,8 @@ public class TimeManager{
         {
             
             //set sun and moon properties
-            sun.color = currentTime.getSunLightColor();
-            moon.color = currentTime.getMoonLightColor();
+            sunColor = currentTime.getSunLightColor();
+            moonColor = currentTime.getMoonLightColor();
 
             sunRotation = currentTime.getSunRotation();
             moonRotation = currentTime.getMoonRotation();
@@ -79,8 +87,8 @@ public class TimeManager{
                
                 intermissionTimer += deltaTime;
                 //interpolate sun and moon properties
-                sun.color += intermissionSunLightChange * deltaTime;
-                moon.color += intermissionMoonLightChange * deltaTime;
+                sunColor += intermissionSunLightChange * deltaTime;
+                moonColor += intermissionMoonLightChange * deltaTime;
 
                 sunRotation += intermissionSunSpeed * deltaTime;
                 sun.transform.eulerAngles = sunRotation;
@@ -101,6 +109,17 @@ public class TimeManager{
                 
             }
         }
+        if(!inDoors)
+        {
+            sun.color = sunColor;
+            moon.color = moonColor;
+        }
+        else 
+        {
+            sun.color = black;
+            moon.color = black;
+        }
+
     }
 
     public void updateIntermissionValues()
@@ -138,6 +157,16 @@ public class TimeManager{
     public static void removeInstance()
     {
         instance = null;
+    }
+
+    public void setIndoors(bool indoors)
+    {
+        inDoors = indoors;
+    }
+
+    public void toggleIndoors()
+    {
+        inDoors = !inDoors;
     }
 	
 }
