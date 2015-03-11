@@ -89,6 +89,11 @@ public class Vector2i {
 		return !(v1.x == v2.x && v1.y == v2.y);
 	}
 
+    public Vector2 toVector2()
+    {
+        return new Vector2(x, y);
+    }
+
 	public override bool Equals(object v)
 	{
 		if(v is Vector2i)

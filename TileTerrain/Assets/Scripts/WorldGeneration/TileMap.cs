@@ -271,15 +271,22 @@ public class TileMap {
         cave.waypoints.Add(cave.entrancePos);
         cave.waypoints.Add(cave.bossPos);
 
+        
+        setCaveFloor(cave);
         //Set ground type
-        for(int x = cave.position.x; x < cave.position.x + width; x++)
+        for (int x = cave.position.x; x < cave.position.x + width; x++)
         {
-            for(int y = cave.position.y; y < cave.position.y + height; y++)
+            for (int y = cave.position.y; y < cave.position.y + height; y++)
             {
-                tiles[x, y].ground = (short)GroundType.Type.Grass;
+                Tile tile = tiles[x, y];
+                if (tile.state != Tile.stFixed)
+                {
+                    tile.height = 5;
+                    tile.ground = (short)GroundType.Type.Mountain;
+                    tile.setCliff(true);
+                }
             }
         }
-        setCaveFloor(cave);        
 
     }
 
@@ -303,8 +310,10 @@ public class TileMap {
 
                 Vector2i center = new Vector2i(lastx, lasty);
                 int radius = Random.Range(1,3);
+                setAreaGround(GroundType.Type.Road, center, radius);
                 setAreaHeight(1, center, radius);
-                setAreaGround((int)GroundType.Type.SnowMountain, center, radius);
+                
+                setAreaFixed(center, radius);
                 if (totalY == 0)
                 {
                     int change = (int)((totalX / Mathf.Abs(totalX)));
@@ -710,13 +719,24 @@ public class TileMap {
 		}
 	}
 
-    private void setAreaGround(int ground, Vector2i center, int radius)
+    private void setAreaGround(GroundType.Type ground, Vector2i center, int radius)
     {
         for (int x = center.x - radius; x < center.x + radius + 1; x++)
         {
             for (int y = center.y - radius; y < center.y + radius + 1; y++)
             {
                 if (isValidTile(x, y)) tiles[x, y].ground = (short)ground;
+            }
+        }
+    }
+
+    private void setAreaFixed(Vector2i center, int radius)
+    {
+        for (int x = center.x - radius; x < center.x + radius + 1; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius + 1; y++)
+            {
+                if (isValidTile(x, y)) tiles[x, y].state = Tile.stFixed;
             }
         }
     }

@@ -28,13 +28,11 @@ public class ActionCommand : Command {
             WarpObject wObject = World.tileMap.getTile(new Vector2i(warpObject.get2DPos())).getTileObject() as WarpObject;
             if (wObject != null)
             {
-                unit.warp(warpObject.get2DPos());
+                unit.warp(warpObject.getDestination());
+
                 //unit.setAnimationRestart(unit.getAttackAnim(resObject.getDamageType()), unit.getAttackSpeed());
             }
-            else
-            {
-                setCompleted();
-            }
+            setCompleted();
 
 
 

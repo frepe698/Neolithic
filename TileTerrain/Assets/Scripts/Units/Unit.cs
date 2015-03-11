@@ -337,43 +337,53 @@ public class Unit {
             setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
 			return;
 		}
-		
-		if(Pathfinder.getClosestWalkablePoint(World.tileMap, point,get2DPos(), out point, id))
-		{
-			Vector2i clickedTile = new Vector2i(point);
-			command.setDestination(point);
-			if(clickedTile == destinationTile)
-			{
-				if(path.getCheckPointCount() < 1)
-				{
-					//path.addCheckPoint(point);
-					destination = point;
-				}
-				else
-				{
-					path.setPoint(path.getCheckPointCount()-1, point);
-				}
-				
-				moving = true;			
-			}
-			else
-			{
-				path = Pathfinder.findPath(World.tileMap,get2DPos(),point,id);
-				if (path.getCheckPointCount()>0)
-				{
+
+        if (Pathfinder.getClosestWalkablePoint(World.tileMap, point, get2DPos(), out point, id))
+        {
+            Vector2i clickedTile = new Vector2i(point);
+            command.setDestination(point);
+            if (clickedTile == destinationTile)
+            {
+                if (path.getCheckPointCount() < 1)
+                {
+                    //path.addCheckPoint(point);
+                    destination = point;
+                }
+                else
+                {
+                    path.setPoint(path.getCheckPointCount() - 1, point);
+                }
+
+                moving = true;
+            }
+            else
+            {
+                path = Pathfinder.findPath(World.tileMap, get2DPos(), point, id);
+                if (path.getCheckPointCount() > 0)
+                {
 #if false
                     for (int i = 0; i < path.getCheckPointCount() - 1; i++)
                     {
                         Debug.DrawLine(new Vector3(path.getPoint(i).x, 4, path.getPoint(i).y), new Vector3(path.getPoint(i + 1).x, 4, path.getPoint(i + 1).y), Color.white, 3);
                     } 
 #endif
-					moving = true;
-					destination = path.popCheckPoint();
-				}
-			}
-			destinationTile = clickedTile;
-			
-		}
+                    moving = true;
+                    destination = path.popCheckPoint();
+                }
+                else
+                {
+                    moving = false;
+                    command = null;
+                }
+            }
+            destinationTile = clickedTile;
+
+        }
+        else
+        {
+            moving = false;
+            command = null;
+        }
 	}
 	
 	public Vector2 get2DPos()
@@ -428,8 +438,13 @@ public class Unit {
 
 	public void warp(Vector2 position)
 	{
-		this.position = new Vector3(position.x, 0, position.y);
-        ground();
+        World.tileMap.getTile(tile).removeUnit(this);
+		this.position = new Vector3(position.x, World.getHeight(new Vector2(position.x, position.y)), position.y);
+        
+        Vector2i newTile = new Vector2i(this.position.x, this.position.z);
+        World.tileMap.getTile(newTile).addUnit(this);
+        tile = newTile;
+        //ground();
 	}
 
 	public Vector3 getRotation()

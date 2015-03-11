@@ -11,6 +11,7 @@ public class Tile {
 	private short h;
 	private short s;
 
+    private bool cliff = false;
 
 	private TileObject tileObject;
 	private List<LootableObject> lootableObjects = new List<LootableObject>();
@@ -80,8 +81,19 @@ public class Tile {
 		return s == stSetable && height > 0;
 	}
 
+    public void setCliff(bool cliff)
+    {
+        this.cliff = cliff;
+    }
+
+    public bool isCliff()
+    {
+        return cliff;
+    }
+
 	public bool isWalkable(int id)
 	{
+        if (cliff) return false;
 		if((units.Count == 0 && tileObject == null) || (units.Count == 1 && containsUnit(id))) return true;
 
 		if(tileObject != null || units.Count > 0) return false;
@@ -108,7 +120,7 @@ public class Tile {
 	}
 	
 
-	public void setTileObject(ResourceObject obj)
+	public void setTileObject(TileObject obj)
 	{
 		tileObject = obj;
 	}

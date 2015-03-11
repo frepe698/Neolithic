@@ -105,6 +105,9 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 50, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone03"), 50, true);
 
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveEntrance"), 2, true);
+
+
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/stone"), 200, true);
@@ -401,43 +404,65 @@ public class World : MonoBehaviour {
 	}
 	
 	void addObjects()
-	{
-		for(int x = 0; x < getMainMapSize(); x++)
-		{
-			for(int y = 0; y < getMainMapSize(); y++)
-			{
-				Tile tile = tileMap.getTile(x, y);
-				GroundType ground = tile.getGroundType();
-				if(ground.spawnResource())
-				{
-					Vector2 pos = new Vector2(x + 0.4f+Random.value*0.2f, y + 0.4f+Random.value*0.2f);
-					tile.setTileObject(ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y)));
-				}
-				else
-				{
-					int lootAmount = ground.spawnLootAmount();
-					for(int i = 0; i < lootAmount; i++)
-					{
-						Vector2 pos = new Vector2(x + Random.value, y + Random.value);
-						ItemData itemData = ground.getRandomLoot(new Vector3(pos.x, getHeight(pos), pos.y));
-						if(itemData != null)
-						{
-							tileMap.getTile(x, y).addLoot(itemData.getLootableObject(new Vector3(pos.x, getHeight(pos), pos.y),
-							                                                         Quaternion.Euler(0, Random.value*360, 0)));
-					
-						}
-					}
-				}
-				int candyAmount = ground.spawnEyecandyAmount();
-				for(int i = 0; i< candyAmount; i++)
-				{
-					Vector2 pos = new Vector2(x + Random.value, y + Random.value);
-					EyecandyObject eyecandy = ground.getRandomEyecandy(new Vector3(pos.x, getHeight(pos), pos.y));
-					if(eyecandy != null) tileMap.getTile(x, y).addEyecandy(eyecandy);
-				}
-			}
-		}
-	}
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Vector2 pos1 = new Vector2(100 + i, 100);
+            Vector2 pos2 = tileMap.getCaveEntrance(i).toVector2();
+            Tile tile1 = tileMap.getTile(new Vector2i(pos1));
+            Tile tile2 = tileMap.getTile(new Vector2i(pos2));
+
+            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", pos2 + new Vector2(0, 1)));
+            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), 0, "caveEntrance", pos1 + new Vector2(0, 1)));
+        }
+
+        //Add the hall entrance
+        {
+            Vector2 pos1 = tileMap.basePos.toVector2();
+            Vector2 pos2 = tileMap.getCaveEntrance(4).toVector2();
+            Tile tile1 = tileMap.getTile(new Vector2i(pos1));
+            Tile tile2 = tileMap.getTile(new Vector2i(pos2));
+
+            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", pos2 + new Vector2(0, 1)));
+            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), 0, "caveEntrance", pos1 + new Vector2(0, 1)));
+        }
+
+        for (int x = 0; x < getMainMapSize(); x++)
+        {
+            for (int y = 0; y < getMainMapSize(); y++)
+            {
+                Tile tile = tileMap.getTile(x, y);
+                GroundType ground = tile.getGroundType();
+                if (ground.spawnResource())
+                {
+                    Vector2 pos = new Vector2(x + 0.4f + Random.value * 0.2f, y + 0.4f + Random.value * 0.2f);
+                    tile.setTileObject(ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y)));
+                }
+                else
+                {
+                    int lootAmount = ground.spawnLootAmount();
+                    for (int i = 0; i < lootAmount; i++)
+                    {
+                        Vector2 pos = new Vector2(x + Random.value, y + Random.value);
+                        ItemData itemData = ground.getRandomLoot(new Vector3(pos.x, getHeight(pos), pos.y));
+                        if (itemData != null)
+                        {
+                            tileMap.getTile(x, y).addLoot(itemData.getLootableObject(new Vector3(pos.x, getHeight(pos), pos.y),
+                                                                                     Quaternion.Euler(0, Random.value * 360, 0)));
+
+                        }
+                    }
+                }
+                int candyAmount = ground.spawnEyecandyAmount();
+                for (int i = 0; i < candyAmount; i++)
+                {
+                    Vector2 pos = new Vector2(x + Random.value, y + Random.value);
+                    EyecandyObject eyecandy = ground.getRandomEyecandy(new Vector3(pos.x, getHeight(pos), pos.y));
+                    if (eyecandy != null) tileMap.getTile(x, y).addEyecandy(eyecandy);
+                }
+            }
+        }
+    }
 
     public void addSpawners()
     {
@@ -604,7 +629,7 @@ public class World : MonoBehaviour {
 		if(lastPlayerPos != newPos)
 		{
 			activateTileRow(newPos + cameraOffset, lastPlayerPos + cameraOffset);
-			
+            TimeManager.Instance.setIndoors(newPos.x > tileMap.getMainMapSize() || newPos.y > tileMap.getMainMapSize());
 			lastPlayerPos = newPos;
 		}
 

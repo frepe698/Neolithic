@@ -44,7 +44,7 @@ public class OfflineController : GameController {
         WarpObject wrp = World.tileMap.getTile((int)goalX, (int)goalY).getTileObject() as WarpObject; 
         if (wrp != null && unit != null && unit.canStartCommand(new ActionCommand(unit, wrp)))
         {
-            approveGatherCommand(unitID, goalX, goalY, GameMaster.getHero(unitID).getPosition());
+            approveActionCommand(unitID, goalX, goalY, GameMaster.getHero(unitID).getPosition());
         }
     }
 
