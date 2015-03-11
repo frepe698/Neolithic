@@ -29,7 +29,6 @@ public class World : MonoBehaviour {
 	public static int baseSize = 5;
 	public static int mapSize = 129;
 	
-	public static int sectionCount = 4;
 	
 	public bool cliffs = true;
 	public bool testTiles = true;
@@ -77,7 +76,7 @@ public class World : MonoBehaviour {
 		generateHeights();
 		tileMap.generateGround();
         tileMap.generateCaves();
-		generateWorldSectionsNew();
+		generateWorldSections();
 		initObjectPools();
 		generateWater();
 		addObjects();
@@ -161,8 +160,9 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/wolf"), 20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/caveman"), 1, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/vrodl"), 1, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/halftroll"), 1, true);
-
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Heroes/halftroll"), 1, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/troll"), 4, true);
+        
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/rock"),20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/arrow"),20, true);
 
@@ -196,14 +196,14 @@ public class World : MonoBehaviour {
 
 		Vector3[,] terrainNormals = new Vector3[xtri*tileMap.sectionCount,ytri*tileMap.sectionCount];
 		
-		for(int x = 0; x < tileMap.sectionCount; x++)
+		for(int y = 0; y < tileMap.sectionCount; y++)
 		{
-			for(int y = 0; y < tileMap.sectionCount; y++)
+			for(int x = 0; x < tileMap.sectionCount; x++)
 			{
 				WorldSection ws = new WorldSection(new Vector2i(x, y));
-                for (int tx = x * xtri; tx < (x + 1) * xtri; tx++)
+                for (int ty = y * ytri; ty < (y + 1) * ytri; ty++)
                 {
-                    for (int ty = y * ytri; ty < (y + 1) * ytri; ty++)
+                    for (int tx = x * xtri; tx < (x + 1) * xtri; tx++)
                     {
                         int stx = tx - x * xtri;
                         int sty = ty - y * ytri;
@@ -219,9 +219,9 @@ public class World : MonoBehaviour {
        // Vector3[] normals = calculateNormals(terrainNormals);
 		
 		groundRenderers = new MeshRenderer[tileMap.sectionCount*tileMap.sectionCount];
-		for(int x = 0; x < tileMap.sectionCount; x++)
+		for(int y = 0; y < tileMap.sectionCount; y++)
 		{
-			for(int y = 0; y < tileMap.sectionCount; y++)
+			for(int x = 0; x < tileMap.sectionCount; x++)
 			{
                 sections[x, y].calculateNormals(terrainNormals);
                 //sections[x, y].setNormals(normals);
@@ -407,7 +407,7 @@ public class World : MonoBehaviour {
     {
         for (int i = 0; i < 4; i++)
         {
-            Vector2 pos1 = new Vector2(100 + i, 100);
+            Vector2 pos1 = tileMap.summonPos[i].toVector2();
             Vector2 pos2 = tileMap.getCaveEntrance(i).toVector2();
             Tile tile1 = tileMap.getTile(new Vector2i(pos1));
             Tile tile2 = tileMap.getTile(new Vector2i(pos2));
@@ -468,9 +468,18 @@ public class World : MonoBehaviour {
     {
 
         GameMaster.addDaySpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
-        foreach(Cave cave in tileMap.getCaves())
+        for(int i = 0; i < tileMap.getCaves().Count; i++)
         {
-            GameMaster.addDaySpawner("wolf", 4, cave.bossPos);
+            Cave cave = tileMap.getCaves()[i];
+            if(i == 4)
+            {
+                GameMaster.addDaySpawner("trollking", 1, cave.bossPos);
+            }
+            else
+            {
+                GameMaster.addDaySpawner("troll", 1, cave.bossPos);
+            }
+            GameMaster.addDaySpawner("vrodl", 4, cave.bossPos);
         }
     }
 
