@@ -23,7 +23,7 @@ public class WorldSection {
 
 	public float getVertHeight(int x, int y)
 	{
-		return newVertices[x*SIZE + y].y;
+		return newVertices[x + SIZE * y].y;
 	}
 
 	void createMeshFromTileMap()
@@ -33,21 +33,22 @@ public class WorldSection {
 		triangles = new int[SIZE*SIZE*6];
 		
 		int lastTile = 0;
-		for(int x = 0; x < vertCount; x++)
+		for(int y = 0; y < vertCount; y++)
 		{
-			for(int y = 0; y < vertCount; y++)
+			for(int x = 0; x < vertCount; x++)
 			{
-				newVertices[x*vertCount + y] = new Vector3(x, calcVertHeight(x+tileMapPos.x, y+tileMapPos.y), y);
+				newVertices[x + vertCount * y] = new Vector3(x, calcVertHeight(x+tileMapPos.x, y+tileMapPos.y), y);
 				
 				if(y < SIZE && x < SIZE)
 				{
-					triangles[(lastTile*6) + 0] = (x*vertCount + y) + 0;
-					triangles[(lastTile*6) + 1] = (x*vertCount + y) + 1;
-					triangles[(lastTile*6) + 2] = (x*vertCount + y) + vertCount;
-					
-					triangles[(lastTile*6) + 3] = (x*vertCount + y) + vertCount;
-					triangles[(lastTile*6) + 4] = (x*vertCount + y) + 1;
-					triangles[(lastTile*6) + 5] = (x*vertCount + y) + vertCount+1;
+                    triangles[(lastTile * 6) + 0] = (x + vertCount * y) + 0;
+                    triangles[(lastTile * 6) + 1] = (x + vertCount * y) + vertCount;
+                    triangles[(lastTile * 6) + 2] = (x + vertCount * y) + 1;
+
+                    triangles[(lastTile * 6) + 5] = (x + vertCount * y) + 1;
+                    triangles[(lastTile * 6) + 3] = (x + vertCount * y) + vertCount;
+                    triangles[(lastTile * 6) + 4] = (x + vertCount * y) + vertCount + 1;
+                    
 					lastTile++;
 				}
 			}
@@ -79,17 +80,17 @@ public class WorldSection {
 	{
 		int vertCount = SIZE+1;
 		normals = new Vector3[vertCount*vertCount];
-		for(int x = 0; x < vertCount; x++)
+		for(int y = 0; y < vertCount; y++)
 		{
-			for(int y = 0; y < vertCount; y++)
+			for(int x = 0; x < vertCount; x++)
 			{
 				int mapX = (x + tileMapPos.x)*2;
 				int mapY = y + tileMapPos.y;
                 
 				Vector3 normal = Vector3.zero;
 				bool up = mapY > 0;
-				bool right = mapX < World.sectionCount*SIZE*2;
-				bool down = mapY < World.sectionCount*SIZE;
+				bool right = mapX < World.tileMap.sectionCount*SIZE*2;
+				bool down = mapY < World.tileMap.sectionCount*SIZE;
 				bool left = mapX > 0;
                 if (up)
                 {
@@ -146,15 +147,15 @@ public class WorldSection {
                 }
 
 
-                //normals[y + x * vertCount] = Vector3.Normalize(normal);
-                normals[y + x * vertCount] = new Vector3(0,1,0);
-                //if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) || */(x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
-                //{
-                      //Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
-                      //World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
-                      //World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
+                normals[x + y * vertCount] = Vector3.Normalize(normal);
+                //normals[x + y * vertCount] = new Vector3(0,1,0);
+                if ( (x == 0 && y == SIZE) || (x == SIZE && y == 0) /*|| (x == 0 || y == 0) || (x == SIZE || y == SIZE)*/) 
+                {
+                      Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
+                      World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
+                      World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
                 
-                //}
+                }
 			}
 		}
 		if(mesh == null)
@@ -165,95 +166,7 @@ public class WorldSection {
 		calculateTangents();
 	}
 
-    public void calculateNormalsNew(Vector3[,] triNormals)
-    {
-        int vertCount = SIZE + 1;
-        normals = new Vector3[vertCount * vertCount];
-        for (int x = 0; x < vertCount; x++)
-        {
-            for (int y = 0; y < vertCount; y++)
-            {
-                int mapX = (x + tileMapPos.x) * 2;
-                int mapY = y + tileMapPos.y;
-
-                Vector3 normal = Vector3.zero;
-                bool up = mapY > 0;
-                bool right = mapX < World.sectionCount * SIZE * 2;
-                bool down = mapY < World.sectionCount * SIZE;
-                bool left = mapX > 0;
-                if (up)
-                {
-
-                    if (right)
-                    {
-                        normal += triNormals[mapX, mapY - 1];
-                        normal += triNormals[mapX + 1, mapY - 1];
-                    }
-                    else
-                    {
-
-                        normal += new Vector3(0, 2, 0);
-                    }
-                    if (left)
-                    {
-                        normal += triNormals[mapX - 1, mapY - 1];
-                    }
-                    else
-                    {
-                        normal += new Vector3(0, 1, 0);
-                    }
-
-                }
-                else
-                {
-                    normal += new Vector3(0, 3, 0);
-                }
-
-
-                if (down)
-                {
-                    if (left)
-                    {
-                        normal += triNormals[mapX - 1, mapY];
-                        normal += triNormals[mapX - 2, mapY];
-                    }
-                    else
-                    {
-                        normal += new Vector3(0, 2, 0);
-                    }
-                    if (right)
-                    {
-                        normal += triNormals[mapX, mapY];
-                    }
-                    else
-                    {
-                        normal += new Vector3(0, 1, 0);
-                    }
-                }
-                else
-                {
-                    normal += new Vector3(0, 3, 0);
-                }
-
-
-                normals[y + x * vertCount] = Vector3.Normalize(normal);
-                //normals[y + x * vertCount] = new Vector3(0,1,0);
-                if ( /*(x == 0 && y == SIZE) || (x == SIZE && y == 0) || */(x == 0 || y == 0) || (x == SIZE || y == SIZE))
-                {
-                    Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
-                    World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
-                    World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
-
-                }
-            }
-        }
-        if (mesh == null)
-        {
-            generateMesh();
-        }
-        mesh.normals = normals;
-        calculateTangents();
-    }
+    
     //Räknar vi ut i fel x led och y led?
 
     public void setNormals(Vector3[] normals)
@@ -279,7 +192,7 @@ public class WorldSection {
 		newUV = new Vector2[newVertices.Length];
 		for(int uv = 0; uv < newUV.Length; uv++)
 		{
-			newUV[uv] = new Vector2((newVertices[uv].x+tileMapPos.x)/(SIZE*World.sectionCount), (newVertices[uv].z+tileMapPos.y)/(SIZE*World.sectionCount));
+			newUV[uv] = new Vector2((newVertices[uv].x+tileMapPos.x)/(SIZE*World.tileMap.sectionCount), (newVertices[uv].z+tileMapPos.y)/(SIZE*World.tileMap.sectionCount));
 		}
 		mesh.uv = newUV;
 		mesh.subMeshCount = 1;
