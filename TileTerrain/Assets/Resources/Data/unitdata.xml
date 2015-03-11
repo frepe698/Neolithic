@@ -70,27 +70,67 @@
       <maxDrops>3</maxDrops>
     </AIUnitData>
     <AIUnitData name="vrodlbot" gameName="Vrodl Bot" modelName="vrodl">
-      <health>150</health>
+      <health>40</health>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>3</movespeed>
+      <movespeed>3.5</movespeed>
       <size>0.5</size>
-      <damage>6</damage>
+      <damage>4</damage>
       <attackSpeed>1</attackSpeed>
       <attackSound>punch02</attackSound>
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
       <safeDrops>
-        <string>quillrain</string>
-        <string>superaxe</string>
+        <string>trolldryck</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stone</string>
+      </randomDrops>
+      <minDrops>1</minDrops>
+      <maxDrops>2</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="troll" gameName="Troll" modelName="troll">
+      <health>300</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>2.5</movespeed>
+      <size>1</size>
+      <damage>15</damage>
+      <attackSpeed>0.8</attackSpeed>
+      <attackSound>punch01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>5</lineofsight>
+      <safeDrops>
+        <string>fur</string>
+      </safeDrops>
+      <randomDrops>
+        <string>iron</string>
+      </randomDrops>
+      <minDrops>2</minDrops>
+      <maxDrops>7</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="trollking" gameName="Troll King" modelName="troll">
+      <health>500</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>2.5</movespeed>
+      <size>1</size>
+      <damage>25</damage>
+      <attackSpeed>0.8</attackSpeed>
+      <attackSound>punch01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>5</lineofsight>
+      <safeDrops>
+        <string>fur</string>
       </safeDrops>
       <randomDrops>
         <string>gold</string>
-        <string>iron</string>
       </randomDrops>
-      <minDrops>1</minDrops>
-      <maxDrops>5</maxDrops>
+      <minDrops>4</minDrops>
+      <maxDrops>10</maxDrops>
     </AIUnitData>
     <AIUnitData name="battlepig" gameName="Battle Pig" modelName="battlepig">
       <health>10000</health>
