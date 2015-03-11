@@ -53,7 +53,7 @@ public class AIUnit : Unit {
 					{
 						foreach(Unit unit in checkTile.getUnits())
 						{
-							if(unit.getID() == id) continue;
+                            if (unit.getID() == id || unit.getTeam() == getTeam()) continue;
 
 							if(hostile) 
 							{
@@ -132,5 +132,10 @@ public class AIUnit : Unit {
 	{
 		return false;
 	}
+
+    public override int getTeam()
+    {
+        return 1;
+    }
 
 }

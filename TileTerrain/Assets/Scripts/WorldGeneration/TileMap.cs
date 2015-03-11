@@ -310,7 +310,7 @@ public class TileMap {
 
                 Vector2i center = new Vector2i(lastx, lasty);
                 int radius = Random.Range(1,3);
-                setAreaGround(GroundType.Type.Road, center, radius);
+                setAreaGround(GroundType.Type.Mountain, center, radius);
                 setAreaHeight(1, center, radius);
                 
                 setAreaFixed(center, radius);
@@ -348,6 +348,8 @@ public class TileMap {
             }
         }
         setAreaHeight(1, cave.bossPos, cave.MARGIN - 2);
+        setAreaGround(GroundType.Type.Mountain, cave.bossPos, cave.MARGIN - 2);
+        setAreaFixed(cave.bossPos, cave.MARGIN - 2);
         
     }
 	

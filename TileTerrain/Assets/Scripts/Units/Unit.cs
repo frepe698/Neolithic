@@ -636,4 +636,9 @@ public class Unit {
 		return size;
 	}
 
+    public virtual int getTeam()
+    {
+        return 0;
+    }
+
 }

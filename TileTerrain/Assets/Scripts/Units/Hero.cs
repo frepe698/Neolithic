@@ -288,4 +288,9 @@ public class Hero : Unit {
 		return null;
 	}
 
+    public override int getTeam()
+    {
+        return 2;
+    }
+
 }

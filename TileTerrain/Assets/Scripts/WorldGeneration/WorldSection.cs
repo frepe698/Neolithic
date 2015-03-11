@@ -149,13 +149,13 @@ public class WorldSection {
 
                 normals[x + y * vertCount] = Vector3.Normalize(normal);
                 //normals[x + y * vertCount] = new Vector3(0,1,0);
-                if ( (x == 0 && y == SIZE) || (x == SIZE && y == 0) /*|| (x == 0 || y == 0) || (x == SIZE || y == SIZE)*/) 
+               /* if ( (x == 0 && y == SIZE) || (x == SIZE && y == 0) || (x == 0 || y == 0) || (x == SIZE || y == SIZE)) 
                 {
                       Debug.Log(tileMapPos.x + ", " + tileMapPos.y + ": " + x + ", " + y + ": " + ": " + (x + y * vertCount) + ": " + normals[x + y * vertCount]);
                       World.normalsstart.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount]);
                       World.normalsend.Add(new Vector3(tileMapPos.x, 0, tileMapPos.y) + newVertices[y + x * vertCount] + normals[y + x * vertCount]);
                 
-                }
+                }*/
 			}
 		}
 		if(mesh == null)

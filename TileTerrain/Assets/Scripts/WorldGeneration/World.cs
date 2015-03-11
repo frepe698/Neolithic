@@ -479,7 +479,7 @@ public class World : MonoBehaviour {
             {
                 GameMaster.addDaySpawner("troll", 1, cave.bossPos);
             }
-            GameMaster.addDaySpawner("vrodl", 4, cave.bossPos);
+            GameMaster.addDaySpawner("vrodlbot", 4, cave.bossPos);
         }
     }
 
