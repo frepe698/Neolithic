@@ -89,7 +89,7 @@ public class GrassGround : GroundType {
 		//		                          startingLootTypes[lootType]);
 	}
 	
-	public override EyecandyObject getRandomEyecandy(Vector3 position)
+	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		string candyName;
 
@@ -140,7 +140,7 @@ public class GrassGround : GroundType {
             }
         }
 		
-		return new EyecandyObject(position,
+		return new Eyecandy(position,
 		                          Quaternion.Euler(0, Random.value*360, 0),
 		                          candyName);
 	}

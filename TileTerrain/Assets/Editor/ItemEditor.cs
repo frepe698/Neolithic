@@ -20,11 +20,12 @@ public class ItemEditor : ObjectEditor
     private int selectedmaterial = -1;
     private int selectedconsumable = -1;
 
+    protected static ItemEditor window;
 
     [MenuItem("Editor/Item Editor")]
     static void Init()
     {
-        ItemEditor window = (ItemEditor)EditorWindow.GetWindow(typeof(ItemEditor));
+        window = (ItemEditor)EditorWindow.GetWindow(typeof(ItemEditor));
         //loadFile();
     }
 

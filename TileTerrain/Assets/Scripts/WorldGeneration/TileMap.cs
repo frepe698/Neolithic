@@ -26,6 +26,8 @@ public class TileMap {
 
 	private float groundRoughness = 0.05f;
 
+    public const float cliffThreshold = 0.7f;
+
 
 	private readonly static int KEY_RES = 8;
 
@@ -292,6 +294,7 @@ public class TileMap {
 
     private void setCaveFloor(Cave cave)
     {
+        int loops = 0;
         for (int w = 0; w < cave.waypoints.Count - 1; w++)
         {
             Vector2i dir = cave.waypoints[w + 1] - cave.waypoints[w];
@@ -309,11 +312,23 @@ public class TileMap {
                 if (absY < 0) totalY = 0;
 
                 Vector2i center = new Vector2i(lastx, lasty);
-                int radius = Random.Range(1,3);
-                setAreaGround(GroundType.Type.Mountain, center, radius);
-                setAreaHeight(1, center, radius);
-                
-                setAreaFixed(center, radius);
+                if (loops > 10 && Random.value > 0.99)
+                {
+                    int radius = 8;
+                    int islandRadius = 2;
+                    setCircleGround(GroundType.Type.Mountain, center, radius);
+                    setCircleHeight(1, center, radius);
+                    setCircleHeight(5, center, islandRadius);
+
+                    setCircleFixed(center, radius);
+                }
+                else
+                {
+                    int radius = Random.Range(2, 3);
+                    setCircleGround(GroundType.Type.Mountain, center, radius);
+                    setCircleHeight(1, center, radius);
+                    setCircleFixed(center, radius);
+                }
                 if (totalY == 0)
                 {
                     int change = (int)((totalX / Mathf.Abs(totalX)));
@@ -345,15 +360,41 @@ public class TileMap {
                         absY -= Mathf.Abs(change);
                     }
                 }
+                loops++;
+                if (loops == 2)
+                {
+                    cave.doorMatPosition = new Vector2((float)lastx, (float)lasty);
+                }
             }
         }
-        setAreaHeight(1, cave.bossPos, cave.MARGIN - 2);
-        setAreaGround(GroundType.Type.Mountain, cave.bossPos, cave.MARGIN - 2);
-        setAreaFixed(cave.bossPos, cave.MARGIN - 2);
-        
+        setCircleHeight(1, cave.bossPos, cave.MARGIN - 2);
+        setCircleGround(GroundType.Type.Mountain, cave.bossPos, cave.MARGIN - 2);
+        setCircleFixed(cave.bossPos, cave.MARGIN - 2);
+
+        if (cave.width > cave.height)
+        {
+            if(cave.entrancePos.x < cave.bossPos.x)
+                cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(cave.MARGIN - 1.5f, 0));
+            else
+                cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-cave.MARGIN + 2.5f, 0));
+
+            cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, cave.MARGIN - 1.5f));
+            cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, -cave.MARGIN + 2.5f));
+        }
+        else
+        {
+            if (cave.entrancePos.y < cave.bossPos.y)
+                cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, cave.MARGIN - 1.5f));
+            else
+                cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, -cave.MARGIN + 2.5f));
+
+            cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(cave.MARGIN - 1.5f, 0));
+            cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-cave.MARGIN + 2.5f, 0));
+        }
+
     }
-	
-	public void generateRest()
+
+    public void generateRest()
 	{
 		for(int x = 0; x < mainMapSize/4; x++)
 		{
@@ -721,6 +762,18 @@ public class TileMap {
 		}
 	}
 
+    private void setCircleHeight(int height, Vector2i center, int radius)
+    {
+        for (int x = center.x - radius; x < center.x + radius + 1; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius + 1; y++)
+            {
+                if(Vector2i.getDistance(new Vector2i(x, y), center) <= radius && isValidTile(x, y))
+                    tiles[x, y].height = (short)height;
+            }
+        }
+    }
+
     private void setAreaGround(GroundType.Type ground, Vector2i center, int radius)
     {
         for (int x = center.x - radius; x < center.x + radius + 1; x++)
@@ -732,6 +785,18 @@ public class TileMap {
         }
     }
 
+    private void setCircleGround(GroundType.Type ground, Vector2i center, int radius)
+    {
+        for (int x = center.x - radius; x < center.x + radius + 1; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius + 1; y++)
+            {
+                if (Vector2i.getDistance(new Vector2i(x, y), center) <= radius && isValidTile(x, y))
+                    tiles[x, y].ground = (short)ground;
+            }
+        }
+    }
+
     private void setAreaFixed(Vector2i center, int radius)
     {
         for (int x = center.x - radius; x < center.x + radius + 1; x++)
@@ -739,6 +804,18 @@ public class TileMap {
             for (int y = center.y - radius; y < center.y + radius + 1; y++)
             {
                 if (isValidTile(x, y)) tiles[x, y].state = Tile.stFixed;
+            }
+        }
+    }
+
+    private void setCircleFixed(Vector2i center, int radius)
+    {
+        for (int x = center.x - radius; x < center.x + radius + 1; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius + 1; y++)
+            {
+                if (Vector2i.getDistance(new Vector2i(x, y), center) <= radius && isValidTile(x, y))
+                    tiles[x, y].state = Tile.stFixed;
             }
         }
     }

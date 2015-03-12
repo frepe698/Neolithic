@@ -119,8 +119,6 @@ public class DataHolder {
 
     private ArmorDataHolder armorDataHolder;
 
-	private ConsumableItemDataHolder consumableItemDataHolder;
-
 	private ItemDataHolder itemDataHolder;
 
 	private RecipeDataHolder recipeDataHolder;
@@ -172,13 +170,6 @@ public class DataHolder {
         {
             instance.armorDataHolder = serializer.Deserialize(reader) as ArmorDataHolder;
         }
-
-		data = (TextAsset)Resources.Load ("Data/consumableitemdata");
-		serializer = new XmlSerializer(typeof(ConsumableItemDataHolder));
-		using(StringReader reader = new System.IO.StringReader(data.text))
-		{
-			instance.consumableItemDataHolder = serializer.Deserialize(reader) as ConsumableItemDataHolder;
-		}
 
 		data = (TextAsset)Resources.Load ("Data/itemdata");
 		serializer = new XmlSerializer(typeof(ItemDataHolder));

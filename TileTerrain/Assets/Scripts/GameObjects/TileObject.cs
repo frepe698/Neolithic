@@ -29,7 +29,6 @@ public class TileObject {
 
 	public bool Activate()
 	{
-        if (poolName.Equals("caveEntrance")) Debug.Log("Activate cave ");
 		if(ObjectActive()) return true; //Object already active, do nothing
 
 		poolObject = ObjectPoolingManager.Instance.GetObject(poolName);

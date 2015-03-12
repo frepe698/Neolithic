@@ -78,13 +78,10 @@ public class Unit {
 		unit.transform.localScale = scale;
 		this.unitController = unit.GetComponent<UnitController>();
 		unitController.setID(id);
-		
 		//audio = unit.AddComponent<AudioSource>();
 		//audio.minDistance = 4;
 		//audio.maxDistance = 15;
 		//audio.dopplerLevel = 0;
-
-
 	}
 
 	public void setAwake(bool awake)
@@ -603,13 +600,7 @@ public class Unit {
 		return alive;
 	}
 
-	public void activateCollider(bool activate)
-	{
-		if(isActive())
-		{
-			unit.GetComponent<Collider>().enabled = activate;
-		}
-	}
+
 
 	public string getName()
 	{

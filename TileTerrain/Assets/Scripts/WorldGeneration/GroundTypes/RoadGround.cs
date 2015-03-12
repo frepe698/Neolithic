@@ -23,7 +23,7 @@ public class RoadGround : GroundType {
 //		                          startingLootTypes[lootType]);
 	}
 	
-	public override EyecandyObject getRandomEyecandy(Vector3 position)
+	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		return null;
 	}

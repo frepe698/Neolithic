@@ -78,7 +78,7 @@
       <size>0.5</size>
       <damage>4</damage>
       <attackSpeed>1</attackSpeed>
-      <attackSound>punch02</attackSound>
+      <attackSound>punch01</attackSound>
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
       <safeDrops>
@@ -95,13 +95,13 @@
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>2.5</movespeed>
+      <movespeed>4</movespeed>
       <size>1</size>
       <damage>15</damage>
       <attackSpeed>0.8</attackSpeed>
-      <attackSound>punch01</attackSound>
+      <attackSound>attackTroll01</attackSound>
       <hostile>true</hostile>
-      <lineofsight>5</lineofsight>
+      <lineofsight>8</lineofsight>
       <safeDrops>
         <string>fur</string>
       </safeDrops>
@@ -116,13 +116,13 @@
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>2.5</movespeed>
+      <movespeed>4</movespeed>
       <size>1</size>
       <damage>25</damage>
       <attackSpeed>0.8</attackSpeed>
-      <attackSound>punch01</attackSound>
+      <attackSound>attackTroll01</attackSound>
       <hostile>true</hostile>
-      <lineofsight>5</lineofsight>
+      <lineofsight>8</lineofsight>
       <safeDrops>
         <string>fur</string>
       </safeDrops>

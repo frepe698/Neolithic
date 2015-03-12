@@ -17,11 +17,12 @@ public class ResourceEditor : ObjectEditor
 
     private int selectedres = -1;
 
+    protected static ResourceEditor window;
 
     [MenuItem("Editor/Resource Editor")]
     static void Init()
     {
-        ResourceEditor window = (ResourceEditor)EditorWindow.GetWindow(typeof(ResourceEditor));
+        window = (ResourceEditor)EditorWindow.GetWindow(typeof(ResourceEditor));
     }
 
     protected override string getStandardFilePath()

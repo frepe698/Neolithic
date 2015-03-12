@@ -19,11 +19,13 @@ public class UnitEditor : ObjectEditor {
     private int selectedhero = -1;
     private int selectedai = -1;
 
+    protected static UnitEditor window;
+
 
     [MenuItem("Editor/Unit Editor")]
     static void Init()
     {
-        UnitEditor window = (UnitEditor)EditorWindow.GetWindow(typeof(UnitEditor));
+        window = (UnitEditor)EditorWindow.GetWindow(typeof(UnitEditor));
     }
 
     protected override string getStandardFilePath()

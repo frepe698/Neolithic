@@ -15,7 +15,7 @@ public class Tile {
 
 	private TileObject tileObject;
 	private List<LootableObject> lootableObjects = new List<LootableObject>();
-	private List<EyecandyObject> eyecandyObjects = new List<EyecandyObject>();
+	private List<Eyecandy> eyecandyObjects = new List<Eyecandy>();
 	private List<Unit> units = new List<Unit>();
 	private bool active = false;
 
@@ -113,7 +113,7 @@ public class Tile {
 
 	public void renderEyecandy()
 	{
-		foreach(EyecandyObject eo in eyecandyObjects)
+		foreach(Eyecandy eo in eyecandyObjects)
 		{
 			eo.render();
 		}
@@ -254,7 +254,7 @@ public class Tile {
 		return null;
 	}
 
-	public void addEyecandy(EyecandyObject eyecandy)
+	public void addEyecandy(Eyecandy eyecandy)
 	{
 		eyecandyObjects.Add (eyecandy);
 	}

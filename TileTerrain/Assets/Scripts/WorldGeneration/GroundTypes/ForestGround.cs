@@ -81,11 +81,11 @@ public class ForestGround : GroundType {
 		//		                          startingLootTypes[lootType]);
 	}
 
-	public override EyecandyObject getRandomEyecandy(Vector3 position)
+	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		int lootType = Random.Range(0, eyecandyTypes.Length);
 		
-		return new EyecandyObject(position,
+		return new Eyecandy(position,
 		                          Quaternion.Euler(0, Random.value*360, 0),
 		                          eyecandyTypes[lootType]);
 	}

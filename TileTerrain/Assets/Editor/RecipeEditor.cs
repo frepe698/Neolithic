@@ -24,11 +24,12 @@ public class RecipeEditor : ObjectEditor
     private int selectedmaterial = -1;
     private int selectedconsumable = -1;
 
+    protected static RecipeEditor window;
 
     [MenuItem("Editor/Recipe Editor")]
     static void Init()
     {
-        RecipeEditor window = (RecipeEditor)EditorWindow.GetWindow(typeof(RecipeEditor));
+        window = (RecipeEditor)EditorWindow.GetWindow(typeof(RecipeEditor));
         //loadFile();
     }
 

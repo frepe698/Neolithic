@@ -43,12 +43,12 @@ public class WaterGround : GroundType {
 		return null;
 	}
 	
-	public override EyecandyObject getRandomEyecandy(Vector3 position)
+	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 
         if (Mathf.PerlinNoise(position.x / 2, position.z / 2) * 4 < 1)
         {
-            return new EyecandyObject(new Vector3(position.x, 0.5f, position.z),
+            return new Eyecandy(new Vector3(position.x, 0.5f, position.z),
                                   Quaternion.Euler(0, Random.value * 360, 0),
                                   eyecandyTypes[0]);
         }

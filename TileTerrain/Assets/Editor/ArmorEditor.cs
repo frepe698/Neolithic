@@ -17,11 +17,13 @@ public class ArmorEditor : ObjectEditor
 
     private int selectedarmor = -1;
 
+    protected static ArmorEditor window;
+
 
     [MenuItem("Editor/Armor Editor")]
     static void Init()
     {
-        ArmorEditor window = (ArmorEditor)EditorWindow.GetWindow(typeof(ArmorEditor));
+        window = (ArmorEditor)EditorWindow.GetWindow(typeof(ArmorEditor));
     }
 
     protected override string getStandardFilePath()

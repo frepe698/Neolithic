@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 public class Pathfinder {
 
-	private static readonly int NOT_WORTH_IT = 1000;
+	private static readonly int NOT_WORTH_IT = 500;
     private static readonly int RESOLUTION = 15; //number of spline-samples between every pair of checkpoints.
 
 	private static readonly Vector2i[] neighborCoordinates = new Vector2i[]
@@ -38,6 +38,11 @@ public class Pathfinder {
 		return aStarPathFinding(map, start, end, unitID); 
 
 	}
+
+    public static void aStarPathFinding(TileMap map, Vector2 start, Vector2 end, int unitID, out Path path)
+    {
+        path = aStarPathFinding(map, start, end, unitID);
+    }
 
 	public static Path aStarPathFinding(TileMap map, Vector2 start, Vector2 end, int unitID)
 	{

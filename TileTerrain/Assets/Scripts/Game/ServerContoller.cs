@@ -116,7 +116,7 @@ public class ServerController : GameController {
         if (warpObject != null)
         {
             Unit unit = GameMaster.getUnit(unitID);
-            if (unit != null) gameMaster.getNetView().RPC("warpUnit", RPCMode.All, unitID, warpObject.get2DPos().x, warpObject.get2DPos().y);
+            if (unit != null) gameMaster.getNetView().RPC("warpUnit", RPCMode.All, unitID, warpObject.getDestination().x, warpObject.getDestination().y, warpObject.getDestRotation());
         }
     }
 

@@ -10,9 +10,11 @@ public class Cave  {
     public readonly int width, height;
 
 	private Vector2i entrancePosition;
+    public Vector2 doorMatPosition;
 	private Vector2i bossPosition;
 
     public List<Vector2i> waypoints;
+    public List<Vector2> torchPositions;
 
 	public Cave(Rect rect)
 	{
@@ -20,6 +22,7 @@ public class Cave  {
         this.width = (int)rect.width;
         this.height = (int)rect.height;
         waypoints = new List<Vector2i>();
+        torchPositions = new List<Vector2>();
 	}
 
 	
@@ -34,6 +37,17 @@ public class Cave  {
     {
         get{return bossPosition;}
         set{bossPosition = value;}
+    }
+
+    public float getExitRotation()
+    {
+        if (waypoints.Count < 2) return 0;
+        Vector2 pos1 = entrancePosition.toVector2();
+        Vector2 pos2 = doorMatPosition;
+
+        Vector2 dir = pos2 - pos1;
+        float rot = Mathf.Atan2(dir.x, dir.y);
+        return rot;
     }
 
 }

@@ -10,7 +10,7 @@
 	   _SnowAmount ("Snow Amount", Float) = 0.5
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags {"Queue"="Geometry-2" "RenderType"="Opaque" }
 		LOD 200
 		
 		CGPROGRAM

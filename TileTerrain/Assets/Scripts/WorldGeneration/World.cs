@@ -104,7 +104,10 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 50, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone03"), 50, true);
 
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/walltorch"), 4, true);
+
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveEntrance"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveExit"), 2, true);
 
 
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/log"), 50, true);
@@ -117,7 +120,8 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/cep"), 50, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/puffball"), 50, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/meat"), 20, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/harepelt"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/harepelt"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/fur"), 10, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/blueberrybush"), 50, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/nettle"), 50, true);
 		
@@ -207,7 +211,14 @@ public class World : MonoBehaviour {
                     {
                         int stx = tx - x * xtri;
                         int sty = ty - y * ytri;
-                        terrainNormals[tx, ty] = ws.getTriangleNormal(stx + sty * xtri);
+                        Vector3 normal = ws.getTriangleNormal(stx + sty * xtri);
+                        terrainNormals[tx, ty] = normal;
+
+                        if (normal.y < TileMap.cliffThreshold)
+                        {
+                            tileMap.getTile(tx / 2, ty).setCliff(true);
+                        }
+
                     }
                 }
 				
@@ -407,24 +418,39 @@ public class World : MonoBehaviour {
     {
         for (int i = 0; i < 4; i++)
         {
+            Cave cave = tileMap.getCave(i);
             Vector2 pos1 = tileMap.summonPos[i].toVector2();
-            Vector2 pos2 = tileMap.getCaveEntrance(i).toVector2();
+            Vector2 pos2 = cave.entrancePos.toVector2();
             Tile tile1 = tileMap.getTile(new Vector2i(pos1));
             Tile tile2 = tileMap.getTile(new Vector2i(pos2));
 
-            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", pos2 + new Vector2(0, 1)));
-            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), 0, "caveEntrance", pos1 + new Vector2(0, 1)));
+            float rot = cave.getExitRotation() * Mathf.Rad2Deg;
+            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPosition, rot+180));
+            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
+
+            foreach (Vector2 v in cave.torchPositions)
+            {
+                tileMap.getTile(new Vector2i(v)).setTileObject(new EyecandyObject(new Vector3(v.x, getHeight(v), v.y), 0, "walltorch"));
+            }
+
         }
 
         //Add the hall entrance
         {
+            Cave cave = tileMap.getCave(4);
             Vector2 pos1 = tileMap.basePos.toVector2();
-            Vector2 pos2 = tileMap.getCaveEntrance(4).toVector2();
+            Vector2 pos2 = cave.entrancePos.toVector2();
             Tile tile1 = tileMap.getTile(new Vector2i(pos1));
             Tile tile2 = tileMap.getTile(new Vector2i(pos2));
 
-            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", pos2 + new Vector2(0, 1)));
-            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), 0, "caveEntrance", pos1 + new Vector2(0, 1)));
+            float rot = cave.getExitRotation() * Mathf.Rad2Deg;
+            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPosition, rot+180));
+            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
+
+            foreach (Vector2 v in cave.torchPositions)
+            {
+                tileMap.getTile(new Vector2i(v)).setTileObject(new EyecandyObject(new Vector3(v.x, getHeight(v), v.y), 0, "walltorch"));
+            }
         }
 
         for (int x = 0; x < getMainMapSize(); x++)
@@ -457,7 +483,7 @@ public class World : MonoBehaviour {
                 for (int i = 0; i < candyAmount; i++)
                 {
                     Vector2 pos = new Vector2(x + Random.value, y + Random.value);
-                    EyecandyObject eyecandy = ground.getRandomEyecandy(new Vector3(pos.x, getHeight(pos), pos.y));
+                    Eyecandy eyecandy = ground.getRandomEyecandy(new Vector3(pos.x, getHeight(pos), pos.y));
                     if (eyecandy != null) tileMap.getTile(x, y).addEyecandy(eyecandy);
                 }
             }

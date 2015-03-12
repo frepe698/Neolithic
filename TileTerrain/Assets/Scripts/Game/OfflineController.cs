@@ -114,7 +114,11 @@ public class OfflineController : GameController {
         if (warpObject != null)
         {
             Unit unit = GameMaster.getUnit(unitID);
-            if(unit != null) unit.warp(new Vector2(tile.x, tile.y));
+            if(unit != null)
+            {
+                unit.warp(warpObject.getDestination());
+                unit.setRotation(new Vector3(0, warpObject.getDestRotation(), 0));
+            }
         }
     }
 

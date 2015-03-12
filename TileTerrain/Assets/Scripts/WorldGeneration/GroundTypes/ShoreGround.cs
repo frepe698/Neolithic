@@ -43,11 +43,11 @@ public class ShoreGround : GroundType {
 		return null;
 	}
 	
-	public override EyecandyObject getRandomEyecandy(Vector3 position)
+	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		int lootType = Random.Range(0, eyecandyTypes.Length);
 		
-		return new EyecandyObject(new Vector3(position.x, 0.5f, position.z),
+		return new Eyecandy(new Vector3(position.x, 0.5f, position.z),
 		                          Quaternion.Euler(0, Random.value*360, 0),
 		                          eyecandyTypes[lootType]);
 	}

@@ -14,7 +14,7 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
   m_FogDensity: .0399999991
@@ -418,7 +418,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22420156, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -91.4576263
       objectReference: {fileID: 0}
     - target: {fileID: 22420146, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMin.y
@@ -426,27 +426,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22420146, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22420146, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22400132, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22400132, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: .99999994
       objectReference: {fileID: 0}
     - target: {fileID: 22400006, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22400006, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: .99999994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ef95a0c2fcdafb42a1ddd7ceaafacb1, type: 2}

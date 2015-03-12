@@ -429,10 +429,14 @@ public abstract class GameController : MonoBehaviour{
 	}
 
     [RPC]
-    protected void warpUnit(int unitID, float x, float y)
+    protected void warpUnit(int unitID, float x, float y, float rot = 0)
     {
         Unit unit = GameMaster.getUnit(unitID);
-        if(unit != null) unit.warp(new Vector2(x, y));
+        if (unit != null)
+        {
+            unit.warp(new Vector2(x, y));
+            unit.setRotation(new Vector3(0, rot, 0));
+        }
     }
 
 	[RPC]

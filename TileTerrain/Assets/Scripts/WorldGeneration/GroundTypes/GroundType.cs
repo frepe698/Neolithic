@@ -40,7 +40,7 @@ public abstract class GroundType {
 
 	public abstract ItemData getRandomLoot(Vector3 position);
 	public abstract int spawnLootAmount();
-	public abstract EyecandyObject getRandomEyecandy(Vector3 position);
+	public abstract Eyecandy getRandomEyecandy(Vector3 position);
 	public abstract int spawnEyecandyAmount();
 
 	public abstract int getTexture();

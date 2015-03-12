@@ -42,7 +42,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackAxe02</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>
@@ -65,7 +65,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackAxe02</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>
@@ -134,7 +134,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackAxe02</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>
@@ -157,7 +157,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackAxe02</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>
@@ -226,7 +226,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackSpear01</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>
@@ -249,7 +249,7 @@
         <string>mine_axe</string>
       </attackAnims>
       <attackSounds>
-        <string>attackAxe01</string>
+        <string>attackClub01</string>
         <string>chop01</string>
         <string>mine01</string>
       </attackSounds>

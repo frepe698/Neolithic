@@ -30,6 +30,9 @@ public class Hero : Unit {
 	private int vitality;
 	private int dexterity;
 
+
+    protected bool colliderActive = true;
+
 	public Hero(string unit, Vector3 position, Vector3 rotation, int id) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
 	{
@@ -85,6 +88,8 @@ public class Hero : Unit {
 		this.unitController = unit.GetComponent<UnitController>();
 		unitController.setID(id);
 		unitController.setWeapon(heldItem);
+
+        unit.GetComponent<Collider>().enabled = colliderActive;
 	}
 
 	public void updateStats()
@@ -291,6 +296,15 @@ public class Hero : Unit {
     public override int getTeam()
     {
         return 2;
+    }
+
+    public void activateCollider(bool activate)
+    {
+        colliderActive = activate;
+        if (isActive())
+        {
+            unit.GetComponent<Collider>().enabled = colliderActive;
+        }
     }
 
 }

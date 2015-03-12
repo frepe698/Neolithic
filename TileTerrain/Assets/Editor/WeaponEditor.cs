@@ -20,11 +20,12 @@ public class WeaponEditor : ObjectEditor {
     private int selectedmelee = -1;
     private int selectedranged = -1;
 
+    protected static WeaponEditor window;
 
     [MenuItem("Editor/Weapon Editor")]
     static void Init()
     {
-        WeaponEditor window = (WeaponEditor)EditorWindow.GetWindow(typeof(WeaponEditor));
+        window = (WeaponEditor)EditorWindow.GetWindow(typeof(WeaponEditor));
         //loadFile();
     }
 
