@@ -158,11 +158,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df99aa5fbcdc7da4db7288da854a4f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minIntensity: .899999976
+  maxIntensity: 1.10000002
+  maxChange: .100000001
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
