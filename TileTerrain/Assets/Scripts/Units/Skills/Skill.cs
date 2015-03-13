@@ -5,7 +5,7 @@ public class Skill {
 
     public readonly string name;
 
-    public readonly int MAXLEVEL = 20;
+    public const int MAXLEVEL = 20;
     private readonly int[] requiredExp;
     private int experience;
     private int level;

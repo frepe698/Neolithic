@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<SkillsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skills>
+    <SkillData name="melee" gameName="Melee">
+      <requiredExp>
+        <int>0</int>
+        <int>107</int>
+        <int>244</int>
+        <int>409</int>
+        <int>602</int>
+        <int>825</int>
+        <int>1075</int>
+        <int>1355</int>
+        <int>1663</int>
+        <int>2000</int>
+        <int>2365</int>
+        <int>2759</int>
+        <int>3181</int>
+        <int>3633</int>
+        <int>4112</int>
+        <int>4621</int>
+        <int>5158</int>
+        <int>5723</int>
+        <int>6317</int>
+        <int>6940</int>
+      </requiredExp>
+    </SkillData>
+  </Skills>
+</SkillsRoot>

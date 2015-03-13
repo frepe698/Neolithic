@@ -8,6 +8,10 @@ namespace Edit
     [Serializable]
     public abstract class ObjectEdit
     {
+        public string name;
+        public string gameName;
+        public string modelName;
+
         public ObjectEdit(ObjectData data)
         {
             name = data.name;
@@ -25,18 +29,54 @@ namespace Edit
         public ObjectEdit()
         {
         }
-        public string name;
-        public string gameName;
-        public string modelName;
-
+        
         public virtual string windowTitle()
         {
             return gameName;
         }
-
-
-        
     }
+
+    #region Skills and Abilities Edits
+
+    [Serializable]
+    public class SkillEdit : ObjectEdit
+    {
+        public bool reqExpFolded = true;
+        public int[] requiredExp;
+
+        public bool passiveStatsFolded = true;
+        public string[] passiveStats;
+
+        public SkillEdit()
+        {
+            name = "new skill";
+            gameName = "New Skill";
+            requiredExp = new int[Skill.MAXLEVEL];
+            for (int i = 0; i < Skill.MAXLEVEL; i++)
+            {
+                requiredExp[i] = (int)((i + i * (i * 0.153f)) * 93.5f);
+            }
+            passiveStats = new string[Skill.MAXLEVEL];
+        }
+
+        public SkillEdit(SkillData data)
+            : base(data)
+        {
+            requiredExp = data.requiredExp;
+            passiveStats = new string[Skill.MAXLEVEL];
+        }
+
+        public SkillEdit(SkillEdit data)
+            : base(data)
+        {
+            requiredExp = data.requiredExp;
+            passiveStats = data.passiveStats;
+        }
+    }
+    
+
+    #endregion
+
     #region Unit Edits
 
     [Serializable]

@@ -116,6 +116,11 @@ public class DataHolder {
     [XmlRoot("SkillsRoot")]
     public class SkillDataHolder
     {
+        public SkillDataHolder() { }
+        public SkillDataHolder(SkillData[] skillData)
+        {
+            this.skillData = skillData;
+        }
         [XmlArray("Skills"), XmlArrayItem("SkillData")]
         public readonly SkillData[] skillData;
     }
