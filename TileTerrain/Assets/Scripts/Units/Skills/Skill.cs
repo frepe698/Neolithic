@@ -5,7 +5,7 @@ public class Skill {
 
     public readonly string name;
 
-    public readonly int MAXLEVEL;
+    public readonly int MAXLEVEL = 20;
     private readonly int[] requiredExp;
     private int experience;
     private int level;
@@ -24,6 +24,11 @@ public class Skill {
         if (level >= MAXLEVEL) return;
         this.experience += experience;
 
+    }
+
+    public int getLevel()
+    {
+        return this.level;
     }
 
 	
