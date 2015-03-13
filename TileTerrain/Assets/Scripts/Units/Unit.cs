@@ -38,6 +38,9 @@ public class Unit {
 
 	protected float gatherTime = 0.8f;
 	protected float lootTime = 0.25f;
+
+    private SkillManager skillManager;
+    private UnitStats unitstats;
 	
 	private AudioSource audio;
 	
@@ -48,7 +51,10 @@ public class Unit {
 		this.rotation = rotation;
 		this.scale = new Vector3(1,1,1);
 		this.id = id;
-		
+
+        this.skillManager = new SkillManager(this);
+        UnitData data = DataHolder.Instance.getUnitData(unit);
+        this.unitstats = new UnitStats(this, 0, (int)data.health, 1, (int)data.energy, 1, (int)data.lifegen, (int)data.energygen);
 	}
 
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
@@ -58,6 +64,10 @@ public class Unit {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.id = id;
+
+        this.skillManager = new SkillManager(this);
+        UnitData data = DataHolder.Instance.getUnitData(unit);
+        this.unitstats = new UnitStats(this, 0, (int)data.health, 1, (int)data.energy, 1, (int)data.lifegen, (int)data.energygen);
 		
 	}
 
@@ -630,6 +640,16 @@ public class Unit {
     public virtual int getTeam()
     {
         return 0;
+    }
+
+    public SkillManager getSkillManager()
+    {
+        return skillManager;
+    }
+
+    public UnitStats getUnitStats()
+    {
+        return unitstats;
     }
 
 }
