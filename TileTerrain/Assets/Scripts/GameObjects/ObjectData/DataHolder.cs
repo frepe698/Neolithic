@@ -113,6 +113,13 @@ public class DataHolder {
 		public readonly ProjectileData[] projectileData;
 	}
 
+    [XmlRoot("SkillsRoot")]
+    public class SkillDataHolder
+    {
+        [XmlArray("Skills"), XmlArrayItem("SkillData")]
+        public readonly SkillData[] skillData;
+    }
+
 	private UnitDataHolder unitDataHolder;
 
 	private WeaponDataHolder weaponDataHolder;
@@ -126,6 +133,8 @@ public class DataHolder {
 	private ResourceDataHolder resourceDataHolder;
 
 	private ProjectileDataHolder projectileDataHolder;
+
+    private SkillDataHolder skillDataHolder;
 
 
 
@@ -198,6 +207,13 @@ public class DataHolder {
 		{
 			instance.projectileDataHolder = serializer.Deserialize(reader) as ProjectileDataHolder;
 		}
+
+        data = (TextAsset)Resources.Load("Data/skillData");
+        serializer = new XmlSerializer(typeof(SkillDataHolder));
+        using(StringReader reader = new System.IO.StringReader(data.text))
+        {
+            instance.skillDataHolder = serializer.Deserialize(reader) as SkillDataHolder;
+        }
 
         instance.initItemIcons();
 
@@ -453,6 +469,15 @@ public class DataHolder {
     public AIUnitData getAIUnitData(string name)
     {
         foreach (AIUnitData data in unitDataHolder.aiUnitData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public SkillData getSkillData(string name)
+    {
+        foreach(SkillData data in skillDataHolder.skillData)
         {
             if (data.name.Equals(name)) return data;
         }
