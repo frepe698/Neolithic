@@ -41,6 +41,7 @@ namespace Edit
     [Serializable]
     public class SkillEdit : ObjectEdit
     {
+        public List<PassiveStat> statsPerLevel;
         public bool reqExpFolded = true;
         public int[] requiredExp;
 
@@ -73,6 +74,14 @@ namespace Edit
             requiredExp = data.requiredExp;
             passiveStats = data.passiveStats;
         }
+    }
+
+    [Serializable]
+    public class PassiveStat
+    {
+        public Stat stat;
+        public float amount;
+        public bool multiplier;
     }
     
 

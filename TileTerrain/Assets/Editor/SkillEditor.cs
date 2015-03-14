@@ -181,6 +181,26 @@ public class SkillEditor : ObjectEditor
             }
         }
 
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Stats per level:", EditorStyles.boldLabel);
+        foreach (PassiveStat edit in data.statsPerLevel)
+        {
+            EditorGUILayout.BeginHorizontal();
+            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
+            edit.amount = EditorGUILayout.FloatField(edit.amount);
+            edit.multiplier = EditorGUILayout.Toggle(edit.multiplier);
+            if (GUILayout.Button("-"))
+            {
+                data.statsPerLevel.Remove(edit);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Ingredient"))
+        {
+            data.statsPerLevel.Add(new PassiveStat());
+        }
+
         data.passiveStatsFolded = EditorGUILayout.Foldout(data.passiveStatsFolded, "Passive Stats");
         if (data.passiveStatsFolded)
         {
