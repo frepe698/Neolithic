@@ -48,7 +48,8 @@ public class UnitStats {
         foreach(Skill skill in skills)
         {
             StatChange[] statChanges = skill.getStatChanges();
-            for(int i = 0; i < skill.getUnlockedLevel(); i++)
+            if (statChanges == null) continue;
+            for(int i = 0; i < skill.getLevel(); i++)
             {
                 StatChange stat = statChanges[i];
                 stat.applyChange(this);
@@ -98,7 +99,7 @@ public class UnitStats {
         getEnergy().setCurValue(getEnergy().getValue());
         updateStats();
         Debug.Log("You are now level " + level + "!");
-
+        Debug.Log("Your new Health value is " + getHealth().getValue());
         //unit.onLevelUp();
     }
 

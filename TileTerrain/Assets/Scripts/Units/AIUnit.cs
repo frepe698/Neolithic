@@ -15,9 +15,9 @@ public class AIUnit : Unit {
 		if(data == null) 
 		{
 			hostile = false;
-			health = 100.0f;
+			//health = 100.0f;
 			damage = 0;
-			movespeed = 4;
+			//movespeed = 4;
 			lineOfSight = 8;
 			size = 0.5f;
 			Debug.Log ("The unit data you are looking for does not exist: " + unit);
@@ -25,11 +25,11 @@ public class AIUnit : Unit {
 		else
 		{
 			hostile = data.hostile;
-			health = (float)data.health;
+			//health = (float)data.health;
 			damage = data.damage;
 			attackspeed = data.attackSpeed;
             attackSound = data.attackSound;
-			movespeed = data.movespeed;
+			//movespeed = data.movespeed;
 			lineOfSight = data.lineofsight;
 			size = data.size;
             modelName = data.modelName;

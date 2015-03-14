@@ -18,12 +18,12 @@ public class Hero : Unit {
 
 
 	//ENERGY
-	private float maxEnergy = 100;
-	private float energy;
-	private readonly float BASE_ENERGY_GAIN; 
+	//private float maxEnergy = 100;
+	//private float energy;
+	//private readonly float BASE_ENERGY_GAIN; 
 
 	//LIFE
-	protected readonly float BASE_LIFE_GAIN;
+	//protected readonly float BASE_LIFE_GAIN;
 	
 	//Attributes
 	private int stamina;
@@ -40,31 +40,31 @@ public class Hero : Unit {
 		if(data == null) 
 		{
 			hostile = true;
-			health = 100.0f;
-			maxHealth = 100.0f;
-			energy = 100.0f;
-			maxEnergy = 100.0f;
-			movespeed = 4;
+			//health = 100.0f;
+			//maxHealth = 100.0f;
+			//energy = 100.0f;
+			//maxEnergy = 100.0f;
+			//movespeed = 4;
 			lineOfSight = 8;
 			size = 0.5f;
 			hunger = maxHunger;
-			BASE_ENERGY_GAIN = 10;
-			BASE_LIFE_GAIN = 5;
+			//BASE_ENERGY_GAIN = 10;
+			//BASE_LIFE_GAIN = 5;
 			BASE_HUNGER_GAIN = -0.2f;
 			Debug.Log ("The unit data you are looking for does not exist: " + unit);
 		}
 		else
 		{
 			hostile = true;
-			health = (float)data.health;
-			maxHealth = (float)data.health;
-			energy = data.energy;
-			maxEnergy = data.energy;
+			//health = (float)data.health;
+			//maxHealth = (float)data.health;
+			//energy = data.energy;
+			//maxEnergy = data.energy;
 			hunger = maxHunger;
-			BASE_LIFE_GAIN = data.lifegen;
-			BASE_ENERGY_GAIN = data.energygen;
+			//BASE_LIFE_GAIN = data.lifegen;
+			//BASE_ENERGY_GAIN = data.energygen;
 			BASE_HUNGER_GAIN = -0.2f;
-			movespeed = data.movespeed;
+			//movespeed = data.movespeed;
 			lineOfSight = 0;
 			size = data.size;
             modelName = data.modelName;
@@ -97,11 +97,11 @@ public class Hero : Unit {
 		hunger += getHungerGain()*Time.deltaTime;
 		hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
-		energy += getEnergyGain()*Time.deltaTime;
-		energy = Mathf.Clamp(energy, 0, maxEnergy);
-
-		health += getLifeGain()*Time.deltaTime;
-		health = Mathf.Clamp(health, 0, maxHealth);
+		//energy += getEnergyGain()*Time.deltaTime;
+		//energy = Mathf.Clamp(energy, 0, maxEnergy);
+        unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
+		unitstats.getHealth().addCurValue(unitstats.getHealthRegen().getValue()*Time.deltaTime);
+		//health = Mathf.Clamp(health, 0, maxHealth);
 
 	}
 
@@ -209,10 +209,10 @@ public class Hero : Unit {
 
 		if(moving)
 		{
-			punishment = BASE_ENERGY_GAIN/2;
+			punishment = unitstats.getEnergyRegen().getValue()/2;
 		}
 		
-		return BASE_ENERGY_GAIN - punishment; //TODO kom på hur det ska va
+		return unitstats.getEnergyRegen().getValue() - punishment; //TODO kom på hur det ska va
 	}
 
 	public float getLifeGain()
@@ -222,7 +222,7 @@ public class Hero : Unit {
 		{
 			return -0.5f;
 		}
-		return BASE_LIFE_GAIN; 
+		return unitstats.getHealthRegen().getValue(); 
 	}
 
 	public float getHungerGain()
@@ -242,13 +242,13 @@ public class Hero : Unit {
 
 	public void changeEnergy(float change)
 	{
-		energy += change;
-		energy = Mathf.Clamp(energy, 0, maxEnergy);
+		unitstats.getEnergy().addCurValue(change);
+		//energy = Mathf.Clamp(energy, 0, maxEnergy);
 	}
 
 	public float getEnergy()
 	{
-		return energy;
+		return unitstats.getEnergy().getCurValue();
 	}
 
 	public float getHunger()
@@ -263,7 +263,7 @@ public class Hero : Unit {
 
 	public float getMaxEnergy()
 	{
-		return maxEnergy;
+		return unitstats.getEnergy().getValue();
 	}
 
 	public override float getMovespeed ()
@@ -273,7 +273,7 @@ public class Hero : Unit {
 		{
 			penalty = 0.5f;
 		}
-		return movespeed*penalty;
+		return base.getMovespeed()*penalty;
 	}
 
 	public override void playWeaponAttackAnimation(float speed = 1)

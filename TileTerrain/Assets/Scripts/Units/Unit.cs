@@ -16,8 +16,8 @@ public class Unit {
 	protected int lineOfSight;
 	protected bool hostile;
 
-	protected float maxHealth;
-	protected float health;
+	//protected float maxHealth;
+	//protected float health;
 	protected float size;
 
 	protected int id;
@@ -28,7 +28,7 @@ public class Unit {
 	protected Vector2i tile;
 
     protected const float BASE_MOVESPEED = 4;
-	protected float movespeed = 4;
+	//protected float movespeed = 4;
 	protected float speedMult = 1;
 	protected float moveSensitivity = 0.1f;
 	
@@ -561,7 +561,8 @@ public class Unit {
 
 	public virtual void takeDamage(float damage, int dealerID)
 	{
-		this.health -= damage;
+        unitstats.getHealth().addCurValue(-damage);
+		//this.health -= damage;
 
         if (isActive())
         {

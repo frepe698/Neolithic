@@ -19,7 +19,7 @@ public class BaseStat {
 		this.baseValue = baseValue;
 	}
 	
-	public void multiply(){
+	public virtual void multiply(){
 		value = value*multiplier;
 	}
 	
@@ -30,7 +30,7 @@ public class BaseStat {
 		return value-1;
 	}
 	
-	public void reset(int level){
+	public virtual void reset(int level){
 		value = baseValue;
 		multiplier = 1;
 	}

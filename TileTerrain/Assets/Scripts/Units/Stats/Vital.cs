@@ -6,20 +6,20 @@ public class Vital : BaseStat {
 	private float curValue;
 	private float percent;
 	
-	private readonly int levelMulti;
+	private readonly int levelAdd;
 
-	public Vital(string name, int baseValue, int levelMulti) : base(name, baseValue) {
+	public Vital(string name, int baseValue, int levelAdd) : base(name, baseValue) {
 		curValue = 0;
-		this.levelMulti = levelMulti;
+		this.levelAdd = levelAdd;
 	}
 	
-	public void reset(int level){
+	public override void reset(int level){
 		percent = getCurValue()/getValue();
-		value = baseValue + levelMulti*level;
+		value = baseValue + levelAdd*level;
 		multiplier = 1;
 	}
 	
-	public void multiply(){
+	public override void multiply(){
 		value = value*multiplier;
 		curValue = value*percent;
 	}
@@ -42,8 +42,8 @@ public class Vital : BaseStat {
 		return baseValue;
 	}
 	
-	public int getLevelMulti(){
-		return levelMulti;
+	public int getLevelAdd(){
+		return levelAdd;
 	}
 	
 	public string getWindowString(){
