@@ -67,6 +67,7 @@ public class GUIManager : MonoBehaviour{
 	private Color selectedItemTextColor = new Color(1,1,1);
 
 	private bool inventoryActive;
+    private bool heroStatsActive;
 	
 
     //Crafting window
@@ -911,6 +912,11 @@ public class GUIManager : MonoBehaviour{
         activateCrafting(!inventoryActive);
 	}
 
+    public void toggleHeroStats()
+    {
+        activateHeroStats(!heroStatsActive);
+    }
+
 	private void updateCrafting()
 	{
         List<RecipeData>[] recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
@@ -1131,6 +1137,12 @@ public class GUIManager : MonoBehaviour{
 	{
         
 	}
+
+    public void activateHeroStats(bool active)
+    {
+        heroStatsActive = active;
+        heroStatsObject.SetActive(heroStatsActive);
+    }
 
 	public bool isMouseOverGUI()
 	{

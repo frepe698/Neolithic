@@ -187,9 +187,11 @@ public abstract class GameController : MonoBehaviour{
             {
                 gameMaster.getGUIManager().toggleInventory();
             }
+            
             if (Input.GetKeyDown("c"))
             {
-                gameMaster.getGUIManager().toggleCrafting();
+                gameMaster.getGUIManager().toggleHeroStats();
+                //gameMaster.getGUIManager().toggleCrafting();
             }
             if (Input.GetKeyDown("escape"))
             {
