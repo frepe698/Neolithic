@@ -6,7 +6,7 @@
       <lifegen>2</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
-      <movespeed>5</movespeed>
+      <movespeed>4</movespeed>
       <size>0.5</size>
     </HeroData>
     <HeroData name="halftroll" gameName="Half Troll" modelName="halftroll">
@@ -14,7 +14,7 @@
       <lifegen>1</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
-      <movespeed>5</movespeed>
+      <movespeed>4</movespeed>
       <size>0.5</size>
     </HeroData>
     <HeroData name="caveman" gameName="Caveman" modelName="caveman">
@@ -22,7 +22,7 @@
       <lifegen>1</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
-      <movespeed>5</movespeed>
+      <movespeed>4</movespeed>
       <size>0.5</size>
     </HeroData>
   </Heroes>
@@ -32,7 +32,7 @@
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>6</movespeed>
+      <movespeed>5</movespeed>
       <size>0.5</size>
       <damage>3</damage>
       <attackSpeed>1</attackSpeed>
@@ -53,7 +53,7 @@
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>6</movespeed>
+      <movespeed>4.5</movespeed>
       <size>0.75</size>
       <damage>4</damage>
       <attackSpeed>1.4</attackSpeed>
@@ -74,7 +74,7 @@
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
-      <movespeed>3.5</movespeed>
+      <movespeed>3</movespeed>
       <size>0.5</size>
       <damage>4</damage>
       <attackSpeed>1</attackSpeed>
@@ -121,6 +121,27 @@
       <damage>25</damage>
       <attackSpeed>0.8</attackSpeed>
       <attackSound>attackTroll01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>fur</string>
+      </safeDrops>
+      <randomDrops>
+        <string>gold</string>
+      </randomDrops>
+      <minDrops>4</minDrops>
+      <maxDrops>10</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="goblin" gameName="Goblin" modelName="goblin">
+      <health>60</health>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>4.5</movespeed>
+      <size>0.5</size>
+      <damage>4</damage>
+      <attackSpeed>1.1</attackSpeed>
+      <attackSound>attackSpear01</attackSound>
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
       <safeDrops>

@@ -28,6 +28,7 @@ public class Skill {
     {
         this.name = name;
         SkillData data = DataHolder.Instance.getSkillData(name);
+        if (data == null) return;
         this.requiredExp = data.requiredExp;
     }
 

@@ -166,6 +166,7 @@ public class World : MonoBehaviour {
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/vrodl"), 1, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Heroes/halftroll"), 1, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/troll"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/goblin"), 4, true);
         
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/rock"),20, true);
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/arrow"),20, true);
@@ -505,7 +506,7 @@ public class World : MonoBehaviour {
             {
                 GameMaster.addDaySpawner("troll", 1, cave.bossPos);
             }
-            GameMaster.addDaySpawner("vrodlbot", 4, cave.bossPos);
+            GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
         }
     }
 
@@ -517,7 +518,7 @@ public class World : MonoBehaviour {
 		{
 			for(int y = tileMap.basePos.y - baseSize; y <= tileMap.basePos.y + baseSize; y += baseSize*2)
 			{
-				AIUnit unit = new AIUnit("vrodlbot", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
+				AIUnit unit = new AIUnit("goblin", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
 				GameMaster.addUnit(unit);
 			}
 		}
