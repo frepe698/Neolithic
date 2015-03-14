@@ -569,6 +569,16 @@ public abstract class GameController : MonoBehaviour{
 	}
 
     [RPC]
+    protected void giveExperience(int targetID, int skill, int experience)
+    {
+        Hero hero = GameMaster.getHero(targetID);
+        if (hero != null)
+        {
+            hero.grantExperience(skill, experience);
+        }
+    }
+
+    [RPC]
     public abstract void requestCheatCommand(int unitID, int commandID, string parameters);
 
     [RPC]

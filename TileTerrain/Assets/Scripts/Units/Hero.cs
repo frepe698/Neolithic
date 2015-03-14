@@ -307,4 +307,14 @@ public class Hero : Unit {
         }
     }
 
+    public override void grantExperience(int skill, int exp)
+    {
+        skillManager.giveExperience(skill, exp);
+    }
+
+    public override void increaseSkillLevel()
+    {
+        unitstats.increaseSkillLevel();
+    }
+
 }

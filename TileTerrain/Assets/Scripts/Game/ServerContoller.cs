@@ -101,11 +101,28 @@ public class ServerController : GameController {
 			{
 				gameMaster.getNetView().RPC ("gatherResource", RPCMode.All, tile.x, tile.y);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                if(resObject.getDamageType() == 1)
+                {
+                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
+                }
+                else
+                {
+                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
+                }
 			}
 			else
 			{
 				gameMaster.getNetView().RPC ("hitResource", RPCMode.All, tile.x, tile.y, damage);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                if (resObject.getDamageType() == 1)
+                {
+                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
+                }
+                else
+                {
+                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
+                }
+
 			}
 		}
 	}
@@ -130,11 +147,13 @@ public class ServerController : GameController {
 			{
 				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Melee, damage);
 			}
 			else
 			{
 				gameMaster.getNetView().RPC ("hitUnit", RPCMode.All, targetID, unitID, damage);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Melee, damage);
 			}
 		}
 	}

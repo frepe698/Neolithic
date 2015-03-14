@@ -39,8 +39,8 @@ public class Unit {
 	protected float gatherTime = 0.8f;
 	protected float lootTime = 0.25f;
 
-    private SkillManager skillManager;
-    private UnitStats unitstats;
+    protected SkillManager skillManager;
+    protected UnitStats unitstats;
 	
 	private AudioSource audio;
 	
@@ -650,6 +650,16 @@ public class Unit {
     public UnitStats getUnitStats()
     {
         return unitstats;
+    }
+
+    public virtual void grantExperience(int skill, int exp)
+    {
+
+    }
+
+    public virtual void increaseSkillLevel()
+    {
+
     }
 
 }

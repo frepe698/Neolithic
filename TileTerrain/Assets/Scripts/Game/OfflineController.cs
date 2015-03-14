@@ -98,11 +98,28 @@ public class OfflineController : GameController {
 			{
 				gatherResource(tile.x, tile.y);
 				changeEnergy(unitID, -5);
+                if(resObject.getDamageType() == 1)
+                {
+                    giveExperience(unitID, Skill.WoodChopping, damage);
+                }
+                else 
+                {
+                    giveExperience(unitID, Skill.Mining, damage);
+                }
 			}
 			else
 			{
 				hitResource(tile.x, tile.y, damage);
 				changeEnergy(unitID, -5);
+                if (resObject.getDamageType() == 1)
+                {
+                    giveExperience(unitID, Skill.WoodChopping, damage);
+                }
+                else
+                {
+                    giveExperience(unitID, Skill.Mining, damage);
+                }
+
 			}
 		}
 
@@ -132,11 +149,13 @@ public class OfflineController : GameController {
 			{
 				killUnit(targetID, unitID);
 				changeEnergy(unitID, -5);
+                giveExperience(unitID, Skill.Melee, damage);
 			}
 			else
 			{
 				hitUnit(targetID, unitID, damage);
 				changeEnergy(unitID, -5);
+                giveExperience(unitID, Skill.Melee, damage);
 			}
 		}
 		

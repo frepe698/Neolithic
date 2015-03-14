@@ -16,7 +16,7 @@ public class Skill {
     public static readonly int WoodChopping = 10;
 
     public readonly string name;
-
+    public readonly string gameName;
     public const int MAXLEVEL = 20;
     private readonly int[] requiredExp;
     private readonly StatChange[] statChanges;
@@ -24,12 +24,16 @@ public class Skill {
     private int level;
     private int unlockedLevel;
 
-    public Skill(string name)
+    private SkillManager manager;
+
+    public Skill(string name, SkillManager manager)
     {
         this.name = name;
+        this.manager = manager;
         SkillData data = DataHolder.Instance.getSkillData(name);
         if (data == null) return;
         this.requiredExp = data.requiredExp;
+        this.gameName = data.gameName;
     }
 
     //Returns true if leveled up, false if not
@@ -37,9 +41,12 @@ public class Skill {
     {
         if (level >= MAXLEVEL) return false;
         this.experience += experience;
-        if(experience >= requiredExp[level])
+        Debug.Log(gameName + " experience is now " + this.experience);
+        if(this.experience >= requiredExp[level])
         {
             level++;
+            manager.increaseLevel();
+            Debug.Log("Skill leveled up! " + gameName + " is now level " + level);
             return true;
         }
         return false;

@@ -8,6 +8,7 @@ public class UnitStats {
 	
 	private readonly int maxLevel = 100;
 	private int level;
+    private int skillLevel;
 	private int exp;
 	private readonly int skillsToLevel = 3;  //multiplied by level
 	
@@ -62,7 +63,7 @@ public class UnitStats {
 
     private int getSkillsToLevel(int level)
     {
-        return level * skillsToLevel;
+        return (level + 1) * skillsToLevel;
     }
 
     private void setVitals() {
@@ -75,6 +76,15 @@ public class UnitStats {
         stats[stat].addValue(value);
     }
 
+    public void increaseSkillLevel()
+    {
+        skillLevel++;
+        if(skillLevel >= getSkillsToLevel(level))
+        {
+            levelUp();
+        }
+    }
+
 
     private void levelUp()
     {
@@ -82,6 +92,8 @@ public class UnitStats {
         getHealth().setCurValue(getHealth().getValue());
         getMana().setCurValue(getMana().getValue());
         updateStats();
+        Debug.Log("You are now level " + level + "!");
+
         //unit.onLevelUp();
     }
 
