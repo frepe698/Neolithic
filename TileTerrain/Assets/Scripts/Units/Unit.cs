@@ -54,7 +54,7 @@ public class Unit {
 
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
-        this.unitstats = new UnitStats(this, 0, (int)data.health, 1, (int)data.energy, 1, (int)data.lifegen, (int)data.energygen);
+        this.unitstats = new UnitStats(this, 0, data);
 	}
 
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
@@ -67,8 +67,7 @@ public class Unit {
 
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
-        this.unitstats = new UnitStats(this, 0, (int)data.health, 1, (int)data.energy, 1, (int)data.lifegen, (int)data.energygen);
-		
+        this.unitstats = new UnitStats(this, 0, data);
 	}
 
     public void init()
@@ -577,7 +576,8 @@ public class Unit {
 
 	public void heal(int heal)
 	{
-		this.health += heal;
+		//this.health += heal;
+        unitstats.getHealth().addCurValue(heal);
 	}
 
 	public virtual float getMovespeed()

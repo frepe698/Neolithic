@@ -14,20 +14,20 @@ public class UnitStats {
 	
 	private BaseStat[] stats;
 	
-	public UnitStats(Unit unit, int level, int baseHealth, int levelHealth,
-					int baseMana, int levelMana, int healthRegen, int manaRegen){
+	public UnitStats(Unit unit, int level, UnitData data){
 		this.level = level;
 		this.unit = unit;
+        
 		exp = (int)getSkillsToLevel(level);
 		
 		stats = new BaseStat[] {
-				new Vital("Health", baseHealth, levelHealth),
-				new Vital("Energy", baseMana, levelMana),
-				new DefStat("Armor", 0.8f),
-				new BaseStat("Health regen", healthRegen),
-				new BaseStat("Energy regen", manaRegen),
+				new Vital("Health", data.health, 20),
+				new Vital("Energy", (int)data.energy, 0),
+				new BaseStat("Armor", 0),
+				new BaseStat("Health regen", (int)data.lifegen),
+				new BaseStat("Energy regen", (int)data.energygen),
 				new BaseStat("Increased Damage", 1),
-				new BaseStat("Movespeed", 1),
+				new BaseStat("Movespeed", (int)data.movespeed),
 				
 		};
 		
@@ -76,6 +76,11 @@ public class UnitStats {
         stats[stat].addValue(value);
     }
 
+    public void removeFromStat(int stat, float value)
+    {
+        stats[stat].addValue(-value);
+    }
+
     public void increaseSkillLevel()
     {
         skillLevel++;
@@ -90,7 +95,7 @@ public class UnitStats {
     {
         level++;
         getHealth().setCurValue(getHealth().getValue());
-        getMana().setCurValue(getMana().getValue());
+        getEnergy().setCurValue(getEnergy().getValue());
         updateStats();
         Debug.Log("You are now level " + level + "!");
 
@@ -101,11 +106,14 @@ public class UnitStats {
     public float getStatV(int stat) { return stats[stat].getValue(); }
     public float getStatMV(int stat) { return stats[stat].getMultiValue(); }
 
-    public Vital getHealth() { return ((Vital)stats[Stat.Health]); }
-    public Vital getMana() { return ((Vital)stats[Stat.Energy]); }
-
+    public Vital getHealth() { return (Vital)stats[Stat.Health]; }
+    public Vital getEnergy() { return (Vital)stats[Stat.Energy]; }
+    public BaseStat getMovespeed() { return (BaseStat)stats[Stat.Movespeed]; }
+    public BaseStat getArmor() { return (BaseStat)stats[Stat.Armor]; }
+    public BaseStat getHealthRegen() { return (BaseStat)stats[Stat.HealthRegen]; }
+    public BaseStat getEnergyRegen() { return (BaseStat)stats[Stat.EnergyRegen]; }
     public float getMaxHealth() { return stats[Stat.Health].getValue(); }
     public float getCurHealth() { return ((Vital)stats[Stat.Health]).getCurValue(); }
-    public float getMaxMana() { return stats[Stat.Energy].getValue(); }
+    public float getMaxEnergy() { return stats[Stat.Energy].getValue(); }
     public float getCurMana() { return ((Vital)stats[Stat.Energy]).getCurValue(); }
 }
