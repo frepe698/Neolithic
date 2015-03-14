@@ -582,7 +582,8 @@ public class Unit {
 
 	public virtual float getMovespeed()
 	{
-		return movespeed;
+		//return movespeed;
+        return unitstats.getMovespeed().getValue();
 	}
 
     public float getAdjustedMovespeed()
@@ -592,12 +593,14 @@ public class Unit {
 
 	public float getHealth()
 	{
-		return this.health;
+		//return this.health;
+        return unitstats.getHealth().getCurValue();
 	}
 
 	public float getMaxHealth()
 	{
-		return this.maxHealth;
+		//return this.maxHealth;
+        return unitstats.getHealth().getValue();
 	}
 
 	public void setAlive(bool alive)

@@ -67,8 +67,8 @@ public class UnitStats {
     }
 
     private void setVitals() {
-		if(stats[Stat.Health] is Vital)((Vital) stats[Stat.Health]).setCurValue(stats[Stat.Health].getValue());
-		if(stats[Stat.Energy] is Vital)((Vital) stats[Stat.Energy]).setCurValue(stats[Stat.Energy].getValue());
+		if(stats[(int)Stat.Health] is Vital)((Vital) stats[(int)Stat.Health]).setCurValue(stats[(int)Stat.Health].getValue());
+		if(stats[(int)Stat.Energy] is Vital)((Vital) stats[(int)Stat.Energy]).setCurValue(stats[(int)Stat.Energy].getValue());
 	}
 
     public void addToStat(int stat, float value)
@@ -103,17 +103,18 @@ public class UnitStats {
     }
 
     public BaseStat getStat(int stat) { return stats[stat]; }
+    public BaseStat getStat(Stat stat) { return stats[(int)stat]; }
     public float getStatV(int stat) { return stats[stat].getValue(); }
     public float getStatMV(int stat) { return stats[stat].getMultiValue(); }
 
-    public Vital getHealth() { return (Vital)stats[Stat.Health]; }
-    public Vital getEnergy() { return (Vital)stats[Stat.Energy]; }
-    public BaseStat getMovespeed() { return (BaseStat)stats[Stat.Movespeed]; }
-    public BaseStat getArmor() { return (BaseStat)stats[Stat.Armor]; }
-    public BaseStat getHealthRegen() { return (BaseStat)stats[Stat.HealthRegen]; }
-    public BaseStat getEnergyRegen() { return (BaseStat)stats[Stat.EnergyRegen]; }
-    public float getMaxHealth() { return stats[Stat.Health].getValue(); }
-    public float getCurHealth() { return ((Vital)stats[Stat.Health]).getCurValue(); }
-    public float getMaxEnergy() { return stats[Stat.Energy].getValue(); }
-    public float getCurMana() { return ((Vital)stats[Stat.Energy]).getCurValue(); }
+    public Vital getHealth() { return (Vital)stats[(int)Stat.Health]; }
+    public Vital getEnergy() { return (Vital)stats[(int)Stat.Energy]; }
+    public BaseStat getMovespeed() { return (BaseStat)stats[(int)Stat.Movespeed]; }
+    public BaseStat getArmor() { return (BaseStat)stats[(int)Stat.Armor]; }
+    public BaseStat getHealthRegen() { return (BaseStat)stats[(int)Stat.HealthRegen]; }
+    public BaseStat getEnergyRegen() { return (BaseStat)stats[(int)Stat.EnergyRegen]; }
+    public float getMaxHealth() { return stats[(int)Stat.Health].getValue(); }
+    public float getCurHealth() { return ((Vital)stats[(int)Stat.Health]).getCurValue(); }
+    public float getMaxEnergy() { return stats[(int)Stat.Energy].getValue(); }
+    public float getCurMana() { return ((Vital)stats[(int)Stat.Energy]).getCurValue(); }
 }
