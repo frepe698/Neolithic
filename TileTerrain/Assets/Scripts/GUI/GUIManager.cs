@@ -159,7 +159,8 @@ public class GUIManager : MonoBehaviour{
 
         //Hero stats
         heroStatsObject = canvas.FindChild("HeroStats").gameObject;
-
+        heroStatsActive = false;
+        heroStatsObject.SetActive(heroStatsActive);
 
         //Inventory init
 		inventoryObject = canvas.FindChild("Inventory").gameObject;
