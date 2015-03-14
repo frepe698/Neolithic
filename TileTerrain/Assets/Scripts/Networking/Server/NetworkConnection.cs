@@ -19,6 +19,11 @@ public abstract class NetworkConnection {
 		return connected;
 	}
 
+    public virtual bool isOnline()
+    {
+        return true;
+    }
+
     public abstract int getPing();
 	
 }

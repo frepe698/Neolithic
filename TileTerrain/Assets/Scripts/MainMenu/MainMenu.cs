@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-	private GameLobby gameLobby;
+    private GlobalMenu globalMenu;
 
 	private HostData[] serverList;
 
@@ -14,12 +14,10 @@ public class MainMenu : MonoBehaviour {
 	void Awake () {
 
 		//serverListHolder = GameObject.Find ("Server list").transform;
+        globalMenu = GetComponent<GlobalMenu>();
 		serverList = new HostData[0];
 
-		gameLobby = GetComponent<GameLobby>();
-		gameLobby.enabled = false;
 		//if(gameLobby == null) Debug.Log("NUll");
-
 	}
 
 
@@ -29,7 +27,7 @@ public class MainMenu : MonoBehaviour {
 	{
 		NetworkMaster.initializeOfflineServer();
 		NetworkMaster.connect();
-		goToLobby(true);
+        globalMenu.goToLobby(true);
 		//Application.LoadLevel("world");
 
 	}
@@ -96,17 +94,11 @@ public class MainMenu : MonoBehaviour {
 
 	}
 
-	private void goToLobby(bool singleplayer)
-	{
-		gameLobby.enabled = true;
-		gameLobby.init (singleplayer);
-		GetComponent<Animator>().SetTrigger("gotoLobby");
-		this.enabled = false;
-	}
+
 
 	void OnConnectedToServer()
 	{
-		goToLobby(false);
+        globalMenu.goToLobby(false);
 	}
 
 	void OnMasterServerEvent(MasterServerEvent e)
@@ -119,7 +111,7 @@ public class MainMenu : MonoBehaviour {
 		}
 		if(e == MasterServerEvent.RegistrationSucceeded)
 		{
-			goToLobby(false);
+            globalMenu.goToLobby(false);
 		}
 	}
 }

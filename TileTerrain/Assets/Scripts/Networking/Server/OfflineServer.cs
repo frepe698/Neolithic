@@ -24,4 +24,9 @@ public class OfflineServer : NetworkConnection {
     {
         return 0;
     }
+
+    public override bool isOnline()
+    {
+        return false;
+    }
 }

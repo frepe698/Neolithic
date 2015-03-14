@@ -54,7 +54,8 @@ namespace Edit
             requiredExp = new int[Skill.MAXLEVEL];
             for (int i = 0; i < Skill.MAXLEVEL; i++)
             {
-                requiredExp[i] = (int)((i + i * (i * 0.153f)) * 93.5f);
+                int level = i + 1;
+                requiredExp[i] = (int)((level + level * (level * 0.153f)) * 93.5f);
             }
             passiveStats = new string[Skill.MAXLEVEL];
         }

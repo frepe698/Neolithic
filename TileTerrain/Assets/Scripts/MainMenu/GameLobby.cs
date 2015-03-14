@@ -5,6 +5,7 @@ using System.Collections;
 public class GameLobby : MonoBehaviour {
 
 	NetworkView netView;
+    private GlobalMenu globalMenu;
 	private readonly int LEFT_MOUSE_BUTTON = 0;
 
 	private int[] selectedHeroes = new int[] {-1, -1, -1, -1};
@@ -12,29 +13,56 @@ public class GameLobby : MonoBehaviour {
 
 	private float activateTime;
 	private bool buttonsActive = false;
-	public GameObject startButton;
-	public GameObject leaveButton;
+    private GameObject uiObject;
+    private GameObject startButton;
+	private GameObject leaveButton;
 
 	private bool singleplayer = true;
 
+    private bool initialized = false;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        globalMenu = GetComponent<GlobalMenu>();
 		netView = GetComponent<NetworkView>();
-//		for(int i = 0; i < 4; i++)
-//		{
-//			playerNameHeroes[i] = GameObject.Find ("Hero"+(i+1)).transform.FindChild("playername").GetComponent<Text>();
-//			playerNameHeroes[i].text = "Available";
-//		}
+
+        uiObject = GameObject.Find("Game Lobby");
+        startButton = uiObject.transform.FindChild("ButtonStart").gameObject;
+        leaveButton = uiObject.transform.FindChild("ButtonLeave").gameObject;
+		for(int i = 0; i < 4; i++)
+		{
+			playerNameHeroes[i] = uiObject.transform.FindChild ("Hero"+(i)).GetComponent<Text>();
+			playerNameHeroes[i].text = "Available";
+		}
+        uiObject.SetActive(false);
 	}
 
 	public void init(bool singleplayer)
 	{
+        if (initialized) return;
+
+        if (GlobalMenu.playerName == null || GlobalMenu.playerName.Trim().Equals(""))
+        {
+            GlobalMenu.randomizePlayerName();
+        }
+
 		this.singleplayer = singleplayer;
-		Debug.Log ("Enable lobby");
+        if (NetworkMaster.isOnline())
+        {
+            //NetworkMaster.addPlayer(NetworkMaster.getPlayerID(), GlobalMenu.playerName);
+            netView.RPC("onPlayerConnected", RPCMode.All, Network.player, NetworkMaster.getPlayerID(), GlobalMenu.playerName);
+        }
 		//NetworkMaster.connect();
 		activateTime = Time.time + 1;
-
+        initialized = true;
 	}
+
+    public void onLeave()
+    {
+        uiObject.SetActive(false);
+        buttonsActive = false;
+        initialized = false;
+    }
 
 	
 	// Update is called once per frame
@@ -42,8 +70,7 @@ public class GameLobby : MonoBehaviour {
 
 		if(!buttonsActive && Time.time >= activateTime)
 		{
-			startButton.SetActive(true);
-			leaveButton.SetActive(true);
+            uiObject.SetActive(true);
 			buttonsActive = true;
 		}
 
@@ -74,7 +101,7 @@ public class GameLobby : MonoBehaviour {
 		{
 			netView.RPC("startGameMultiplayer", RPCMode.All, Random.seed);
 		}
-		else
+		else if(singleplayer)
 		{
 			startGame();
 		}
@@ -83,7 +110,7 @@ public class GameLobby : MonoBehaviour {
 	public void buttonLeave()
 	{
         NetworkMaster.disconnect();
-        GetComponent<Animator>().SetTrigger("gotoMainMenu");
+        globalMenu.goToMenu();
 	}
 
 	public void buttonHero(int index)
@@ -98,10 +125,12 @@ public class GameLobby : MonoBehaviour {
 			if(i != index)
 			{
 				selectedHeroes[i] = -1;
+                playerNameHeroes[i].text = "<color=white>Available</color>";
 			}
 			else
 			{
 				selectedHeroes[i] = 0;
+                playerNameHeroes[i].text = "<color=#fcfc11ff>Selected</color>";
 			}
 		}
 	}
@@ -123,14 +152,19 @@ public class GameLobby : MonoBehaviour {
 	void selectHero(int index, int playerID)
 	{
 		selectedHeroes[index] = playerID;
-		/*if(playerID == -1)
+		if(playerID == -1)
 		{
-			playerNameHeroes[index].text = "Available";
+			playerNameHeroes[index].text = "<color=white>Available</color>";
 		}
 		else
 		{
-			playerNameHeroes[index].text = "player "+playerID.ToString();
-		}*/
+            string colorcode = "<color=#1111d6ff>";
+            if (playerID == NetworkMaster.getPlayerID())
+            {
+                colorcode = "<color=#f6f622ff>";
+            }
+            playerNameHeroes[index].text = colorcode + NetworkMaster.getPlayerName(int.Parse(playerID.ToString())) + "</color>";
+		}
 	}
 
 	[RPC]
@@ -165,12 +199,41 @@ public class GameLobby : MonoBehaviour {
 				if(selectedHeroes[i] == int.Parse(player.ToString())) netView.RPC("selectHero", RPCMode.AllBuffered, i, -1);
 			}
 		}
+        globalMenu.addChatMessage(NetworkMaster.getPlayerName(int.Parse(player.ToString())) + " disconnected."); 
 	}
+
+    [RPC]
+    void onPlayerConnected(NetworkPlayer player, int playerID, string name)
+    {
+        globalMenu.addChatMessage(name + " has connected.");
+        NetworkMaster.addPlayer(playerID, name);
+        if (Network.isServer)
+        {
+            {
+                int id = NetworkMaster.getPlayerID();
+                netView.RPC("addPlayer", player, id, NetworkMaster.getPlayerName(id));
+            }
+            foreach (NetworkPlayer np in Network.connections)
+            {
+
+                if(np != player)
+                {
+                    int id = int.Parse(np.ToString());
+                    netView.RPC("addPlayer", player, id, NetworkMaster.getPlayerName(id));
+                }
+            }
+        }
+    }
+
+    [RPC]
+    void addPlayer(int playerID, string name)
+    {
+        NetworkMaster.addPlayer(playerID, name);
+    }
 	
 	void OnServerInitialized()
 	{
 		Debug.Log ("Server Initialized!");
-
 	}
 	
 	void OnMasterServerEvent(MasterServerEvent e)

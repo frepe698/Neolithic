@@ -1110,7 +1110,7 @@ public class GUIManager : MonoBehaviour{
             {
                 CheatCommand.sendCommandFromString(chatInputField.text.Substring(1));
             }
-            else
+            else if (!chatInputField.text.Trim().Equals(""))
             {
                 GameMaster.getGameController().sendChatMessage(chatInputField.text);
             }

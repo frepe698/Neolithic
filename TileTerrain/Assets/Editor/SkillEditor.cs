@@ -27,14 +27,14 @@ public class SkillEditor : ObjectEditor
 
     protected override string getStandardFilePath()
     {
-        return Application.dataPath + "/Skills/Data/skilldata.xml";
+        return Application.dataPath + "/Resources/Data/skilldata.xml";
     }
 
     protected override void loadFile(string filePath)
     {
         if (filePath == null)
         {
-            filePath = EditorUtility.OpenFilePanel("Open skill data", Application.dataPath + "/Skills/Data", "xml");
+            filePath = EditorUtility.OpenFilePanel("Open skill data", Application.dataPath + "/Resources/Data", "xml");
         }
 
         if (filePath != null && !filePath.Equals(""))

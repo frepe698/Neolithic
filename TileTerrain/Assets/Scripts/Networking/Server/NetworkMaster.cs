@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NetworkMaster{
+
+    private static Dictionary<int, string> playerName = new Dictionary<int,string>();
 
 	public static readonly string gameTypeName = "StoneAgeTowerDefense";
 
@@ -32,6 +35,11 @@ public class NetworkMaster{
 	{
 		return connection != null && connection.isConnected();
 	}
+
+    public static bool isOnline()
+    {
+        return connection != null && connection.isOnline();
+    }
 
     public static int getAveragePing()
     {
@@ -64,6 +72,22 @@ public class NetworkMaster{
 
 	public static int getPlayerID()
 	{
-		return connection.getPlayerID();
+		return connection != null ? connection.getPlayerID() : 0;
 	}
+
+    public static void addPlayer(int id, string name)
+    {
+        playerName[id] = name;
+    }
+
+    public static string getPlayerName(int id)
+    {
+        return playerName[id];
+    }
+
+    public static void changePlayerName(int id, string name)
+    {
+        playerName[id] = name;
+    }
+
 }
