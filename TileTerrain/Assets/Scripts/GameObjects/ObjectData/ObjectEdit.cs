@@ -46,7 +46,7 @@ namespace Edit
         public int[] requiredExp;
 
         public bool passiveStatsFolded = true;
-        public string[] passiveStats;
+        public List<LearnableAbility> abilities;
 
         public SkillEdit()
         {
@@ -58,21 +58,34 @@ namespace Edit
                 int level = i + 1;
                 requiredExp[i] = (int)((level + level * (level * 0.153f)) * 93.5f);
             }
-            passiveStats = new string[Skill.MAXLEVEL];
+            statsPerLevel = new List<PassiveStat>();
+            abilities = new List<LearnableAbility>();
         }
 
         public SkillEdit(SkillData data)
             : base(data)
         {
             requiredExp = data.requiredExp;
-            passiveStats = new string[Skill.MAXLEVEL];
+            statsPerLevel = new List<PassiveStat>();
+            foreach (StatChange stat in data.statsPerLevel)
+            {
+                statsPerLevel.Add(new PassiveStat(stat));
+            }
+            abilities = new List<LearnableAbility>();
+            foreach (LearnableAbility ab in data.abilities)
+            {
+                abilities.Add(ab);
+            }
         }
 
         public SkillEdit(SkillEdit data)
             : base(data)
         {
             requiredExp = data.requiredExp;
-            passiveStats = data.passiveStats;
+            statsPerLevel = data.statsPerLevel;
+            if (statsPerLevel == null) statsPerLevel = new List<PassiveStat>();
+            abilities = data.abilities;
+            if (abilities == null) abilities = new List<LearnableAbility>();
         }
     }
 
@@ -82,6 +95,22 @@ namespace Edit
         public Stat stat;
         public float amount;
         public bool multiplier;
+
+        public PassiveStat() { }
+
+        public PassiveStat(StatChange data)
+        {
+            this.stat = data.stat;
+            this.amount = data.value;
+            this.multiplier = data.multiplier;
+        }
+    }
+
+    [Serializable]
+    public class LearnableAbility
+    {
+        public string name;
+        public int reqLevel;
     }
     
 

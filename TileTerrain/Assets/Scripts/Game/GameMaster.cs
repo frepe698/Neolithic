@@ -102,6 +102,7 @@ public class GameMaster : MonoBehaviour {
 //		hero.getInventory().addItem(new MaterialItem("Stick"));
 		
 		guiManager.setInventory(hero.getInventory());
+        guiManager.setUnitStats(hero.getUnitStats());
 	}
 
 	private void setPlayerUnit(int id)

@@ -14,8 +14,6 @@ public class GameLobby : MonoBehaviour {
 	private float activateTime;
 	private bool buttonsActive = false;
     private GameObject uiObject;
-    private GameObject startButton;
-	private GameObject leaveButton;
 
 	private bool singleplayer = true;
 
@@ -27,8 +25,6 @@ public class GameLobby : MonoBehaviour {
 		netView = GetComponent<NetworkView>();
 
         uiObject = GameObject.Find("Game Lobby");
-        startButton = uiObject.transform.FindChild("ButtonStart").gameObject;
-        leaveButton = uiObject.transform.FindChild("ButtonLeave").gameObject;
 		for(int i = 0; i < 4; i++)
 		{
 			playerNameHeroes[i] = uiObject.transform.FindChild ("Hero"+(i)).GetComponent<Text>();

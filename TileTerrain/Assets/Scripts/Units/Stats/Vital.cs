@@ -40,13 +40,14 @@ public class Vital : BaseStat {
 	
 	public int getBase(){
 		return baseValue;
+        //iho
 	}
 	
 	public int getLevelAdd(){
 		return levelAdd;
 	}
 	
-	public string getWindowString(){
+	public override string getWindowString(){
 		return name+": "+(int)curValue+"/"+(int)value;
 	}
 }

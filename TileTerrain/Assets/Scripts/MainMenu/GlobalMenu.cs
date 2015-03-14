@@ -14,10 +14,6 @@ public class GlobalMenu : MonoBehaviour {
     private Text chatOutputText;
     private float chatOutputHeight = 0;
     private Scrollbar chatScrollbar;
-    private bool justOpenedChat = false;
-    private bool chatting = false;
-    private bool chatOutputOpen = false;
-    private float chatCloseTime = 0;
 
     private NetworkView netView;
 
@@ -76,13 +72,14 @@ public class GlobalMenu : MonoBehaviour {
 
         if (chatOutputOpen)
         {
-            float newHeight = chatOutputText.rectTransform.sizeDelta.y;
-            if (newHeight > chatOutputHeight)
-            {
-                chatScrollbar.value = 0;
-                chatOutputHeight = newHeight;
-            }
+            
         }*/
+        float newHeight = chatOutputText.rectTransform.sizeDelta.y;
+        if (newHeight > chatOutputHeight)
+        {
+            chatScrollbar.value = 0;
+            chatOutputHeight = newHeight;
+        }
     }
 
     void initUI()
@@ -115,9 +112,6 @@ public class GlobalMenu : MonoBehaviour {
     public void addChatMessage(string msg)
     {
         chatOutputText.text += msg + "\n";
-        chatCloseTime = Time.time + 5;
-        chatObject.SetActive(true);
-        chatOutputOpen = true;
     }
 
     public void toggleChatInput()
@@ -138,7 +132,6 @@ public class GlobalMenu : MonoBehaviour {
                 sendChatMessage(chatInputField.text);
             }
 
-            chatting = false;
             chatInputField.text = "";
             chatInputField.ActivateInputField();
             chatInputField.Select();

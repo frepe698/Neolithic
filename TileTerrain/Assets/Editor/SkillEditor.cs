@@ -186,9 +186,16 @@ public class SkillEditor : ObjectEditor
         foreach (PassiveStat edit in data.statsPerLevel)
         {
             EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 100;
+            EditorGUIUtility.fieldWidth = 40;
             edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
+            EditorGUIUtility.fieldWidth = 10;
             edit.amount = EditorGUILayout.FloatField(edit.amount);
+
+            EditorGUIUtility.labelWidth = 30;
+            EditorGUILayout.PrefixLabel("is%");
             edit.multiplier = EditorGUILayout.Toggle(edit.multiplier);
+            
             if (GUILayout.Button("-"))
             {
                 data.statsPerLevel.Remove(edit);
@@ -196,19 +203,33 @@ public class SkillEditor : ObjectEditor
             }
             EditorGUILayout.EndHorizontal();
         }
-        if (GUILayout.Button("+Ingredient"))
+        if (GUILayout.Button("+Stat"))
         {
             data.statsPerLevel.Add(new PassiveStat());
         }
 
-        data.passiveStatsFolded = EditorGUILayout.Foldout(data.passiveStatsFolded, "Passive Stats");
-        if (data.passiveStatsFolded)
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Learnable abilities:", EditorStyles.boldLabel);
+        foreach (LearnableAbility edit in data.abilities)
         {
-            EditorGUIUtility.labelWidth = 80;
-            for (int i = 0; i < data.passiveStats.Length; i++)
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.fieldWidth = 50;
+            EditorGUIUtility.labelWidth = 50;
+            edit.name = EditorGUILayout.TextField(edit.name);
+            EditorGUIUtility.fieldWidth = 10;
+            EditorGUIUtility.labelWidth = 50;
+            EditorGUILayout.PrefixLabel("Req Lvl:");
+            edit.reqLevel = EditorGUILayout.IntField(edit.reqLevel);
+            if (GUILayout.Button("-"))
             {
-                data.passiveStats[i] = TextField("Stats: ", data.passiveStats[i]);
+                data.abilities.Remove(edit);
+                break;
             }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Ability"))
+        {
+            data.abilities.Add(new LearnableAbility());
         }
 
         GUILayout.EndScrollView();

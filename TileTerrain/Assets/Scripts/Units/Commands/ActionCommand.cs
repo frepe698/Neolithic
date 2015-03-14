@@ -5,13 +5,12 @@ public class ActionCommand : Command {
 
     private WarpObject warpObject;
     private bool hasWarped;
-    private Vector2 warpPosition;
 
     public ActionCommand (Unit unit, WarpObject warpObject)
         : base(unit)
 	{
         this.warpObject = warpObject;
-        this.destination = this.warpPosition = warpObject.get2DPos();
+        this.destination = warpObject.get2DPos();
 	}
 
     public override void start()

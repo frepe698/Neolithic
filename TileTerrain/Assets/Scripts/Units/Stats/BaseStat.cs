@@ -23,7 +23,7 @@ public class BaseStat {
 		value = value*multiplier;
 	}
 	
-	public float getValue(){
+	public virtual float getValue(){
 		return value;
 	}
 	public float getMultiValue(){
@@ -35,7 +35,7 @@ public class BaseStat {
 		multiplier = 1;
 	}
 	
-	public void addValue(float add){
+	public virtual void addValue(float add){
 		value += add;
 	}
 	
@@ -43,7 +43,7 @@ public class BaseStat {
 		multiplier = value;
 	}
 	
-	public void addMultiplier(float add){
+	public virtual void addMultiplier(float add){
 		multiplier += add;
 	}
 	
@@ -51,7 +51,7 @@ public class BaseStat {
 		return name;
 	}
 	
-	public string getWindowString(){
+	public virtual string getWindowString(){
 		return name+": "+(int)value;
 	}
 

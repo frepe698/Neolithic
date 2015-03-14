@@ -12,31 +12,31 @@ public class PercentStat : BaseStat {
 		this.maxAmount = maxAmount;
 	}
 	
-	public void addValue(float add){
+	public override void addValue(float add){
 		value += add/100;
 		if(value > maxAmount) value = maxAmount;
 	}
 	
-	public void multiply(){
+	public override void multiply(){
 		
 	}
 	
-	public float getValue(){
+	public override float getValue(){
 		return 1-value;
 	}
 	
-	public void addMultiplier(float add){
+	public override void addMultiplier(float add){
 		value += add;
 		if(value > maxAmount) value = maxAmount;
 	}
 	
-	public void reset(int level){
+	public override void reset(int level){
 		value = 0;
 		multiplier = 0;
 	}
 	
 	
-	public string getWindowString(){
+	public override string getWindowString(){
 		return name+": "+(int)(value*100)+"%";
 	}
 

@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class UnitStats {
 	
 	private Unit unit;
 	
-	private readonly int maxLevel = 100;
+	private const int MAX_LEVEL = 100;
 	private int level;
     private int skillLevel;
 	private int exp;
 	private readonly int skillsToLevel = 3;  //multiplied by level
 	
 	private BaseStat[] stats;
+
+    public event EventHandler onStatsUpdatedListener;
 	
 	public UnitStats(Unit unit, int level, UnitData data){
 		this.level = level;
@@ -36,6 +39,12 @@ public class UnitStats {
 		
 	}
 
+    private void onStatsUpdated()
+    {
+        if (onStatsUpdatedListener != null)
+            onStatsUpdatedListener(this, EventArgs.Empty);
+    }
+
 	public void updateStats(){
 		for(int s = 0; s < stats.Length; s++){
 			//set to base + per level
@@ -47,12 +56,11 @@ public class UnitStats {
 		Skill[] skills = unit.getSkillManager().getSkills();
         foreach(Skill skill in skills)
         {
-            StatChange[] statChanges = skill.getStatChanges();
+            StatChange[] statChanges = skill.getStatsPerLevel();
             if (statChanges == null) continue;
-            for(int i = 0; i < skill.getLevel(); i++)
+            foreach(StatChange stat in statChanges)
             {
-                StatChange stat = statChanges[i];
-                stat.applyChange(this);
+                stat.applyChange(this, skill.getLevel());
             }
         }
 		
@@ -60,6 +68,8 @@ public class UnitStats {
 		for(int s = 0; s < stats.Length; s++){
 			stats[s].multiply();
 		}
+
+        onStatsUpdated();
 	}
 
     private int getSkillsToLevel(int level)
@@ -72,15 +82,36 @@ public class UnitStats {
 		if(stats[(int)Stat.Energy] is Vital)((Vital) stats[(int)Stat.Energy]).setCurValue(stats[(int)Stat.Energy].getValue());
 	}
 
+    public void addToStat(Stat stat, float value)
+    {
+        addToStat((int)stat, value);
+    }
+
     public void addToStat(int stat, float value)
     {
         stats[stat].addValue(value);
+    }
+
+    public void removeFromStat(Stat stat, float value)
+    {
+        removeFromStat((int)stat, value);
     }
 
     public void removeFromStat(int stat, float value)
     {
         stats[stat].addValue(-value);
     }
+
+    public void addMultiplierToStat(Stat stat, float value)
+    {
+        addToStat((int)stat, value);
+    }
+
+    public void addMultiplierToStat(int stat, float value)
+    {
+        stats[stat].addValue(value);
+    }
+
 
     public void increaseSkillLevel()
     {
@@ -94,6 +125,7 @@ public class UnitStats {
 
     private void levelUp()
     {
+        if (level >= MAX_LEVEL) return;
         level++;
         getHealth().setCurValue(getHealth().getValue());
         getEnergy().setCurValue(getEnergy().getValue());
@@ -118,4 +150,6 @@ public class UnitStats {
     public float getCurHealth() { return ((Vital)stats[(int)Stat.Health]).getCurValue(); }
     public float getMaxEnergy() { return stats[(int)Stat.Energy].getValue(); }
     public float getCurMana() { return ((Vital)stats[(int)Stat.Energy]).getCurValue(); }
+
+    public BaseStat[] getAllStats(){ return stats; }
 }

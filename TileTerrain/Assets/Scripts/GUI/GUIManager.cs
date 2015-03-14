@@ -31,6 +31,12 @@ public class GUIManager : MonoBehaviour{
     private bool chatOutputOpen = false;
     private float chatCloseTime = 0;
 
+    //Hero stats
+    private GameObject heroStatsObject;
+    private UnitStats unitStats;
+
+    private Text[] statTexts;
+
     //Inventory
 	private GameObject inventoryObject;
 	private Inventory inventory;
@@ -149,6 +155,9 @@ public class GUIManager : MonoBehaviour{
 
         //chatObject.SetActive(chatting);
         //chatInputObject.SetActive(chatting);
+
+        //Hero stats
+        heroStatsObject = canvas.FindChild("HeroStats").gameObject;
 
 
         //Inventory init
@@ -496,11 +505,51 @@ public class GUIManager : MonoBehaviour{
             itemTooltipDescription.text = data.description;
             itemTooltipIsRecipe = false;
         }
-        
+    }
+
+    public void setUnitStats(UnitStats unitStats)
+    {
+        this.unitStats = unitStats;
+        this.unitStats.onStatsUpdatedListener += new System.EventHandler(onUnitStatsUpdated);
+        updateUnitStats();
+    }
+
+    private void onUnitStatsUpdated(object sender, System.EventArgs args)
+    {
+        updateUnitStats();
+    }
+
+    private void updateUnitStats()
+    {
+        BaseStat[] stats = unitStats.getAllStats();
+        if (statTexts == null)
+        {
+            GameObject prefab = (GameObject)Resources.Load("GUI/StatText");
+            statTexts = new Text[stats.Length];
+
+            for (int i = 0; i < stats.Length; i++)
+            {
+                GameObject go = Instantiate(prefab);
+                go.transform.SetParent(heroStatsObject.transform);
+                
+                go.transform.localScale = new Vector3(1, 1, 1);
+
+                Text text = go.GetComponent<Text>();
+                text.rectTransform.anchoredPosition = new Vector3(0, -30 - i * 20);
+
+                statTexts[i] = go.GetComponent<Text>();
+
+            }
+        }
+
+        for (int i = 0; i < stats.Length; i++)
+        {
+            statTexts[i].text = stats[i].getWindowString();
+        }
 
     }
 
-	public void setInventory(Inventory inventory)
+    public void setInventory(Inventory inventory)
 	{
 		this.inventory = inventory;
         inventory.addedItemListener += new ChangedEventHandler(onAddedItem);

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SkillsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Skills>
-    <SkillData name="melee" gameName="Melee">
+    <SkillData name="melee" gameName="Melee" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -23,11 +22,24 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>10</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+        <StatChange>
+          <stat>IncreasedDamage</stat>
+          <value>10</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="mining" gameName="Mining">
+    <SkillData name="mining" gameName="Mining" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -47,11 +59,24 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>12</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+        <StatChange>
+          <stat>Energy</stat>
+          <value>5</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="building" gameName="Building">
+    <SkillData name="building" gameName="Building" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -71,11 +96,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Armor</stat>
+          <value>1</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="crafting" gameName="Crafting">
+    <SkillData name="crafting" gameName="Crafting" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -95,11 +128,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Movespeed</stat>
+          <value>10</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="darkmagic" gameName="Dark Magic">
+    <SkillData name="darkmagic" gameName="Dark Magic" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -119,11 +160,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="lightmagic" gameName="Light Magic">
+    <SkillData name="lightmagic" gameName="Light Magic" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -143,11 +192,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="alchemy" gameName="Alchemy">
+    <SkillData name="alchemy" gameName="Alchemy" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -167,11 +224,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="harvesting" gameName="Harvesting">
+    <SkillData name="harvesting" gameName="Harvesting" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -191,11 +256,19 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Movespeed</stat>
+          <value>10</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="hunting" gameName="Hunting">
+    <SkillData name="hunting" gameName="Hunting" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -215,11 +288,24 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>IncreasedDamage</stat>
+          <value>8</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+        <StatChange>
+          <stat>Movespeed</stat>
+          <value>10</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="ranged" gameName="Ranged">
+    <SkillData name="ranged" gameName="Ranged" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -239,11 +325,24 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>IncreasedDamage</stat>
+          <value>15</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+        <StatChange>
+          <stat>Movespeed</stat>
+          <value>5</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
-    <SkillData name="woodchopping" gameName="Wood Chopping">
+    <SkillData name="woodchopping" gameName="Wood Chopping" modelName="">
       <requiredExp>
-        <int>0</int>
         <int>107</int>
         <int>244</int>
         <int>409</int>
@@ -263,7 +362,21 @@
         <int>5723</int>
         <int>6317</int>
         <int>6940</int>
+        <int>7592</int>
       </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>10</value>
+          <multiplier>true</multiplier>
+        </StatChange>
+        <StatChange>
+          <stat>HealthRegen</stat>
+          <value>2</value>
+          <multiplier>false</multiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
     </SkillData>
   </Skills>
 </SkillsRoot>

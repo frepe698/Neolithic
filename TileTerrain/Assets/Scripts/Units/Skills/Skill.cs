@@ -18,8 +18,7 @@ public class Skill {
     public readonly string name;
     public readonly string gameName;
     public const int MAXLEVEL = 20;
-    private readonly int[] requiredExp;
-    private readonly StatChange[] statChanges;
+    public readonly SkillData data;
     private int experience;
     private int level;
     private int unlockedLevel;
@@ -30,10 +29,8 @@ public class Skill {
     {
         this.name = name;
         this.manager = manager;
-        SkillData data = DataHolder.Instance.getSkillData(name);
-        if (data == null) return;
-        this.requiredExp = data.requiredExp;
-        this.gameName = data.gameName;
+        data = DataHolder.Instance.getSkillData(name);
+        if (data == null) Debug.LogWarning("could not load data for the skill: " + name);
     }
 
     //Returns true if leveled up, false if not
@@ -42,7 +39,7 @@ public class Skill {
         if (level >= MAXLEVEL) return false;
         this.experience += experience;
         Debug.Log(gameName + " experience is now " + this.experience);
-        if(this.experience >= requiredExp[level])
+        if(this.experience >= data.requiredExp[level])
         {
             level++;
             manager.increaseLevel();
@@ -65,14 +62,15 @@ public class Skill {
         //Apply changes to unitstats or smth
     }
 
-    public StatChange getStatChange(int level)
+    public StatChange getStatChange(int index)
     {
-        return statChanges[level];
+        return data.statsPerLevel[index];
     }
 
-    public StatChange[] getStatChanges()
+    public StatChange[] getStatsPerLevel()
     {
-        return statChanges;
+        if (data.statsPerLevel == null) Debug.LogWarning("error in " + name);
+        return data.statsPerLevel;
     }
 
     public int getUnlockedLevel()
