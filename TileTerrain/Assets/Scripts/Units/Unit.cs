@@ -561,8 +561,9 @@ public class Unit {
 
 	public virtual void takeDamage(float damage, int dealerID)
 	{
-        unitstats.getHealth().addCurValue(-damage);
-		//this.health -= damage;
+        //TODO:(kanske) move damage reduction to server side
+        float reducedDamage = Mathf.Max(1, damage - unitstats.getStatV(Stat.Armor));
+        unitstats.getHealth().addCurValue(-reducedDamage);
 
         if (isActive())
         {
@@ -656,6 +657,11 @@ public class Unit {
         return unitstats;
     }
 
+    public virtual ArmorData[] getEquipedArmor()
+    {
+        return new ArmorData[0];
+    }
+
     public virtual void grantExperience(int skill, int exp)
     {
 
@@ -664,6 +670,21 @@ public class Unit {
     public virtual void increaseSkillLevel()
     {
 
+    }
+
+    public void onLevelUp()
+    {
+        if (isActive())
+        {
+            ParticleSystem particles = ParticlePoolingManager.Instance.GetObject("levelupParticles");
+            if (particles != null)
+            {
+                particles.transform.position = new Vector3(position.x, position.y, position.z);
+                particles.Play();
+            }
+
+            unitController.playSound("levelup");
+        }
     }
 
 }

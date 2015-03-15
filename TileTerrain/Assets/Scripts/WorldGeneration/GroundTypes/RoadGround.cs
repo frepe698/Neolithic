@@ -45,7 +45,7 @@ public class RoadGround : GroundType {
 		if(rand > 0.99)
 		{
 			lootCount++;
-			if(rand > 0.99)
+			if(rand > 0.998)
 			{
 				lootCount++;
 			}

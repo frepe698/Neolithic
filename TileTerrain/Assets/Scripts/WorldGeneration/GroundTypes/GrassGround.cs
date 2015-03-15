@@ -49,10 +49,10 @@ public class GrassGround : GroundType {
 	{
 		float rand = Random.value;
 		int lootCount = 0;
-		if(rand > 0.96)
+		if(rand > 0.99)
 		{
 			lootCount++;
-			if(rand > 0.98)
+			if(rand > 0.995)
 			{
 				lootCount++;
 			}

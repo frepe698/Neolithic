@@ -10,13 +10,19 @@
     <ArmorData name="furarmor" gameName="Fur Armor" modelName="furarmor">
       <durability>300</durability>
       <armor>10</armor>
-      <speedPenalty>2</speedPenalty>
+      <speedPenalty>1</speedPenalty>
       <armorType>1</armorType>
     </ArmorData>
     <ArmorData name="fuzzyboots" gameName="Fuzzy Boots" modelName="fuzzyboots">
       <durability>100</durability>
       <armor>1</armor>
       <speedPenalty>-2</speedPenalty>
+      <armorType>2</armorType>
+    </ArmorData>
+    <ArmorData name="speedboots" gameName="Speed Boots" modelName="fuzzyboots">
+      <durability>100</durability>
+      <armor>0</armor>
+      <speedPenalty>-6</speedPenalty>
       <armorType>2</armorType>
     </ArmorData>
   </Armor>

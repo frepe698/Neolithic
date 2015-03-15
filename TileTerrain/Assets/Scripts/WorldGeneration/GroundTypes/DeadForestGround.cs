@@ -41,10 +41,10 @@ public class DeadForestGround : GroundType {
 		if(rand > 0.98)
 		{
 			lootCount++;
-			if(rand > 0.90)
+			if(rand > 0.995)
 			{
 				lootCount++;
-				if(rand > 0.90)
+				if(rand > 0.998)
 				{
 					lootCount++;
 				}

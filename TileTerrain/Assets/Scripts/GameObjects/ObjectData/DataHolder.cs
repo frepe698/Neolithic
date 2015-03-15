@@ -489,7 +489,16 @@ public class DataHolder {
         return null;
     }
 
-	public static DataHolder Instance
+    public int getSkillIndex(string name)
+    {
+        for (int i = 0; i < skillDataHolder.skillData.Length; i++)
+        {
+            if (skillDataHolder.skillData[i].name.Equals(name)) return i;
+        }
+        return -1;
+    }
+
+    public static DataHolder Instance
 	{
 		get
 		{

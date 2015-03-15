@@ -8,7 +8,7 @@ public class StatChange  {
 
     public readonly Stat stat;
     public readonly float value;
-    public readonly bool multiplier;
+    public readonly bool isMultiplier;
 
     public StatChange() { }
 
@@ -16,13 +16,13 @@ public class StatChange  {
     {
         this.stat = data.stat;
         this.value = data.amount;
-        this.multiplier = data.multiplier;
+        this.isMultiplier = data.multiplier;
     }
 
 
     public void applyChange(UnitStats unitstats, int unitLevel)
     {
-        if (multiplier)
+        if (isMultiplier)
         {
             unitstats.addMultiplierToStat(stat, value * unitLevel);
         }

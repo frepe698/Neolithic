@@ -28,12 +28,12 @@
         <StatChange>
           <stat>Health</stat>
           <value>10</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>IncreasedDamage</stat>
-          <value>10</value>
-          <multiplier>true</multiplier>
+          <stat>IncreasedMeleeDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -65,12 +65,12 @@
         <StatChange>
           <stat>Health</stat>
           <value>12</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>Energy</stat>
-          <value>5</value>
-          <multiplier>false</multiplier>
+          <stat>IncreasedStoneDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -102,7 +102,7 @@
         <StatChange>
           <stat>Armor</stat>
           <value>1</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -133,8 +133,8 @@
       <statsPerLevel>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>10</value>
-          <multiplier>false</multiplier>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -166,7 +166,7 @@
         <StatChange>
           <stat>Health</stat>
           <value>0</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -198,7 +198,7 @@
         <StatChange>
           <stat>Health</stat>
           <value>0</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -230,7 +230,7 @@
         <StatChange>
           <stat>Health</stat>
           <value>0</value>
-          <multiplier>false</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -261,8 +261,8 @@
       <statsPerLevel>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>10</value>
-          <multiplier>true</multiplier>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -292,14 +292,14 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>IncreasedDamage</stat>
-          <value>8</value>
-          <multiplier>true</multiplier>
+          <stat>IncreasedAttackspeed</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>10</value>
-          <multiplier>true</multiplier>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -329,14 +329,14 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>IncreasedDamage</stat>
-          <value>15</value>
-          <multiplier>true</multiplier>
+          <stat>IncreasedAttackspeed</stat>
+          <value>0.05</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>Movespeed</stat>
-          <value>5</value>
-          <multiplier>true</multiplier>
+          <stat>IncreasedRangedDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -368,12 +368,12 @@
         <StatChange>
           <stat>Health</stat>
           <value>10</value>
-          <multiplier>true</multiplier>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>HealthRegen</stat>
-          <value>2</value>
-          <multiplier>false</multiplier>
+          <stat>IncreasedTreeDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />

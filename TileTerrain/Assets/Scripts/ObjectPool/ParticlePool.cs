@@ -44,7 +44,7 @@ public class ParticlePool
         {
             //instantiate and create a game object with useless attributes.
             //these should be reset anyways.
-            ParticleSystem nParticle = GameObject.Instantiate(particle, Vector3.zero, Quaternion.identity) as ParticleSystem;
+            ParticleSystem nParticle = GameObject.Instantiate(particle, Vector3.zero, particle.transform.rotation) as ParticleSystem;
 
             //make sure the particle doesn't play when created.
             nParticle.playOnAwake = false;
@@ -87,7 +87,7 @@ public class ParticlePool
         //so we need to see if we can grow beyond our current count.
         
         //Instantiate a new object.
-        ParticleSystem nParticle = GameObject.Instantiate(pooledObj, Vector3.zero, Quaternion.identity) as ParticleSystem;
+        ParticleSystem nParticle = GameObject.Instantiate(pooledObj, Vector3.zero, pooledObj.transform.rotation) as ParticleSystem;
         //set it to active since we are about to use it.
 
         //nParticle.Play();

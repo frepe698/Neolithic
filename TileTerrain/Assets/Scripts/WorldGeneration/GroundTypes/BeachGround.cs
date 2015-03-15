@@ -33,17 +33,15 @@ public class BeachGround : GroundType {
 	{
 		float rand = Random.value;
 		int lootCount = 0;
-		if(rand > 0.8)
+		if(rand > 0.85)
 		{
 			lootCount++;
-			if(rand > 0.9)
+			if(rand > 0.93)
 			{
 				lootCount++;
-				if(rand > 0.95)
+				if(rand > 0.97)
 				{
 					lootCount++;
-					if(rand > 0.99)
-						lootCount++;
 				}
 			}
 		}

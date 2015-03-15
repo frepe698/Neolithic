@@ -619,6 +619,14 @@ public abstract class GameController : MonoBehaviour{
                 commander.warp(new Vector2((float)parameters[0],(float)parameters[1]));
             }
             break;
+
+            case (CheatCommand.ADDXP):
+            {
+                if (parameters.Length != 2) return;
+                int skillIndex = DataHolder.Instance.getSkillIndex((string)parameters[0]);
+                if (skillIndex >= 0) commander.grantExperience(skillIndex, (int)parameters[1]);
+            }
+            break;
         }
     }
 

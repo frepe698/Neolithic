@@ -97,10 +97,9 @@ public class Hero : Unit {
 		hunger += getHungerGain()*Time.deltaTime;
 		hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
-		//energy += getEnergyGain()*Time.deltaTime;
-		//energy = Mathf.Clamp(energy, 0, maxEnergy);
-        unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
-		unitstats.getHealth().addCurValue(unitstats.getHealthRegen().getValue()*Time.deltaTime);
+        unitstats.getEnergy().addCurValue(getEnergyGain() * Time.deltaTime);
+        //unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
+		unitstats.getHealth().addCurValue(getHealthGain()*Time.deltaTime);
 		//health = Mathf.Clamp(health, 0, maxHealth);
 
 	}
@@ -134,12 +133,12 @@ public class Hero : Unit {
                 if (isActive()) unit.GetComponent<UnitController>().unequipArmor(data.armorType);
             }
         }
-	
+        //Update stats
+        unitstats.updateStats();
 	}
 
     public void setItem(EquipmentData itemData)
     {
-
         if (itemData is WeaponData)
         {
             heldItem = (WeaponData)itemData;
@@ -151,21 +150,42 @@ public class Hero : Unit {
             equipedArmor[data.armorType] = data;
             if (isActive()) unit.GetComponent<UnitController>().equipArmor(unitName, data);
         }
+        //Update stats
+        unitstats.updateStats();
 
     }
 	
 
 	public override float getAttackSpeed()
 	{
-		return heldItem.attackSpeed;
+		return heldItem.attackSpeed*unitstats.getStatV(Stat.IncreasedAttackspeed);
 	}
 	
 	public override int getDamage(int damageType)
 	{
 		if(heldItem != null && damageType >= 0 && damageType < 3)
 		{
-			return heldItem.getDamage(damageType);
-		}
+            float damage;
+            if (heldItem.isMelee()) 
+                damage = heldItem.getDamage(damageType) * unitstats.getMeleeDamageMultiplier(damageType);
+			else
+                damage = heldItem.getDamage(damageType) * unitstats.getRangedDamageMultiplier(damageType);
+
+            if(damageType == DamageType.COMBAT)
+            {
+                //Add tree and stone damage to attack damage
+                //TODO(kanske): Change so it only applies to melee attacks
+                float treeToDamage = unitstats.getStatV(Stat.TreeToAttack);
+                if (treeToDamage > 0)
+                    damage += getDamage(DamageType.TREE) * treeToDamage;
+
+                float stoneToDamage = unitstats.getStatV(Stat.StoneToAttack);
+                if (stoneToDamage > 0)
+                    damage += getDamage(DamageType.STONE) * stoneToDamage;
+            }
+
+            return (int)damage;
+        }
 		else
 		{
 			Debug.Log (damageType);
@@ -215,7 +235,7 @@ public class Hero : Unit {
 		return unitstats.getEnergyRegen().getValue() - punishment; //TODO kom på hur det ska va
 	}
 
-	public float getLifeGain()
+	public float getHealthGain()
 	{
 
 		if(hunger <= 0)
@@ -292,6 +312,11 @@ public class Hero : Unit {
 		if(rwd != null) return rwd.projectileName;
 		return null;
 	}
+
+    public override ArmorData[] getEquipedArmor()
+    {
+        return equipedArmor;
+    }
 
     public override int getTeam()
     {

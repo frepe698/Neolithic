@@ -41,7 +41,7 @@ public class MountainGround : GroundType {
 		if(rand > 0.97)
 		{
 			lootCount++;
-			if(rand > 0.90)
+			if(rand > 0.995)
 			{
 				lootCount++;
 			}

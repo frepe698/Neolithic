@@ -10,12 +10,14 @@ public class CheatCommand {
         "give",
         "warp",
         "help",
+        "addxp"
     };
 
     public const int SPAWN = 0;
     public const int GIVE = 1;
     public const int WARP = 2;
     public const int HELP = 3;
+    public const int ADDXP = 4;
 
     public static void sendCommandFromString(string str)
     {
@@ -85,6 +87,18 @@ public class CheatCommand {
                     }
                 }
                 break;
+            case (ADDXP):
+                {
+                    if (substrings.Length > 2)
+                    {
+                        int amount;
+                        if (int.TryParse(substrings[2], out amount))
+                        {
+                            return new object[]{substrings[1], amount};
+                        }
+                    }
+                }
+                break;
         }
 
         return null;
@@ -143,6 +157,26 @@ public class CheatCommand {
                     else
                     {
                         GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: float x, float y");
+                        return false;
+                    }
+                    return true;
+                }
+            case (ADDXP):
+                {
+                    if (parameters.Length > 2)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: string skillname, int amount");
+                        return false;
+                    }
+                    if (DataHolder.Instance.getSkillData((string)parameters[0]) == null)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Couldn't find skilldata for " + (string)parameters[0]);
+                        return false;
+                    }
+                    int i;
+                    if (parameters.Length > 1 && !(int.TryParse(parameters[1].ToString(), out i)))
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Parameter 2 should be an int");
                         return false;
                     }
                     return true;

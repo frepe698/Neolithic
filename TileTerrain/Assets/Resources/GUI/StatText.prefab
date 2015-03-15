@@ -39,7 +39,7 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 3
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
@@ -64,7 +64,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: 1}
   m_AnchorMax: {x: .5, y: 1}
   m_AnchoredPosition: {x: 0, y: -31.2600002}
-  m_SizeDelta: {x: 132.699997, y: 20}
+  m_SizeDelta: {x: 140.649994, y: 20}
   m_Pivot: {x: .5, y: 1}
 --- !u!1001 &100100000
 Prefab:

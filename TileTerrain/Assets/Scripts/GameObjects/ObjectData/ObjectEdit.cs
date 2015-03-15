@@ -102,7 +102,7 @@ namespace Edit
         {
             this.stat = data.stat;
             this.amount = data.value;
-            this.multiplier = data.multiplier;
+            this.multiplier = data.isMultiplier;
         }
     }
 

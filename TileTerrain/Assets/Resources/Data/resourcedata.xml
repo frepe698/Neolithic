@@ -21,10 +21,9 @@
       <safeDrops>
         <string>log</string>
         <string>log</string>
-        <string>log</string>
       </safeDrops>
       <randomDrops>
-        <string />
+        <string>log</string>
       </randomDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
@@ -42,8 +41,8 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
-      <minDrops>2</minDrops>
-      <maxDrops>5</maxDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
       <variances>1</variances>
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
@@ -58,8 +57,8 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
-      <minDrops>2</minDrops>
-      <maxDrops>5</maxDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
       <variances>3</variances>
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
@@ -70,16 +69,13 @@
       <safeDrops>
         <string>log</string>
         <string>stick</string>
-        <string>stick</string>
       </safeDrops>
       <randomDrops>
-        <string>stick</string>
-        <string>stick</string>
         <string>stick</string>
         <string>log</string>
       </randomDrops>
       <minDrops>0</minDrops>
-      <maxDrops>4</maxDrops>
+      <maxDrops>2</maxDrops>
       <variances>4</variances>
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
@@ -89,14 +85,12 @@
       <damageType>1</damageType>
       <safeDrops>
         <string>stick</string>
-        <string>stick</string>
-        <string>stick</string>
       </safeDrops>
       <randomDrops>
         <string>stick</string>
       </randomDrops>
       <minDrops>0</minDrops>
-      <maxDrops>4</maxDrops>
+      <maxDrops>3</maxDrops>
       <variances>1</variances>
       <hitParticle>bushChopParticles</hitParticle>
       <blocksProjectile>false</blocksProjectile>
@@ -111,18 +105,17 @@
         <string>stick</string>
       </randomDrops>
       <minDrops>0</minDrops>
-      <maxDrops>4</maxDrops>
+      <maxDrops>2</maxDrops>
       <variances>1</variances>
       <hitParticle>bushChopParticles</hitParticle>
       <blocksProjectile>false</blocksProjectile>
     </ResourceData>
     <ResourceData name="stone" gameName="Stone" modelName="">
-      <health>80</health>
+      <health>100</health>
       <damageType>2</damageType>
       <safeDrops>
         <string>stone</string>
         <string>stone</string>
-        <string>flint</string>
       </safeDrops>
       <randomDrops>
         <string>stone</string>

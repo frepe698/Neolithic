@@ -37,16 +37,17 @@ public class Skill {
     public bool grantExperience(int experience)
     {
         if (level >= MAXLEVEL) return false;
+        bool leveledup = false;
         this.experience += experience;
         Debug.Log(gameName + " experience is now " + this.experience);
-        if(this.experience >= data.requiredExp[level])
+        while (level < MAXLEVEL && this.experience >= data.requiredExp[level])
         {
             level++;
             manager.increaseLevel();
             Debug.Log("Skill leveled up! " + gameName + " is now level " + level);
-            return true;
+            leveledup = true;
         }
-        return false;
+        return leveledup;
 
     }
 

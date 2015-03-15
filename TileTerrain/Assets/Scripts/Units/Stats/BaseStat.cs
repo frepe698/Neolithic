@@ -52,7 +52,7 @@ public class BaseStat {
 	}
 	
 	public virtual string getWindowString(){
-		return name+": "+(int)value;
+		return name+": "+value;
 	}
 
 }

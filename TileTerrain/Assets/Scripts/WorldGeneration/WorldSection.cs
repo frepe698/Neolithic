@@ -309,15 +309,15 @@ public class WorldSection {
 		return textures;
 	}
 
-	void calculateTangents()
-	{
-		Vector3[] normals = mesh.normals;
-		int count = normals.Length;
+    void calculateTangents()
+    {
+        Vector3[] normals = mesh.normals;
+        int count = normals.Length;
 
-		Vector4[] tangents = new Vector4[count];
-		for(int i = 0; i < count; i++)
-		{
-			Vector3 n = normals[i];
+        Vector4[] tangents = new Vector4[count];
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 n = normals[i];
             Vector3 t;
 
             Vector3 c1 = Vector3.Cross(n, new Vector3(0.0f, 0.0f, 1.0f));
@@ -335,10 +335,11 @@ public class WorldSection {
             Vector3.Normalize(t);
 
             tangents[i] = new Vector4(n.x, n.y, n.z, 1);
-		}
+        }
+        Debug.Log("set tangents");
 
-		mesh.tangents = tangents;
-	}
+        mesh.tangents = tangents;
+    }
 
 	float calcVertHeight(int x, int y)
 	{
