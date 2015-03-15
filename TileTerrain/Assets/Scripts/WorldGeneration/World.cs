@@ -509,11 +509,38 @@ public class World : MonoBehaviour {
             }
             GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
         }
+
+        for (int x = 0; x < getMainMapSize(); x++)
+        {
+            for (int y = 0; y < getMainMapSize(); y++)
+            {
+                if (tileMap.getTile(x, y).isWalkable(-1) && Random.value > 0.994f)
+                {
+                    if (Random.value < 0.7f)
+                    {
+                        //AIUnit unit = new AIUnit("hare", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
+                        //GameMaster.addUnit(unit);
+                        GameMaster.addDaySpawner("hare", 1, new Vector2i(x, y));
+                    }
+                    else if(Random.value < 0.5f)
+                    {
+                        GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
+                        //AIUnit unit = new AIUnit("wolf", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
+                        //GameMaster.addUnit(unit);
+                    }
+                    else 
+                    {
+                        GameMaster.addNightSpawner("goblin", Random.Range(3,6), new Vector2i(x, y));
+                        
+                    }
+                }
+            }
+        }
     }
 
 	public void addAnimals()
 	{
-
+        /*
        
 		for(int x = tileMap.basePos.x - baseSize; x <= tileMap.basePos.x + baseSize; x += baseSize*2)
 		{
@@ -542,6 +569,7 @@ public class World : MonoBehaviour {
 				}
 			}
 		}
+         */
        
 	}
 	

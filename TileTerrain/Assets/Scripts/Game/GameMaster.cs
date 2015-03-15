@@ -75,7 +75,7 @@ public class GameMaster : MonoBehaviour {
 		spawnHeroes();
         setPlayerUnit(playerUnitID);
 
-	    world.addAnimals();
+	    //world.addAnimals();
 
         world.addSpawners();
 		
