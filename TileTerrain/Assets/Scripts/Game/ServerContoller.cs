@@ -15,12 +15,29 @@ public class ServerController : GameController {
     {
         gameMaster.getNetView().RPC("approveSpawnerRespawn", RPCMode.All, spawnerID);
     }
+    public override void requestDaySpawnerRespawn(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveDaySpawnerRespawn", RPCMode.All, spawnerID);
+    }
+    public override void requestNightSpawnerRespawn(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveNightSpawnerRespawn", RPCMode.All, spawnerID);
+    }
 
 
     public override void requestSpawnerRemoveAll(int spawnerID)
     {
         gameMaster.getNetView().RPC("approveSpawnerRemoveAll", RPCMode.All, spawnerID);
     }
+    public override void requestDaySpawnerRemoveAll(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveDaySpawnerRemoveAll", RPCMode.All, spawnerID);
+    }
+    public override void requestNightSpawnerRemoveAll(int spawnerID)
+    {
+        gameMaster.getNetView().RPC("approveNightSpawnerRemoveAll", RPCMode.All, spawnerID);
+    }
+
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{

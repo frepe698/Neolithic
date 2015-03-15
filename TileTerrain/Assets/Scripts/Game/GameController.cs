@@ -47,6 +47,8 @@ public abstract class GameController : MonoBehaviour{
 
     //Spawner respawns all units that are dead
     public abstract void requestSpawnerRespawn(int spawnerID);
+    public abstract void requestDaySpawnerRespawn(int spawnerID);
+    public abstract void requestNightSpawnerRespawn(int spawnerID);
 
     [RPC]
     public void approveSpawnerRespawn(int spawnerID)
@@ -54,13 +56,37 @@ public abstract class GameController : MonoBehaviour{
         GameMaster.spawnerRespawn(spawnerID);
     }
 
+    [RPC]
+    public void approveDaySpawnerRespawn(int spawnerID)
+    {
+        GameMaster.daySpawnerRespawn(spawnerID);
+    }
+
+    [RPC]
+    public void approveNightSpawnerRespawn(int spawnerID)
+    {
+        GameMaster.nightSpawnerRespawn(spawnerID);
+    }
+
     //Spawner removes all its units
     public abstract void requestSpawnerRemoveAll(int spawnerID);
+    public abstract void requestDaySpawnerRemoveAll(int spawnerID);
+    public abstract void requestNightSpawnerRemoveAll(int spawnerID);
 
     [RPC]
     public void approveSpawnerRemoveAll(int spawnerID)
     {
         GameMaster.spawnerRemoveAll(spawnerID);
+    }
+    [RPC]
+    public void approveDaySpawnerRemoveAll(int spawnerID)
+    {
+        GameMaster.daySpawnerRemoveAll(spawnerID);
+    }
+    [RPC]
+    public void approveNightSpawnerRemoveAll(int spawnerID)
+    {
+        GameMaster.nightSpawnerRemoveAll(spawnerID);
     }
     
 	[RPC]

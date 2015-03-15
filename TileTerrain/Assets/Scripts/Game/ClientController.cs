@@ -13,12 +13,26 @@ public class ClientController : GameController {
     {
         //Do nada
     }
-
+    public override void requestDaySpawnerRespawn(int spawnerID)
+    {
+        //Do nada
+    }
+    public override void requestNightSpawnerRespawn(int spawnerID)
+    {
+        //Do nada
+    }
     public override void requestSpawnerRemoveAll(int spawnerID)
     {
         //Do nada
     }
-
+    public override void requestDaySpawnerRemoveAll(int spawnerID)
+    {
+        //Do nada
+    }
+    public override void requestNightSpawnerRemoveAll(int spawnerID)
+    {
+        //Do nada
+    }
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{

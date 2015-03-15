@@ -13,10 +13,26 @@ public class OfflineController : GameController {
     {
         approveSpawnerRespawn(spawnerID);
     }
+    public override void requestDaySpawnerRespawn(int spawnerID)
+    {
+        approveDaySpawnerRespawn(spawnerID);
+    }
+    public override void requestNightSpawnerRespawn(int spawnerID)
+    {
+        approveNightSpawnerRespawn(spawnerID);
+    }
 
     public override void requestSpawnerRemoveAll(int spawnerID)
     {
         approveSpawnerRemoveAll(spawnerID);
+    }
+    public override void requestDaySpawnerRemoveAll(int spawnerID)
+    {
+        approveDaySpawnerRemoveAll(spawnerID);
+    }
+    public override void requestNightSpawnerRemoveAll(int spawnerID)
+    {
+        approveNightSpawnerRemoveAll(spawnerID);
     }
 
 	[RPC]

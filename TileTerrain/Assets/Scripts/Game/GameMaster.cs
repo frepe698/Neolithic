@@ -236,7 +236,7 @@ public class GameMaster : MonoBehaviour {
     {
         foreach (UnitSpawner spawner in nightSpawners)
         {
-            gameController.requestSpawnerRespawn(spawner.getID());
+            gameController.requestNightSpawnerRespawn(spawner.getID());
         }
     }
 
@@ -244,7 +244,7 @@ public class GameMaster : MonoBehaviour {
     {
         foreach (UnitSpawner spawner in daySpawners)
         {
-            gameController.requestSpawnerRespawn(spawner.getID());
+            gameController.requestDaySpawnerRespawn(spawner.getID());
         }
     }
 
@@ -264,7 +264,7 @@ public class GameMaster : MonoBehaviour {
     {
         foreach (UnitSpawner spawner in daySpawners)
         {
-            gameController.requestSpawnerRemoveAll(spawner.getID());
+            gameController.requestDaySpawnerRemoveAll(spawner.getID());
         }
     }
 
@@ -272,7 +272,7 @@ public class GameMaster : MonoBehaviour {
     {
         foreach (UnitSpawner spawner in nightSpawners)
         {
-            gameController.requestSpawnerRemoveAll(spawner.getID());
+            gameController.requestNightSpawnerRemoveAll(spawner.getID());
         }
     }
     public static void spawnerRespawn(int spawnerID)
@@ -284,6 +284,28 @@ public class GameMaster : MonoBehaviour {
                 spawner.respawnUnits();
             }
         }
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.respawnUnits();
+            }
+        }
+    }
+
+    public static void daySpawnerRespawn(int spawnerID)
+    {
+        foreach(UnitSpawner spawner in daySpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.respawnUnits();
+            }
+        }
+    }
+
+    public static void nightSpawnerRespawn(int spawnerID)
+    {
         foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
@@ -310,6 +332,28 @@ public class GameMaster : MonoBehaviour {
             }
         }
     }
+    public static void daySpawnerRemoveAll(int spawnerID)
+    {
+        foreach (UnitSpawner spawner in daySpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.removeUnits();
+            }
+        }
+    }
+
+    public static void nightSpawnerRemoveAll(int spawnerID)
+    {
+        foreach (UnitSpawner spawner in nightSpawners)
+        {
+            if (spawner.getID() == spawnerID)
+            {
+                spawner.removeUnits();
+            }
+        }
+    }
+
     public static void addDaySpawner(string name, int maxUnits, Vector2i pos)
     {
         UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextDaySpawnerID());
