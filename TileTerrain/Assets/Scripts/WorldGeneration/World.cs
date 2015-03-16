@@ -494,7 +494,7 @@ public class World : MonoBehaviour {
 
     public void addSpawners()
     {
-
+        //Random.seed = 10;
         GameMaster.addDaySpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
         for(int i = 0; i < tileMap.getCaves().Count; i++)
         {

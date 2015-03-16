@@ -559,7 +559,7 @@ public class Unit {
 		return id;
 	}
 
-	public virtual void takeDamage(float damage, int dealerID)
+	public virtual void takeDamage(int damage, int dealerID)
 	{
         //TODO:(kanske) move damage reduction to server side
         float reducedDamage = Mathf.Max(1, damage - unitstats.getStatV(Stat.Armor));

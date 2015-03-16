@@ -281,16 +281,16 @@ public class GameMaster : MonoBehaviour {
         {
             if(spawner.getID() == spawnerID)
             {
-                //spawner.respawnUnits();
-                spawner.respawnIfInactive();
+                spawner.respawnUnits();
+                //spawner.respawnIfInactive();
             }
         }
         foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnIfInactive();
-                //spawner.respawnUnits();
+                //spawner.respawnIfInactive();
+                spawner.respawnUnits();
             }
         }
     }
@@ -301,8 +301,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnIfInactive();
-                //spawner.respawnUnits();
+                //spawner.respawnIfInactive();
+                spawner.respawnUnits();
             }
         }
     }
@@ -313,8 +313,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnIfInactive();
-                //spawner.respawnUnits();
+                //spawner.respawnIfInactive();
+                spawner.respawnUnits();
             }
         }
     }
@@ -325,16 +325,16 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                //spawner.removeUnits();
-                spawner.removeInactiveUnits();
+                spawner.removeUnits();
+                //spawner.removeInactiveUnits();
             }
         }
         foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeInactiveUnits();
-                //spawner.removeUnits();
+                //spawner.removeInactiveUnits();
+                spawner.removeUnits();
             }
         }
     }
@@ -344,8 +344,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeInactiveUnits();
-                //spawner.removeUnits();
+                //spawner.removeInactiveUnits();
+                spawner.removeUnits();
             }
         }
     }
@@ -356,8 +356,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeInactiveUnits();
-                //spawner.removeUnits();
+                //spawner.removeInactiveUnits();
+                spawner.removeUnits();
             }
         }
     }
@@ -596,14 +596,14 @@ public class GameMaster : MonoBehaviour {
 		
 	}
 
-	public static void addProjectile(int unitID, Vector3 goal, string name, float damage)
+	public static void addProjectile(int unitID, Vector3 goal, string name, int damage)
 	{
 		Vector3 start = getUnit(unitID).getPosition() + Vector3.up;
 		ProjectileData data = DataHolder.Instance.getProjectileData(name);
         if (data == null) return;
 		float speed = data.speed;
 		float range = data.range;
-		Projectile projectile = new Projectile(start, goal, range, speed, data.modelName, damage+data.damage, unitID);
+		Projectile projectile = new Projectile(start, goal, range, speed, data.modelName, damage+(int)data.damage, unitID);
 		projectile.Activate();
 		projectiles.Add(projectile);
 	}

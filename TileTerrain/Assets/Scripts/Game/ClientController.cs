@@ -115,7 +115,7 @@ public class ClientController : GameController {
 		//do nade
 	}
 
-	public override void requestProjectileHit(float damage, int unitID, int targetID)
+	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
 		//do nada
 	}

@@ -175,7 +175,7 @@ public abstract class GameController : MonoBehaviour{
 	}
 
 	[RPC]
-	protected void approveFireProjectile(int unitID, Vector3 goal, string name, float damage)
+	protected void approveFireProjectile(int unitID, Vector3 goal, string name, int damage)
 	{
 		GameMaster.addProjectile(unitID, goal, name, damage);
 	}
@@ -378,6 +378,7 @@ public abstract class GameController : MonoBehaviour{
                         }
                         else
                         {
+                            Debug.Log("Target is null");
                             targetUnitID = -1;
                         }
                     }
@@ -481,7 +482,7 @@ public abstract class GameController : MonoBehaviour{
 	}
 
 
-	public abstract void requestProjectileHit(float damage, int unitID, int targetID);
+	public abstract void requestProjectileHit(int damage, int unitID, int targetID);
 
     [RPC]
     public abstract void requestRemoveUnit(int unitID);
@@ -502,7 +503,7 @@ public abstract class GameController : MonoBehaviour{
 	}
 	
 	[RPC]
-	protected void hitUnit(int targetID, int unitID, float damage)
+	protected void hitUnit(int targetID, int unitID, int damage)
 	{
 		GameMaster.getUnit (targetID).takeDamage(damage, unitID);
 	}
