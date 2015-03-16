@@ -53,6 +53,12 @@ public class UnitSpawner {
         if (maxUnits - units.Count > 0) Debug.Log("Not every unit was spawned");
     }
 
+    public void respawnIfInactive()
+    {
+        if (World.tileMap.getTile(position).isActive()) return;
+        respawnUnits();
+    }
+
     public void removeUnits()
     {
         foreach(Unit unit in units)
@@ -60,6 +66,23 @@ public class UnitSpawner {
             GameMaster.removeUnit(unit);
         }
         units = new List<Unit>();
+    }
+
+    public void removeInactiveUnits()
+    {
+        List<Unit> newUnits = new List<Unit>();
+        foreach(Unit unit in units)
+        {
+            if(!unit.isActive())
+            {
+                GameMaster.removeUnit(unit);
+            }
+            else
+            {
+                newUnits.Add(unit);
+            }
+        }
+        units = newUnits;
     }
 
     public int getID()

@@ -281,14 +281,16 @@ public class GameMaster : MonoBehaviour {
         {
             if(spawner.getID() == spawnerID)
             {
-                spawner.respawnUnits();
+                //spawner.respawnUnits();
+                spawner.respawnIfInactive();
             }
         }
         foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnUnits();
+                spawner.respawnIfInactive();
+                //spawner.respawnUnits();
             }
         }
     }
@@ -299,7 +301,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnUnits();
+                spawner.respawnIfInactive();
+                //spawner.respawnUnits();
             }
         }
     }
@@ -310,7 +313,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.respawnUnits();
+                spawner.respawnIfInactive();
+                //spawner.respawnUnits();
             }
         }
     }
@@ -321,14 +325,16 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeUnits();
+                //spawner.removeUnits();
+                spawner.removeInactiveUnits();
             }
         }
         foreach (UnitSpawner spawner in nightSpawners)
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeUnits();
+                spawner.removeInactiveUnits();
+                //spawner.removeUnits();
             }
         }
     }
@@ -338,7 +344,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeUnits();
+                spawner.removeInactiveUnits();
+                //spawner.removeUnits();
             }
         }
     }
@@ -349,7 +356,8 @@ public class GameMaster : MonoBehaviour {
         {
             if (spawner.getID() == spawnerID)
             {
-                spawner.removeUnits();
+                spawner.removeInactiveUnits();
+                //spawner.removeUnits();
             }
         }
     }
