@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SkillManager {
 
     private readonly Skill[] skills;
 
+    private int abilityPoints;
+
     private Unit unit;
+
+    public event EventHandler onSkillsUpdatedListener;
 
     public SkillManager(Unit unit)
     {
@@ -26,6 +31,12 @@ public class SkillManager {
 
     private int totalLevels = 0;
 
+    private void onSkillsUpdated()
+    {
+        if (onSkillsUpdatedListener != null)
+            onSkillsUpdatedListener(this, EventArgs.Empty);
+    }
+
     public void giveExperience(int skill, int experience)
     {
         if (skill >= skills.Length) return;
@@ -44,9 +55,24 @@ public class SkillManager {
         return null;
     }
 
+    public void grantAbilityPoint()
+    {
+        abilityPoints++;
+        onSkillsUpdated();
+    }
+
+    public void removeAbilityPoint()
+    {
+        abilityPoints--;
+        onSkillsUpdated();
+    }
+
+    public int getAbilityPoints() { return abilityPoints; }
+
     public void increaseLevel()
     {
         unit.increaseSkillLevel();
+        //onSkillsUpdated();
     }
     
 }

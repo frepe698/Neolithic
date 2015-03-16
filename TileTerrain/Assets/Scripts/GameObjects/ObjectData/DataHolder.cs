@@ -498,6 +498,11 @@ public class DataHolder {
         return -1;
     }
 
+    public SkillData[] getAllSkillData()
+    {
+        return skillDataHolder.skillData;
+    }
+
     public static DataHolder Instance
 	{
 		get

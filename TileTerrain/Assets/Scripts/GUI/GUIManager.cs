@@ -11,15 +11,16 @@ public class GUIManager : MonoBehaviour{
 
 	private Transform canvas;
 
-    //Ingame menu
+    #region IN GAME MENU MEMBERS
     private GameObject ingameMenuObject;
     private bool ingameMenuActive = false;
     private const int MENU_BUTTON_RESUME = 0;
     private const int MENU_BUTTON_SETTINGS = 1;
     private const int MENU_BUTTON_MAINMENU = 2;
     private const int MENU_BUTTON_DESKTOP = 3;
+    #endregion //END IN GAME MENU MEMBERS
 
-    //Chat
+    #region CHAT MEMBERS
     private GameObject chatObject;
     private GameObject chatInputObject;
     private InputField chatInputField;
@@ -30,15 +31,30 @@ public class GUIManager : MonoBehaviour{
     private bool chatting = false;
     private bool chatOutputOpen = false;
     private float chatCloseTime = 0;
+    #endregion //END CHAT MEMBERS
 
-    //Hero stats
+    #region HERO STATS MEMBERS
     private GameObject heroStatsObject;
     private UnitStats unitStats;
 
     private Text[] statTexts;
 
-    //Inventory
-	private GameObject inventoryObject;
+    private bool heroStatsActive;
+    #endregion //END HERO STATS MEMBERS
+
+    #region ABILITY WINDOW MEMBERS
+    private GameObject abilityWindowObject;
+    private SkillManager skillManager;
+
+    private Text headerText;
+    private Text[] skillLevelText;
+    private Button[,] abilityButtons;
+
+    private bool abilityWindowActive;
+    #endregion //END ABILITY WINDOW MEMBERS
+
+    #region INVENTORY MEMBERS
+    private GameObject inventoryObject;
 	private Inventory inventory;
    
 	private RectTransform[] itemParents;
@@ -67,11 +83,11 @@ public class GUIManager : MonoBehaviour{
 	private Color selectedItemTextColor = new Color(1,1,1);
 
 	private bool inventoryActive;
-    private bool heroStatsActive;
-	
+    
+    #endregion //END INVENTORY MEMBERS
 
-    //Crafting window
-	private GameObject craftingObject;
+    #region CRAFTING MEMBERS
+    private GameObject craftingObject;
 
     private RectTransform[] recipeParents;
     private ScrollRect craftingScrollRect;
@@ -87,8 +103,9 @@ public class GUIManager : MonoBehaviour{
 
     private int selectedCraftingTab = 0;
     private bool craftingActive;
+    #endregion //END CRAFTING MEMBERS
 
-    //Tooltips
+    #region TOOLTIP MEMBERS
     private GameObject recipeTooltip;
     private Text recipeTooltipName;
     private Text recipeTooltipIngredients;
@@ -101,39 +118,43 @@ public class GUIManager : MonoBehaviour{
     private Text itemTooltipDescription;
     private string itemTooltipIndexName = "";
     private bool itemTooltipIsRecipe = false;
-   // public Vector3 tooltipOffset = Vector3.zero;
-    
-    //Player stats
-	private RectTransform healthbarTransform;
+    // public Vector3 tooltipOffset = Vector3.zero;
+    #endregion //END TOOLTIP MEMBERS
+
+    #region PLAYER STATS MEMBERS
+    private RectTransform healthbarTransform;
 	private RectTransform energybarTransform;
 	private RectTransform hungerbarTransform;
 	private RectTransform coldbarTransform;
+    #endregion //END PLAYER STATS MEMBERS
 
-    //Item quick use
+    #region QUICK USE ITEMS MEMBERS
     public const int QUICK_USE_ITEM_COUNT = 5;
     private QuickUseItem[] quickUseItems;
     private Image[] quickUseItemImages;
     private Image[] quickUseItemEquipedImages;
     private Text[] quickUseItemAmount;
+    #endregion //END QUICK USE ITEMS MEMBERS
 
-    //FPS display
+    #region FPS DISPLAY MEMBERS
     private Text fpsDisplay;
     private float nextUpdateTimer;
     private int frames;
+    #endregion //END FPS DISPLAY MEMBERS
 
-	private bool mouseOverGUI = false;
+    private bool mouseOverGUI = false;
 
 	void Awake()
-	{
-		canvas = GameObject.Find("GameCanvas").transform;
-		eventSystem = GameObject.Find ("EventSystem").GetComponent<EventSystem>();
+    {
+        canvas = GameObject.Find("GameCanvas").transform;
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 
-		healthbarTransform = canvas.FindChild("healthbar").FindChild("healthbar_mask").FindChild("healthbar_drink").GetComponent<RectTransform>();
-		energybarTransform = canvas.FindChild("energybar").FindChild("energybar_mask").FindChild("energybar_drink").GetComponent<RectTransform>();
+        healthbarTransform = canvas.FindChild("healthbar").FindChild("healthbar_mask").FindChild("healthbar_drink").GetComponent<RectTransform>();
+        energybarTransform = canvas.FindChild("energybar").FindChild("energybar_mask").FindChild("energybar_drink").GetComponent<RectTransform>();
 
-		Transform rightPanel = canvas.FindChild("RightPanel");
-		hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
-		coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
+        Transform rightPanel = canvas.FindChild("RightPanel");
+        hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
+        coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
 
         //Ingame Menu init
         ingameMenuObject = canvas.FindChild("IngameMenu").gameObject;
@@ -159,14 +180,54 @@ public class GUIManager : MonoBehaviour{
 
         //Hero stats
         heroStatsObject = canvas.FindChild("HeroStats").gameObject;
-        heroStatsActive = false;
-        heroStatsObject.SetActive(heroStatsActive);
+
+        {
+            //Ability window
+            abilityWindowObject = canvas.FindChild("AbilityWindow").gameObject;
+            headerText = abilityWindowObject.transform.FindChild("Header").GetComponent<Text>();
+            GameObject skillPrefab = (GameObject)Resources.Load("GUI/Skill");
+            SkillData[] skillData = DataHolder.Instance.getAllSkillData();
+            skillLevelText = new Text[skillData.Length];
+            abilityButtons = new Button[skillData.Length, 5];
+            float width = skillPrefab.GetComponent<RectTransform>().sizeDelta.x;
+            float startX = (-(abilityWindowObject.GetComponent<RectTransform>().sizeDelta.x) / 2) + width; 
+            for (int i = 0; i < skillData.Length; i++)
+            {
+                GameObject go = Instantiate(skillPrefab);
+                go.transform.SetParent(abilityWindowObject.transform);
+                go.transform.localScale = new Vector3(1, 1, 1);
+                go.GetComponent<RectTransform>().anchoredPosition = new Vector3(startX + width * i, 100);
+
+
+
+                Text text = go.GetComponent<Text>();
+                text.text = skillData[i].gameName.Substring(0, 3).ToUpper();
+                Color color = new Color(0, 0, 0, 1);
+                if (i < 4) color = Color.Lerp(Color.red, Color.blue, (float)i/4.0f);
+                else if (i < 8) color = Color.Lerp(Color.blue, Color.green, (float)(i-4)/4.0f);
+                else color = Color.Lerp(Color.green, Color.red, (float)(i - 8) / 3.0f);
+                
+                text.color = color;
+
+
+                skillLevelText[i] = go.transform.FindChild("LevelText").GetComponent<Text>();
+
+                int skillIndex = i;
+                for (int b = 0; b < 5; b++)
+                {
+                    Button button = go.transform.FindChild("ButtonAbility" + b).GetComponent<Button>();
+                    int levelIndex = b;
+                    button.onClick.AddListener(() => abilityButtonClick(skillIndex, levelIndex));
+                    abilityButtons[i, b] = button;
+                }
+            }
+        }
 
         //Inventory init
-		inventoryObject = canvas.FindChild("Inventory").gameObject;
-		Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
-		inventoryScrollRect = scrollMask.GetComponent<ScrollRect>();
-		inventoryMask = scrollMask.GetComponent<RectTransform>();
+        inventoryObject = canvas.FindChild("Inventory").gameObject;
+        Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
+        inventoryScrollRect = scrollMask.GetComponent<ScrollRect>();
+        inventoryMask = scrollMask.GetComponent<RectTransform>();
 
         inventoryFolds = new RectTransform[ITEM_TYPE_COUNT];
         inventoryFoldArrows = new RectTransform[ITEM_TYPE_COUNT];
@@ -176,24 +237,24 @@ public class GUIManager : MonoBehaviour{
 
         itemHolder = scrollMask.FindChild("Items").GetComponent<RectTransform>();
         for (int i = 0; i < ITEM_TYPE_COUNT; i++)
-		{
-			int index = i;
+        {
+            int index = i;
             itemParents[i] = itemHolder.FindChild("Items" + i).GetComponent<RectTransform>();
             inventoryFolds[i] = itemHolder.FindChild("ItemsFold" + i).GetComponent<RectTransform>();
-			inventoryFolds[i].GetComponent<Button>().onClick.AddListener(() => inventoryFoldButtonClick(index));
+            inventoryFolds[i].GetComponent<Button>().onClick.AddListener(() => inventoryFoldButtonClick(index));
             inventoryFoldArrows[i] = inventoryFolds[i].FindChild("Arrow").GetComponent<RectTransform>();
             itemButtons[i] = new List<Button>();
             inventoryFoldOpen[i] = true;
-		}
-        
+        }
+
 
         //Crafting init
-		craftingObject = canvas.FindChild("Crafting").gameObject;
+        craftingObject = canvas.FindChild("Crafting").gameObject;
         Transform cscrollMask = craftingObject.transform.FindChild("ScrollMask");
         craftingScrollRect = cscrollMask.GetComponent<ScrollRect>();
         craftingMask = cscrollMask.GetComponent<RectTransform>();
 
-       
+
         recipeFolds = new RectTransform[RECIPE_TYPE_COUNT];
         recipeFoldArrows = new RectTransform[RECIPE_TYPE_COUNT];
         recipeParents = new RectTransform[RECIPE_TYPE_COUNT];
@@ -211,7 +272,7 @@ public class GUIManager : MonoBehaviour{
             craftingButtons[i] = new List<Button>();
             recipeFoldOpen[i] = true;
         }
-		updateCrafting();
+        updateCrafting();
 
         //Tooltips init
         recipeTooltip = canvas.FindChild("RecipeTooltip").gameObject;
@@ -243,11 +304,15 @@ public class GUIManager : MonoBehaviour{
         //Fps display
         fpsDisplay = canvas.FindChild("FPSDisplay").GetComponent<Text>();
 
-		activateInventory(false);
-		activateCrafting(false);
-	}
+        activateInventory(false);
+        activateCrafting(false);
+        activateHeroStats(false);
+        activateAbilityWindow(false);
+    }
 
-	public void update()
+    #region UPDATE
+
+    public void update()
 	{
         if (chatting)
         {
@@ -384,6 +449,10 @@ public class GUIManager : MonoBehaviour{
 
     }
 
+    #endregion //UPDATE
+
+    #region IN GAME MENU
+
     public void ingameMenuButtonClick(int index)
     {
         Debug.Log("clicked " + index);
@@ -413,6 +482,9 @@ public class GUIManager : MonoBehaviour{
         ingameMenuObject.SetActive(ingameMenuActive);
     }
 
+    #endregion // IN GAME MENU
+
+    #region TOOLTIPS
     private void inactivateRecipeTooltip()
     {
         recipeTooltipIndex = -1;
@@ -509,6 +581,10 @@ public class GUIManager : MonoBehaviour{
         }
     }
 
+    #endregion //TOOLTIPS
+
+    #region UNIT STATS
+
     public void setUnitStats(UnitStats unitStats)
     {
         this.unitStats = unitStats;
@@ -551,21 +627,54 @@ public class GUIManager : MonoBehaviour{
 
     }
 
-    public void setInventory(Inventory inventory)
-	{
-		this.inventory = inventory;
-        inventory.addedItemListener += new ChangedEventHandler(onAddedItem);
-        inventory.removedItemListener += new ChangedEventHandler(onRemovedItem);
-        inventory.changeItemListener += new System.EventHandler(onQuickUseItemUpdate);
-        itemButtons = new List<Button>[ITEM_TYPE_COUNT];
-        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+    #endregion //UNIT STATS
+
+    #region ABILITY WINDOW
+
+    public void setSkillManager(SkillManager skillManager)
+    {
+        this.skillManager = skillManager;
+        skillManager.onSkillsUpdatedListener += new System.EventHandler(onSkillsUpdated);
+        updateAbilityWindow();
+    }
+
+    private void onSkillsUpdated(object sender, System.EventArgs args)
+    {
+        updateAbilityWindow();
+    }
+
+    private void updateAbilityWindow()
+    {
+        if (unitStats == null) return;
+
+        headerText.text = "Level " + unitStats.getDisplayLevel() + " <color=black>|</color> <color=white>Ability Points "+skillManager.getAbilityPoints()+"</color>";
+
+        Skill[] skills = skillManager.getSkills();
+
+        for (int i = 0; i < skills.Length; i++)
         {
-            itemButtons[i] = new List<Button>();
+            skillLevelText[i].text = skills[i].getDisplayLevel().ToString();
+
+            //Update buttons
+            for (int bi = 0; bi < 5; bi++)
+            {
+                abilityButtons[i, bi].interactable = bi == skills[i].getUnlockedLevel();
+                abilityButtons[i, bi].image.color = bi <= skills[i].getUnlockedLevel() ? Color.yellow : Color.gray;
+            }
         }
-		
-		updateInventory();
-        updateQuickUseItems();
-	}
+        
+        
+    }
+
+    public void abilityButtonClick(int skill, int level)
+    {
+        Debug.Log("Level skill: " + skill + " level: " + level);
+        skillManager.getSkill(skill).unlock(level);
+    }
+
+    #endregion
+
+    #region QUICK USE ITEMS
 
     private void updateQuickUseItems()
     {
@@ -670,6 +779,42 @@ public class GUIManager : MonoBehaviour{
     public Item getQuickUseItem(int quickUseIndex)
     {
         return quickUseItems[quickUseIndex].getItem(inventory);
+    }
+
+    public void quickUseItem(int index)
+    {
+        if (quickUseItems[index] != null)
+        {
+            Item item = quickUseItems[index].getItem(inventory);
+            if (item is EquipmentItem)
+            {
+                GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
+            }
+            else if (item is ConsumableItem)
+            {
+                GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
+            }
+        }
+    }
+
+    #endregion //QUICK USE ITEMS
+
+    #region INVENTORY
+
+    public void setInventory(Inventory inventory)
+    {
+        this.inventory = inventory;
+        inventory.addedItemListener += new ChangedEventHandler(onAddedItem);
+        inventory.removedItemListener += new ChangedEventHandler(onRemovedItem);
+        inventory.changeItemListener += new System.EventHandler(onQuickUseItemUpdate);
+        itemButtons = new List<Button>[ITEM_TYPE_COUNT];
+        for (int i = 0; i < ITEM_TYPE_COUNT; i++)
+        {
+            itemButtons[i] = new List<Button>();
+        }
+
+        updateInventory();
+        updateQuickUseItems();
     }
 
     private void updateInventory()
@@ -885,40 +1030,16 @@ public class GUIManager : MonoBehaviour{
 		selectedItem = index;
 	}
 
-    public void quickUseItem(int index)
+    public int getSelectedItemIndex()
     {
-        if (quickUseItems[index] != null)
-        {
-            Item item = quickUseItems[index].getItem(inventory);
-            if (item is EquipmentItem)
-            {
-                GameMaster.getGameController().requestItemChange(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
-            }
-            else if (item is ConsumableItem)
-            {
-                GameMaster.getGameController().requestItemConsume(GameMaster.getPlayerUnitID(), quickUseItems[index].itemIndex);
-            }
-        }
+        return selectedItem;
     }
 
-	public void toggleInventory()
-	{
-		activateInventory(!inventoryActive);
-        activateCrafting(!inventoryActive);
-	}
+    #endregion //INVENTORY
 
-	public void toggleCrafting()
-	{
-        activateInventory(!inventoryActive);
-        activateCrafting(!inventoryActive);
-	}
+    #region CRAFTING
 
-    public void toggleHeroStats()
-    {
-        activateHeroStats(!heroStatsActive);
-    }
-
-	private void updateCrafting()
+    private void updateCrafting()
 	{
         List<RecipeData>[] recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
         recipes[TAB_CRAFTED] = new List<RecipeData>();
@@ -1127,6 +1248,32 @@ public class GUIManager : MonoBehaviour{
 
 	}
 
+    #endregion //CRAFTING
+
+    #region TOGGLE WINDOWS
+
+    public void toggleCrafting()
+    {
+        activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
+    }
+
+    public void toggleInventory()
+    {
+        activateInventory(!inventoryActive);
+        activateCrafting(!inventoryActive);
+    }
+
+    public void toggleHeroStats()
+    {
+        activateHeroStats(!heroStatsActive);
+    }
+
+    public void toggleAbilityWindow()
+    {
+        activateAbilityWindow(!abilityWindowActive);
+    }
+
 	public void activateInventory(bool active)
 	{
 		inventoryActive = active;
@@ -1145,15 +1292,15 @@ public class GUIManager : MonoBehaviour{
         heroStatsObject.SetActive(heroStatsActive);
     }
 
-	public bool isMouseOverGUI()
-	{
-		return mouseOverGUI;
-	}
-
-    public bool takeKeyboardInput()
+    public void activateAbilityWindow(bool active)
     {
-        return !chatting;
+        abilityWindowActive = active;
+        abilityWindowObject.SetActive(abilityWindowActive);
     }
+
+    #endregion //TOGGLE WINDOWS
+
+    #region CHAT
 
     public void addChatMessage(string msg)
     {
@@ -1187,11 +1334,18 @@ public class GUIManager : MonoBehaviour{
             chatInputObject.SetActive(true);
             justOpenedChat = true;
         }
-        
+
     }
 
-    public int getSelectedItemIndex()
+    #endregion //CHAT
+
+    public bool isMouseOverGUI()
     {
-        return selectedItem;
+        return mouseOverGUI;
+    }
+
+    public bool takeKeyboardInput()
+    {
+        return !chatting;
     }
 }

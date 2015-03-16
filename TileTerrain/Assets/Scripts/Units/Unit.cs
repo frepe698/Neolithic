@@ -672,6 +672,11 @@ public class Unit {
 
     }
 
+    public virtual void grantAbilityPoint()
+    {
+        skillManager.grantAbilityPoint();
+    }
+
     public void onLevelUp()
     {
         if (isActive())

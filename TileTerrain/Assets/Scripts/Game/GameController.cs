@@ -219,6 +219,10 @@ public abstract class GameController : MonoBehaviour{
                 gameMaster.getGUIManager().toggleHeroStats();
                 //gameMaster.getGUIManager().toggleCrafting();
             }
+            if (Input.GetKeyDown("p"))
+            {
+                gameMaster.getGUIManager().toggleAbilityWindow();
+            }
             if (Input.GetKeyDown("escape"))
             {
                 gameMaster.getGUIManager().toggleIngameMenu();

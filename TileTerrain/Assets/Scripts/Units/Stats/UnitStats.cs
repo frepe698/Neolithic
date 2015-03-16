@@ -138,7 +138,7 @@ public class UnitStats {
     public void increaseSkillLevel()
     {
         skillLevel++;
-        while (level < MAX_LEVEL && skillLevel >= getSkillsToLevel(level))
+        while (level+1 < MAX_LEVEL && skillLevel >= getSkillsToLevel(level))
         {
             levelUp();
         }
@@ -147,17 +147,20 @@ public class UnitStats {
 
     private void levelUp()
     {
-        if (level >= MAX_LEVEL) return;
+        if (level > MAX_LEVEL) return;
         level++;
         getHealth().setCurValue(getHealth().getValue());
         getEnergy().setCurValue(getEnergy().getValue());
         updateStats();
         Debug.Log("You are now level " + level + "!");
         Debug.Log("Your new Health value is " + getHealth().getValue());
+        unit.grantAbilityPoint();
         unit.onLevelUp();
         //unit.onLevelUp();
     }
 
+    public int getLevel() { return level; }
+    public int getDisplayLevel() { return level+1; }
     public BaseStat getStat(int stat) { return stats[stat]; }
     public BaseStat getStat(Stat stat) { return stats[(int)stat]; }
     public float getStatV(int stat) { return stats[stat].getValue(); }

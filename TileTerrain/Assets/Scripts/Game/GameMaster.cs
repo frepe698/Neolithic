@@ -103,6 +103,7 @@ public class GameMaster : MonoBehaviour {
 		
 		guiManager.setInventory(hero.getInventory());
         guiManager.setUnitStats(hero.getUnitStats());
+        guiManager.setSkillManager(hero.getSkillManager());
 	}
 
 	private void setPlayerUnit(int id)
@@ -479,8 +480,9 @@ public class GameMaster : MonoBehaviour {
         unit.setAlive(false);
 		unit.setAwake(false);
 		unit.inactivate();
-		units.Remove(unit);
-		awakeUnits.Remove(unit);
+        bool removedFromUnits = units.Remove(unit);
+		bool removedFromAwake = awakeUnits.Remove(unit);
+        if (removedFromAwake && !removedFromUnits) Debug.LogError("only removed unit from awake list");
 		Hero hero = unit as Hero;
 		if(hero != null) heroes.Remove(hero);
 	}

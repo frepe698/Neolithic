@@ -36,11 +36,11 @@ public class Skill {
     //Returns true if leveled up, false if not
     public bool grantExperience(int experience)
     {
-        if (level >= MAXLEVEL) return false;
+        if (level > MAXLEVEL) return false;
         bool leveledup = false;
         this.experience += experience;
         Debug.Log(gameName + " experience is now " + this.experience);
-        while (level < MAXLEVEL && this.experience >= data.requiredExp[level])
+        while (level+1 < MAXLEVEL && this.experience >= data.requiredExp[level])
         {
             level++;
             manager.increaseLevel();
@@ -56,11 +56,25 @@ public class Skill {
         return this.level;
     }
 
+    public int getDisplayLevel()
+    {
+        return this.level + 1;
+    }
+
     public void unlockNext()
     {
         if (unlockedLevel >= MAXLEVEL) return;
         unlockedLevel++;
+        manager.removeAbilityPoint();
         //Apply changes to unitstats or smth
+    }
+
+    public void unlock(int level)
+    {
+        if (level == unlockedLevel)
+        {
+            unlockNext();
+        }
     }
 
     public StatChange getStatChange(int index)
