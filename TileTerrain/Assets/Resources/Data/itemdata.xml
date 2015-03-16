@@ -4,6 +4,9 @@
     <MaterialData name="log" gameName="Log" modelName="log">
       <description>Used for building wood stuff</description>
     </MaterialData>
+    <MaterialData name="finewood" gameName="Fine Wood" modelName="finewood">
+      <description>Used for crafting fancy wood stuff</description>
+    </MaterialData>
     <MaterialData name="stick" gameName="Stick" modelName="stick">
       <description>Used for crafting items</description>
     </MaterialData>

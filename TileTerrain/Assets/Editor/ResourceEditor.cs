@@ -184,6 +184,8 @@ public class ResourceEditor : ObjectEditor
         data.safeDrops = EditorGUILayout.TextArea(data.safeDrops, GUILayout.ExpandHeight(true));
         EditorGUILayout.LabelField("Random Drops: ", EditorStyles.boldLabel);
         data.randomDrops = EditorGUILayout.TextArea(data.randomDrops, GUILayout.ExpandHeight(true));
+        EditorGUILayout.LabelField("Rare Drops: ", EditorStyles.boldLabel);
+        data.rareDrops = EditorGUILayout.TextArea(data.rareDrops, GUILayout.ExpandHeight(true));
         Vector2 amount = EditorGUILayout.Vector2Field("Min/Max", new Vector2(data.minDrops, data.maxDrops));
         data.minDrops = (int)amount.x;
         data.maxDrops = (int)amount.y;

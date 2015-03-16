@@ -518,12 +518,15 @@ public class GameMaster : MonoBehaviour {
 		return guiManager;
 	}
 	
-	public static void addResourceLoot(string resourceName, int seed, int x, int y)
+	public static void addResourceLoot(string resourceName, int seed, int x, int y, int unitID)
 	{
 		Random.seed = seed;
-		Debug.Log (resourceName);
 		ResourceData data = DataHolder.Instance.getResourceData(resourceName);
 		if(data == null) return;
+
+        UnitStats unitstats = getHero(unitID).getUnitStats();
+        if (hero == null) return;
+
 		for(int i = 0; i < data.safeDrops.Length; i++)
 		{
 			string itemName = data.safeDrops[i];
@@ -535,14 +538,28 @@ public class GameMaster : MonoBehaviour {
 			}
 			
 		}
-		
+		float rarity = 0;
+        float amount = 0;
+
+        switch (data.damageType)
+        {
+            case(DamageType.TREE):
+                rarity = unitstats.getStatV(Stat.TreeDropRarity);
+                amount = unitstats.getStatV(Stat.TreeDropAmount);
+                break;
+            case(DamageType.STONE):
+                rarity = unitstats.getStatV(Stat.StoneDropRarity);
+                amount = unitstats.getStatV(Stat.StoneDropAmount);
+                break;
+        }
 		
 		if(data.randomDrops != null)
 		{
-			int randomDrops = Random.Range(data.minDrops, data.maxDrops);
+            bool hasRare = data.rareDrops != null;
+			int randomDrops = Mathf.RoundToInt(Random.Range(data.minDrops, data.maxDrops) * amount);
 			for(int i = 0; i < randomDrops; i++)
 			{  
-				string itemName = data.randomDrops[Random.Range(0, data.randomDrops.Length)];
+				string itemName = (!hasRare || Random.value > rarity) ? data.randomDrops[Random.Range(0, data.randomDrops.Length)] : data.rareDrops[Random.Range(0, data.rareDrops.Length)];
 				ItemData itemData = DataHolder.Instance.getItemData(itemName);
 				if(itemData != null)
 				{
@@ -564,7 +581,6 @@ public class GameMaster : MonoBehaviour {
         string[] safedrops = data.getSafeDrops();
         if (safedrops != null)
         {
-            Debug.Log(safedrops.Length);
             for (int i = 0; i < safedrops.Length; i++)
             {
                 string itemName = safedrops[i];

@@ -116,7 +116,7 @@ public class ServerController : GameController {
 			int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
 			if(resObject.getHealth() <= damage)
 			{
-				gameMaster.getNetView().RPC ("gatherResource", RPCMode.All, tile.x, tile.y);
+				gameMaster.getNetView().RPC ("gatherResource", RPCMode.All, tile.x, tile.y, unitID);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 if(resObject.getDamageType() == 1)
                 {
@@ -196,7 +196,7 @@ public class ServerController : GameController {
 	}
 
 	
-	public override void requestResourceLootDrop(string resourceName, Vector2i tile)
+	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)
 	{
 		gameMaster.getNetView().RPC ("dropResourceLoot", RPCMode.All, resourceName, Random.seed, tile.x, tile.y);
 	}

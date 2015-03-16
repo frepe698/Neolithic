@@ -145,13 +145,16 @@
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
       <safeDrops>
-        <string>fur</string>
+        <string />
       </safeDrops>
       <randomDrops>
+        <string>stick</string>
+        <string>stick</string>
+        <string>stick</string>
         <string>gold</string>
       </randomDrops>
-      <minDrops>4</minDrops>
-      <maxDrops>10</maxDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>1</maxDrops>
     </AIUnitData>
     <AIUnitData name="battlepig" gameName="Battle Pig" modelName="battlepig">
       <health>10000</health>

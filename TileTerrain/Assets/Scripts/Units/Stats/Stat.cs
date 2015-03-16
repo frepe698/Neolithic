@@ -22,6 +22,11 @@ public enum Stat {
     TreeToAttack,
     StoneToAttack,
 
+    TreeDropAmount,
+    TreeDropRarity,
+    StoneDropAmount,
+    StoneDropRarity,
+
     Movespeed,
 
 

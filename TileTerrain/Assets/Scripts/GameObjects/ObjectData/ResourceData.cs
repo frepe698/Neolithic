@@ -14,6 +14,9 @@ public class ResourceData : ObjectData {
 	[XmlArray("randomDrops")]
 	public readonly string[] randomDrops;
 
+    [XmlArray("rareDrops")]
+    public readonly string[] rareDrops;
+
 	public readonly int minDrops = 0;
 	public readonly int maxDrops = 2;
 
@@ -36,6 +39,7 @@ public class ResourceData : ObjectData {
 
         safeDrops = edit.safeDrops.Trim().Split('\n');
         randomDrops = edit.randomDrops.Trim().Split('\n');
+        rareDrops = edit.rareDrops.Trim().Split('\n');
         minDrops = edit.minDrops;
         maxDrops = edit.maxDrops;
 

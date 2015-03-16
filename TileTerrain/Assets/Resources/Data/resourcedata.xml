@@ -10,6 +10,9 @@
       <randomDrops>
         <string />
       </randomDrops>
+      <rareDrops>
+        <string />
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>1</variances>
@@ -25,6 +28,9 @@
       <randomDrops>
         <string>log</string>
       </randomDrops>
+      <rareDrops>
+        <string>finewood</string>
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>3</variances>
@@ -41,6 +47,9 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
+      <rareDrops>
+        <string>finewood</string>
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>1</variances>
@@ -57,6 +66,9 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
+      <rareDrops>
+        <string>finewood</string>
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>3</variances>
@@ -74,6 +86,9 @@
         <string>stick</string>
         <string>log</string>
       </randomDrops>
+      <rareDrops>
+        <string />
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>4</variances>
@@ -89,6 +104,9 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
+      <rareDrops>
+        <string />
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>3</maxDrops>
       <variances>1</variances>
@@ -104,6 +122,9 @@
       <randomDrops>
         <string>stick</string>
       </randomDrops>
+      <rareDrops>
+        <string />
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
       <variances>1</variances>
@@ -119,9 +140,17 @@
       </safeDrops>
       <randomDrops>
         <string>stone</string>
+        <string>stone</string>
+        <string>stone</string>
+        <string>flint</string>
+      </randomDrops>
+      <rareDrops>
+        <string>flint</string>
+        <string>flint</string>
+        <string>iron</string>
         <string>iron</string>
         <string>gold</string>
-      </randomDrops>
+      </rareDrops>
       <minDrops>0</minDrops>
       <maxDrops>4</maxDrops>
       <variances>3</variances>

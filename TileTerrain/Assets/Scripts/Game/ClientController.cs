@@ -100,7 +100,7 @@ public class ClientController : GameController {
 	}
 	
 
-	public override void requestResourceLootDrop(string resourceName, Vector2i tile)
+	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)
 	{
 		//do nada
 	}

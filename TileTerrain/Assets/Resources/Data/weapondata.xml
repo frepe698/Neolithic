@@ -53,11 +53,11 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1</attackSpeed>
+      <attackSpeed>1.1</attackSpeed>
       <damage>
-        <int>30</int>
-        <int>40</int>
-        <int>10</int>
+        <int>20</int>
+        <int>18</int>
+        <int>8</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>

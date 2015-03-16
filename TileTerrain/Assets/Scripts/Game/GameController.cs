@@ -34,6 +34,8 @@ public abstract class GameController : MonoBehaviour{
 		attackCursor = Resources.Load<Texture2D>("GUI/Cursors/attack_cursor");
 	}
 
+    #region UNIT SPAWNING
+
     //Spawn a unit
     [RPC]
     public abstract void requestAIUnitSpawn(int unitID, string name, float x, float y);
@@ -88,8 +90,12 @@ public abstract class GameController : MonoBehaviour{
     {
         GameMaster.nightSpawnerRemoveAll(spawnerID);
     }
-    
-	[RPC]
+
+    #endregion
+
+    #region UNIT COMMANDS
+
+    [RPC]
 	public abstract void requestMoveCommand(int unitID, float x, float y);
 	
 	[RPC]
@@ -174,11 +180,7 @@ public abstract class GameController : MonoBehaviour{
 		unit.giveRangedAttackCommand(target);
 	}
 
-	[RPC]
-	protected void approveFireProjectile(int unitID, Vector3 goal, string name, int damage)
-	{
-		GameMaster.addProjectile(unitID, goal, name, damage);
-	}
+
 
 	[RPC]
 	public abstract void requestLootCommand(int unitID, int tileX, int tileY, int lootID);
@@ -197,7 +199,15 @@ public abstract class GameController : MonoBehaviour{
 		unit.giveLootCommand(new Vector2i(tileX, tileY), lootID);
 	}
 
-	public abstract void update();
+    [RPC]
+    protected void sendMoveCommandWithLag(int unitID, float x, float y, float lag)
+    {
+        StartCoroutine(lagMove(unitID, x, y, lag));
+    }
+
+    #endregion
+
+    public abstract void update();
 
 	protected void updateInput()
 	{
@@ -455,39 +465,6 @@ public abstract class GameController : MonoBehaviour{
 		}
 	}
 
-	[RPC]
-	protected void sendMoveCommandWithLag(int unitID, float x, float y, float lag)
-	{
-		StartCoroutine(lagMove(unitID, x, y, lag));
-	}
-
-    [RPC]
-    protected void warpUnit(int unitID, float x, float y, float rot = 0)
-    {
-        Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null)
-        {
-            unit.warp(new Vector2(x, y));
-            unit.setRotation(new Vector3(0, rot, 0));
-        }
-    }
-
-	[RPC]
-	protected void gatherResource(int x, int y)
-	{
-		string name = World.tileMap.getTile(x,y).removeTileObject();
-		requestResourceLootDrop(name, new Vector2i(x,y));
-	}
-
-	[RPC]
-	protected void hitResource(int x, int y, int damage)
-	{
-		World.tileMap.getTile(x, y).getResourceObject().dealDamage(damage);
-	}
-
-
-	public abstract void requestProjectileHit(int damage, int unitID, int targetID);
-
     [RPC]
     public abstract void requestRemoveUnit(int unitID);
 
@@ -498,7 +475,9 @@ public abstract class GameController : MonoBehaviour{
         unit.setAlive(false);
     }
 
-	[RPC]
+    #region COMBAT
+
+    [RPC]
 	protected void killUnit(int targetID, int unitID)
 	{
 		Unit unit = GameMaster.getUnit (targetID); 
@@ -512,27 +491,55 @@ public abstract class GameController : MonoBehaviour{
 		GameMaster.getUnit (targetID).takeDamage(damage, unitID);
 	}
 
-	[RPC]
-	protected void changeHunger(int targetID, int food)
-	{
-		Hero hero = GameMaster.getHero(targetID);
-		if(hero != null)
-		{
-			hero.changeHunger(food);
-		}
-	}
+    public abstract void requestAttack(int unitID, int targetID);
 
-	[RPC]
-	protected void changeEnergy(int targetID, int energy)
-	{
-		Hero hero = GameMaster.getHero(targetID);
-		if(hero != null)
-		{
-			hero.changeEnergy(energy);
-		}
-	}
+    public abstract void requestFireProjectile(int unitID, Vector3 target);
 
-	[RPC]
+    [RPC]
+    protected void approveFireProjectile(int unitID, Vector3 goal, string name, int damage)
+    {
+        GameMaster.addProjectile(unitID, goal, name, damage);
+    }
+
+    public abstract void requestProjectileHit(int damage, int unitID, int targetID);
+
+    #endregion
+
+    #region GATHERING
+
+    public abstract void requestGather(int unitID, Vector2i tile);
+
+    [RPC]
+    protected void hitResource(int x, int y, int damage)
+    {
+        World.tileMap.getTile(x, y).getResourceObject().dealDamage(damage);
+    }
+
+    [RPC]
+    protected void gatherResource(int x, int y, int unitID)
+    {
+        string name = World.tileMap.getTile(x, y).removeTileObject();
+        requestResourceLootDrop(name, new Vector2i(x, y), unitID);
+    }
+
+    public abstract void requestResourceLootDrop(string loot, Vector2i tile, int unitID);
+
+    [RPC]
+    protected void dropResourceLoot(string resourceName, int seed, int x, int y, int unitID)
+    {
+        GameMaster.addResourceLoot(resourceName, seed, x, y, unitID);
+    }
+
+    
+
+    #endregion
+
+    #region LOOT
+    //REGION LOOT
+
+    public abstract void requestLoot(int unitID, Vector2i tile, int lootID);
+
+    [RPC]
 	protected void lootObject(int unitID, int tileX, int tileY, int lootID)
 	{
 		Item loot = World.tileMap.getTile(tileX, tileY).removeAndReturnLootObject(lootID);
@@ -542,33 +549,54 @@ public abstract class GameController : MonoBehaviour{
 		}
 	}
 
-	public abstract void requestResourceLootDrop(string loot, Vector2i tile);
+    public abstract void requestUnitLootDrop(string loot, Vector2i tile);
 
-	[RPC]
-	protected void dropResourceLoot(string resourceName, int seed, int x, int y)
-	{
-		//World.tileMap.getTile(x,y).addLoot(loot, seed);
-		GameMaster.addResourceLoot(resourceName, seed, x,y);
-	}
+    [RPC]
+    protected void dropUnitLoot(string unitName, int seed, int x, int y)
+    {
+        GameMaster.addUnitLoot(unitName, seed, x, y);
+    }
 
-	public abstract void requestUnitLootDrop(string loot, Vector2i tile);
+    #endregion
 
-	[RPC]
-	protected void dropUnitLoot(string unitName, int seed, int x, int y)
-	{
-		GameMaster.addUnitLoot(unitName, seed, x, y);
-	}
-	public abstract void requestGather(int unitID, Vector2i tile);
+    #region CHANGE UNIT STATS
+    //REGION CHANGE UNIT STATS
 
-    public abstract void requestWarp(int unitID, Vector2i tile);
+    [RPC]
+    protected void giveExperience(int targetID, int skill, int experience)
+    {
+        Hero hero = GameMaster.getHero(targetID);
+        if (hero != null)
+        {
+            hero.grantExperience(skill, experience);
+        }
+    }
 
-	public abstract void requestAttack(int unitID, int targetID);
+    [RPC]
+    protected void changeHunger(int targetID, int food)
+    {
+        Hero hero = GameMaster.getHero(targetID);
+        if (hero != null)
+        {
+            hero.changeHunger(food);
+        }
+    }
 
-	public abstract void requestFireProjectile(int unitID, Vector3 target);
+    [RPC]
+    protected void changeEnergy(int targetID, int energy)
+    {
+        Hero hero = GameMaster.getHero(targetID);
+        if (hero != null)
+        {
+            hero.changeEnergy(energy);
+        }
+    }
+    #endregion
 
-	public abstract void requestLoot(int unitID, Vector2i tile, int lootID);
+    #region INVENTORY AND CRAFTING
+    //REGION INVENTORY AND CRAFTING
 
-	[RPC]
+    [RPC]
 	public abstract void requestItemCraft(int unitID, string name);
 
 	[RPC]
@@ -601,13 +629,21 @@ public abstract class GameController : MonoBehaviour{
 		hero.getInventory().consumeItem(itemIndex);
 	}
 
+    #endregion
+
+    #region CHAT AND CHEAT 
+    //REGION CHAT AND CHEAT
+
+    public abstract void requestWarp(int unitID, Vector2i tile);
+
     [RPC]
-    protected void giveExperience(int targetID, int skill, int experience)
+    protected void warpUnit(int unitID, float x, float y, float rot = 0)
     {
-        Hero hero = GameMaster.getHero(targetID);
-        if (hero != null)
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit != null)
         {
-            hero.grantExperience(skill, experience);
+            unit.warp(new Vector2(x, y));
+            unit.setRotation(new Vector3(0, rot, 0));
         }
     }
 
@@ -669,7 +705,9 @@ public abstract class GameController : MonoBehaviour{
         gameMaster.getGUIManager().addChatMessage(unitID + ": " + msg);
     }
 
-	protected abstract IEnumerator lagMove(int unitID, float x, float y, float lag);
+    #endregion
+
+    protected abstract IEnumerator lagMove(int unitID, float x, float y, float lag);
 
 
 }

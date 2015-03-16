@@ -112,7 +112,7 @@ public class OfflineController : GameController {
 			int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
 			if(resObject.getHealth() <= damage)
 			{
-				gatherResource(tile.x, tile.y);
+				gatherResource(tile.x, tile.y, unitID);
 				changeEnergy(unitID, -5);
                 if(resObject.getDamageType() == 1)
                 {
@@ -193,9 +193,9 @@ public class OfflineController : GameController {
 		lootObject(unitID, tile.x, tile.y, lootID);
 	}
 
-	public override void requestResourceLootDrop(string resourceName, Vector2i tile)
+	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)
 	{
-		dropResourceLoot(resourceName,Random.seed,tile.x,tile.y);
+		dropResourceLoot(resourceName,Random.seed,tile.x,tile.y, unitID);
 	}
 
 	public override void requestUnitLootDrop(string unitName, Vector2i tile)

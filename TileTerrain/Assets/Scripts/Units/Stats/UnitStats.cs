@@ -42,6 +42,12 @@ public class UnitStats {
                 new BaseStat("TreeToAttack", 0),
                 new BaseStat("StoneToAttack", 0),
 
+                //Loot drop rate
+                new BaseStat("TreeDropAmount", 1),
+                new BaseStat("TreeDropRarity", 0),
+                new BaseStat("StoneDropAmount", 1),
+                new BaseStat("StoneDropRarity", 0),
+
 				new BaseStat("Movespeed", (int)data.movespeed),
 				
 		};

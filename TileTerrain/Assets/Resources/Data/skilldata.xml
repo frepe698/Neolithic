@@ -72,6 +72,16 @@
           <value>0.1</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
+        <StatChange>
+          <stat>StoneDropRarity</stat>
+          <value>0.05</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>StoneDropAmount</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
@@ -372,6 +382,16 @@
         </StatChange>
         <StatChange>
           <stat>IncreasedTreeDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>TreeDropRarity</stat>
+          <value>0.05</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>TreeDropAmount</stat>
           <value>0.1</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>

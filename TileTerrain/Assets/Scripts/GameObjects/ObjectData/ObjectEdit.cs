@@ -495,8 +495,11 @@ namespace Edit
 
         public string safeDrops;
         public string randomDrops;
+        public string rareDrops;
         public int minDrops = 0;
         public int maxDrops = 0;
+
+        
 
         public int variances = 1;
 
@@ -512,6 +515,8 @@ namespace Edit
             safeDrops = data.safeDrops;
             
             randomDrops = data.randomDrops;
+
+            rareDrops = data.rareDrops;
             
             minDrops = data.minDrops;
             maxDrops = data.maxDrops;
@@ -540,6 +545,14 @@ namespace Edit
                 foreach (string s in data.randomDrops)
                 {
                     randomDrops += s + "\n";
+                }
+            }
+            rareDrops = "";
+            if (data.rareDrops != null)
+            {
+                foreach (string s in data.rareDrops)
+                {
+                    rareDrops += s + "\n";
                 }
             }
 
