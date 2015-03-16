@@ -190,7 +190,7 @@ public abstract class GameController : MonoBehaviour{
 	{
 		Vector2i startTile = new Vector2i(startPos.x, startPos.z);
 		Unit unit = GameMaster.getUnit(unitID);
-		if(unit.getTile () != startTile)
+		if(Vector2i.getManhattan(unit.getTile (), startTile) > 1)
 		{
 			unit.setPosition(startPos);
 			//Debug.Log ("desync!");		
