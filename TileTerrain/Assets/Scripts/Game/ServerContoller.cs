@@ -159,7 +159,7 @@ public class ServerController : GameController {
 		Unit target = GameMaster.getUnit(targetID);
 		if(target != null)
 		{
-			float damage = GameMaster.getUnit(unitID).getDamage(0);
+			int damage = GameMaster.getUnit(unitID).getDamage(0);
 			if(target.getHealth() <= damage)
 			{
 				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
@@ -227,7 +227,7 @@ public class ServerController : GameController {
 		}
 	}
 
-	public override void requestProjectileHit(float damage, int unitID, int targetID)
+	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
 		Unit target = GameMaster.getUnit(targetID);
 		if(target != null)
@@ -236,11 +236,13 @@ public class ServerController : GameController {
 			{
 				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
 			else
 			{
 				gameMaster.getNetView().RPC ("hitUnit", RPCMode.All, targetID, unitID, damage);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
 		}
 

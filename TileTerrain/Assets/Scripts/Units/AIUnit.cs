@@ -115,7 +115,7 @@ public class AIUnit : Unit {
         return attackSound;
     }
 
-	public override void takeDamage(float damage, int dealerID)
+	public override void takeDamage(int damage, int dealerID)
 	{
         base.takeDamage(damage, dealerID);
 		Unit dealer = GameMaster.getUnit(dealerID);

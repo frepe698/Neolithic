@@ -6,7 +6,7 @@ public class Projectile {
 	private GameObject poolObject;
 	private string name;
 	private int id;
-	private float damage;
+	private int damage;
 	
 	private Vector3 position;
 	private Vector3 velocity;
@@ -19,7 +19,7 @@ public class Projectile {
 
 	private int unitID;
 
-	public Projectile(Vector3 start, Vector3 goal, float range, float speed, string name, float damage, int unitID)
+	public Projectile(Vector3 start, Vector3 goal, float range, float speed, string name, int damage, int unitID)
 	{
 		this.position = start;
 		Vector3 direction = (goal - start).normalized;

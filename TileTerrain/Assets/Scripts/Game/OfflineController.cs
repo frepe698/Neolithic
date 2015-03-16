@@ -182,7 +182,7 @@ public class OfflineController : GameController {
 		Unit unit = GameMaster.getUnit(unitID);
 		if(unit != null)
 		{
-			float damage = unit.getDamage(0);
+			int damage = unit.getDamage(0);
 			string name = unit.getProjectileName();
 			approveFireProjectile(unitID, target, name, damage);
 		}
@@ -224,7 +224,7 @@ public class OfflineController : GameController {
 		}
 	}
 
-	public override void requestProjectileHit(float damage, int unitID, int targetID)
+	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
 		Unit target = GameMaster.getUnit(targetID);
 		if(target == null) return;
