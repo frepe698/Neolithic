@@ -180,7 +180,7 @@ public class ServerController : GameController {
 		Unit unit = GameMaster.getUnit(unitID);
 		if(unit != null)
 		{
-			float damage = unit.getDamage(0);
+			int damage = unit.getDamage(0);
 			string name = unit.getProjectileName();
 			gameMaster.getNetView().RPC ("approveFireProjectile", RPCMode.All, unitID, target, name, damage);
 		}
