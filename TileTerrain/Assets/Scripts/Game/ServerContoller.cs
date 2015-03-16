@@ -198,7 +198,7 @@ public class ServerController : GameController {
 	
 	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)
 	{
-		gameMaster.getNetView().RPC ("dropResourceLoot", RPCMode.All, resourceName, Random.seed, tile.x, tile.y);
+		gameMaster.getNetView().RPC ("dropResourceLoot", RPCMode.All, resourceName, Random.seed, tile.x, tile.y, unitID);
 	}
 
 	public override void requestUnitLootDrop(string unitName, Vector2i tile)
