@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<AbilityRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Abilities>
+    <AbilityData>
+      <effects>
+        <AbilityEffectAndTime>
+          <name>basicattack</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <totalTime>0</totalTime>
+      <energyCost>-46</energyCost>
+      <healthCost>-45</healthCost>
+      <cooldown>0</cooldown>
+    </AbilityData>
+    <AbilityData>
+      <effects />
+      <totalTime>0</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+    </AbilityData>
+  </Abilities>
+</AbilityRoot>

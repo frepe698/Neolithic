@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<EffectsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SingleTargets>
+    <SingleTargetEffectData name="fuckhenke" gameName="FUCKHENKE" modelName="nigga.png">
+      <hitDamage>
+        <HitDamage>
+          <stat>Health</stat>
+          <percent>0.2</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+    </SingleTargetEffectData>
+  </SingleTargets>
+  <AreaOfEffects />
+</EffectsRoot>

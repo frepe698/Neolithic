@@ -7,6 +7,18 @@ using System.IO;
 [XmlRoot("DataHolder")]
 public class DataHolder {
 
+    [XmlRoot("AbilityRoot")]
+    public class AbilityDataHolder
+    {
+        public AbilityDataHolder() { }
+        public AbilityDataHolder(AbilityData[] abilityData)
+        {
+            this.abilityData = abilityData;
+        }
+        [XmlArray("Abilities"), XmlArrayItem("AbilityData")]
+        public readonly AbilityData[] abilityData;
+    }
+
 	[XmlRoot("UnitsRoot")]
 	public class UnitDataHolder
 	{
@@ -94,6 +106,22 @@ public class DataHolder {
         public readonly ConsumableRecipeData[] consumableRecipeData;
 	}
 
+    [XmlRoot("EffectsRoot")]
+    public class EffectDataHolder
+    {
+        public EffectDataHolder() { }
+        public EffectDataHolder(SingleTargetEffectData[] singletargets, AreaOfEffectData[] aoe)
+        {
+            this.singleTargetEffectData = singletargets;
+            this.areaOfEffectData = aoe;
+        }
+        [XmlArray("SingleTargets"), XmlArrayItem("SingleTargetEffectData")]
+        public readonly SingleTargetEffectData[] singleTargetEffectData;
+
+        [XmlArray("AreaOfEffects"), XmlArrayItem("AreaOfEffectData")]
+        public readonly AreaOfEffectData[] areaOfEffectData;
+    }
+
 	[XmlRoot("ResourcesRoot")]
 	public class ResourceDataHolder
 	{
@@ -125,6 +153,8 @@ public class DataHolder {
         public readonly SkillData[] skillData;
     }
 
+    private AbilityDataHolder abilityDataHolder;
+
 	private UnitDataHolder unitDataHolder;
 
 	private WeaponDataHolder weaponDataHolder;
@@ -140,6 +170,8 @@ public class DataHolder {
 	private ProjectileDataHolder projectileDataHolder;
 
     private SkillDataHolder skillDataHolder;
+
+    private EffectDataHolder effectDataHolder;
 
 
 
@@ -164,12 +196,27 @@ public class DataHolder {
 
 		instance = new DataHolder();
 
+
 		TextAsset data = (TextAsset)Resources.Load ("Data/unitdata");
 		XmlSerializer serializer = new XmlSerializer(typeof(UnitDataHolder));
 		using(StringReader reader = new System.IO.StringReader(data.text))
 		{
 			instance.unitDataHolder = serializer.Deserialize(reader) as UnitDataHolder;
 		}
+
+        data = (TextAsset)Resources.Load("Data/abilitydata");
+        serializer = new XmlSerializer(typeof(AbilityDataHolder));
+        using (StringReader reader = new System.IO.StringReader(data.text))
+        {
+            instance.abilityDataHolder = serializer.Deserialize(reader) as AbilityDataHolder;
+        }
+
+        data = (TextAsset)Resources.Load("Data/effectdata");
+        serializer = new XmlSerializer(typeof(EffectDataHolder));
+        using (StringReader reader = new System.IO.StringReader(data.text))
+        {
+            instance.effectDataHolder = serializer.Deserialize(reader) as EffectDataHolder;
+        }
 
 		data = (TextAsset)Resources.Load ("Data/weapondata");
 		serializer = new XmlSerializer(typeof(WeaponDataHolder));
@@ -297,6 +344,27 @@ public class DataHolder {
 		return null;
 	}
 
+    public AbilityEffectData getEffectData(string name)
+    {
+        foreach(SingleTargetEffectData data in effectDataHolder.singleTargetEffectData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (AreaOfEffectData data in effectDataHolder.areaOfEffectData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public AbilityData getAbilityData(string name)
+    {
+        foreach(AbilityData data in abilityDataHolder.abilityData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 	public EquipmentData getEquipmentData(string name)
 	{
 		foreach(MeleeWeaponData data in weaponDataHolder.meleeWeaponData)

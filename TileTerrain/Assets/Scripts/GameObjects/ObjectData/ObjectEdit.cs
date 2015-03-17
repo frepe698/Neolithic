@@ -36,6 +36,141 @@ namespace Edit
         }
     }
 
+    [Serializable]
+    public class AbilityEffectEdit : ObjectEdit
+    {
+        public List<HitDamageEdit> hitDamages;
+        //On hit effects go here too
+        public AbilityEffectEdit() 
+        {
+            hitDamages = new List<HitDamageEdit>();
+        }
+        public AbilityEffectEdit(AbilityEffectData data) : base(data)
+        {
+            hitDamages = new List<HitDamageEdit>();
+            foreach(HitDamage hitDamage in data.hitDamage)
+            {
+                hitDamages.Add(new HitDamageEdit(hitDamage));
+            }
+        }
+        public AbilityEffectEdit(AbilityEffectEdit edit) : base(edit)
+        {
+            hitDamages = edit.hitDamages;
+        }
+    }
+
+    [Serializable]
+    public class SingleTargetEffectEdit : AbilityEffectEdit
+    {
+        //On hit effects go here too
+        public SingleTargetEffectEdit() : base()
+        {
+            
+        }
+        public SingleTargetEffectEdit(SingleTargetEffectData data)
+            : base(data)
+        {
+            
+        }
+        public SingleTargetEffectEdit(AbilityEffectEdit edit)
+            : base(edit)
+        {
+        }
+    }
+
+    [Serializable]
+    public class AreaOfEffectEdit : AbilityEffectEdit
+    {
+        public float radius;
+        //On hit effects go here too
+        public AreaOfEffectEdit()
+            : base()
+        {
+
+        }
+        public AreaOfEffectEdit(AreaOfEffectData data)
+            : base(data)
+        {
+            radius = data.radius;
+        }
+        public AreaOfEffectEdit(AreaOfEffectEdit edit)
+            : base(edit)
+        {
+            radius = edit.radius;
+        }
+    }
+
+    
+
+    [Serializable]
+    public class HitDamageEdit
+    {
+        public Stat stat;
+        public float percent;
+        public bool yourStat;
+        public bool damageSelf;
+
+        public HitDamageEdit() 
+        {
+            yourStat = true;
+            damageSelf = false;
+        }
+
+        public HitDamageEdit(HitDamage hitDamage)
+        {
+            stat = hitDamage.stat;
+            percent = hitDamage.percent;
+            yourStat = hitDamage.yourStat;
+            damageSelf = hitDamage.damageSelf;
+        }
+    }
+
+    [Serializable]
+    public class AbilityEdit : ObjectEdit
+    {
+        public List<AbilityEffectAndTime> effects;
+        public float totalTime;
+
+        public int energyCost;
+        public int healthCost;
+
+        public float cooldown;
+
+        public AbilityEdit()
+        {
+            name = "new ability";
+            gameName = "New Ability";
+            effects = new List<AbilityEffectAndTime>();
+        }
+
+        public AbilityEdit(AbilityData data)
+        {
+            effects = new List<AbilityEffectAndTime>();
+            foreach (AbilityEffectAndTime a in data.effects)
+            {
+                effects.Add(a);
+            }
+            energyCost = data.energyCost;
+            healthCost = data.healthCost;
+            cooldown = data.cooldown;
+        }
+
+        public AbilityEdit(AbilityEdit data)
+        {
+            effects = data.effects;
+            energyCost = data.energyCost;
+            healthCost = data.healthCost;
+            cooldown = data.cooldown;
+        }
+    }
+
+    [Serializable]
+    public class AbilityEffectAndTime
+    {
+        public string name;
+        public float time;
+    }
+
     #region Skills and Abilities Edits
 
     [Serializable]
