@@ -14,9 +14,10 @@
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Lambert
-		#pragma glsl
 		#pragma target 3.0
+		#pragma surface surf Lambert fullforwardshadows
+		#pragma glsl
+		
 
 		sampler2D _Splat0;
 		sampler2D _Splat1;
