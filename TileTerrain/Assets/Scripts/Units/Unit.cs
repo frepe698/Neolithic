@@ -326,7 +326,7 @@ public class Unit {
     public bool canStartCommand(Command command)
     {
         if (command.canAlwaysStart()) return true;
-        if (currentCommandEquals(command)) return false;
+        if (!command.canStartOverride(this.command)) return false;
         return Time.time >= commandEndTime;
     }
 	

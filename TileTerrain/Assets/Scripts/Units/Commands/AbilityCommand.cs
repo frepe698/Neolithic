@@ -144,4 +144,9 @@ public class AbilityCommand : Command {
 	{
 		return base.GetHashCode ();
 	}
+
+    public override bool canStartOverride(Command command)
+    {
+        return ability.isCool() && !this.Equals(command);
+    }
 }

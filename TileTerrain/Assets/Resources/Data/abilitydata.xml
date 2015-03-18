@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <AbilityRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Abilities>
-    <AbilityData>
+    <AbilityData name="meleebasicattack" gameName="Basic Attack" modelName="basicattack">
       <effects>
         <AbilityEffectAndTime>
-          <name>basicattack</name>
+          <name>meleebasicattack</name>
           <time>0.583</time>
         </AbilityEffectAndTime>
       </effects>
       <totalTime>0</totalTime>
-      <energyCost>-46</energyCost>
-      <healthCost>-45</healthCost>
+      <energyCost>20</energyCost>
+      <healthCost>0</healthCost>
       <cooldown>0</cooldown>
     </AbilityData>
-    <AbilityData>
+    <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="basicattack">
       <effects />
       <totalTime>0</totalTime>
-      <energyCost>0</energyCost>
+      <energyCost>15</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
     </AbilityData>
