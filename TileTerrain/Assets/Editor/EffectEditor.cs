@@ -236,9 +236,10 @@ public class EffectEditor : ObjectEditor
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.fieldWidth = 10;
-            edit.yourStat = EditorGUILayout.Toggle(edit.yourStat);
+            EditorGUIUtility.labelWidth = 70;
+            edit.yourStat = EditorGUILayout.Toggle("Your stat: ", edit.yourStat);
             EditorGUIUtility.fieldWidth = 10;
-            edit.damageSelf = EditorGUILayout.Toggle(edit.damageSelf);
+            edit.damageSelf = EditorGUILayout.Toggle("To self: ", edit.damageSelf);
 
 
             if (GUILayout.Button("-"))
@@ -295,9 +296,10 @@ public class EffectEditor : ObjectEditor
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.fieldWidth = 10;
-            edit.yourStat = EditorGUILayout.Toggle(edit.yourStat);
+            EditorGUIUtility.labelWidth = 70;
+            edit.yourStat = EditorGUILayout.Toggle("Your stat: ", edit.yourStat);
             EditorGUIUtility.fieldWidth = 10;
-            edit.damageSelf = EditorGUILayout.Toggle(edit.damageSelf);
+            edit.damageSelf = EditorGUILayout.Toggle("To self: ", edit.damageSelf);
 
 
             if (GUILayout.Button("-"))

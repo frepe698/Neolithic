@@ -20,5 +20,17 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
     </AbilityData>
+    <AbilityData name="cleave" gameName="Cleave" modelName="cleave">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>cleave</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <totalTime>0</totalTime>
+      <energyCost>80</energyCost>
+      <healthCost>10</healthCost>
+      <cooldown>3</cooldown>
+    </AbilityData>
   </Abilities>
 </AbilityRoot>

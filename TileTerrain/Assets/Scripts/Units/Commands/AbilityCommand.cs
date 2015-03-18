@@ -65,27 +65,36 @@ public class AbilityCommand : Command {
 
                 //Get next effect from ability using attacktime
                 AbilityEffect effect = getNextEffect();
-				while(effect != null) 
-				{
-                    //TODO: get effect sound
-					unit.playSound(unit.getAttackSound(0));
+                if (effect != null)
+                {
+                    //First effect
+                    //TODO: Move this to network
+                    ability.setCooldown();
+                    unit.getUnitStats().getHealth().addCurValue(ability.getHealthCost());
+                    unit.getUnitStats().getEnergy().addCurValue(ability.getEnergyCost());
 
-                    effect.action();
-					//unit.attack(target);
-
-                    lastUsedEffect++;
-                    //if it was the last effect set command as completed
-                    if (lastUsedEffect >= ability.data.effects.Length)
+                    while (effect != null)
                     {
-                        hasAttacked = true;
-                        unit.setCommandEndTime(Time.time + (ability.data.totalTime - attackTime) / unit.getAttackSpeed());
-                        setCompleted();
-                        break;
-                    }
+                        //TODO: get effect sound
+                        unit.playSound(unit.getAttackSound(0));
 
-                    //get next effect from ability
-                    effect = getNextEffect();
-				}
+                        effect.action();
+                        //unit.attack(target);
+
+                        lastUsedEffect++;
+                        //if it was the last effect set command as completed
+                        if (lastUsedEffect >= ability.data.effects.Length)
+                        {
+                            hasAttacked = true;
+                            unit.setCommandEndTime(Time.time + (ability.data.totalTime - attackTime) / unit.getAttackSpeed());
+                            setCompleted();
+                            break;
+                        }
+
+                        //get next effect from ability
+                        effect = getNextEffect();
+                    }
+                }
                
 			}
 		}

@@ -12,5 +12,17 @@
       </hitDamage>
     </SingleTargetEffectData>
   </SingleTargets>
-  <AreaOfEffects />
+  <AreaOfEffects>
+    <AreaOfEffectData name="cleave" gameName="Cleave" modelName="cleave">
+      <hitDamage>
+        <HitDamage>
+          <stat>Health</stat>
+          <percent>0.5</percent>
+          <yourStat>false</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <radius>4</radius>
+    </AreaOfEffectData>
+  </AreaOfEffects>
 </EffectsRoot>
