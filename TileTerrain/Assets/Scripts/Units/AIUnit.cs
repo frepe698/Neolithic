@@ -35,7 +35,7 @@ public class AIUnit : Unit {
             modelName = data.modelName;
 		}
         init();
-
+        unitstats.updateStats();
 	}
 
 	public override void updateAI()
@@ -104,6 +104,11 @@ public class AIUnit : Unit {
 	{
 		return damage;
 	}
+
+    public override int getBaseDamage(int damageType)
+    {
+        return damage;
+    }
 
 	public override float getAttackSpeed ()
 	{

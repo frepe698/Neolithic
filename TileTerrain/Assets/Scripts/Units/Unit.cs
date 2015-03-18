@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Unit {
 
@@ -41,6 +42,7 @@ public class Unit {
 
     protected SkillManager skillManager;
     protected UnitStats unitstats;
+    protected List<Ability> abilities;
 	
 	private AudioSource audio;
 	
@@ -55,6 +57,8 @@ public class Unit {
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
+
+        abilities = new List<Ability>();
 	}
 
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
@@ -503,8 +507,13 @@ public class Unit {
 	
 	public virtual int getDamage(int damageType)
 	{
-		return 10;
+		return 0;
 	}
+
+    public virtual int getBaseDamage(int damageType)
+    {
+        return 0;
+    }
 	
 	public virtual string getIdleAnim()
 	{

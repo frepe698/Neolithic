@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SkillsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Skills>
-    <SkillData name="melee" gameName="Melee" modelName="">
+    <SkillData name="melee" gameName="Melee">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>10</value>
+          <value>2</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>IncreasedMeleeDamage</stat>
+          <stat>MeleeDamage</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="mining" gameName="Mining" modelName="">
+    <SkillData name="mining" gameName="Mining">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>12</value>
+          <value>2</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>IncreasedStoneDamage</stat>
+          <stat>StoneDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>true</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>StoneDropAmount</stat>
           <value>0.1</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
@@ -77,228 +82,223 @@
           <value>0.05</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
-        <StatChange>
-          <stat>StoneDropAmount</stat>
-          <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="building" gameName="Building" modelName="">
+    <SkillData name="building" gameName="Building">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>Armor</stat>
-          <value>1</value>
+          <stat>Health</stat>
+          <value>0</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="crafting" gameName="Crafting" modelName="">
+    <SkillData name="crafting" gameName="Crafting">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
+      </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
+    </SkillData>
+    <SkillData name="darkmagic" gameName="Dark Magic">
+      <requiredExp>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
+      </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
+    </SkillData>
+    <SkillData name="lightmagic" gameName="Light Magic">
+      <requiredExp>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
+      </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
+    </SkillData>
+    <SkillData name="alchemy" gameName="Alchemy">
+      <requiredExp>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
+      </requiredExp>
+      <statsPerLevel>
+        <StatChange>
+          <stat>Health</stat>
+          <value>0</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+      </statsPerLevel>
+      <learnableAbilities />
+    </SkillData>
+    <SkillData name="harvesting" gameName="Harvesting">
+      <requiredExp>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
           <stat>Movespeed</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="darkmagic" gameName="Dark Magic" modelName="">
+    <SkillData name="hunting" gameName="Hunting">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
-      </requiredExp>
-      <statsPerLevel>
-        <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
-      </statsPerLevel>
-      <learnableAbilities />
-    </SkillData>
-    <SkillData name="lightmagic" gameName="Light Magic" modelName="">
-      <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
-      </requiredExp>
-      <statsPerLevel>
-        <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
-      </statsPerLevel>
-      <learnableAbilities />
-    </SkillData>
-    <SkillData name="alchemy" gameName="Alchemy" modelName="">
-      <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
-      </requiredExp>
-      <statsPerLevel>
-        <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
-      </statsPerLevel>
-      <learnableAbilities />
-    </SkillData>
-    <SkillData name="harvesting" gameName="Harvesting" modelName="">
-      <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
-      </requiredExp>
-      <statsPerLevel>
-        <StatChange>
-          <stat>Movespeed</stat>
-          <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
-      </statsPerLevel>
-      <learnableAbilities />
-    </SkillData>
-    <SkillData name="hunting" gameName="Hunting" modelName="">
-      <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
@@ -309,81 +309,81 @@
         <StatChange>
           <stat>Movespeed</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="ranged" gameName="Ranged" modelName="">
+    <SkillData name="ranged" gameName="Ranged">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
+        <StatChange>
+          <stat>RangedDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>true</isMultiplier>
+        </StatChange>
         <StatChange>
           <stat>IncreasedAttackspeed</stat>
           <value>0.05</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
-        <StatChange>
-          <stat>IncreasedRangedDamage</stat>
-          <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="woodchopping" gameName="Wood Chopping" modelName="">
+    <SkillData name="woodchopping" gameName="Wood Chopping">
       <requiredExp>
-        <int>107</int>
-        <int>244</int>
-        <int>409</int>
-        <int>602</int>
-        <int>825</int>
-        <int>1075</int>
-        <int>1355</int>
-        <int>1663</int>
-        <int>2000</int>
-        <int>2365</int>
-        <int>2759</int>
-        <int>3181</int>
-        <int>3633</int>
-        <int>4112</int>
-        <int>4621</int>
-        <int>5158</int>
-        <int>5723</int>
-        <int>6317</int>
-        <int>6940</int>
-        <int>7592</int>
+        <int>179</int>
+        <int>430</int>
+        <int>754</int>
+        <int>1150</int>
+        <int>1619</int>
+        <int>2160</int>
+        <int>2773</int>
+        <int>3459</int>
+        <int>4217</int>
+        <int>5047</int>
+        <int>5950</int>
+        <int>6925</int>
+        <int>7973</int>
+        <int>9093</int>
+        <int>10285</int>
+        <int>11549</int>
+        <int>12886</int>
+        <int>14295</int>
+        <int>15777</int>
+        <int>17331</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>10</value>
+          <value>2</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>IncreasedTreeDamage</stat>
+          <stat>TreeDamage</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>TreeDropRarity</stat>

@@ -10,11 +10,14 @@ public class Vital : BaseStat {
 
 	public Vital(string name, int baseValue, int levelAdd) : base(name, baseValue) {
 		curValue = 0;
+        percent = -1;
 		this.levelAdd = levelAdd;
 	}
 	
 	public override void reset(int level){
-		percent = getCurValue()/getValue();
+        if (percent < 0) percent = 1;
+        else percent = getCurValue() / getValue();
+		
 		value = baseValue + levelAdd*level;
 		multiplier = 1;
 	}

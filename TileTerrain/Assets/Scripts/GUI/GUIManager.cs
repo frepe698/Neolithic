@@ -364,8 +364,8 @@ public class GUIManager : MonoBehaviour{
             inactivateItemTooltip();
         }
 		Hero hero = GameMaster.getPlayerHero();
-		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / hero.getMaxHealth()) * 100);
-		energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / hero.getMaxEnergy()) * 100);
+		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / (hero.getMaxHealth()+float.Epsilon)) * 100);
+        energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / (hero.getMaxEnergy() + float.Epsilon)) * 100);
 		hungerbarTransform.sizeDelta = new Vector2(100, (hero.getHunger()/hero.getMaxHunger())*100);
 
         //Fps display

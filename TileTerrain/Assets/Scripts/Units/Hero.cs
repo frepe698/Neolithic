@@ -72,6 +72,9 @@ public class Hero : Unit {
         init();
 		inventory = new Inventory();
 		setItem(DataHolder.Instance.getEquipmentData("unarmed"));
+
+        unitstats.updateStats();
+
 		activate();
 	}
 
@@ -163,6 +166,9 @@ public class Hero : Unit {
 	
 	public override int getDamage(int damageType)
 	{
+        Debug.Log((int)unitstats.getDamage(damageType, isMelee()));
+        return (int)unitstats.getDamage(damageType, isMelee());
+#if false
 		if(heldItem != null && damageType >= 0 && damageType < 3)
 		{
             float damage;
@@ -191,7 +197,13 @@ public class Hero : Unit {
 			Debug.Log (damageType);
 			return 0;
 		}
+#endif
 	}
+
+    public override int getBaseDamage(int damageType)
+    {
+        return heldItem.getDamage(damageType);
+    }
 
 	public override string getIdleAnim()
 	{

@@ -11,10 +11,10 @@ public enum Stat {
 
     //Increased Damage
     IncreasedDamage,
-    IncreasedMeleeDamage,
-    IncreasedTreeDamage,
-    IncreasedStoneDamage,
-    IncreasedRangedDamage,
+    MeleeDamage,
+    TreeDamage,
+    StoneDamage,
+    RangedDamage,
     IncreasedMagicDamage,
     IncreasedAttackspeed,
 

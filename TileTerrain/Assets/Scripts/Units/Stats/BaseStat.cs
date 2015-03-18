@@ -55,4 +55,9 @@ public class BaseStat {
 		return name+": "+value;
 	}
 
+    public float getMultiplier()
+    {
+        return multiplier;
+    }
+
 }

@@ -191,7 +191,7 @@ namespace Edit
             for (int i = 0; i < Skill.MAXLEVEL; i++)
             {
                 int level = i + 1;
-                requiredExp[i] = (int)((level + level * (level * 0.153f)) * 93.5f);
+                requiredExp[i] = (int)((level + level * (level * 0.253f)) * 143f);
             }
             statsPerLevel = new List<PassiveStat>();
             abilities = new List<LearnableAbility>();

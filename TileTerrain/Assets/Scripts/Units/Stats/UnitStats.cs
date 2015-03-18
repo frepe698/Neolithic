@@ -31,10 +31,10 @@ public class UnitStats {
 				new BaseStat("Energy regen", (int)data.energygen),
                 //Increased damage
 				new BaseStat("Increased Damage", 1),
-                new BaseStat("Increased Melee Damage", 1),
-                new BaseStat("Increased Tree Damage", 1),
-                new BaseStat("Increased Stone Damage", 1),
-                new BaseStat("Increased Ranged Damage", 1),
+                new BaseStat("Melee Damage", 0),
+                new BaseStat("Tree Damage", 0),
+                new BaseStat("Stone Damage", 0),
+                new BaseStat("Ranged Damage", 0),
                 new BaseStat("Increased Magic Damage", 1),
                 new BaseStat("Increased Attackspeed", 1),
 
@@ -52,8 +52,8 @@ public class UnitStats {
 				
 		};
 		
-		updateStats();
-		setVitals();	
+		//updateStats();
+		//setVitals();	
 		
 	}
 
@@ -70,8 +70,7 @@ public class UnitStats {
 			stats[s].reset(level);
 		}
 		
-		//get stats from unit mods
-        
+		//get stats from unit skills
 		Skill[] skills = unit.getSkillManager().getSkills();
         foreach(Skill skill in skills)
         {
@@ -91,11 +90,34 @@ public class UnitStats {
             addToStat(Stat.Armor, a.armor);
             addToStat(Stat.Movespeed, -a.speedPenalty);
         }
-		
-		
+
+        //get damage from equiped weapon
+        if (unit.isMelee())
+        {
+            addToStat(Stat.MeleeDamage, unit.getBaseDamage(DamageType.COMBAT));
+            addToStat(Stat.TreeDamage, unit.getBaseDamage(DamageType.TREE));
+            addToStat(Stat.StoneDamage, unit.getBaseDamage(DamageType.STONE));
+        }
+        else
+        {
+            addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
+        }
+
+        Debug.Log(getStat((int)Stat.MeleeDamage).getMultiplier());
+
+		//Multiply stats
 		for(int s = 0; s < stats.Length; s++){
 			stats[s].multiply();
 		}
+
+        //Calculate damage conversions 
+        float treeToAttack = getStatV(Stat.TreeToAttack);
+        if (treeToAttack > 0)
+            addToStat(Stat.MeleeDamage, treeToAttack * getStatV(Stat.TreeDamage));
+        float stoneToAttack = getStatV(Stat.StoneToAttack);
+        if (stoneToAttack > 0)
+            addToStat(Stat.MeleeDamage, stoneToAttack * getStatV(Stat.StoneDamage));
+
 
         onStatsUpdated();
 	}
@@ -132,12 +154,12 @@ public class UnitStats {
 
     public void addMultiplierToStat(Stat stat, float value)
     {
-        addToStat((int)stat, value);
+        addMultiplierToStat((int)stat, value);
     }
 
     public void addMultiplierToStat(int stat, float value)
     {
-        stats[stat].addValue(value);
+        stats[stat].addMultiplier(value);
     }
 
 
@@ -159,10 +181,8 @@ public class UnitStats {
         getEnergy().setCurValue(getEnergy().getValue());
         updateStats();
         Debug.Log("You are now level " + level + "!");
-        Debug.Log("Your new Health value is " + getHealth().getValue());
         unit.grantAbilityPoint();
         unit.onLevelUp();
-        //unit.onLevelUp();
     }
 
     public int getLevel() { return level; }
@@ -185,27 +205,39 @@ public class UnitStats {
     public float getMaxEnergy() { return stats[(int)Stat.Energy].getValue(); }
     public float getCurMana() { return ((Vital)stats[(int)Stat.Energy]).getCurValue(); }
 
-    public float getMeleeDamageMultiplier(int damageType)
+    public float getDamage(int damageType, bool melee)
+    {
+        if (melee)
+        {
+            return getMeleeDamage(damageType);
+        }
+        else
+        {
+            return getRangedDamage(damageType);
+        }
+    }
+
+    public float getMeleeDamage(int damageType)
     {
         switch (damageType)
         {
-            case ((int)DamageType.COMBAT):
-                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.IncreasedMeleeDamage);
-            case((int)DamageType.TREE):
-                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.IncreasedTreeDamage);
-            case((int)DamageType.STONE):
-                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.IncreasedStoneDamage);
+            case (DamageType.COMBAT):
+                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.MeleeDamage);
+            case (DamageType.TREE):
+                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.TreeDamage);
+            case (DamageType.STONE):
+                return getStatV(Stat.IncreasedDamage) * getStatV(Stat.StoneDamage);
             default:
                 return 0;
         }
     }
 
-    public float getRangedDamageMultiplier(int damageType)
+    public float getRangedDamage(int damageType)
     {
         if (damageType == (int)DamageType.COMBAT)
-            return getStatV(Stat.IncreasedDamage) * getStatV(Stat.IncreasedRangedDamage);
+            return getStatV(Stat.IncreasedDamage) * getStatV(Stat.RangedDamage);
 
-        return 1;
+        return 0;
     }
 
     public BaseStat[] getAllStats(){ return stats; }
