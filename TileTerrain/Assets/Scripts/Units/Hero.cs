@@ -72,7 +72,7 @@ public class Hero : Unit {
         init();
 		inventory = new Inventory();
 		setItem(DataHolder.Instance.getEquipmentData("unarmed"));
-
+        learnAbility("meleebasicattack");
         unitstats.updateStats();
 
 		activate();

@@ -72,6 +72,8 @@ public class Unit {
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
+
+        abilities = new List<Ability>();
 	}
 
     public void init()
@@ -714,6 +716,10 @@ public class Unit {
         }
     }
 
+    public void learnAbility(string ability)
+    {
+        GameMaster.getGameController().requestLearnAbility(ability, getID());
+    }
     public void addAbility(string ability)
     {
         abilities.Add(new Ability(ability, this));

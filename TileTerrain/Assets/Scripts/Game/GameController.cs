@@ -360,6 +360,11 @@ public abstract class GameController : MonoBehaviour{
                         mat.SetFloat("_Highlight", 1);
                     }
 
+                    if (Input.GetKey("q"))
+                    {
+                        int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                        requestAbilityCommand(unitID, targetID, 0);
+                    }
                     targetPoint = rayhit.transform.position;
                 }
                 else if (holdTag == "Ground")
@@ -369,7 +374,7 @@ public abstract class GameController : MonoBehaviour{
 
 				if(Input.GetKey("q"))
 				{
-					requestRangedAttackCommand(unitID, targetPoint + Vector3.up);
+					requestAbilityCommand(unitID, targetPoint + Vector3.up, 0);
 				}
 			}
 			//Clicking a target with LMB will set it selected until the button is released. 
