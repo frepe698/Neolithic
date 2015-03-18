@@ -129,6 +129,7 @@ namespace Edit
     public class AbilityEdit : ObjectEdit
     {
         public List<AbilityEffectAndTime> effects;
+        public List<AbilityAnimation> animations;
         public float totalTime;
 
         public int energyCost;
@@ -141,6 +142,7 @@ namespace Edit
             name = "new ability";
             gameName = "New Ability";
             effects = new List<AbilityEffectAndTime>();
+            animations = new List<AbilityAnimation>();
         }
 
         public AbilityEdit(AbilityData data)
@@ -151,18 +153,29 @@ namespace Edit
             {
                 effects.Add(a);
             }
+            animations = new List<AbilityAnimation>();
+            if (data.animations != null)
+            {
+                foreach (AbilityAnimation a in data.animations)
+                {
+                    animations.Add(a);
+                }
+            }
             energyCost = data.energyCost;
             healthCost = data.healthCost;
             cooldown = data.cooldown;
+            totalTime = data.totalTime;
         }
 
         public AbilityEdit(AbilityEdit data)
             : base(data)
         {
             effects = data.effects;
+            animations = data.animations;
             energyCost = data.energyCost;
             healthCost = data.healthCost;
             cooldown = data.cooldown;
+            totalTime = data.totalTime;
         }
     }
 
@@ -171,6 +184,14 @@ namespace Edit
     {
         public string name;
         public float time;
+    }
+
+    [Serializable]
+    public class AbilityAnimation
+    {
+        public string name;
+        public float time;
+        public float speed = 1;
     }
 
     #region Skills and Abilities Edits

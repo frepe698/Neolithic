@@ -78,4 +78,10 @@ public class Ability {
         if (data.effects[effect].time <= time) return data.effects[effect];
         return null;
     }
+
+    public AbilityAnimation getTimedAnimation(int nextAnimation, float time)
+    {
+        if (data.animations[nextAnimation].time <= time) return data.animations[nextAnimation];
+        return null;
+    }
 }

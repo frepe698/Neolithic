@@ -15,6 +15,7 @@ public class AbilityCommand : Command {
 
     private Ability ability;
     private int lastUsedEffect;
+    private int lastPlayedAnimation;
 	
 	public AbilityCommand(Unit unit, Unit target, Ability ability)
         : base(unit)
@@ -45,23 +46,28 @@ public class AbilityCommand : Command {
 	
 	public override void update()
 	{
-        //Update target position to the targeted units position
-        if (target != null)
-        {
-            attackPosition = target.get2DPos();
-            //if it entered a new tile update path
-            if (target.getTile() != targetTile)
-            {
-                destination = target.get2DPos();
-                unit.setPath(destination);
-            }
-        }
+        
 
 		if(attacking)
 		{
 			if(!hasAttacked)
 			{
-				attackTime += Time.deltaTime;
+                attackTime += Time.deltaTime * unit.getAttackSpeed();
+
+                if (lastPlayedAnimation < ability.data.animations.Length)
+                {
+                    AbilityAnimation animation = ability.getTimedAnimation(lastPlayedAnimation, attackTime);
+                    if (animation != null)
+                    {
+                        if (animation.name.Equals("attack"))
+                        {
+                            float speed = unit.getAttackSpeed() * animation.speed;
+                            unit.playWeaponAttackAnimation(speed);
+                            unit.setAnimationRestart(unit.getAttackAnim(0), speed);
+                        }
+                        lastPlayedAnimation++;
+                    }
+                }
 
                 //Get next effect from ability using attacktime
                 AbilityEffect effect = getNextEffect();
@@ -69,9 +75,14 @@ public class AbilityCommand : Command {
                 {
                     //First effect
                     //TODO: Move this to network
-                    ability.setCooldown();
-                    unit.getUnitStats().getHealth().addCurValue(ability.getHealthCost());
-                    unit.getUnitStats().getEnergy().addCurValue(ability.getEnergyCost());
+                    if (lastUsedEffect == 0)
+                    {
+                        ability.setCooldown();
+                        unit.getUnitStats().getHealth().addCurValue(-ability.getHealthCost());
+                        unit.getUnitStats().getEnergy().addCurValue(-ability.getEnergyCost());
+
+                        unit.setCommandEndTime(Time.time + (ability.data.totalTime / unit.getAttackSpeed() - attackTime));
+                    }
 
                     while (effect != null)
                     {
@@ -86,7 +97,7 @@ public class AbilityCommand : Command {
                         if (lastUsedEffect >= ability.data.effects.Length)
                         {
                             hasAttacked = true;
-                            unit.setCommandEndTime(Time.time + (ability.data.totalTime - attackTime) / unit.getAttackSpeed());
+                            
                             setCompleted();
                             break;
                         }
@@ -95,11 +106,21 @@ public class AbilityCommand : Command {
                         effect = getNextEffect();
                     }
                 }
-               
 			}
 		}
 		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < 2 ) //TODO weapon range here
 		{
+            //Update target position to the targeted units position
+            if (target != null)
+            {
+                attackPosition = target.get2DPos();
+                //if it entered a new tile update path
+                if (target.getTile() != targetTile)
+                {
+                    destination = target.get2DPos();
+                    unit.setPath(destination);
+                }
+            }
 			unit.setMoving(false);
 
 			attacking = true;
@@ -107,10 +128,7 @@ public class AbilityCommand : Command {
             lastUsedEffect = 0;
 			hasAttacked = false;
 			calculateRotation();
-
-            //TODO: get ability animation
-			unit.playWeaponAttackAnimation(unit.getAttackSpeed());
-			unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());
+			
 		}
 	}
 	
@@ -156,6 +174,7 @@ public class AbilityCommand : Command {
 
     public override bool canStartOverride(Command command)
     {
-        return ability.isCool() && !this.Equals(command);
+        return ability.isCool() && unit.getUnitStats().getCurHealth() > ability.data.healthCost &&
+            unit.getUnitStats().getCurEnergy() >= ability.data.energyCost && !this.Equals(command);
     }
 }

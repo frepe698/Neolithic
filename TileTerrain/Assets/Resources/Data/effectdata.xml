@@ -11,6 +11,16 @@
         </HitDamage>
       </hitDamage>
     </SingleTargetEffectData>
+    <SingleTargetEffectData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>3</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+    </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
     <AreaOfEffectData name="cleave" gameName="Cleave" modelName="cleave">

@@ -9,6 +9,9 @@ public class AbilityData : ObjectData {
     [XmlArray("effects"), XmlArrayItem("AbilityEffectAndTime")]
     public readonly AbilityEffectAndTime[] effects;
 
+    [XmlArray("animations"), XmlArrayItem("AbilityAnimation")]
+    public readonly AbilityAnimation[] animations;
+
     public readonly float totalTime;
 
     public readonly int energyCost;
@@ -22,9 +25,11 @@ public class AbilityData : ObjectData {
         : base(edit)
     {
         effects = edit.effects.ToArray();
+        animations = edit.animations.ToArray();
         energyCost = edit.energyCost;
         healthCost = edit.healthCost;
         cooldown = edit.cooldown;
+        totalTime = edit.totalTime;
     }
 
 

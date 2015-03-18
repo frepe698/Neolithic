@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SingleTargetEffect  : AbilityEffect {
 
-    private readonly static float radius = 2;
+    private readonly static float radius = 1;
     private SingleTargetEffectData data;
 
     public SingleTargetEffect(string name, Unit unit, Vector2 targetPosition) : base(name,unit,targetPosition)
@@ -20,9 +20,9 @@ public class SingleTargetEffect  : AbilityEffect {
         Unit closestTarget = null;
         float closestDistance = radius + 1;
 
-        for (int x = targetTile.x - (int)radius - 1; x < targetTile.x + (int)radius + 1; x++)
+        for (int x = targetTile.x - ((int)radius + 1); x < targetTile.x + (int)radius + 1; x++)
         {
-            for (int y = targetTile.y - (int)radius - 1; y < targetTile.y + (int)radius + 1; y++)
+            for (int y = targetTile.y - ((int)radius + 1); y < targetTile.y + (int)radius + 1; y++)
             {
                 Vector2i tile = new Vector2i(x, y);
                 foreach (Unit target in World.tileMap.getTile(tile).getUnits())
@@ -30,7 +30,7 @@ public class SingleTargetEffect  : AbilityEffect {
                     if (target.getID() == unit.getID()
                         || target.getTeam() == unit.getTeam()) continue;
 
-                    float distance = Vector2.Distance(target.get2DPos(), unit.get2DPos());
+                    float distance = Vector2.Distance(target.get2DPos(), targetPosition);
                     if (distance > radius) continue;
 
                     if (distance < closestDistance) closestTarget = target;

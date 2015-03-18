@@ -194,9 +194,33 @@ public class AbilityEditor : ObjectEditor
             }
             EditorGUILayout.EndHorizontal();
         }
-        if (GUILayout.Button("+Stat"))
+        if (GUILayout.Button("+Effect"))
         {
             data.effects.Add(new AbilityEffectAndTime());
+        }
+
+        EditorGUILayout.LabelField("Animation:         Time:       Speed:", EditorStyles.boldLabel);
+        foreach (AbilityAnimation edit in data.animations)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 100;
+            EditorGUIUtility.fieldWidth = 40;
+            edit.name = EditorGUILayout.TextField(edit.name);
+            EditorGUIUtility.fieldWidth = 10;
+            edit.time = EditorGUILayout.FloatField(edit.time);
+            edit.speed = EditorGUILayout.FloatField(edit.speed);
+
+
+            if (GUILayout.Button("-"))
+            {
+                data.animations.Remove(edit);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Animation"))
+        {
+            data.animations.Add(new AbilityAnimation());
         }
 
 

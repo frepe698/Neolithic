@@ -203,7 +203,7 @@ public class UnitStats {
     public float getMaxHealth() { return stats[(int)Stat.Health].getValue(); }
     public float getCurHealth() { return ((Vital)stats[(int)Stat.Health]).getCurValue(); }
     public float getMaxEnergy() { return stats[(int)Stat.Energy].getValue(); }
-    public float getCurMana() { return ((Vital)stats[(int)Stat.Energy]).getCurValue(); }
+    public float getCurEnergy() { return ((Vital)stats[(int)Stat.Energy]).getCurValue(); }
 
     public float getDamage(int damageType, bool melee)
     {

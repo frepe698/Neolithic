@@ -35,7 +35,7 @@ public class AIUnit : Unit {
             modelName = data.modelName;
 		}
         init();
-        unitstats.updateStats();
+        //unitstats.updateStats();
 	}
 
 	public override void updateAI()

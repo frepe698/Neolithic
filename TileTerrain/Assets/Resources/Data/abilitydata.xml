@@ -8,15 +8,29 @@
           <time>0.583</time>
         </AbilityEffectAndTime>
       </effects>
-      <totalTime>0</totalTime>
-      <energyCost>20</energyCost>
+      <animations>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>8</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
     </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="basicattack">
       <effects />
-      <totalTime>0</totalTime>
-      <energyCost>15</energyCost>
+      <animations>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
     </AbilityData>
@@ -27,10 +41,73 @@
           <time>0.583</time>
         </AbilityEffectAndTime>
       </effects>
-      <totalTime>0</totalTime>
-      <energyCost>80</energyCost>
+      <animations>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>50</energyCost>
       <healthCost>10</healthCost>
       <cooldown>3</cooldown>
+    </AbilityData>
+    <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="tripplestrike">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>meleebasicattack</name>
+          <time>0.194</time>
+        </AbilityEffectAndTime>
+        <AbilityEffectAndTime>
+          <name>meleebasicattack</name>
+          <time>0.557</time>
+        </AbilityEffectAndTime>
+        <AbilityEffectAndTime>
+          <name>meleebasicattack</name>
+          <time>0.86</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0</time>
+          <speed>3</speed>
+        </AbilityAnimation>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0.333</time>
+          <speed>3</speed>
+        </AbilityAnimation>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0.666</time>
+          <speed>3</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>18</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>2</cooldown>
+    </AbilityData>
+    <AbilityData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>heavystrike</name>
+          <time>0.8745</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <name>attack</name>
+          <time>0</time>
+          <speed>0.75</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1.5</totalTime>
+      <energyCost>18</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>2</cooldown>
     </AbilityData>
   </Abilities>
 </AbilityRoot>
