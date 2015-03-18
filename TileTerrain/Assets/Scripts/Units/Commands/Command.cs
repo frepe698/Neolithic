@@ -44,4 +44,9 @@ public abstract class Command {
         return false;
     }
 
+    public virtual bool canStartOverride(Command command)
+    {
+        return !this.Equals(command);
+    }
+
 }

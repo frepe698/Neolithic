@@ -19,6 +19,7 @@ public class AbilityData : ObjectData {
     public AbilityData() { }
 
     public AbilityData(AbilityEdit edit)
+        : base(edit)
     {
         effects = edit.effects.ToArray();
         energyCost = edit.energyCost;

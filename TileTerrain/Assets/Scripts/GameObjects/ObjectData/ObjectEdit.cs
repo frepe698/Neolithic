@@ -144,6 +144,7 @@ namespace Edit
         }
 
         public AbilityEdit(AbilityData data)
+            : base(data)
         {
             effects = new List<AbilityEffectAndTime>();
             foreach (AbilityEffectAndTime a in data.effects)
@@ -156,6 +157,7 @@ namespace Edit
         }
 
         public AbilityEdit(AbilityEdit data)
+            : base(data)
         {
             effects = data.effects;
             energyCost = data.energyCost;
