@@ -224,7 +224,7 @@ public class Unit {
 			}
 		}
 		updateTransform();
-		
+        updateAbilities();
 	}
 
 	protected virtual void updateTransform()
@@ -734,6 +734,14 @@ public class Unit {
     public bool hasAbility(int ability)
     {
         return ability < abilities.Count;
+    }
+
+    private void updateAbilities()
+    {
+        foreach(Ability a in abilities)
+        {
+            a.update();
+        }
     }
 
 }

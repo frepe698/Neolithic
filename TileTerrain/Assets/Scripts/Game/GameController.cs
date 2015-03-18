@@ -365,6 +365,11 @@ public abstract class GameController : MonoBehaviour{
                         int targetID = rayhit.transform.GetComponent<UnitController>().getID();
                         requestAbilityCommand(unitID, targetID, 0);
                     }
+                    else if(Input.GetKey("w"))
+                    {
+                        int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                        requestAbilityCommand(unitID, targetID, 1);
+                    }
                     targetPoint = rayhit.transform.position;
                 }
                 else if (holdTag == "Ground")
@@ -376,6 +381,10 @@ public abstract class GameController : MonoBehaviour{
 				{
 					requestAbilityCommand(unitID, targetPoint + Vector3.up, 0);
 				}
+                else if (Input.GetKey("w"))
+                {
+                    requestAbilityCommand(unitID, targetPoint + Vector3.up, 1);
+                }
 			}
 			//Clicking a target with LMB will set it selected until the button is released. 
 			//While selected no other command can be excecuted
