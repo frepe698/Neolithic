@@ -296,6 +296,19 @@ public class Unit {
 		command.start ();
 	}
 
+    public void giveAbilityCommand(Unit target, int ability)
+    {
+        if (target == null) return;
+        command = new AbilityCommand(this, target, abilities[ability]);
+        command.start();
+    }
+
+    public void giveAbilityCommand(Vector3 target, int ability)
+    {
+        command = new AbilityCommand(this, target, abilities[ability]);
+        command.start();
+    }
+
 	public void giveLootCommand(Vector2i targetTile, int lootID)
 	{
 		LootableObject lObject = World.tileMap.getTile(targetTile).getLootableObject(lootID);
@@ -699,6 +712,21 @@ public class Unit {
 
             unitController.playSound("levelup");
         }
+    }
+
+    public void addAbility(string ability)
+    {
+        abilities.Add(new Ability(ability, this));
+    }
+
+    public Ability getAbility(int ability)
+    {
+        return abilities[ability];
+    }
+
+    public bool hasAbility(int ability)
+    {
+        return ability < abilities.Count;
     }
 
 }

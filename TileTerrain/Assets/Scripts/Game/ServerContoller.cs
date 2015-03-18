@@ -88,6 +88,29 @@ public class ServerController : GameController {
 		}
 	}
 
+    [RPC]
+    public override void requestAbilityCommand(int unitID, int targetID, int ability)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        Unit target = GameMaster.getUnit(targetID);
+        if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        {
+            gameMaster.getNetView().RPC("approveAbilityCommand", RPCMode.All, unitID, targetID, unit.getPosition(), ability);
+        }
+    }
+
+    [RPC]
+    public override void requestAbilityCommand(int unitID, Vector3 target, int ability)
+    {
+
+
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        {
+            gameMaster.getNetView().RPC("approveAbilityCommand", RPCMode.All, unitID, target, unit.getPosition(), ability);
+        }
+    }
+
 	[RPC]
 	public override void requestLootCommand(int unitID, int tileX, int tileY, int lootID)
 	{
@@ -267,6 +290,12 @@ public class ServerController : GameController {
             }
         }
 
+    }
+
+    [RPC]
+    public override void requestLearnAbility(string ability, int unitID)
+    {
+        gameMaster.getNetView().RPC("approveLearnAbility", RPCMode.All, ability, unitID);
     }
 
     [RPC]

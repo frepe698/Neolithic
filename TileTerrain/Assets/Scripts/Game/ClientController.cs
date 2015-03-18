@@ -63,6 +63,17 @@ public class ClientController : GameController {
 		gameMaster.getNetView().RPC ("requestRangedAttackCommand", RPCMode.Server, unitID, target);
 	}
 
+    [RPC]
+    public override void requestAbilityCommand(int unitID, int targetID, int ability)
+    {
+        gameMaster.getNetView().RPC("requestAbilityCommand", RPCMode.Server, unitID, targetID, ability);
+    }
+    [RPC]
+    public override void requestAbilityCommand(int unitID, Vector3 target, int ability)
+    {
+        gameMaster.getNetView().RPC("requestAbilityCommand", RPCMode.Server, unitID, target, ability);
+    }
+
 
 
 	[RPC]
@@ -98,6 +109,11 @@ public class ClientController : GameController {
 	{
 		//do nada
 	}
+
+    public override void requestLearnAbility(string ability, int unitID)
+    {
+        gameMaster.getNetView().RPC("requestLearnAbility", RPCMode.Server, ability, unitID);
+    }
 	
 
 	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)

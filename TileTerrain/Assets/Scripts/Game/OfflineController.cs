@@ -85,6 +85,29 @@ public class OfflineController : GameController {
 		}
 	}
 
+    [RPC]
+    public override void requestAbilityCommand(int unitID, int targetID, int ability)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        Unit target = GameMaster.getUnit(targetID);
+        if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        {
+            approveAbilityCommand(unitID, targetID, unit.getPosition(), ability);
+        }
+    }
+
+    [RPC]
+    public override void requestAbilityCommand(int unitID, Vector3 target, int ability)
+    {
+
+
+        Unit unit = GameMaster.getUnit(unitID);
+        if(unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit,target, unit.getAbility(ability))))
+        {
+            approveAbilityCommand(unitID, target, unit.getPosition(), ability);
+        }
+    }
+
 	[RPC]
 	public override void requestLootCommand(int unitID, int tileX, int tileY, int lootID)
 	{
@@ -256,6 +279,12 @@ public class OfflineController : GameController {
             hitUnit(targetID, unitID, damage);
             changeEnergy(unitID, -5);
         }
+    }
+
+    [RPC]
+    public override void requestLearnAbility(string ability, int unitID)
+    {
+        approveLearnAbility(ability, unitID);
     }
 
     [RPC]

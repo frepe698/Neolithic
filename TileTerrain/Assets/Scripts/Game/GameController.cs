@@ -205,6 +205,40 @@ public abstract class GameController : MonoBehaviour{
         StartCoroutine(lagMove(unitID, x, y, lag));
     }
 
+    [RPC]
+    public abstract void requestAbilityCommand(int unitID, int targetID, int ability);
+
+    [RPC]
+    public abstract void requestAbilityCommand(int unitID, Vector3 target, int ability);
+
+    [RPC]
+    protected void approveAbilityCommand(int unitID, int targetID, Vector3 startPos, int ability)
+    {
+        Vector2i startTile = new Vector2i(startPos.x, startPos.z);
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit.getTile() != startTile)
+        {
+            unit.setPosition(startPos); //If desynced: SYNC THAT
+            //Debug.Log("desync!");
+        }
+
+        unit.giveAbilityCommand(GameMaster.getUnit(targetID), ability);
+    }
+
+    [RPC]
+    protected void approveAbilityCommand(int unitID, Vector3 target, Vector3 startPos, int ability)
+    {
+        Vector2i startTile = new Vector2i(startPos.x, startPos.z);
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit.getTile() != startTile)
+        {
+            unit.setPosition(startPos); //If desynced: SYNC THAT
+            //Debug.Log("desync!");
+        }
+
+        unit.giveAbilityCommand(target, ability);
+    }
+
     #endregion
 
     public abstract void update();
@@ -504,6 +538,15 @@ public abstract class GameController : MonoBehaviour{
     public abstract void requestProjectileHit(int damage, int unitID, int targetID);
 
     public abstract void requestHit(int damage, int unitID, int targetID);
+
+    [RPC]
+    public abstract void requestLearnAbility(string ability, int unitID);
+
+    [RPC]
+    protected void approveLearnAbility(string ability, int unitID)
+    {
+        GameMaster.getHero(unitID).addAbility(ability);
+    }
 
     #endregion
 
