@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Edit;
 
 public class AbilityCommand : Command {
 
@@ -8,7 +9,9 @@ public class AbilityCommand : Command {
 	private bool hasAttacked;
 	private float attackTime;
 	private Vector2 attackPosition;
-	private Vector2i targetTile;
+    private float attackHeight;
+    private Vector2i targetTile;
+    
 
     private Ability ability;
     private int lastUsedEffect;
@@ -24,11 +27,12 @@ public class AbilityCommand : Command {
         this.ability = ability;
 	}
 
-    public AbilityCommand(Unit unit, Vector2 attackPosition, Ability ability)
+    public AbilityCommand(Unit unit, Vector3 attackPosition, Ability ability)
         : base(unit)
     {
         this.target = null;
-        this.destination = this.attackPosition = attackPosition;
+        this.destination = this.attackPosition = new Vector2(attackPosition.x, attackPosition.z);
+        this.attackHeight = attackPosition.y;
         this.targetTile = new Vector2i(this.attackPosition);
 
         this.ability = ability;
@@ -60,16 +64,17 @@ public class AbilityCommand : Command {
 				attackTime += Time.deltaTime;
 
                 //Get next effect from ability using attacktime
-                AbilityEffect effect = null;// = ability.getNextEffect(attacktime);
+                AbilityEffect effect = getNextEffect();
 				while(effect != null) 
 				{
-                    //TODO: Play effect sound
-					//unit.playSound(unit.getAttackSound(0));
+                    //TODO: get effect sound
+					unit.playSound(unit.getAttackSound(0));
 
                     effect.action();
 					//unit.attack(target);
 
                     lastUsedEffect++;
+                    //if it was the last effect set command as completed
                     if (lastUsedEffect >= ability.data.effects.Length)
                     {
                         hasAttacked = true;
@@ -79,7 +84,7 @@ public class AbilityCommand : Command {
                     }
 
                     //get next effect from ability
-                    //effect = ability.getNextEffect(attacktime, lastUsedEffect)
+                    effect = getNextEffect();
 				}
                
 			}
@@ -94,21 +99,9 @@ public class AbilityCommand : Command {
 			hasAttacked = false;
 			calculateRotation();
 
-            //TODO: animation
-			//unit.playWeaponAttackAnimation(unit.getAttackSpeed());
-			//unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());
-		}
-		else if(target.getTile() != targetTile)
-		{
-			if(unit.getLineOfSight() < Vector2.Distance(unit.get2DPos(), target.get2DPos()))
-			{
-				setCompleted();
-			}
-			else
-			{
-				destination = target.get2DPos();
-				unit.setPath(destination);
-			}
+            //TODO: get ability animation
+			unit.playWeaponAttackAnimation(unit.getAttackSpeed());
+			unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());
 		}
 	}
 	
@@ -127,6 +120,17 @@ public class AbilityCommand : Command {
     public Ability getAbility()
     {
         return ability;
+    }
+
+    private AbilityEffect getNextEffect()
+    {
+        AbilityEffectAndTime aeat = ability.getTimedEffect(lastUsedEffect, attackTime);
+        if (aeat == null) return null;
+
+        AbilityEffectData data = DataHolder.Instance.getEffectData(aeat.name);
+        if (data == null) return null;
+
+        return data.getAbilityEffect(unit, attackPosition);
     }
 
 	public override bool Equals(object o)
