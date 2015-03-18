@@ -120,6 +120,11 @@ public class ClientController : GameController {
 		//do nada
 	}
 
+    public override void requestHit(int damage, int unitID, int targetID)
+    {
+        //do nada
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {
