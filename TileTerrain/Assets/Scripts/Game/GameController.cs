@@ -503,6 +503,8 @@ public abstract class GameController : MonoBehaviour{
 
     public abstract void requestProjectileHit(int damage, int unitID, int targetID);
 
+    public abstract void requestHit(int damage, int unitID, int targetID);
+
     #endregion
 
     #region GATHERING

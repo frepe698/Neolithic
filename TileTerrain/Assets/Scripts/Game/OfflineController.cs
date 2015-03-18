@@ -241,6 +241,23 @@ public class OfflineController : GameController {
 		}
 	}
 
+    public override void requestHit(int damage, int unitID, int targetID)
+    {
+        Unit target = GameMaster.getUnit(targetID);
+        if (target == null) return;
+        target.playSound("hitBow01");
+        if (target.getHealth() <= damage)
+        {
+            killUnit(targetID, unitID);
+            changeEnergy(unitID, -5);
+        }
+        else
+        {
+            hitUnit(targetID, unitID, damage);
+            changeEnergy(unitID, -5);
+        }
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {
