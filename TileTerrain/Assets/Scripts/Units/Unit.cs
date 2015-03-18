@@ -42,6 +42,7 @@ public class Unit {
 
     protected SkillManager skillManager;
     protected UnitStats unitstats;
+
     protected List<Ability> abilities;
 	
 	private AudioSource audio;

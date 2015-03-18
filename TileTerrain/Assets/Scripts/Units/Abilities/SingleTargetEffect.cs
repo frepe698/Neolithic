@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SingleTargetEffect  : AbilityEffect {
 
-    private readonly static float radius = 1;
+    private readonly static float radius = 2;
     private SingleTargetEffectData data;
 
     public SingleTargetEffect(string name, Unit unit, Vector2 targetPosition) : base(name,unit,targetPosition)
