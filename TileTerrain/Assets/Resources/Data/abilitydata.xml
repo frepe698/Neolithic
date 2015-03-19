@@ -114,5 +114,25 @@
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
     </AbilityData>
+    <AbilityData name="stonethrow" gameName="Stone Throw" modelName="">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>stonethrow</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>20</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+    </AbilityData>
   </Abilities>
 </AbilityRoot>

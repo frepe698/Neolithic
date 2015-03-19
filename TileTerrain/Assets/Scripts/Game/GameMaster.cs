@@ -75,7 +75,7 @@ public class GameMaster : MonoBehaviour {
 		spawnHeroes();
         setPlayerUnit(playerUnitID);
         getHero(playerUnitID).learnAbility("rangedbasicattack");
-        getHero(playerUnitID).learnAbility("heavystrike");
+        getHero(playerUnitID).learnAbility("cleave");
 	    //world.addAnimals();
 
         world.addSpawners();
@@ -101,10 +101,9 @@ public class GameMaster : MonoBehaviour {
 //		hero.getInventory().addItem(new MaterialItem("Stick"));
 //		hero.getInventory().addItem(new MaterialItem("Stick"));
 //		hero.getInventory().addItem(new MaterialItem("Stick"));
+
+        guiManager.setPlayerHero(hero);
 		
-		guiManager.setInventory(hero.getInventory());
-        guiManager.setUnitStats(hero.getUnitStats());
-        guiManager.setSkillManager(hero.getSkillManager());
 	}
 
 	private void setPlayerUnit(int id)

@@ -11,6 +11,8 @@ public class GUIManager : MonoBehaviour{
 
 	private Transform canvas;
 
+    private Hero playerHero;
+
     #region IN GAME MENU MEMBERS
     private GameObject ingameMenuObject;
     private bool ingameMenuActive = false;
@@ -136,6 +138,12 @@ public class GUIManager : MonoBehaviour{
     private Text[] quickUseItemAmount;
     #endregion //END QUICK USE ITEMS MEMBERS
 
+    #region ABILITIES MEMBERS
+    public const int ABILITY_COUNT = 4;
+    private Image[] abilityIcons;
+    private Transform[] abilityCooldown;
+    #endregion
+
     #region FPS DISPLAY MEMBERS
     private Text fpsDisplay;
     private float nextUpdateTimer;
@@ -156,6 +164,7 @@ public class GUIManager : MonoBehaviour{
         hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
         coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
 
+        #region INGAME MENU INIT
         //Ingame Menu init
         ingameMenuObject = canvas.FindChild("IngameMenu").gameObject;
         for (int i = 0; i < 4; i++)
@@ -166,18 +175,18 @@ public class GUIManager : MonoBehaviour{
         }
         ingameMenuActive = false;
         ingameMenuObject.SetActive(ingameMenuActive);
+        #endregion
 
+        #region CHAT INIT
         //Chat
         chatObject = canvas.FindChild("Chat").gameObject;
         chatInputObject = chatObject.transform.FindChild("ChatInput").gameObject;
         chatInputField = chatInputObject.GetComponent<InputField>();
         chatOutputText = chatObject.transform.FindChild("ChatOutputScrollmask").FindChild("ChatOutput").GetComponent<Text>();
         chatScrollbar = chatObject.transform.FindChild("Scrollbar").GetComponent<Scrollbar>();
+        #endregion
 
-
-        //chatObject.SetActive(chatting);
-        //chatInputObject.SetActive(chatting);
-
+        #region HERO STATS INIT
         //Hero stats
         heroStatsObject = canvas.FindChild("HeroStats").gameObject;
 
@@ -222,7 +231,9 @@ public class GUIManager : MonoBehaviour{
                 }
             }
         }
+        #endregion
 
+        #region INVENTORY INIT
         //Inventory init
         inventoryObject = canvas.FindChild("Inventory").gameObject;
         Transform scrollMask = inventoryObject.transform.FindChild("ScrollMask");
@@ -246,8 +257,9 @@ public class GUIManager : MonoBehaviour{
             itemButtons[i] = new List<Button>();
             inventoryFoldOpen[i] = true;
         }
+        #endregion
 
-
+        #region CRAFTING INIT
         //Crafting init
         craftingObject = canvas.FindChild("Crafting").gameObject;
         Transform cscrollMask = craftingObject.transform.FindChild("ScrollMask");
@@ -273,7 +285,9 @@ public class GUIManager : MonoBehaviour{
             recipeFoldOpen[i] = true;
         }
         updateCrafting();
+        #endregion
 
+        #region TOOLTIPS INIT
         //Tooltips init
         recipeTooltip = canvas.FindChild("RecipeTooltip").gameObject;
         recipeTooltipName = recipeTooltip.transform.FindChild("GameName").GetComponent<Text>();
@@ -286,7 +300,9 @@ public class GUIManager : MonoBehaviour{
         itemTooltipStats = itemTooltip.transform.FindChild("Stats").GetComponent<Text>();
         itemTooltipDescription = itemTooltip.transform.FindChild("Description").GetComponent<Text>();
         itemTooltip.SetActive(false);
+        #endregion
 
+        #region QUICK USE ITEMS INIT
         //Left panel init
         Transform leftPanel = canvas.FindChild("LeftPanel");
         quickUseItems = new QuickUseItem[QUICK_USE_ITEM_COUNT];
@@ -300,9 +316,22 @@ public class GUIManager : MonoBehaviour{
             quickUseItemAmount[i] = quickUseItemImages[i].transform.FindChild("Amount").GetComponent<Text>();
             quickUseItems[i] = new QuickUseEquipment();
         }
+        #endregion
 
+        #region ABILITY INIT
+        abilityIcons = new Image[ABILITY_COUNT];
+        abilityCooldown = new RectTransform[ABILITY_COUNT];
+        for (int i = 0; i < ABILITY_COUNT; i++)
+        {
+            abilityIcons[i] = rightPanel.FindChild("Ability" + i).GetComponent<Image>();
+            abilityCooldown[i] = abilityIcons[i].rectTransform.FindChild("Cooldown");
+        }
+        #endregion
+
+        #region FPS DISPLAY INIT
         //Fps display
         fpsDisplay = canvas.FindChild("FPSDisplay").GetComponent<Text>();
+        #endregion
 
         activateInventory(false);
         activateCrafting(false);
@@ -367,6 +396,8 @@ public class GUIManager : MonoBehaviour{
 		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / (hero.getMaxHealth()+float.Epsilon)) * 100);
         energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / (hero.getMaxEnergy() + float.Epsilon)) * 100);
 		hungerbarTransform.sizeDelta = new Vector2(100, (hero.getHunger()/hero.getMaxHunger())*100);
+
+        updateAbilityCooldownDisplays();
 
         //Fps display
         nextUpdateTimer += Time.deltaTime;
@@ -798,6 +829,38 @@ public class GUIManager : MonoBehaviour{
     }
 
     #endregion //QUICK USE ITEMS
+
+    #region ABILITY
+
+    private void updateAbilityIcons()
+    {
+        for (int i = 0; i < ABILITY_COUNT; i++)
+        {
+            abilityIcons[i].enabled = playerHero.hasAbility(i);
+        }
+    }
+
+    private void updateAbilityCooldownDisplays()
+    {
+        for (int i = 0; i < ABILITY_COUNT; i++)
+        {
+            if (playerHero.hasAbility(i))
+            {
+                Ability a = playerHero.getAbility(i);
+                float curCooldown = a.getCurCoolDown();
+                if (curCooldown > 0)
+                    abilityCooldown[i].localScale = new Vector3(1, curCooldown / a.getCoolDown(), 1);
+                else
+                    abilityCooldown[i].localScale = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                abilityCooldown[i].localScale = new Vector3(0, 0, 0);
+            }
+        }
+    }
+
+    #endregion
 
     #region INVENTORY
 
@@ -1347,5 +1410,16 @@ public class GUIManager : MonoBehaviour{
     public bool takeKeyboardInput()
     {
         return !chatting;
+    }
+
+    public void setPlayerHero(Hero hero)
+    {
+        this.playerHero = hero;
+
+        setInventory(hero.getInventory());
+        setUnitStats(hero.getUnitStats());
+        setSkillManager(hero.getSkillManager());
+
+        updateAbilityIcons();
     }
 }

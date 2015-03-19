@@ -65,6 +65,11 @@ public class AbilityCommand : Command {
                             unit.playWeaponAttackAnimation(speed);
                             unit.setAnimationRestart(unit.getAttackAnim(0), speed);
                         }
+                        else
+                        {
+                            float speed = unit.getAttackSpeed() * animation.speed;
+                            unit.setAnimationRestart(animation.name, speed);
+                        }
                         lastPlayedAnimation++;
                     }
                 }
@@ -107,7 +112,7 @@ public class AbilityCommand : Command {
                 }
 			}
 		}
-		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < 2 ) //TODO weapon range here
+		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < 2) //TODO weapon range here
 		{
             //Update target position to the targeted units position
             if (target != null)

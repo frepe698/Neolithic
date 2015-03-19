@@ -264,12 +264,12 @@ public class OfflineController : GameController {
 		if(target.getHealth() <= damage)
 		{
 			killUnit(targetID, unitID);
-			changeEnergy(unitID, -5);
+			//changeEnergy(unitID, -5);
 		}
 		else
 		{
 			hitUnit(targetID, unitID, damage);
-			changeEnergy(unitID, -5);
+			//changeEnergy(unitID, -5);
 		}
 	}
 

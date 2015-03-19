@@ -73,5 +73,18 @@
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
+    <ProjectileEffectData name="stonethrow" gameName="Stone Throw" modelName="">
+      <hitDamage>
+        <HitDamage>
+          <stat>StoneDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <projectileName>rock</projectileName>
+      <weaponProjectile>false</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
   </ProjectileEffects>
 </EffectsRoot>

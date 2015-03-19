@@ -268,13 +268,13 @@ public class ServerController : GameController {
 			if(target.getHealth() <= damage)
 			{
 				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
-				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+				//gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
 			else
 			{
 				gameMaster.getNetView().RPC ("hitUnit", RPCMode.All, targetID, unitID, damage);
-				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
+				//gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
 		}
