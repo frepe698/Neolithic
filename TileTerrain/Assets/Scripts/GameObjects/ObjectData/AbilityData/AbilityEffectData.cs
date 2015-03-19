@@ -19,7 +19,7 @@ public abstract class AbilityEffectData : ObjectData {
         }
     }
 
-    public abstract AbilityEffect getAbilityEffect(Unit unit, Vector2 targetPosition);
+    public abstract AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition);
 }
 
 public class HitDamage
