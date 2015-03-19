@@ -100,6 +100,25 @@ namespace Edit
         }
     }
 
+    [Serializable]
+    public class ProjectileEffectEdit : AbilityEffectEdit
+    {
+        public float angle;
+
+        public ProjectileEffectEdit() : base()
+        {
+
+        }
+        public ProjectileEffectEdit(ProjectileEffectData data) : base(data)
+        {
+            angle = data.angle;
+        }
+
+        public ProjectileEffectEdit(ProjectileEffectEdit edit) : base(edit)
+        {
+            angle = edit.angle;
+        }
+    }
     
 
     [Serializable]

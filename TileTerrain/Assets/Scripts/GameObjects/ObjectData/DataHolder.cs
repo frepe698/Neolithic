@@ -110,16 +110,20 @@ public class DataHolder {
     public class EffectDataHolder
     {
         public EffectDataHolder() { }
-        public EffectDataHolder(SingleTargetEffectData[] singletargets, AreaOfEffectData[] aoe)
+        public EffectDataHolder(SingleTargetEffectData[] singletargets, AreaOfEffectData[] aoe, ProjectileEffectData[] ped)
         {
             this.singleTargetEffectData = singletargets;
             this.areaOfEffectData = aoe;
+            this.projectileEffectData = ped;
         }
         [XmlArray("SingleTargets"), XmlArrayItem("SingleTargetEffectData")]
         public readonly SingleTargetEffectData[] singleTargetEffectData;
 
         [XmlArray("AreaOfEffects"), XmlArrayItem("AreaOfEffectData")]
         public readonly AreaOfEffectData[] areaOfEffectData;
+
+        [XmlArray("ProjectileEffects"), XmlArrayItem("ProjectileEffectData")]
+        public readonly ProjectileEffectData[] projectileEffectData;
     }
 
 	[XmlRoot("ResourcesRoot")]
