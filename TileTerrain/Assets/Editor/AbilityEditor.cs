@@ -178,7 +178,7 @@ public class AbilityEditor : ObjectEditor
         data.totalTime = EditorGUILayout.FloatField("Total Time: ", data.totalTime);
 
         EditorGUILayout.LabelField("Effects:", EditorStyles.boldLabel);
-        foreach(AbilityEffectAndTime edit in data.effects)
+        foreach(AbilityEffectAndTimeEdit edit in data.effects)
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
@@ -196,16 +196,20 @@ public class AbilityEditor : ObjectEditor
         }
         if (GUILayout.Button("+Effect"))
         {
-            data.effects.Add(new AbilityEffectAndTime());
+            data.effects.Add(new AbilityEffectAndTimeEdit());
         }
 
-        EditorGUILayout.LabelField("Animation:         Time:       Speed:", EditorStyles.boldLabel);
-        foreach (AbilityAnimation edit in data.animations)
+        EditorGUILayout.LabelField("Animation:           Time:         Speed:", EditorStyles.boldLabel);
+        foreach (AbilityAnimationEdit edit in data.animations)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUIUtility.labelWidth = 100;
+            EditorGUIUtility.labelWidth = 5;
+            EditorGUIUtility.fieldWidth = 1;
+            edit.weaponAttackAnimation = EditorGUILayout.Toggle(edit.weaponAttackAnimation);
             EditorGUIUtility.fieldWidth = 40;
-            edit.name = EditorGUILayout.TextField(edit.name);
+            EditorGUIUtility.labelWidth = 100;
+            if (edit.weaponAttackAnimation) EditorGUILayout.TextField("weapAtkAnim");
+            else edit.name = EditorGUILayout.TextField(edit.name);
             EditorGUIUtility.fieldWidth = 10;
             edit.time = EditorGUILayout.FloatField(edit.time);
             edit.speed = EditorGUILayout.FloatField(edit.speed);
@@ -220,7 +224,7 @@ public class AbilityEditor : ObjectEditor
         }
         if (GUILayout.Button("+Animation"))
         {
-            data.animations.Add(new AbilityAnimation());
+            data.animations.Add(new AbilityAnimationEdit());
         }
 
 

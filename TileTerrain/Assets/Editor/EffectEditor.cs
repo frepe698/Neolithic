@@ -65,9 +65,12 @@ public class EffectEditor : ObjectEditor
             {
                 areaofeffects.Add(new AreaOfEffectEdit(rdata));
             }
-            foreach (ProjectileEffectData pdata in effectDataHolder.projectileEffectData)
+            if (effectDataHolder.projectileEffectData != null)
             {
-                projectileeffects.Add(new ProjectileEffectEdit(pdata));
+                foreach (ProjectileEffectData pdata in effectDataHolder.projectileEffectData)
+                {
+                    projectileeffects.Add(new ProjectileEffectEdit(pdata));
+                }
             }
            
 
@@ -385,14 +388,28 @@ public class EffectEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
-        data.name = TextField("Name: ", data.name);
-        data.gameName = TextField("Game Name: ", data.gameName);
+        editEffect(data);
+
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Projectile Stuff: ", EditorStyles.boldLabel);
+        EditorGUIUtility.labelWidth = 180;
+        data.weaponProjectile = EditorGUILayout.Toggle("Use weapon projectile", data.weaponProjectile);
+        EditorGUIUtility.labelWidth = 120;
+        if(!data.weaponProjectile) data.projectileName = EditorGUILayout.TextField("ProjectileName: ", data.projectileName);
+        data.angle = EditorGUILayout.FloatField("Angle: ", data.angle);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+    }
+
+    private void editEffect(AbilityEffectEdit data)
+    {
+        data.name = EditorGUILayout.TextField("Name: ", data.name);
+        data.gameName = EditorGUILayout.TextField("Game Name: ", data.gameName);
         data.modelName = EditorGUILayout.TextField("Model Name: ", data.modelName);
 
         GUILayout.Space(20);
-        EditorGUILayout.LabelField("Angle:", EditorStyles.boldLabel);
-        data.angle = EditorGUILayout.FloatField(data.angle);
-
+        EditorGUILayout.LabelField("Hit Damage:", EditorStyles.boldLabel);
         foreach (HitDamageEdit edit in data.hitDamages)
         {
             EditorGUILayout.BeginHorizontal();
@@ -419,12 +436,10 @@ public class EffectEditor : ObjectEditor
             }
             EditorGUILayout.EndHorizontal();
         }
-        if (GUILayout.Button("+Stat"))
+        if (GUILayout.Button("+Damage"))
         {
             data.hitDamages.Add(new HitDamageEdit());
         }
-        GUILayout.EndScrollView();
-        GUI.DragWindow();
     }
 
     

@@ -55,7 +55,9 @@ namespace Edit
         }
         public AbilityEffectEdit(AbilityEffectEdit edit) : base(edit)
         {
-            hitDamages = edit.hitDamages;
+            hitDamages = new List<HitDamageEdit>();
+            foreach (HitDamageEdit hde in edit.hitDamages)
+                hitDamages.Add(new HitDamageEdit(hde));
         }
     }
 
@@ -103,6 +105,8 @@ namespace Edit
     [Serializable]
     public class ProjectileEffectEdit : AbilityEffectEdit
     {
+        public string projectileName;
+        public bool weaponProjectile;
         public float angle;
 
         public ProjectileEffectEdit() : base()
@@ -111,11 +115,15 @@ namespace Edit
         }
         public ProjectileEffectEdit(ProjectileEffectData data) : base(data)
         {
+            projectileName = data.projectileName;
+            weaponProjectile = data.weaponProjectile;
             angle = data.angle;
         }
 
         public ProjectileEffectEdit(ProjectileEffectEdit edit) : base(edit)
         {
+            projectileName = edit.projectileName;
+            weaponProjectile = edit.weaponProjectile;
             angle = edit.angle;
         }
     }
@@ -142,13 +150,21 @@ namespace Edit
             yourStat = hitDamage.yourStat;
             damageSelf = hitDamage.damageSelf;
         }
+
+        public HitDamageEdit(HitDamageEdit hitDamage)
+        {
+            stat = hitDamage.stat;
+            percent = hitDamage.percent;
+            yourStat = hitDamage.yourStat;
+            damageSelf = hitDamage.damageSelf;
+        }
     }
 
     [Serializable]
     public class AbilityEdit : ObjectEdit
     {
-        public List<AbilityEffectAndTime> effects;
-        public List<AbilityAnimation> animations;
+        public List<AbilityEffectAndTimeEdit> effects;
+        public List<AbilityAnimationEdit> animations;
         public float totalTime;
 
         public int energyCost;
@@ -160,24 +176,24 @@ namespace Edit
         {
             name = "new ability";
             gameName = "New Ability";
-            effects = new List<AbilityEffectAndTime>();
-            animations = new List<AbilityAnimation>();
+            effects = new List<AbilityEffectAndTimeEdit>();
+            animations = new List<AbilityAnimationEdit>();
         }
 
         public AbilityEdit(AbilityData data)
             : base(data)
         {
-            effects = new List<AbilityEffectAndTime>();
+            effects = new List<AbilityEffectAndTimeEdit>();
             foreach (AbilityEffectAndTime a in data.effects)
             {
-                effects.Add(a);
+                effects.Add(new AbilityEffectAndTimeEdit(a));
             }
-            animations = new List<AbilityAnimation>();
+            animations = new List<AbilityAnimationEdit>();
             if (data.animations != null)
             {
                 foreach (AbilityAnimation a in data.animations)
                 {
-                    animations.Add(a);
+                    animations.Add(new AbilityAnimationEdit(a));
                 }
             }
             energyCost = data.energyCost;
@@ -199,18 +215,52 @@ namespace Edit
     }
 
     [Serializable]
-    public class AbilityEffectAndTime
+    public class AbilityEffectAndTimeEdit
     {
         public string name;
         public float time;
+
+        public AbilityEffectAndTimeEdit() { }
+        public AbilityEffectAndTimeEdit(AbilityEffectAndTime edit)
+        {
+            this.name = edit.name;
+            this.time = edit.time;
+        }
+
+        public AbilityEffectAndTimeEdit(AbilityEffectAndTimeEdit edit)
+        {
+            this.name = edit.name;
+            this.time = edit.time;
+        }
     }
 
     [Serializable]
-    public class AbilityAnimation
+    public class AbilityAnimationEdit
     {
+        public bool weaponAttackAnimation;
         public string name;
         public float time;
         public float speed = 1;
+
+        public AbilityAnimationEdit()
+        { 
+        }
+
+        public AbilityAnimationEdit(AbilityAnimation anim)
+        {
+            weaponAttackAnimation = anim.weaponAttackAnimation;
+            if(!weaponAttackAnimation) name = anim.name;
+            time = anim.time;
+            speed = anim.speed;
+        }
+
+        public AbilityAnimationEdit(AbilityAnimationEdit anim)
+        {
+            weaponAttackAnimation = anim.weaponAttackAnimation;
+            if (!weaponAttackAnimation) name = anim.name;
+            time = anim.time;
+            speed = anim.speed;
+        }
     }
 
     #region Skills and Abilities Edits

@@ -10,7 +10,7 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -21,10 +21,15 @@
       <cooldown>0</cooldown>
     </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="basicattack">
-      <effects />
+      <effects>
+        <AbilityEffectAndTime>
+          <name>rangedbasicattack</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+      </effects>
       <animations>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -43,7 +48,7 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -70,17 +75,17 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>3</speed>
         </AbilityAnimation>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0.333</time>
           <speed>3</speed>
         </AbilityAnimation>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0.666</time>
           <speed>3</speed>
         </AbilityAnimation>
@@ -99,7 +104,7 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <name>attack</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>0.75</speed>
         </AbilityAnimation>

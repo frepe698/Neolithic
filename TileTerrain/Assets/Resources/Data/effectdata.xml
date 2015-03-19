@@ -35,4 +35,31 @@
       <radius>4</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
+  <ProjectileEffects>
+    <ProjectileEffectData name="rangedbasicattack" gameName="Ranged Basic Attack" modelName="rangedbasicattack">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <weaponProjectile>true</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
+    <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball">
+      <hitDamage>
+        <HitDamage>
+          <stat>TreeDamage</stat>
+          <percent>2</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <projectileName>fireball</projectileName>
+      <weaponProjectile>false</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
+  </ProjectileEffects>
 </EffectsRoot>
