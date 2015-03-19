@@ -114,5 +114,32 @@
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
     </AbilityData>
+    <AbilityData name="volley" gameName="Volley" modelName="volley">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>splitarrow</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+        <AbilityEffectAndTime>
+          <name>splitarrowleft</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+        <AbilityEffectAndTime>
+          <name>splitarrowright</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+    </AbilityData>
   </Abilities>
 </AbilityRoot>
