@@ -25,6 +25,7 @@ public class ProjectileEffectData : AbilityEffectData {
 
     public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
     {
+        Debug.Log("get projectile effect");
         return new ProjectileEffect(name, unit, targetPosition);
     }
 

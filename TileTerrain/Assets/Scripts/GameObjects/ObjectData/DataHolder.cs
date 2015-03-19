@@ -358,6 +358,10 @@ public class DataHolder {
         {
             if (data.name.Equals(name)) return data;
         }
+        foreach (ProjectileEffectData data in effectDataHolder.projectileEffectData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
         return null;
     }
 

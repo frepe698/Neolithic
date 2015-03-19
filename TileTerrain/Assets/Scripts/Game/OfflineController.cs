@@ -213,8 +213,13 @@ public class OfflineController : GameController {
 
     public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
     {
-        throw new System.NotImplementedException();
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit != null)
+        {
+            approveFireProjectile(unitID, target, projectileName, damage);
+        }
     }
+
 	public override void requestLoot(int unitID, Vector2i tile, int lootID)
 	{
 		lootObject(unitID, tile.x, tile.y, lootID);

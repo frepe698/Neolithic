@@ -74,7 +74,7 @@ public class GameMaster : MonoBehaviour {
 		}
 		spawnHeroes();
         setPlayerUnit(playerUnitID);
-        getHero(playerUnitID).learnAbility("meleebasicattack");
+        getHero(playerUnitID).learnAbility("rangedbasicattack");
         getHero(playerUnitID).learnAbility("heavystrike");
 	    //world.addAnimals();
 

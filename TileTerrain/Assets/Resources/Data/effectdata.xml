@@ -48,6 +48,18 @@
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
+    <ProjectileEffectData name="splitarrow" gameName="Splitarrow" modelName="splitarrow">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>0.8</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <weaponProjectile>true</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
     <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball">
       <hitDamage>
         <HitDamage>

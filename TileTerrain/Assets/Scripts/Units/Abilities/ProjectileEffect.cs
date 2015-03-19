@@ -44,6 +44,13 @@ public class ProjectileEffect : AbilityEffect {
             if (hit.damageSelf) selfDamage += tempDamage;
             else damage += tempDamage;
         }
-        GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, damage, data.modelName); //TODO: använd projectile name
+
+        string projectileName;
+        if (data.weaponProjectile)
+            projectileName = unit.getProjectileName();
+        else
+            projectileName = data.projectileName;
+
+        GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, damage, projectileName); //TODO: använd projectile name
     }
 }

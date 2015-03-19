@@ -59,7 +59,7 @@ public class AbilityCommand : Command {
                     AbilityAnimation animation = ability.getTimedAnimation(lastPlayedAnimation, attackTime);
                     if (animation != null)
                     {
-                        if (animation.name.Equals("attack"))
+                        if (animation.weaponAttackAnimation)
                         {
                             float speed = unit.getAttackSpeed() * animation.speed;
                             unit.playWeaponAttackAnimation(speed);
@@ -88,7 +88,6 @@ public class AbilityCommand : Command {
                     {
                         //TODO: get effect sound
                         unit.playSound(unit.getAttackSound(0));
-
                         effect.action();
                         //unit.attack(target);
 
@@ -153,10 +152,8 @@ public class AbilityCommand : Command {
     {
         AbilityEffectAndTime aeat = ability.getTimedEffect(lastUsedEffect, attackTime);
         if (aeat == null) return null;
-
         AbilityEffectData data = DataHolder.Instance.getEffectData(aeat.name);
         if (data == null) return null;
-
         return data.getAbilityEffect(unit, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }
 
