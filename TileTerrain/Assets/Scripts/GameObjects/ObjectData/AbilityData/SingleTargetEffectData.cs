@@ -11,7 +11,7 @@ public class SingleTargetEffectData : AbilityEffectData {
         
     }
 
-    public override AbilityEffect getAbilityEffect(Unit unit, Vector2 targetPosition)
+    public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
     {
         return new SingleTargetEffect(name, unit, targetPosition);
     }

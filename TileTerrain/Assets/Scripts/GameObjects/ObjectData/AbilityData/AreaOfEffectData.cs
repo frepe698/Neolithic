@@ -14,7 +14,7 @@ public class AreaOfEffectData : AbilityEffectData {
         this.radius = edit.radius;
     }
 
-    public override AbilityEffect getAbilityEffect(Unit unit, Vector2 targetPosition)
+    public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
     {
         return new AreaOfEffect(name, unit, targetPosition);
     }

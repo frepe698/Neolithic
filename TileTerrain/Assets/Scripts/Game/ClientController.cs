@@ -109,6 +109,10 @@ public class ClientController : GameController {
 	{
 		//do nada
 	}
+    public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
+    {
+        //do nada
+    }
 
     public override void requestLearnAbility(string ability, int unitID)
     {

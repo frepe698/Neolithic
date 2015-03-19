@@ -208,6 +208,16 @@ public class ServerController : GameController {
 			gameMaster.getNetView().RPC ("approveFireProjectile", RPCMode.All, unitID, target, name, damage);
 		}
 	}
+
+    public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        if (unit != null)
+        {
+            
+            gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, projectileName, damage);
+        }
+    }
 	
 
 	public override void requestLoot(int unitID, Vector2i tile, int lootID)

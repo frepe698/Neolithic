@@ -543,6 +543,8 @@ public abstract class GameController : MonoBehaviour{
 
     public abstract void requestFireProjectile(int unitID, Vector3 target);
 
+    public abstract void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName);
+
     [RPC]
     protected void approveFireProjectile(int unitID, Vector3 goal, string name, int damage)
     {

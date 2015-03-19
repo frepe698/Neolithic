@@ -157,7 +157,7 @@ public class AbilityCommand : Command {
         AbilityEffectData data = DataHolder.Instance.getEffectData(aeat.name);
         if (data == null) return null;
 
-        return data.getAbilityEffect(unit, attackPosition);
+        return data.getAbilityEffect(unit, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }
 
 	public override bool Equals(object o)

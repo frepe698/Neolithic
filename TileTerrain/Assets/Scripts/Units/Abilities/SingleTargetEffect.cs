@@ -6,7 +6,7 @@ public class SingleTargetEffect  : AbilityEffect {
     private readonly static float radius = 1;
     private SingleTargetEffectData data;
 
-    public SingleTargetEffect(string name, Unit unit, Vector2 targetPosition) : base(name,unit,targetPosition)
+    public SingleTargetEffect(string name, Unit unit, Vector3 targetPosition) : base(name,unit,targetPosition)
     {
         //Fetch data with name
         this.data = (SingleTargetEffectData)DataHolder.Instance.getEffectData(name);
@@ -19,6 +19,7 @@ public class SingleTargetEffect  : AbilityEffect {
 
         Unit closestTarget = null;
         float closestDistance = radius + 1;
+        Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.z);
 
         for (int x = targetTile.x - ((int)radius + 1); x < targetTile.x + (int)radius + 1; x++)
         {
@@ -30,7 +31,7 @@ public class SingleTargetEffect  : AbilityEffect {
                     if (target.getID() == unit.getID()
                         || target.getTeam() == unit.getTeam()) continue;
 
-                    float distance = Vector2.Distance(target.get2DPos(), targetPosition);
+                    float distance = Vector2.Distance(target.get2DPos(), targetPosition2D);
                     if (distance > radius) continue;
 
                     if (distance < closestDistance) closestTarget = target;

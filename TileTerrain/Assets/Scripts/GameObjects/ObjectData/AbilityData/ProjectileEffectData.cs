@@ -13,7 +13,7 @@ public class ProjectileEffectData : AbilityEffectData {
         angle = edit.angle;
     }
 
-    public override AbilityEffect getAbilityEffect(Unit unit, Vector2 targetPosition)
+    public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
     {
         return new ProjectileEffect(name, unit, targetPosition);
     }
