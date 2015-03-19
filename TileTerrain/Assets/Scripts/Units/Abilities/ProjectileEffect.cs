@@ -15,17 +15,20 @@ public class ProjectileEffect : AbilityEffect {
     {
         int angle = (int)data.angle;
         string name = data.modelName;
-        Vector2 target2D = new Vector2(targetPosition.x, targetPosition.z);
+        
         Vector3 finalTarget = targetPosition;
         //If angle != calc new target position
-        if(angle != 0)
+        if(true)//angle != 0)
         {
-            float length = Vector2.Distance(targetPosition, unit.get2DPos());
+            Vector2 target2D = new Vector2(targetPosition.x, targetPosition.z);
+            float length = Vector2.Distance(target2D, unit.get2DPos());
             Vector2 direction = (target2D - unit.get2DPos()).normalized;
-            int baseAngle =(int)( Mathf.Rad2Deg*Mathf.Atan2(direction.x, direction.y));
-            int totalAngle = baseAngle + angle;
+            int baseAngle =(int)( Mathf.Rad2Deg*Mathf.Atan2(direction.x, -direction.y));
+            //if (direction.y > 0) baseAngle += 180;
+            int totalAngle = baseAngle + angle - 90;// + 360) % 360;
+            Debug.Log(totalAngle);
 
-            Vector2 newDirection = new Vector2(Mathf.Cos(totalAngle) * length, Mathf.Sin(totalAngle) * length);
+            Vector2 newDirection = new Vector2(Mathf.Cos(Mathf.Deg2Rad*totalAngle) * length, Mathf.Sin(Mathf.Deg2Rad*totalAngle) * length);
             finalTarget = new Vector3(unit.get2DPos().x + newDirection.x, finalTarget.y, unit.get2DPos().y + newDirection.y);
             
             

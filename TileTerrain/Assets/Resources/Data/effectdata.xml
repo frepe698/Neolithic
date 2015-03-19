@@ -51,7 +51,7 @@
     <ProjectileEffectData name="splitarrow" gameName="Splitarrow" modelName="splitarrow">
       <hitDamage>
         <HitDamage>
-          <stat>MeleeDamage</stat>
+          <stat>RangedDamage</stat>
           <percent>0.8</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
@@ -78,13 +78,37 @@
         <HitDamage>
           <stat>StoneDamage</stat>
           <percent>1</percent>
-          <yourStat>true</yourStat>
+          <yourStat>false</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
       <projectileName>rock</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
+    </ProjectileEffectData>
+    <ProjectileEffectData name="splitarrowleft" gameName="Split Arrow" modelName="splitarrow">
+      <hitDamage>
+        <HitDamage>
+          <stat>RangedDamage</stat>
+          <percent>0.8</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <weaponProjectile>true</weaponProjectile>
+      <angle>20</angle>
+    </ProjectileEffectData>
+    <ProjectileEffectData name="splitarrowright" gameName="Split Arrow" modelName="splitarrow">
+      <hitDamage>
+        <HitDamage>
+          <stat>RangedDamage</stat>
+          <percent>0.8</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <weaponProjectile>true</weaponProjectile>
+      <angle>-20</angle>
     </ProjectileEffectData>
   </ProjectileEffects>
 </EffectsRoot>
