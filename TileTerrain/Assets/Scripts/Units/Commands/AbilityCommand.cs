@@ -112,7 +112,7 @@ public class AbilityCommand : Command {
                 }
 			}
 		}
-		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < 2) //TODO weapon range here
+		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < ability.data.range) //TODO weapon range here
 		{
             //Update target position to the targeted units position
             if (target != null)
@@ -159,6 +159,8 @@ public class AbilityCommand : Command {
         if (aeat == null) return null;
         AbilityEffectData data = DataHolder.Instance.getEffectData(aeat.name);
         if (data == null) return null;
+
+        if (target != null) attackHeight = target.getPosition().y + 1;
         return data.getAbilityEffect(unit, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }
 

@@ -18,6 +18,10 @@ public class AbilityData : ObjectData {
     public readonly int healthCost;
 
     public readonly float cooldown;
+    public readonly float range;
+
+    //Not serialized
+    private Sprite icon;
 
     public AbilityData() { }
 
@@ -39,9 +43,18 @@ public class AbilityData : ObjectData {
         healthCost = edit.healthCost;
         cooldown = edit.cooldown;
         totalTime = edit.totalTime;
+        range = edit.range;
     }
 
+    public void setIcon(Sprite sprite)
+    {
+        this.icon = sprite;
+    }
 
+    public Sprite getIcon()
+    {
+        return icon;
+    }
 }
 
 public class AbilityAnimation

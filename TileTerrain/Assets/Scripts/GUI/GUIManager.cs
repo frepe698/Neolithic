@@ -836,7 +836,16 @@ public class GUIManager : MonoBehaviour{
     {
         for (int i = 0; i < ABILITY_COUNT; i++)
         {
-            abilityIcons[i].enabled = playerHero.hasAbility(i);
+            if (playerHero.hasAbility(i))
+            {
+                abilityIcons[i].enabled = true;
+                abilityIcons[i].sprite = playerHero.getAbility(i).data.getIcon();
+            }
+            else
+            {
+                abilityIcons[i].enabled = false;
+            }
+            
         }
     }
 

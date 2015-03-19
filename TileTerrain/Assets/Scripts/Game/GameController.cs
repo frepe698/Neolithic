@@ -359,32 +359,57 @@ public abstract class GameController : MonoBehaviour{
                     {
                         mat.SetFloat("_Highlight", 1);
                     }
-
-                    if (Input.GetKey("q"))
+                    if (gameMaster.getGUIManager().takeKeyboardInput())
                     {
-                        int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                        requestAbilityCommand(unitID, targetID, 0);
-                    }
-                    else if(Input.GetKey("w"))
-                    {
-                        int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                        requestAbilityCommand(unitID, targetID, 1);
+                        if (Input.GetKey("q"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommand(unitID, targetID, 0);
+                        }
+                        else if (Input.GetKey("w"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommand(unitID, targetID, 1);
+                        }
+                        else if (Input.GetKey("e"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommand(unitID, targetID, 2);
+                        }
+                        else if (Input.GetKey("r"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommand(unitID, targetID, 3);
+                        }
                     }
                     targetPoint = rayhit.transform.position;
                 }
                 else if (holdTag == "Ground")
                 {
                     Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
+
+                    if (gameMaster.getGUIManager().takeKeyboardInput())
+                    {
+                        if (Input.GetKey("q"))
+                        {
+                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 0);
+                        }
+                        else if (Input.GetKey("w"))
+                        {
+                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 1);
+                        }
+                        else if (Input.GetKey("e"))
+                        {
+                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 2);
+                        }
+                        else if (Input.GetKey("r"))
+                        {
+                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 3);
+                        }
+                    }
                 }
 
-				if(Input.GetKey("q"))
-				{
-					requestAbilityCommand(unitID, targetPoint + Vector3.up, 0);
-				}
-                else if (Input.GetKey("w"))
-                {
-                    requestAbilityCommand(unitID, targetPoint + Vector3.up, 1);
-                }
+				
 			}
 			//Clicking a target with LMB will set it selected until the button is released. 
 			//While selected no other command can be excecuted

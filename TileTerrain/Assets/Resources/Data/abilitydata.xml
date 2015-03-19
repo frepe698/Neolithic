@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <AbilityRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Abilities>
-    <AbilityData name="meleebasicattack" gameName="Basic Attack" modelName="basicattack">
+    <AbilityData name="meleebasicattack" gameName="Basic Attack" modelName="meleebasicattack">
       <effects>
         <AbilityEffectAndTime>
           <name>meleebasicattack</name>
@@ -19,8 +19,9 @@
       <energyCost>8</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
+      <range>2</range>
     </AbilityData>
-    <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="basicattack">
+    <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
       <effects>
         <AbilityEffectAndTime>
           <name>rangedbasicattack</name>
@@ -38,8 +39,9 @@
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
+      <range>99999</range>
     </AbilityData>
-    <AbilityData name="cleave" gameName="Cleave" modelName="cleave">
+    <AbilityData name="cleave" gameName="Cleave" modelName="leap">
       <effects>
         <AbilityEffectAndTime>
           <name>cleave</name>
@@ -57,8 +59,9 @@
       <energyCost>50</energyCost>
       <healthCost>10</healthCost>
       <cooldown>3</cooldown>
+      <range>2</range>
     </AbilityData>
-    <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="tripplestrike">
+    <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="meleebasicattack">
       <effects>
         <AbilityEffectAndTime>
           <name>meleebasicattack</name>
@@ -94,8 +97,9 @@
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
+      <range>2</range>
     </AbilityData>
-    <AbilityData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
+    <AbilityData name="heavystrike" gameName="Heavy Strike" modelName="meleebasicattack">
       <effects>
         <AbilityEffectAndTime>
           <name>heavystrike</name>
@@ -113,8 +117,9 @@
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
+      <range>2</range>
     </AbilityData>
-    <AbilityData name="stonethrow" gameName="Stone Throw" modelName="">
+    <AbilityData name="stonethrow" gameName="Stone Throw" modelName="stonethrow">
       <effects>
         <AbilityEffectAndTime>
           <name>stonethrow</name>
@@ -133,8 +138,9 @@
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
+      <range>99999</range>
     </AbilityData>
-    <AbilityData name="volley" gameName="Volley" modelName="volley">
+    <AbilityData name="volley" gameName="Volley" modelName="splitarrow">
       <effects>
         <AbilityEffectAndTime>
           <name>splitarrow</name>
@@ -160,6 +166,7 @@
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
+      <range>99999</range>
     </AbilityData>
   </Abilities>
 </AbilityRoot>

@@ -272,6 +272,7 @@ public class DataHolder {
         }
 
         instance.initItemIcons();
+        instance.initAbilityIcons();
 
 	}
 
@@ -296,6 +297,16 @@ public class DataHolder {
             data.setIcon(findSprite(icons, data.modelName));
         }
         foreach (ConsumableItemData data in itemDataHolder.consumableItemData)
+        {
+            data.setIcon(findSprite(icons, data.modelName));
+        }
+    }
+
+    private void initAbilityIcons()
+    {
+        Sprite[] icons = Resources.LoadAll<Sprite>("GUI/abilityicons01");
+
+        foreach (AbilityData data in abilityDataHolder.abilityData)
         {
             data.setIcon(findSprite(icons, data.modelName));
         }

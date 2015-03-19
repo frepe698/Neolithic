@@ -171,6 +171,7 @@ namespace Edit
         public int healthCost;
 
         public float cooldown;
+        public float range;
 
         public AbilityEdit()
         {
@@ -178,6 +179,8 @@ namespace Edit
             gameName = "New Ability";
             effects = new List<AbilityEffectAndTimeEdit>();
             animations = new List<AbilityAnimationEdit>();
+
+            range = 2;
         }
 
         public AbilityEdit(AbilityData data)
@@ -200,6 +203,7 @@ namespace Edit
             healthCost = data.healthCost;
             cooldown = data.cooldown;
             totalTime = data.totalTime;
+            range = data.range;
         }
 
         public AbilityEdit(AbilityEdit data)
@@ -211,6 +215,7 @@ namespace Edit
             healthCost = data.healthCost;
             cooldown = data.cooldown;
             totalTime = data.totalTime;
+            range = data.range;
         }
     }
 

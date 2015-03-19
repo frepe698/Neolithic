@@ -26,7 +26,6 @@ public class ProjectileEffect : AbilityEffect {
             int baseAngle =(int)( Mathf.Rad2Deg*Mathf.Atan2(direction.x, -direction.y));
             //if (direction.y > 0) baseAngle += 180;
             int totalAngle = baseAngle + angle - 90;// + 360) % 360;
-            Debug.Log(totalAngle);
 
             Vector2 newDirection = new Vector2(Mathf.Cos(Mathf.Deg2Rad*totalAngle) * length, Mathf.Sin(Mathf.Deg2Rad*totalAngle) * length);
             finalTarget = new Vector3(unit.get2DPos().x + newDirection.x, finalTarget.y, unit.get2DPos().y + newDirection.y);

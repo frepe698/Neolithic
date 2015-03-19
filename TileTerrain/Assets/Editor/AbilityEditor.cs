@@ -176,6 +176,7 @@ public class AbilityEditor : ObjectEditor
 
         GUILayout.Space(20);
         data.totalTime = EditorGUILayout.FloatField("Total Time: ", data.totalTime);
+        data.range = EditorGUILayout.FloatField("Range: ", data.range);
 
         EditorGUILayout.LabelField("Effects:", EditorStyles.boldLabel);
         foreach(AbilityEffectAndTimeEdit edit in data.effects)
