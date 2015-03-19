@@ -557,7 +557,7 @@ public class GameMaster : MonoBehaviour {
 		if(data.randomDrops != null)
 		{
             bool hasRare = data.rareDrops != null;
-			int randomDrops = Mathf.RoundToInt(Random.Range(data.minDrops, data.maxDrops) * amount);
+			int randomDrops = Mathf.RoundToInt(Random.Range(data.minDrops, data.maxDrops+1) * amount);
 			for(int i = 0; i < randomDrops; i++)
 			{  
 				string itemName = (!hasRare || Random.value > rarity) ? data.randomDrops[Random.Range(0, data.randomDrops.Length)] : data.rareDrops[Random.Range(0, data.rareDrops.Length)];
@@ -598,7 +598,7 @@ public class GameMaster : MonoBehaviour {
 		
 		if(data.getRandomDrops() != null)
 		{
-			int randomDrops = Random.Range(data.getMinDrops(), data.getMaxDrops());
+			int randomDrops = Random.Range(data.getMinDrops(), data.getMaxDrops()+1);
 			for(int i = 0; i < randomDrops; i++)
 			{  
 				string itemName = data.getRandomDrops()[Random.Range(0, data.getRandomDrops().Length)];
