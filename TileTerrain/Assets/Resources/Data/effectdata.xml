@@ -10,6 +10,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
     </SingleTargetEffectData>
     <SingleTargetEffectData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
       <hitDamage>
@@ -20,6 +21,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
     </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
@@ -32,6 +34,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <radius>4</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="leap_land">
@@ -43,6 +46,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <radius>1</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
@@ -56,6 +60,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
@@ -68,6 +73,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
@@ -80,6 +86,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <projectileName>fireball</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -93,6 +100,14 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <stat>Movespeed</stat>
+          <amount>-0.5</amount>
+          <duration>4</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
       <projectileName>rock</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -106,6 +121,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <weaponProjectile>true</weaponProjectile>
       <angle>20</angle>
     </ProjectileEffectData>
@@ -118,6 +134,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
+      <hitBuffs />
       <weaponProjectile>true</weaponProjectile>
       <angle>-20</angle>
     </ProjectileEffectData>
@@ -125,6 +142,7 @@
   <MovementEffects>
     <MovementEffectData name="leap_move" gameName="Leap" modelName="leap">
       <hitDamage />
+      <hitBuffs />
       <range>8</range>
       <travelTime>1</travelTime>
     </MovementEffectData>

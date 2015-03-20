@@ -42,6 +42,7 @@ public class Unit {
 
     protected SkillManager skillManager;
     protected UnitStats unitstats;
+    protected List<Buff> buffs;
 
     protected List<Ability> abilities;
 	
@@ -58,6 +59,7 @@ public class Unit {
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
+        this.buffs = new List<Buff>();
 
         abilities = new List<Ability>();
 	}
@@ -73,6 +75,8 @@ public class Unit {
         this.skillManager = new SkillManager(this);
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
+        this.buffs = new List<Buff>();
+
 
         abilities = new List<Ability>();
 	}
@@ -225,6 +229,7 @@ public class Unit {
 		}
 		updateTransform();
         updateAbilities();
+        updateBuffs();
 	}
 
 	protected virtual void updateTransform()
@@ -748,6 +753,40 @@ public class Unit {
     public virtual int getWeaponTags()
     {
         return int.MaxValue;
+    }
+
+    public void addToStat(Stat stat, float value)
+    {
+        unitstats.addToStat(stat, value);
+    }
+
+    public void addMultiplierToStat(Stat stat, float value)
+    {
+        unitstats.addMultiplierToStat(stat, value);
+    }
+
+    public void addBuff(Buff buff)
+    {
+        buffs.Add(buff);
+    }
+
+    public void removeBuff(Buff buff)
+    {
+        buffs.Remove(buff);
+    }
+
+    public void updateBuffs()
+    {
+        for (int i = 0; i < buffs.Count; i++)
+        {
+            Buff buff = buffs[i];
+            buff.update();
+            if (buff.isFinished())
+            {
+                buff.remove();
+                i--;
+            }
+        }
     }
 
 }

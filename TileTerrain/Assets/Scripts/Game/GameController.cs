@@ -591,6 +591,11 @@ public abstract class GameController : MonoBehaviour{
 
     #endregion
 
+    #region BUFFS
+
+    //public abstract void requestAddBuff(int unitID, params object[] parameters)
+    #endregion
+
     #region GATHERING
 
     public abstract void requestGather(int unitID, Vector2i tile);

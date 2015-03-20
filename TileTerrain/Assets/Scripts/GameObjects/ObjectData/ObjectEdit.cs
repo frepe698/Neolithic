@@ -40,10 +40,12 @@ namespace Edit
     public class AbilityEffectEdit : ObjectEdit
     {
         public List<HitDamageEdit> hitDamages;
+        public List<HitBuffEdit> hitBuffs;
         //On hit effects go here too
         public AbilityEffectEdit() 
         {
             hitDamages = new List<HitDamageEdit>();
+            hitBuffs = new List<HitBuffEdit>();
         }
         public AbilityEffectEdit(AbilityEffectData data) : base(data)
         {
@@ -52,12 +54,25 @@ namespace Edit
             {
                 hitDamages.Add(new HitDamageEdit(hitDamage));
             }
+            hitBuffs = new List<HitBuffEdit>();
+            if(data.hitBuffs != null)
+            {
+                foreach (HitBuff buff in data.hitBuffs)
+                {
+                    hitBuffs.Add(new HitBuffEdit(buff));
+                }
+            }
+            
         }
         public AbilityEffectEdit(AbilityEffectEdit edit) : base(edit)
         {
             hitDamages = new List<HitDamageEdit>();
             foreach (HitDamageEdit hde in edit.hitDamages)
                 hitDamages.Add(new HitDamageEdit(hde));
+
+            hitBuffs = new List<HitBuffEdit>();
+            foreach (HitBuffEdit hbe in edit.hitBuffs)
+                hitBuffs.Add(new HitBuffEdit(hbe));
         }
     }
 
@@ -181,6 +196,36 @@ namespace Edit
             percent = hitDamage.percent;
             yourStat = hitDamage.yourStat;
             damageSelf = hitDamage.damageSelf;
+        }
+    }
+
+    [Serializable]
+    public class HitBuffEdit
+    {
+        public Stat stat;
+        public bool percent;
+        public float amount;
+        public float duration;
+        
+        public HitBuffEdit()
+        {
+            percent = false;
+        }
+
+        public HitBuffEdit(HitBuff hitBuff)
+        {
+            stat = hitBuff.stat;
+            percent = hitBuff.percent;
+            amount = hitBuff.amount;
+            duration = hitBuff.duration;
+        }
+
+        public HitBuffEdit(HitBuffEdit edit)
+        {
+            stat = edit.stat;
+            percent = edit.percent;
+            amount = edit.amount;
+            duration = edit.duration;
         }
     }
 

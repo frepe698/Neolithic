@@ -8,6 +8,8 @@ public abstract class AbilityEffectData : ObjectData {
 
     [XmlArray("hitDamage"), XmlArrayItem("HitDamage")]
     public readonly HitDamage[] hitDamage;
+    [XmlArray("hitBuffs"), XmlArrayItem("HitBuff")]
+    public readonly HitBuff[] hitBuffs;
 
     public AbilityEffectData() { }
     public AbilityEffectData(AbilityEffectEdit edit) : base(edit)
@@ -16,6 +18,11 @@ public abstract class AbilityEffectData : ObjectData {
         for (int i = 0; i < edit.hitDamages.Count; i++)
         {
             hitDamage[i] = new HitDamage(edit.hitDamages[i]);
+        }
+        hitBuffs = new HitBuff[edit.hitBuffs.Count];
+        for(int i = 0; i < edit.hitBuffs.Count; i++)
+        {
+            hitBuffs[i] = new HitBuff(edit.hitBuffs[i]);
         }
     }
 
@@ -39,4 +46,22 @@ public class HitDamage
         this.damageSelf = edit.damageSelf;
     }
 
+}
+
+public class HitBuff
+{
+    public readonly Stat stat;
+    public readonly float amount;
+    public readonly float duration;
+    public readonly bool percent;
+
+    public HitBuff() { }
+
+    public HitBuff(HitBuffEdit edit)
+    {
+        this.stat = edit.stat;
+        this.amount = edit.amount;
+        this.duration = edit.duration;
+        this.percent = edit.percent;
+    }
 }

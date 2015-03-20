@@ -6,4 +6,5 @@ public enum AbilityTags{
     Ranged = 2,
     Bow = 4, 
     Slinger = 8,
+    Unarmed = 16,
 }

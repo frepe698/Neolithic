@@ -462,6 +462,37 @@ public class EffectEditor : ObjectEditor
         {
             data.hitDamages.Add(new HitDamageEdit());
         }
+        foreach(HitBuffEdit edit in data.hitBuffs)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 100;
+
+            EditorGUIUtility.fieldWidth = 40;
+            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
+            EditorGUIUtility.fieldWidth = 10;
+
+            edit.percent = EditorGUILayout.Toggle("Percent: ", edit.percent);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.fieldWidth = 10;
+            EditorGUIUtility.labelWidth = 70;
+            edit.amount = EditorGUILayout.FloatField("Amount: ", edit.amount);
+            EditorGUIUtility.fieldWidth = 10;
+            edit.duration = EditorGUILayout.FloatField("Duration: ", edit.duration);
+
+
+            if (GUILayout.Button("-"))
+            {
+                data.hitBuffs.Remove(edit);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Buff"))
+        {
+            data.hitBuffs.Add(new HitBuffEdit());
+        }
+        
     }
 
     
