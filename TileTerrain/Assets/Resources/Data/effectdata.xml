@@ -14,9 +14,9 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.5</amount>
+          <amount>-0.47</amount>
           <duration>3</duration>
-          <percent>true</percent>
+          <percent>false</percent>
         </HitBuff>
       </hitBuffs>
     </SingleTargetEffectData>
@@ -92,7 +92,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Health</stat>
+          <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -149,7 +149,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Health</stat>
+          <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -170,7 +170,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Health</stat>
+          <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>

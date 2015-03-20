@@ -175,6 +175,7 @@ public class AbilityCommand : Command {
 
     public override bool canStartOverride(Command command)
     {
+        Debug.Log("HP " + unit.getUnitStats().getCurHealth() + "EN " + unit.getUnitStats().getCurEnergy());
         return ability.isCool() 
             && unit.getUnitStats().getCurHealth() > ability.data.healthCost 
             && unit.getUnitStats().getCurEnergy() >= ability.data.energyCost

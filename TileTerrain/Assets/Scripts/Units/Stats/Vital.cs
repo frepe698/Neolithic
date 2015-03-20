@@ -16,7 +16,7 @@ public class Vital : BaseStat {
 	
 	public override void reset(int level){
         if (percent < 0) percent = 1;
-        else percent = getCurValue() / getValue();
+        else percent = getCurValue() / (getValue() + 0.00001f);
 		
 		value = baseValue + levelAdd*level;
 		multiplier = 1;
