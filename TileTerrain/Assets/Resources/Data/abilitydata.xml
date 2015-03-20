@@ -20,6 +20,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>2</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
       <effects>
@@ -40,6 +41,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>99999</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="cleave" gameName="Cleave" modelName="leap">
       <effects>
@@ -60,6 +62,7 @@
       <healthCost>10</healthCost>
       <cooldown>3</cooldown>
       <range>2</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="meleebasicattack">
       <effects>
@@ -98,6 +101,7 @@
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
       <range>2</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="heavystrike" gameName="Heavy Strike" modelName="meleebasicattack">
       <effects>
@@ -118,6 +122,7 @@
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
       <range>2</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="stonethrow" gameName="Stone Throw" modelName="stonethrow">
       <effects>
@@ -139,6 +144,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>99999</range>
+      <tags>0</tags>
     </AbilityData>
     <AbilityData name="volley" gameName="Volley" modelName="splitarrow">
       <effects>
@@ -167,6 +173,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>99999</range>
+      <tags>6</tags>
     </AbilityData>
   </Abilities>
 </AbilityRoot>

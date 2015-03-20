@@ -642,6 +642,7 @@ public class Unit {
 
 
 
+
 	public string getName()
 	{
 		return unitName;
@@ -742,6 +743,11 @@ public class Unit {
         {
             a.update();
         }
+    }
+
+    public virtual int getWeaponTags()
+    {
+        return int.MaxValue;
     }
 
 }

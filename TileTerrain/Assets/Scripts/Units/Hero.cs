@@ -353,4 +353,9 @@ public class Hero : Unit {
         unitstats.increaseSkillLevel();
     }
 
+    public override int getWeaponTags()
+    {
+        return heldItem.tags;
+    }
+
 }

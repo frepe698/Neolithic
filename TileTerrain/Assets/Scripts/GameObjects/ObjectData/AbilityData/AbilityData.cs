@@ -20,6 +20,8 @@ public class AbilityData : ObjectData {
     public readonly float cooldown;
     public readonly float range;
 
+    public readonly int tags;
+
     //Not serialized
     private Sprite icon;
 
@@ -38,6 +40,10 @@ public class AbilityData : ObjectData {
         for (int i = 0; i < animations.Length; i++)
         {
             animations[i] = new AbilityAnimation(edit.animations[i]);
+        }
+        foreach(AbilityTags tag in edit.tags)
+        {
+            tags = (tags | (int)tag);
         }
         energyCost = edit.energyCost;
         healthCost = edit.healthCost;

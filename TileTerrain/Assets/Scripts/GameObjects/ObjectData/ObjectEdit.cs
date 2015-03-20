@@ -165,6 +165,7 @@ namespace Edit
     {
         public List<AbilityEffectAndTimeEdit> effects;
         public List<AbilityAnimationEdit> animations;
+        public List<AbilityTags> tags;
         public float totalTime;
 
         public int energyCost;
@@ -179,7 +180,7 @@ namespace Edit
             gameName = "New Ability";
             effects = new List<AbilityEffectAndTimeEdit>();
             animations = new List<AbilityAnimationEdit>();
-
+            tags = new List<AbilityTags>();
             range = 2;
         }
 
@@ -199,6 +200,15 @@ namespace Edit
                     animations.Add(new AbilityAnimationEdit(a));
                 }
             }
+            tags = new List<AbilityTags>();
+            foreach (AbilityTags tag in Enum.GetValues(typeof(AbilityTags)))
+            {
+                if ((data.tags & (int)tag) != 0)
+                {
+                    tags.Add(tag);
+                }
+            }  
+         
             energyCost = data.energyCost;
             healthCost = data.healthCost;
             cooldown = data.cooldown;
@@ -216,6 +226,7 @@ namespace Edit
             cooldown = data.cooldown;
             totalTime = data.totalTime;
             range = data.range;
+            tags = data.tags;
         }
     }
 
@@ -610,6 +621,15 @@ namespace Edit
             lootAnim = data.lootAnim;
             attackSpeed = data.attackSpeed;
             weaponAttackAnim = data.weaponAttackAnim;
+            tags = new List<AbilityTags>();
+            foreach (AbilityTags tag in Enum.GetValues(typeof(AbilityTags)))
+            {
+                if( (data.tags & (int)tag) != 0)
+                {
+                    tags.Add(tag);
+                }
+            }
+            
         }
 
         public WeaponEdit(WeaponEdit data)
@@ -621,6 +641,7 @@ namespace Edit
             lootAnim = data.lootAnim;
             attackSpeed = data.attackSpeed;
             weaponAttackAnim = data.weaponAttackAnim;
+            tags = data.tags;
         }
 
         public WeaponEdit()
@@ -636,6 +657,8 @@ namespace Edit
         public float attackSpeed;
 
         public string weaponAttackAnim;
+
+        public List<AbilityTags> tags;
     }
 
     [Serializable]

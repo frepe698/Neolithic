@@ -228,6 +228,28 @@ public class AbilityEditor : ObjectEditor
             data.animations.Add(new AbilityAnimationEdit());
         }
 
+        for (int i = 0; i < data.tags.Count; i++)
+        {
+            
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 100;
+
+            EditorGUIUtility.fieldWidth = 40;
+            data.tags[i] = (AbilityTags)EditorGUILayout.EnumPopup(data.tags[i]);
+            EditorGUIUtility.fieldWidth = 10;
+
+            if (GUILayout.Button("-"))
+            {
+                data.tags.Remove(data.tags[i]);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Tag"))
+        {
+            data.tags.Add(AbilityTags.Melee);
+        }
+
 
         GUILayout.EndScrollView();
         GUI.DragWindow();

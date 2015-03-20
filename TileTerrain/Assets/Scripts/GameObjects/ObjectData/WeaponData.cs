@@ -24,6 +24,8 @@ public abstract class WeaponData : EquipmentData {
 	public abstract string getAttackAnim(int damageType);
 	public abstract string getAttackSound(int damageType);
 
+    public readonly int tags;
+
     public WeaponData()
     { 
     }
@@ -36,6 +38,10 @@ public abstract class WeaponData : EquipmentData {
         if (!edit.lootAnim.Equals("")) lootAnim = edit.lootAnim;
         attackSpeed = edit.attackSpeed;
         if(edit.weaponAttackAnim != null && !edit.weaponAttackAnim.Trim().Equals("")) weaponAttackAnim = edit.weaponAttackAnim;
+        foreach (AbilityTags tag in edit.tags)
+        {
+            tags = (tags | (int)tag);
+        }
     }
 
 	public virtual string getOffhandModelName()

@@ -178,7 +178,10 @@ public class AbilityCommand : Command {
 
     public override bool canStartOverride(Command command)
     {
-        return ability.isCool() && unit.getUnitStats().getCurHealth() > ability.data.healthCost &&
-            unit.getUnitStats().getCurEnergy() >= ability.data.energyCost && !this.Equals(command);
+        return ability.isCool() 
+            && unit.getUnitStats().getCurHealth() > ability.data.healthCost 
+            && unit.getUnitStats().getCurEnergy() >= ability.data.energyCost
+            && (unit.getWeaponTags() & ability.data.tags) > 0
+            && !this.Equals(command);
     }
 }
