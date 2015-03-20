@@ -148,7 +148,8 @@ public class Projectile {
             damage += tempDamage;
         }
         GameMaster.getGameController().requestProjectileHit(damage, unitID, target.getID());
-        applyBuffs(effectData.hitBuffs, target);
+        GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), effectData.name);
+        //applyBuffs(effectData.hitBuffs, target);
     }
 
     protected void applyBuffs(HitBuff[] buffs, Unit target)
