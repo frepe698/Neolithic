@@ -95,7 +95,7 @@ public class ServerController : GameController {
         Unit target = GameMaster.getUnit(targetID);
         if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
         {
-            gameMaster.getNetView().RPC("approveAbilityCommand", RPCMode.All, unitID, targetID, unit.getPosition(), ability);
+            gameMaster.getNetView().RPC("approveAbilityCommandID", RPCMode.All, unitID, targetID, unit.getPosition(), ability);
         }
     }
 
@@ -107,7 +107,7 @@ public class ServerController : GameController {
         Unit unit = GameMaster.getUnit(unitID);
         if (unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
         {
-            gameMaster.getNetView().RPC("approveAbilityCommand", RPCMode.All, unitID, target, unit.getPosition(), ability);
+            gameMaster.getNetView().RPC("approveAbilityCommandVec", RPCMode.All, unitID, target, unit.getPosition(), ability);
         }
     }
 
@@ -215,7 +215,7 @@ public class ServerController : GameController {
         if (unit != null)
         {
             
-            gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, projectileName, dataName);
+            gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, dataName, projectileName );
         }
     }
 	

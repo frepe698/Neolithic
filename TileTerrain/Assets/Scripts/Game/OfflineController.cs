@@ -92,7 +92,7 @@ public class OfflineController : GameController {
         Unit target = GameMaster.getUnit(targetID);
         if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
         {
-            approveAbilityCommand(unitID, targetID, unit.getPosition(), ability);
+            approveAbilityCommandID(unitID, targetID, unit.getPosition(), ability);
         }
     }
 
@@ -104,7 +104,7 @@ public class OfflineController : GameController {
         Unit unit = GameMaster.getUnit(unitID);
         if(unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit,target, unit.getAbility(ability))))
         {
-            approveAbilityCommand(unitID, target, unit.getPosition(), ability);
+            approveAbilityCommandVec(unitID, target, unit.getPosition(), ability);
         }
     }
 

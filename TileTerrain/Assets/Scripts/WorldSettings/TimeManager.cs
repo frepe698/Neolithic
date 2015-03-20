@@ -10,7 +10,7 @@ public class TimeManager{
 
     private readonly static float TIMESPEED = 1;
 
-    private static TimeSetting[] times = new TimeSetting[]{new DayTime(10), new DuskTime(10), new NightTime(120), new DawnTime(60)};
+    private static TimeSetting[] times = new TimeSetting[]{new DayTime(120), new DuskTime(60), new NightTime(120), new DawnTime(60)};
     private TimeSetting currentTime;
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;

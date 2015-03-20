@@ -214,7 +214,7 @@ public abstract class GameController : MonoBehaviour{
     public abstract void requestAbilityCommand(int unitID, Vector3 target, int ability);
 
     [RPC]
-    protected void approveAbilityCommand(int unitID, int targetID, Vector3 startPos, int ability)
+    protected void approveAbilityCommandID(int unitID, int targetID, Vector3 startPos, int ability)
     {
         Vector2i startTile = new Vector2i(startPos.x, startPos.z);
         Unit unit = GameMaster.getUnit(unitID);
@@ -228,7 +228,7 @@ public abstract class GameController : MonoBehaviour{
     }
 
     [RPC]
-    protected void approveAbilityCommand(int unitID, Vector3 target, Vector3 startPos, int ability)
+    protected void approveAbilityCommandVec(int unitID, Vector3 target, Vector3 startPos, int ability)
     {
         Vector2i startTile = new Vector2i(startPos.x, startPos.z);
         Unit unit = GameMaster.getUnit(unitID);
