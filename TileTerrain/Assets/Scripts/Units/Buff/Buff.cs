@@ -40,7 +40,6 @@ public class StatBuff : Buff
     public override void apply(Unit unit)
     {
         this.unit = unit; 
-        Debug.Log("Buff applied");
         if(percent)
         {
             unit.addMultiplierToStat(stat, amount);
@@ -91,7 +90,6 @@ public class Stun : Buff
     public override void apply(Unit unit)
     {
         this.unit = unit;
-        Debug.Log("Buff applied");
         unit.giveCommand(new StunnedCommand(unit, duration));
         unit.addBuff(this);
     }

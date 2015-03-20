@@ -609,6 +609,19 @@ public abstract class GameController : MonoBehaviour{
         Buff buff = (Buff)info.Invoke(this, new object[] { parameters });
         buff.apply(target);
     }
+
+
+    public abstract void requestApplyEffect(int unitID, int targetID, string effectName);
+
+    [RPC]
+    protected void approveApplyEffect(int unitID, int targetID, string effectName)
+    {
+        Unit unit = GameMaster.getUnit(unitID);
+        Unit target = GameMaster.getUnit(targetID);
+        AbilityEffect.applyBuffs(effectName, unit, target);
+    } 
+
+
     #endregion
 
     #region GATHERING

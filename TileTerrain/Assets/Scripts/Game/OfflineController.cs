@@ -302,6 +302,11 @@ public class OfflineController : GameController {
         approveAddBuff(unitID, name, parameters);
     }
 
+    public override void requestApplyEffect(int unitID, int targetID, string effectName)
+    {
+        approveApplyEffect(unitID, targetID, effectName);
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {

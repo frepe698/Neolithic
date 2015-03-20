@@ -46,7 +46,8 @@ public class AreaOfEffect : AbilityEffect {
                     }
                     GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID());
                     
-                    applyBuffs(data.hitBuffs, target);
+                    //applyBuffs(data.hitBuffs, target);
+                    GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), data.name);
                 }
             }
         }

@@ -20,16 +20,38 @@ public class AbilityEffect {
     {
         //DO the shiet
     }
-
+    #if false
     protected void applyBuffs(HitBuff[] buffs, Unit target)
     {
- 
-        for(int i = 0; i < buffs.Length; i++)
+
+
+        for (int i = 0; i < buffs.Length; i++)
         {
             HitBuff hbuff = buffs[i];
-            object[] parameters = new object[]{hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent};
+            object[] parameters = new object[] { hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent };
             string name = "get" + hbuff.type.ToString();
             GameMaster.getGameController().requestAddBuff(target.getID(), name, parameters);
+        }
+        
+
+    }
+#endif
+    public static void applyBuffs(string dataName, Unit unit, Unit target)
+    {
+        AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);
+        if (data != null)
+        {
+            HitBuff[] buffs = data.hitBuffs;
+            for (int i = 0; i < buffs.Length; i++)
+            {
+                HitBuff hbuff = buffs[i];
+                object[] parameters = new object[] { hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent };
+                string name = "get" + hbuff.type.ToString();
+
+                MethodInfo info = typeof(BuffGetter).GetMethod(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+                Buff buff = (Buff)info.Invoke(null, new object[] { parameters });
+                buff.apply(target);
+            }
         }
     }
 
