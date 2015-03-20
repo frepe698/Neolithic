@@ -35,7 +35,7 @@ public class AbilityCommand : Command {
         this.destination = this.attackPosition = new Vector2(attackPosition.x, attackPosition.z);
         this.attackHeight = attackPosition.y;
         this.targetTile = new Vector2i(this.attackPosition);
-
+        Debug.Log("started ability " + ability.data.name);
         this.ability = ability;
     }
 	

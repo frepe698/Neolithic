@@ -63,7 +63,6 @@ public class AIUnit : Unit {
 
 							if(hostile) 
 							{
-                                
 								GameMaster.getGameController().requestAttackCommand(id, unit.getID());
 							}
 							else if(unit.isHostile())

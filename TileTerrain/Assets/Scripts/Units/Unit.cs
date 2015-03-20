@@ -56,9 +56,6 @@ public class Unit {
 		this.scale = new Vector3(1,1,1);
 		this.id = id;
 
-
-        UnitData data = DataHolder.Instance.getUnitData(unit);
-        this.unitstats = new UnitStats(this, 0, data);
         this.buffs = new List<Buff>();
 
         abilities = new List<Ability>();
@@ -72,9 +69,6 @@ public class Unit {
 		this.scale = scale;
 		this.id = id;
 
-
-        UnitData data = DataHolder.Instance.getUnitData(unit);
-        this.unitstats = new UnitStats(this, 0, data);
         this.buffs = new List<Buff>();
 
 

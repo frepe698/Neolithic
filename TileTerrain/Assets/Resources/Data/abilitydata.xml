@@ -41,6 +41,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>2</range>
+      <tags>1</tags>
     </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
       <effects>
@@ -82,6 +83,7 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>99999</range>
+      <tags>2</tags>
     </AbilityData>
     <AbilityData name="cleave" gameName="Cleave" modelName="leap">
       <effects>
