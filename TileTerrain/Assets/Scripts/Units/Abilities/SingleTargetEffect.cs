@@ -6,10 +6,10 @@ public class SingleTargetEffect  : AbilityEffect {
     private readonly static float radius = 1;
     private SingleTargetEffectData data;
 
-    public SingleTargetEffect(string name, Unit unit, Vector3 targetPosition) : base(name,unit,targetPosition)
+    public SingleTargetEffect(string name, Unit unit, Vector3 targetPosition, SingleTargetEffectData data) : base(name,unit,targetPosition)
     {
         //Fetch data with name
-        this.data = (SingleTargetEffectData)DataHolder.Instance.getEffectData(name);
+        this.data = data;
     }
 
     public override void action()

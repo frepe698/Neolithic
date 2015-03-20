@@ -14,15 +14,18 @@ public class EffectEditor : ObjectEditor
     private const int SINGLETARGET = 0;
     private const int AREAOFEFFECT = 1;
     private const int PROJECTILEEFFECT = 2;
+    private const int MOVEMENTEFFECT = 3;
     private List<SingleTargetEffectEdit> singletargets = new List<SingleTargetEffectEdit>();
     private List<AreaOfEffectEdit> areaofeffects = new List<AreaOfEffectEdit>();
     private List<ProjectileEffectEdit> projectileeffects = new List<ProjectileEffectEdit>();
+    private List<MovementEffectEdit> movementeffects = new List<MovementEffectEdit>();
 
     private Vector2 scroll;
 
     private int selectedSingleTarget = -1;
     private int selectedAreaOfEffect = -1;
     private int selectedProjectile = -1;
+    private int selectedMovement = -1;
 
     protected static EffectEditor window;
 
@@ -57,6 +60,7 @@ public class EffectEditor : ObjectEditor
             singletargets = new List<SingleTargetEffectEdit>();
             areaofeffects = new List<AreaOfEffectEdit>();
             projectileeffects = new List<ProjectileEffectEdit>();
+            movementeffects = new List<MovementEffectEdit>();
             foreach (SingleTargetEffectData mdata in effectDataHolder.singleTargetEffectData)
             {
                 singletargets.Add(new SingleTargetEffectEdit(mdata));
@@ -70,6 +74,13 @@ public class EffectEditor : ObjectEditor
                 foreach (ProjectileEffectData pdata in effectDataHolder.projectileEffectData)
                 {
                     projectileeffects.Add(new ProjectileEffectEdit(pdata));
+                }
+            }
+            if (effectDataHolder.movementEffectData != null)
+            {
+                foreach (MovementEffectData pdata in effectDataHolder.movementEffectData)
+                {
+                    movementeffects.Add(new MovementEffectEdit(pdata));
                 }
             }
            
@@ -90,6 +101,7 @@ public class EffectEditor : ObjectEditor
         SingleTargetEffectData[] singleTargetData = new SingleTargetEffectData[singletargets.Count];
         AreaOfEffectData[] areaOfEffectData = new AreaOfEffectData[areaofeffects.Count];
         ProjectileEffectData[] projectileEffectData = new ProjectileEffectData[projectileeffects.Count];
+        MovementEffectData[] movementEffectData = new MovementEffectData[movementeffects.Count];
 
         int i = 0;
         foreach (SingleTargetEffectEdit medit in singletargets)
@@ -109,7 +121,13 @@ public class EffectEditor : ObjectEditor
             projectileEffectData[i] = new ProjectileEffectData(pedit);
             i++;
         }
-        DataHolder.EffectDataHolder effectDataHolder = new DataHolder.EffectDataHolder(singleTargetData, areaOfEffectData, projectileEffectData);
+        i = 0;
+        foreach(MovementEffectEdit medit in movementeffects)
+        {
+            movementEffectData[i] = new MovementEffectData(medit);
+        }
+        DataHolder.EffectDataHolder effectDataHolder = new DataHolder.EffectDataHolder(singleTargetData, areaOfEffectData,
+                                                                                       projectileEffectData, movementEffectData);
 
         using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
@@ -133,6 +151,7 @@ public class EffectEditor : ObjectEditor
         {
             selectedAreaOfEffect = -1;
             selectedProjectile = -1;
+            selectedMovement = -1;
             if (!openWindow(SINGLETARGET, selectedSingleTarget))
             {
                 WindowSettings window = new WindowSettings();
@@ -150,6 +169,7 @@ public class EffectEditor : ObjectEditor
         {
             selectedSingleTarget = -1;
             selectedProjectile = -1;
+            selectedMovement = -1;
             if (!openWindow(AREAOFEFFECT, selectedAreaOfEffect))
             {
                 WindowSettings window = new WindowSettings();
@@ -167,12 +187,31 @@ public class EffectEditor : ObjectEditor
         {
             selectedAreaOfEffect = -1;
             selectedSingleTarget = -1;
+            selectedMovement = -1;
             if (!openWindow(PROJECTILEEFFECT, selectedProjectile)) 
             {
                 WindowSettings window = new WindowSettings();
                 window.objectListIndex = PROJECTILEEFFECT;
                 window.objectIndex = selectedProjectile;
                 window.windowFunc = editProjectileEffect;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
+            }
+        }
+        GUILayout.Label("Movement Effects", EditorStyles.boldLabel);
+        selectedMovement = GUILayout.SelectionGrid(selectedMovement, getMovementStrings(), 1);
+        if (selectedMovement >= 0)
+        {
+            selectedAreaOfEffect = -1;
+            selectedSingleTarget = -1;
+            selectedProjectile = -1;
+            if (!openWindow(MOVEMENTEFFECT, selectedMovement))
+            {
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = MOVEMENTEFFECT;
+                window.objectIndex = selectedMovement;
+                window.windowFunc = editMovementEffect;
                 window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
                 window.windowScroll = Vector2.zero;
                 windows.Add(window);
@@ -207,6 +246,10 @@ public class EffectEditor : ObjectEditor
         if (GUILayout.Button("+Projectile Effect"))
         {
             projectileeffects.Add(new ProjectileEffectEdit());
+        }
+        if (GUILayout.Button("+Movement Effect"))
+        {
+            movementeffects.Add(new MovementEffectEdit());
         }
         if (GUILayout.Button("Remove"))
         {
@@ -252,6 +295,17 @@ public class EffectEditor : ObjectEditor
         return result;
     }
 
+    private string[] getMovementStrings()
+    {
+        string[] result = new string[movementeffects.Count];
+        int i = 0;
+        foreach (MovementEffectEdit edit in movementeffects)
+        {
+            result[i] = edit.name;
+            i++;
+        }
+        return result;
+    }
 
     protected void editSingleTarget(int windowID)
     {
@@ -271,41 +325,9 @@ public class EffectEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
-        data.name = TextField("Name: ", data.name);
-        data.gameName = TextField("Game Name: ", data.gameName);
-        data.modelName = EditorGUILayout.TextField("Model Name: ", data.modelName);
+        
+        editEffect(data);
 
-        GUILayout.Space(20);
-        foreach (HitDamageEdit edit in data.hitDamages)
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUIUtility.labelWidth = 100;
-
-            EditorGUIUtility.fieldWidth = 40;
-            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
-            EditorGUIUtility.fieldWidth = 10;
-
-            edit.percent = EditorGUILayout.FloatField(edit.percent);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.BeginHorizontal();
-            EditorGUIUtility.fieldWidth = 10;
-            EditorGUIUtility.labelWidth = 70;
-            edit.yourStat = EditorGUILayout.Toggle("Your stat: ", edit.yourStat);
-            EditorGUIUtility.fieldWidth = 10;
-            edit.damageSelf = EditorGUILayout.Toggle("To self: ", edit.damageSelf);
-
-
-            if (GUILayout.Button("-"))
-            {
-                data.hitDamages.Remove(edit);
-                break;
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-        if (GUILayout.Button("+Stat"))
-        {
-            data.hitDamages.Add(new HitDamageEdit());
-        }
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }
@@ -328,44 +350,13 @@ public class EffectEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
-        data.name = TextField("Name: ", data.name);
-        data.gameName = TextField("Game Name: ", data.gameName);
-        data.modelName = EditorGUILayout.TextField("Model Name: ", data.modelName);
+
+        editEffect(data);
 
         GUILayout.Space(20);
         EditorGUILayout.LabelField("Radius:", EditorStyles.boldLabel);
         data.radius = EditorGUILayout.FloatField(data.radius);
 
-        foreach (HitDamageEdit edit in data.hitDamages)
-        {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUIUtility.labelWidth = 100;
-
-            EditorGUIUtility.fieldWidth = 40;
-            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
-            EditorGUIUtility.fieldWidth = 10;
-
-            edit.percent = EditorGUILayout.FloatField(edit.percent);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.BeginHorizontal();
-            EditorGUIUtility.fieldWidth = 10;
-            EditorGUIUtility.labelWidth = 70;
-            edit.yourStat = EditorGUILayout.Toggle("Your stat: ", edit.yourStat);
-            EditorGUIUtility.fieldWidth = 10;
-            edit.damageSelf = EditorGUILayout.Toggle("To self: ", edit.damageSelf);
-
-
-            if (GUILayout.Button("-"))
-            {
-                data.hitDamages.Remove(edit);
-                break;
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-        if (GUILayout.Button("+Stat"))
-        {
-            data.hitDamages.Add(new HitDamageEdit());
-        }
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }
@@ -397,6 +388,37 @@ public class EffectEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
         if(!data.weaponProjectile) data.projectileName = EditorGUILayout.TextField("ProjectileName: ", data.projectileName);
         data.angle = EditorGUILayout.FloatField("Angle: ", data.angle);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+    }
+
+    protected void editMovementEffect(int windowID)
+    {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            if (selectedMovement == windows[windowID].objectIndex) selectedMovement = -1;
+            windows.RemoveAt(windowID);
+            return;
+        }
+        WindowSettings window = windows[windowID];
+        MovementEffectEdit data = movementeffects[window.objectIndex];
+        if (data == null)
+        {
+            windows.RemoveAt(windowID);
+        }
+
+        EditorGUIUtility.labelWidth = 120;
+
+        window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
+        editEffect(data);
+
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Movement Stuff: ", EditorStyles.boldLabel);
+        EditorGUIUtility.labelWidth = 180;
+        data.range = EditorGUILayout.FloatField("Range: ", data.range);
+        EditorGUIUtility.labelWidth = 120;
+        data.travelTime = EditorGUILayout.FloatField("Travel Time: ", data.travelTime);
 
         GUILayout.EndScrollView();
         GUI.DragWindow();
@@ -449,6 +471,7 @@ public class EffectEditor : ObjectEditor
         if (window.objectListIndex == SINGLETARGET) return editSingleTarget;
         if (window.objectListIndex == AREAOFEFFECT) return editAreaOfEffect;
         if (window.objectListIndex == PROJECTILEEFFECT) return editProjectileEffect;
+        if (window.objectListIndex == MOVEMENTEFFECT) return editMovementEffect;
         return null;
     }
 
@@ -462,6 +485,8 @@ public class EffectEditor : ObjectEditor
                 return areaofeffects[index];
             case(PROJECTILEEFFECT):
                 return projectileeffects[index];
+            case(MOVEMENTEFFECT):
+                return movementeffects[index];
             default:
                 return null;
         }
@@ -477,6 +502,8 @@ public class EffectEditor : ObjectEditor
                 return index >= areaofeffects.Count;
             case(PROJECTILEEFFECT):
                 return index >= projectileeffects.Count;
+            case(MOVEMENTEFFECT):
+                return index >= movementeffects.Count;
             default:
                 return true;
         }
@@ -502,6 +529,12 @@ public class EffectEditor : ObjectEditor
             deleteWindowListIndex = PROJECTILEEFFECT;
             GUI.BringWindowToFront(DELETEWINDOWID);
         }
+        else if (selectedMovement >= 0)
+        {
+            deleteWindowIndex = selectedMovement;
+            deleteWindowListIndex = MOVEMENTEFFECT;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
        
     }
 
@@ -525,6 +558,11 @@ public class EffectEditor : ObjectEditor
                     closeWindow(PROJECTILEEFFECT, index);
                     projectileeffects.RemoveAt(index);
                     if (selectedProjectile > 0) selectedProjectile--;
+                    break;
+                case (MOVEMENTEFFECT):
+                    closeWindow(MOVEMENTEFFECT, index);
+                    movementeffects.RemoveAt(index);
+                    if (selectedMovement > 0) selectedMovement--;
                     break;
             }
         }
@@ -556,6 +594,14 @@ public class EffectEditor : ObjectEditor
             projectileeffects.Insert(selectedProjectile + 1, temp);
             selectedProjectile++;
         }
+        else if (selectedMovement >= 0)
+        {
+            MovementEffectEdit temp = new MovementEffectEdit(movementeffects[selectedMovement]);
+            temp.name += "(Copy)";
+            temp.gameName += "(Copy)";
+            movementeffects.Insert(selectedMovement + 1, temp);
+            selectedMovement++;
+        }
     }
 
     private void moveUp()
@@ -582,6 +628,13 @@ public class EffectEditor : ObjectEditor
             projectileeffects.Insert(selectedProjectile - 1, temp);
             selectedProjectile -= 1;
         }
+        else if (selectedMovement > 0)
+        {
+            MovementEffectEdit temp = movementeffects[selectedMovement];
+            movementeffects.RemoveAt(selectedMovement);
+            movementeffects.Insert(selectedMovement - 1, temp);
+            selectedMovement -= 1;
+        }
     }
 
     private void moveDown()
@@ -606,6 +659,13 @@ public class EffectEditor : ObjectEditor
             projectileeffects.RemoveAt(selectedProjectile);
             projectileeffects.Insert(selectedProjectile + 1, temp);
             selectedProjectile += 1;
+        }
+        else if (selectedMovement >= 0 && selectedMovement < movementeffects.Count - 1)
+        {
+            MovementEffectEdit temp = movementeffects[selectedMovement];
+            movementeffects.RemoveAt(selectedMovement);
+            movementeffects.Insert(selectedMovement + 1, temp);
+            selectedMovement += 1;
         }
     }
 }
