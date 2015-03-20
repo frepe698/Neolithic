@@ -37,7 +37,7 @@ public class GUIManager : MonoBehaviour{
 
     #region HERO STATS MEMBERS
     private GameObject heroStatsObject;
-    private UnitStats unitStats;
+    private HeroStats unitStats;
 
     private Text[] statTexts;
 
@@ -202,15 +202,16 @@ public class GUIManager : MonoBehaviour{
             float startX = (-(abilityWindowObject.GetComponent<RectTransform>().sizeDelta.x) / 2) + width; 
             for (int i = 0; i < skillData.Length; i++)
             {
+                SkillData data = skillData[i];
+
                 GameObject go = Instantiate(skillPrefab);
                 go.transform.SetParent(abilityWindowObject.transform);
                 go.transform.localScale = new Vector3(1, 1, 1);
                 go.GetComponent<RectTransform>().anchoredPosition = new Vector3(startX + width * i, 100);
 
 
-
                 Text text = go.GetComponent<Text>();
-                text.text = skillData[i].gameName.Substring(0, 3).ToUpper();
+                text.text = data.gameName.Substring(0, 3).ToUpper();
                 Color color = new Color(0, 0, 0, 1);
                 if (i < 4) color = Color.Lerp(Color.red, Color.blue, (float)i/4.0f);
                 else if (i < 8) color = Color.Lerp(Color.blue, Color.green, (float)(i-4)/4.0f);
@@ -225,8 +226,18 @@ public class GUIManager : MonoBehaviour{
                 for (int b = 0; b < 5; b++)
                 {
                     Button button = go.transform.FindChild("ButtonAbility" + b).GetComponent<Button>();
-                    int levelIndex = b;
-                    button.onClick.AddListener(() => abilityButtonClick(skillIndex, levelIndex));
+
+                    if (b < data.abilities.Length)
+                    {
+                        int levelIndex = b;
+                        button.onClick.AddListener(() => abilityButtonClick(skillIndex, levelIndex));
+                        button.GetComponentInChildren<Text>().text = data.abilities[b].name;
+                    }
+                    else
+                    {
+                        button.gameObject.SetActive(false);
+                    }
+
                     abilityButtons[i, b] = button;
                 }
             }
@@ -616,7 +627,7 @@ public class GUIManager : MonoBehaviour{
 
     #region UNIT STATS
 
-    public void setUnitStats(UnitStats unitStats)
+    public void setUnitStats(HeroStats unitStats)
     {
         this.unitStats = unitStats;
         this.unitStats.onStatsUpdatedListener += new System.EventHandler(onUnitStatsUpdated);
@@ -699,7 +710,6 @@ public class GUIManager : MonoBehaviour{
 
     public void abilityButtonClick(int skill, int level)
     {
-        Debug.Log("Level skill: " + skill + " level: " + level);
         skillManager.getSkill(skill).unlock(level);
     }
 
@@ -831,6 +841,11 @@ public class GUIManager : MonoBehaviour{
     #endregion //QUICK USE ITEMS
 
     #region ABILITY
+
+    private void onAbilityUpdated(object sender, System.EventArgs args)
+    {
+        updateAbilityIcons();
+    }
 
     private void updateAbilityIcons()
     {
@@ -1426,8 +1441,10 @@ public class GUIManager : MonoBehaviour{
         this.playerHero = hero;
 
         setInventory(hero.getInventory());
-        setUnitStats(hero.getUnitStats());
+        setUnitStats(hero.getHeroStats());
         setSkillManager(hero.getSkillManager());
+
+        hero.onAbilityUpdatedListener += new System.EventHandler(onAbilityUpdated);
 
         updateAbilityIcons();
     }

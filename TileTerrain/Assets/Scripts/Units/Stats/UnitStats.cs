@@ -5,17 +5,16 @@ using System;
 
 public class UnitStats {
 	
-	private Unit unit;
+	protected Unit unit;
 	
 	private const int MAX_LEVEL = 100;
-	private int level;
+	protected int level;
     private int skillLevel;
 	private int exp;
 	private readonly int skillsToLevel = 3;  //multiplied by level
 	
-	private BaseStat[] stats;
+	protected BaseStat[] stats;
 
-    public event EventHandler onStatsUpdatedListener;
 	
 	public UnitStats(Unit unit, int level, UnitData data){
 		this.level = level;
@@ -57,69 +56,27 @@ public class UnitStats {
 		
 	}
 
-    private void onStatsUpdated()
-    {
-        if (onStatsUpdatedListener != null)
-            onStatsUpdatedListener(this, EventArgs.Empty);
-    }
-
-	public void updateStats()
+	public virtual void updateStats()
     {
 		for(int s = 0; s < stats.Length; s++){
 			//set to base + per level
 			stats[s].reset(level);
 		}
-		
-		//get stats from unit skills
-		Skill[] skills = unit.getSkillManager().getSkills();
-        foreach(Skill skill in skills)
-        {
-            StatChange[] statChanges = skill.getStatsPerLevel();
-            if (statChanges == null) continue;
-            foreach(StatChange stat in statChanges)
-            {
-                stat.applyChange(this, skill.getLevel());
-            }
-        }
-
-        //get stats from equiped armor
-        ArmorData[] armor = unit.getEquipedArmor();
-        foreach (ArmorData a in armor)
-        {
-            if (a == null) continue;
-            addToStat(Stat.Armor, a.armor);
-            addToStat(Stat.Movespeed, -a.speedPenalty);
-        }
 
         //get damage from equiped weapon
         if (unit.isMelee())
         {
             addToStat(Stat.MeleeDamage, unit.getBaseDamage(DamageType.COMBAT));
-            addToStat(Stat.TreeDamage, unit.getBaseDamage(DamageType.TREE));
-            addToStat(Stat.StoneDamage, unit.getBaseDamage(DamageType.STONE));
         }
         else
         {
             addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
         }
 
-        Debug.Log(getStat((int)Stat.MeleeDamage).getMultiplier());
-
 		//Multiply stats
 		for(int s = 0; s < stats.Length; s++){
 			stats[s].multiply();
 		}
-
-        //Calculate damage conversions 
-        float treeToAttack = getStatV(Stat.TreeToAttack);
-        if (treeToAttack > 0)
-            addToStat(Stat.MeleeDamage, treeToAttack * getStatV(Stat.TreeDamage));
-        float stoneToAttack = getStatV(Stat.StoneToAttack);
-        if (stoneToAttack > 0)
-            addToStat(Stat.MeleeDamage, stoneToAttack * getStatV(Stat.StoneDamage));
-
-
-        onStatsUpdated();
 	}
 
     private int getSkillsToLevel(int level)

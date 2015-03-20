@@ -1,13 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Hero : Unit {
+
+    public EventHandler onAbilityUpdatedListener;
 
 	private Inventory inventory;
 	private WeaponData heldItem;
 
     private ArmorData[] equipedArmor = new ArmorData[3];
 
+    protected SkillManager skillManager;
+
+    private Ability meleeBasicAttack;
+    private Ability rangedBasicAttack;
 
 	//HERO STATS
 
@@ -36,7 +43,7 @@ public class Hero : Unit {
 	public Hero(string unit, Vector3 position, Vector3 rotation, int id) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
 	{
-		UnitData data = DataHolder.Instance.getUnitData(unit);
+		HeroData data = DataHolder.Instance.getHeroData(unit);
 		if(data == null) 
 		{
 			hostile = true;
@@ -71,8 +78,16 @@ public class Hero : Unit {
 		}
         init();
 		inventory = new Inventory();
+
+        this.skillManager = new SkillManager(this);
+        unitstats = new HeroStats(this, 0, data);
+       
 		setItem(DataHolder.Instance.getEquipmentData("unarmed"));
+
         unitstats.updateStats();
+
+        meleeBasicAttack = new Ability("meleebasicattack", this);
+        rangedBasicAttack = new Ability("rangedbasicattack", this);
 
 		activate();
 	}
@@ -156,7 +171,11 @@ public class Hero : Unit {
         unitstats.updateStats();
 
     }
-	
+
+    public override Ability getBasicAttack()
+    {
+        return isMelee() ? meleeBasicAttack : rangedBasicAttack;
+    }
 
 	public override float getAttackSpeed()
 	{
@@ -351,6 +370,33 @@ public class Hero : Unit {
     public override void increaseSkillLevel()
     {
         unitstats.increaseSkillLevel();
+    }
+
+    private void onAbilityUpdated()
+    {
+        if (onAbilityUpdatedListener != null)
+            onAbilityUpdatedListener(this, EventArgs.Empty);
+    }
+
+    public override void addAbility(string ability)
+    {
+        base.addAbility(ability);
+        onAbilityUpdated();
+    }
+
+    public HeroStats getHeroStats()
+    {
+        return unitstats as HeroStats;
+    }
+
+    public SkillManager getSkillManager()
+    {
+        return skillManager;
+    }
+
+    public override void grantAbilityPoint()
+    {
+        skillManager.grantAbilityPoint();
     }
 
 }

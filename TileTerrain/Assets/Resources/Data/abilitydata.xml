@@ -21,6 +21,26 @@
       <cooldown>0</cooldown>
       <range>2</range>
     </AbilityData>
+    <AbilityData name="aimeleebasicattack" gameName="Basic Attack" modelName="meleebasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>meleebasicattack</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>2</range>
+    </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
       <effects>
         <AbilityEffectAndTime>
@@ -37,6 +57,26 @@
       </animations>
       <totalTime>1</totalTime>
       <energyCost>5</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>99999</range>
+    </AbilityData>
+    <AbilityData name="airangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>rangedbasicattack</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>99999</range>

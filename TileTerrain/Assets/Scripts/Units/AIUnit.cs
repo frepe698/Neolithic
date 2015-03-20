@@ -8,6 +8,8 @@ public class AIUnit : Unit {
 	private float attackspeed;
     private string attackSound;
 
+    private Ability basicAttack;
+
 	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id) 
 		: base(unit, position, rotation, id)
 	{
@@ -35,7 +37,11 @@ public class AIUnit : Unit {
             modelName = data.modelName;
 		}
         init();
-        //unitstats.updateStats();
+
+        this.unitstats = new UnitStats(this, 0, data);
+        unitstats.updateStats();
+
+        basicAttack = new Ability("aimeleebasicattack", this);
 	}
 
 	public override void updateAI()
@@ -84,6 +90,11 @@ public class AIUnit : Unit {
 			}
 		}
 	}
+
+    public override Ability getBasicAttack()
+    {
+        return basicAttack;
+    }
 
 	public override string getRunAnim ()
 	{
@@ -135,7 +146,7 @@ public class AIUnit : Unit {
 
 	public override bool isMelee()
 	{
-		return false;
+		return true;
 	}
 
     public override int getTeam()

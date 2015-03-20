@@ -36,7 +36,28 @@
           <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>heavystrike</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>leap</name>
+          <reqLevel>5</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>cleave</name>
+          <reqLevel>10</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>tripplestrike</name>
+          <reqLevel>15</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>meleebasicattack</name>
+          <reqLevel>20</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
     <SkillData name="mining" gameName="Mining">
       <requiredExp>
@@ -83,7 +104,12 @@
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>stonethrow</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
     <SkillData name="building" gameName="Building">
       <requiredExp>
@@ -349,7 +375,12 @@
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>volley</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
     <SkillData name="woodchopping" gameName="Wood Chopping">
       <requiredExp>

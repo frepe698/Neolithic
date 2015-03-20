@@ -74,5 +74,10 @@ public class SkillManager {
         unit.increaseSkillLevel();
         //onSkillsUpdated();
     }
+
+    public void learnAbility(string name)
+    {
+        GameMaster.getGameController().requestLearnAbility(name, unit.getID());
+    }
     
 }
