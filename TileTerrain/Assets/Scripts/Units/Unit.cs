@@ -764,11 +764,13 @@ public class Unit {
     public void addToStat(Stat stat, float value)
     {
         unitstats.addToStat(stat, value);
+        unitstats.updateStats();
     }
 
     public void addMultiplierToStat(Stat stat, float value)
     {
         unitstats.addMultiplierToStat(stat, value);
+        unitstats.updateStats();
     }
 
     public void addBuff(Buff buff)
