@@ -72,7 +72,7 @@ public class ServerController : GameController {
 	{
 		Unit unit = GameMaster.getUnit(unitID);
 		Unit target = GameMaster.getUnit (targetID);
-		if(target != null && unit != null && unit.canStartCommand(new AttackCommand(unit, target)))
+		if(target != null && unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
 		{
 			gameMaster.getNetView().RPC ("approveAttackCommand", RPCMode.All, unitID, targetID, GameMaster.getUnit(unitID).getPosition());
 		}

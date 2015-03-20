@@ -63,7 +63,8 @@ public class Skill {
 
     public void unlockNext()
     {
-        if (unlockedLevel >= MAXLEVEL) return;
+        if (unlockedLevel >= data.abilities.Length) return;
+        manager.learnAbility(data.abilities[unlockedLevel].name);
         unlockedLevel++;
         manager.removeAbilityPoint();
         //Apply changes to unitstats or smth
@@ -71,7 +72,7 @@ public class Skill {
 
     public void unlock(int level)
     {
-        if (level == unlockedLevel)
+        if (level == unlockedLevel && this.level >= data.abilities[level].reqLevel)
         {
             unlockNext();
         }

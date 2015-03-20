@@ -40,7 +40,7 @@ public class Unit {
 	protected float gatherTime = 0.8f;
 	protected float lootTime = 0.25f;
 
-    protected SkillManager skillManager;
+
     protected UnitStats unitstats;
     protected List<Buff> buffs;
 
@@ -56,7 +56,7 @@ public class Unit {
 		this.scale = new Vector3(1,1,1);
 		this.id = id;
 
-        this.skillManager = new SkillManager(this);
+
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
         this.buffs = new List<Buff>();
@@ -72,10 +72,11 @@ public class Unit {
 		this.scale = scale;
 		this.id = id;
 
-        this.skillManager = new SkillManager(this);
+
         UnitData data = DataHolder.Instance.getUnitData(unit);
         this.unitstats = new UnitStats(this, 0, data);
         this.buffs = new List<Buff>();
+
 
 
         abilities = new List<Ability>();
@@ -291,10 +292,17 @@ public class Unit {
 		command.start();
 	}
 
+   
+
+    public virtual Ability getBasicAttack()
+    {
+        return null;
+    }
+
 	public void giveAttackCommand(Unit target)
 	{
 		if(target == null) return;
-		command = new AttackCommand(this, target);
+		command = new AbilityCommand(this, target, getBasicAttack());
 		command.start ();
 	}
 
@@ -334,7 +342,7 @@ public class Unit {
     public bool canStartCommand(Command command)
     {
         if (command.canAlwaysStart()) return true;
-        if (!command.canStartOverride(this.command)) return false;
+        if (!command.canStartOverride(this.command)) { return false; Debug.Log("cant override"); }
         return Time.time >= commandEndTime;
     }
 	
@@ -678,11 +686,6 @@ public class Unit {
         return 0;
     }
 
-    public SkillManager getSkillManager()
-    {
-        return skillManager;
-    }
-
     public UnitStats getUnitStats()
     {
         return unitstats;
@@ -703,11 +706,6 @@ public class Unit {
 
     }
 
-    public virtual void grantAbilityPoint()
-    {
-        skillManager.grantAbilityPoint();
-    }
-
     public void onLevelUp()
     {
         if (isActive())
@@ -723,11 +721,16 @@ public class Unit {
         }
     }
 
+    public virtual void grantAbilityPoint()
+    {
+        //do nada
+    }
+
     public void learnAbility(string ability)
     {
         GameMaster.getGameController().requestLearnAbility(ability, getID());
     }
-    public void addAbility(string ability)
+    public virtual void addAbility(string ability)
     {
         abilities.Add(new Ability(ability, this));
     }

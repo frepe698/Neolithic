@@ -114,17 +114,6 @@ public class AbilityCommand : Command {
 		}
 		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < ability.data.range) //TODO weapon range here
 		{
-            //Update target position to the targeted units position
-            if (target != null)
-            {
-                attackPosition = target.get2DPos();
-                //if it entered a new tile update path
-                if (target.getTile() != targetTile)
-                {
-                    destination = target.get2DPos();
-                    unit.setPath(destination);
-                }
-            }
 			unit.setMoving(false);
 
 			attacking = true;
@@ -132,15 +121,24 @@ public class AbilityCommand : Command {
             lastUsedEffect = 0;
 			hasAttacked = false;
 			calculateRotation();
-			
 		}
+        else if(target != null)
+        {
+            //Update target position to the targeted units position
+            attackPosition = target.get2DPos();
+            //if it entered a new tile update path
+            if (target.getTile() != targetTile)
+            {
+                destination = target.get2DPos();
+                unit.setPath(destination);
+            }
+        }
 	}
 	
 	private void calculateRotation()
 	{
 		Vector2 dir = (unit.get2DPos()-attackPosition).normalized;
 		unit.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
-		
 	}
 	
 	public Unit getTarget()
