@@ -114,6 +114,7 @@ public class ClientController : GameController {
         //do nada
     }
 
+    [RPC]
     public override void requestLearnAbility(string ability, int unitID)
     {
         gameMaster.getNetView().RPC("requestLearnAbility", RPCMode.Server, ability, unitID);
@@ -123,7 +124,11 @@ public class ClientController : GameController {
     {
         //Do nada
     }
-	
+
+    public override void requestApplyEffect(int unitID, int targetID, string effectName)
+    {
+        //Do nade
+    }
 
 	public override void requestResourceLootDrop(string resourceName, Vector2i tile, int unitID)
 	{

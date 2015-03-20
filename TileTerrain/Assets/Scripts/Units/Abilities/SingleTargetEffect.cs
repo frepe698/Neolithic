@@ -59,6 +59,7 @@ public class SingleTargetEffect  : AbilityEffect {
             else damage += tempDamage;
         }
         GameMaster.getGameController().requestHit(damage, unit.getID(), closestTarget.getID());
-        applyBuffs(data.hitBuffs, closestTarget);
+        //applyBuffs(data.hitBuffs, closestTarget);
+        GameMaster.getGameController().requestApplyEffect(unit.getID(), closestTarget.getID(), data.name);
     }
 }

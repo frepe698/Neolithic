@@ -313,6 +313,11 @@ public class ServerController : GameController {
         gameMaster.getNetView().RPC("approveAddBuff", RPCMode.All, unitID, name, parameters);
     }
 
+    public override void requestApplyEffect(int unitID, int targetID, string effectName)
+    {
+        gameMaster.getNetView().RPC("approveApplyEffect", RPCMode.All, unitID, targetID, effectName);
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {
