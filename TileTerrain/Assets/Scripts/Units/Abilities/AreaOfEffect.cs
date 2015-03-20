@@ -45,6 +45,7 @@ public class AreaOfEffect : AbilityEffect {
                         else damage += tempDamage;
                     }
                     GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID());
+                    applyBuffs(data.hitBuffs, target);
                 }
             }
         }

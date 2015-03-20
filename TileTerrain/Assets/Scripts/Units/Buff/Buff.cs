@@ -16,10 +16,11 @@ public enum BuffType
 
 public class StatBuff : Buff
 {
-    public static readonly int STAT_PARAM = 0;
-    public static readonly int DURATION_PARAM = 1;
-    public static readonly int AMOUNT_PARAM = 2;
-    public static readonly int PERCENT_PARAM = 3;
+    public static readonly int UNIT_PARAM = 0;
+    public static readonly int STAT_PARAM = 1;
+    public static readonly int DURATION_PARAM = 2;
+    public static readonly int AMOUNT_PARAM = 3;
+    public static readonly int PERCENT_PARAM = 4;
 
     private Stat stat;
     private float duration;
@@ -28,9 +29,9 @@ public class StatBuff : Buff
     private Unit unit;
 
     private bool finished = false;
-    public StatBuff(Unit unit, params object[] parameters)
+    public StatBuff(object[] parameters)
     {
-        this.unit = unit;
+        this.unit = (Unit)parameters[UNIT_PARAM];
         this.stat = (Stat)parameters[STAT_PARAM];
         this.duration = (float)parameters[DURATION_PARAM];
         this.amount = (float)parameters[AMOUNT_PARAM];
@@ -39,6 +40,7 @@ public class StatBuff : Buff
 
     public override void apply()
     {
+        Debug.Log("Buff applied");
         if(percent)
         {
             unit.addMultiplierToStat(stat, amount);
@@ -75,11 +77,13 @@ public class StatBuff : Buff
     }
 }
 
-public static class BuffGetter
+public class BuffGetter
 {
-    public static Buff getStatBuff(Unit unit, params object[] parameters)
+
+    
+    public static Buff getStatBuff(object[] parameters)
     {
-	    return new StatBuff(unit, parameters);
+        return new StatBuff(parameters);
     }
 
     public static Buff getStun(Unit unit, params object[] parameters)

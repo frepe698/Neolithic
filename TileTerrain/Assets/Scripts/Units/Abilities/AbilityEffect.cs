@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
+using System;
 
 public class AbilityEffect {
 
@@ -17,6 +19,22 @@ public class AbilityEffect {
     public virtual void action()
     {
         //DO the shiet
+    }
+
+    protected void applyBuffs(HitBuff[] buffs, Unit target)
+    {
+        
+        
+        
+        for(int i = 0; i < buffs.Length; i++)
+        {
+            HitBuff hbuff = buffs[i];
+            object[] parameters = new object[]{target, hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent};
+            Debug.Log(hbuff.type.ToString());
+            MethodInfo info = typeof(BuffGetter).GetMethod("get" + hbuff.type.ToString(), BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+            Buff buff = (Buff)info.Invoke(this, new object[]{ parameters });
+            buff.apply();
+        }
     }
 
     
