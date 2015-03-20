@@ -64,14 +64,14 @@ public class ClientController : GameController {
 	}
 
     [RPC]
-    public override void requestAbilityCommand(int unitID, int targetID, int ability)
+    public override void requestAbilityCommandID(int unitID, int targetID, int ability)
     {
-        gameMaster.getNetView().RPC("requestAbilityCommand", RPCMode.Server, unitID, targetID, ability);
+        gameMaster.getNetView().RPC("requestAbilityCommandID", RPCMode.Server, unitID, targetID, ability);
     }
     [RPC]
-    public override void requestAbilityCommand(int unitID, Vector3 target, int ability)
+    public override void requestAbilityCommandVec(int unitID, Vector3 target, int ability)
     {
-        gameMaster.getNetView().RPC("requestAbilityCommand", RPCMode.Server, unitID, target, ability);
+        gameMaster.getNetView().RPC("requestAbilityCommandVec", RPCMode.Server, unitID, target, ability);
     }
 
 

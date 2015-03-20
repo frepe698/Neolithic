@@ -86,7 +86,7 @@ public class OfflineController : GameController {
 	}
 
     [RPC]
-    public override void requestAbilityCommand(int unitID, int targetID, int ability)
+    public override void requestAbilityCommandID(int unitID, int targetID, int ability)
     {
         Unit unit = GameMaster.getUnit(unitID);
         Unit target = GameMaster.getUnit(targetID);
@@ -97,7 +97,7 @@ public class OfflineController : GameController {
     }
 
     [RPC]
-    public override void requestAbilityCommand(int unitID, Vector3 target, int ability)
+    public override void requestAbilityCommandVec(int unitID, Vector3 target, int ability)
     {
 
 

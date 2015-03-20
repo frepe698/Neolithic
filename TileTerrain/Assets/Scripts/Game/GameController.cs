@@ -208,10 +208,10 @@ public abstract class GameController : MonoBehaviour{
     }
 
     [RPC]
-    public abstract void requestAbilityCommand(int unitID, int targetID, int ability);
+    public abstract void requestAbilityCommandID(int unitID, int targetID, int ability);
 
     [RPC]
-    public abstract void requestAbilityCommand(int unitID, Vector3 target, int ability);
+    public abstract void requestAbilityCommandVec(int unitID, Vector3 target, int ability);
 
     [RPC]
     protected void approveAbilityCommandID(int unitID, int targetID, Vector3 startPos, int ability)
@@ -370,22 +370,22 @@ public abstract class GameController : MonoBehaviour{
                         if (Input.GetKey("q"))
                         {
                             int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                            requestAbilityCommand(unitID, targetID, 0);
+                            requestAbilityCommandID(unitID, targetID, 0);
                         }
                         else if (Input.GetKey("w"))
                         {
                             int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                            requestAbilityCommand(unitID, targetID, 1);
+                            requestAbilityCommandID(unitID, targetID, 1);
                         }
                         else if (Input.GetKey("e"))
                         {
                             int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                            requestAbilityCommand(unitID, targetID, 2);
+                            requestAbilityCommandID(unitID, targetID, 2);
                         }
                         else if (Input.GetKey("r"))
                         {
                             int targetID = rayhit.transform.GetComponent<UnitController>().getID();
-                            requestAbilityCommand(unitID, targetID, 3);
+                            requestAbilityCommandID(unitID, targetID, 3);
                         }
                     }
                     targetPoint = rayhit.transform.position;
@@ -398,19 +398,19 @@ public abstract class GameController : MonoBehaviour{
                     {
                         if (Input.GetKey("q"))
                         {
-                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 0);
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 0);
                         }
                         else if (Input.GetKey("w"))
                         {
-                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 1);
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 1);
                         }
                         else if (Input.GetKey("e"))
                         {
-                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 2);
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 2);
                         }
                         else if (Input.GetKey("r"))
                         {
-                            requestAbilityCommand(unitID, targetPoint + Vector3.up, 3);
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 3);
                         }
                     }
                 }
