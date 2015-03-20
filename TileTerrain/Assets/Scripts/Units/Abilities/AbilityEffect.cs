@@ -19,7 +19,6 @@ public class AbilityEffect {
         //DO the shiet
     }
 
-    
 }
 
 public enum AbilityEffects

@@ -42,7 +42,7 @@ public class ServerController : GameController {
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
-		if(unit != null) gameMaster.getNetView().RPC("approveMoveCommand", RPCMode.All, unitID, x, y, unit.getPosition());
+		if(unit != null && unit.canOverrideCurrentCommand()) gameMaster.getNetView().RPC("approveMoveCommand", RPCMode.All, unitID, x, y, unit.getPosition());
 	}
 
 	[RPC]

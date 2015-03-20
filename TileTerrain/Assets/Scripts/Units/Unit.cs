@@ -335,9 +335,16 @@ public class Unit {
 
     public bool canStartCommand(Command command)
     {
+        if (this.command != null && !this.command.canBeOverridden()) return false;
         if (command.canAlwaysStart()) return true;
         if (!command.canStartOverride(this.command)) { return false; Debug.Log("cant override"); }
         return Time.time >= commandEndTime;
+    }
+
+    public bool canOverrideCurrentCommand()
+    {
+        if (this.command == null) return true;
+        else return this.command.canBeOverridden();
     }
 	
 	public bool currentCommandEquals(Command command)
@@ -784,6 +791,15 @@ public class Unit {
                 i--;
             }
         }
+    }
+
+    public GameObject addEffectObject(GameObject prefab, Vector3 position)
+    {
+        if (isActive())
+        {
+            return unitController.addEffectObject(prefab, position);
+        }
+        return null;
     }
 
 }

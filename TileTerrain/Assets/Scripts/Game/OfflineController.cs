@@ -39,7 +39,7 @@ public class OfflineController : GameController {
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
-		if(unit != null) approveMoveCommand(unitID, x, y, unit.getPosition());
+		if(unit != null && unit.canOverrideCurrentCommand()) approveMoveCommand(unitID, x, y, unit.getPosition());
 	}
 
 	[RPC]

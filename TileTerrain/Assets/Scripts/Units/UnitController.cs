@@ -168,4 +168,16 @@ public class UnitController : MonoBehaviour {
 		return unitID;
 	}
 
+    public GameObject addEffectObject(GameObject prefab, Vector3 position)
+    {
+        
+        GameObject go = Instantiate(prefab);
+        go.transform.SetParent(transform);
+        go.transform.localPosition = position + new Vector3(0, GetComponentInChildren<SkinnedMeshRenderer>().bounds.size.y, 0);
+        go.transform.localRotation = Quaternion.identity;
+        go.transform.localScale = new Vector3(1, 1, 1);
+
+        return go;
+    }
+
 }

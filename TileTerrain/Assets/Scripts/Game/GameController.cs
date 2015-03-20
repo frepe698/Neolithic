@@ -253,6 +253,10 @@ public abstract class GameController : MonoBehaviour{
         }
         if (gameMaster.getGUIManager().takeKeyboardInput())
         {
+            if (Input.GetKeyDown("s"))
+            {
+                GameMaster.getPlayerHero().giveCommand(new StunnedCommand(GameMaster.getPlayerHero(), 2));
+            }
             if (Input.GetKeyDown("i"))
             {
                 gameMaster.getGUIManager().toggleInventory();
