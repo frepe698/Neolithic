@@ -29,7 +29,15 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>1</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
     </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
@@ -84,7 +92,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>Health</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -141,7 +149,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>Health</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -162,7 +170,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>Health</stat>
           <amount>-0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
