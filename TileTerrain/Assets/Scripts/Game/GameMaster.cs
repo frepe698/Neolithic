@@ -617,14 +617,14 @@ public class GameMaster : MonoBehaviour {
 		
 	}
 
-	public static void addProjectile(int unitID, Vector3 goal, string name, int damage)
+	public static void addProjectile(int unitID, Vector3 goal, string projectileName, string dataName)
 	{
 		Vector3 start = getUnit(unitID).getPosition() + Vector3.up;
-		ProjectileData data = DataHolder.Instance.getProjectileData(name);
+		ProjectileData data = DataHolder.Instance.getProjectileData(projectileName);
         if (data == null) return;
 		float speed = data.speed;
 		float range = data.range;
-		Projectile projectile = new Projectile(start, goal, range, speed, data.modelName, damage+(int)data.damage, unitID);
+		Projectile projectile = new Projectile(start, goal, range, speed, data.modelName, dataName, unitID);
 		projectile.Activate();
 		projectiles.Add(projectile);
 	}

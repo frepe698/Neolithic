@@ -105,11 +105,11 @@ public class ClientController : GameController {
 		//do nada
 	}
 
-	public override void requestFireProjectile(int unitID, Vector3 target)
+	/*public override void requestFireProjectile(int unitID, Vector3 target)
 	{
 		//do nada
-	}
-    public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
+	}*/
+    public override void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName)
     {
         //do nada
     }
@@ -117,6 +117,11 @@ public class ClientController : GameController {
     public override void requestLearnAbility(string ability, int unitID)
     {
         gameMaster.getNetView().RPC("requestLearnAbility", RPCMode.Server, ability, unitID);
+    }
+
+    public override void requestAddBuff(int unitID, string name, params object[] parameters)
+    {
+        //Do nada
     }
 	
 

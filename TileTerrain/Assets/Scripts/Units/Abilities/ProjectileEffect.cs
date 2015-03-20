@@ -33,7 +33,7 @@ public class ProjectileEffect : AbilityEffect {
             
         }
 
-        int selfDamage = 0;
+        /*int selfDamage = 0;
         int damage = 0;
         foreach (HitDamage hit in data.hitDamage)
         {
@@ -46,13 +46,12 @@ public class ProjectileEffect : AbilityEffect {
             if (hit.damageSelf) selfDamage += tempDamage;
             else damage += tempDamage;
         }
-
+        */
         string projectileName;
         if (data.weaponProjectile)
             projectileName = unit.getProjectileName();
         else
             projectileName = data.projectileName;
-
-        GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, damage, projectileName); //TODO: använd projectile name
+        GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, data.name, projectileName); //TODO: använd projectile name
     }
 }

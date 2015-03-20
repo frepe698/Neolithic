@@ -4,9 +4,9 @@ using System.Collections;
 public class Projectile {
 
 	private GameObject poolObject;
-	private string name;
+	private string projectileName;
+    private AbilityEffectData effectData;
 	private int id;
-	private int damage;
 	
 	private Vector3 position;
 	private Vector3 velocity;
@@ -18,8 +18,9 @@ public class Projectile {
 	private bool removed = false;
 
 	private int unitID;
+    private Unit unit;
 
-	public Projectile(Vector3 start, Vector3 goal, float range, float speed, string name, int damage, int unitID)
+	/*public Projectile(Vector3 start, Vector3 goal, float range, float speed, string name, int damage, int unitID)
 	{
 		this.position = start;
 		Vector3 direction = (goal - start).normalized;
@@ -28,10 +29,26 @@ public class Projectile {
 		velocity = direction*speed;
 		this.speed = speed;
 		this.range = range;
-		this.name = name;
-		this.damage = damage;
+		this.projectileName = name;
 		this.unitID = unitID;
-	}
+        this.unit = GameMaster.getUnit(unitID);
+	}*/
+
+    public Projectile(Vector3 start, Vector3 goal, float range, float speed, string projectileName, string dataName, int unitID)
+    {
+        this.position = start;
+        Vector3 direction = (goal - start).normalized;
+        rotation = new Vector2(direction.y * 90
+                               , Mathf.Rad2Deg * Mathf.Atan2(direction.x, direction.z) + 180);
+        velocity = direction * speed;
+        this.speed = speed;
+        this.range = range;
+        this.projectileName = projectileName;
+        this.effectData = DataHolder.Instance.getEffectData(dataName);
+        this.unitID = unitID;
+        this.unit = GameMaster.getUnit(unitID);
+
+    }
 
 	public void update()
 	{
@@ -63,7 +80,8 @@ public class Projectile {
 					if(target.getID() == unitID) continue;
 					if(line.distanceFromPoint(target.get2DPos()) < target.getSize())
 					{
-						GameMaster.getGameController().requestProjectileHit(damage,unitID, target.getID());
+                        hitTarget(target);
+						
 						removed = true;
 					}
 				}
@@ -80,7 +98,7 @@ public class Projectile {
 	{
 		if(ObjectActive()) return true; //Object already active, do nothing
 		
-		poolObject = ObjectPoolingManager.Instance.GetObject(name);
+		poolObject = ObjectPoolingManager.Instance.GetObject(projectileName);
 		if(poolObject == null) return false; //Object pool was full and no more objects are available
 		
 		poolObject.transform.position = position;
@@ -92,7 +110,7 @@ public class Projectile {
 	public void Inactivate()
 	{
 		if(!ObjectActive()) return; //Already inactive
-		ObjectPoolingManager.Instance.ReturnObject(name, poolObject);
+		ObjectPoolingManager.Instance.ReturnObject(projectileName, poolObject);
 		poolObject = null;
 	}
 	
@@ -116,5 +134,32 @@ public class Projectile {
 	{
 		return get2DPos();
 	}
+
+    private void hitTarget(Unit target)
+    {
+        int damage = 0;
+        foreach (HitDamage hit in effectData.hitDamage)
+        {
+            int tempDamage = 0;
+            if (hit.yourStat)
+            {
+                tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat) * hit.percent);
+            }
+            damage += tempDamage;
+        }
+        GameMaster.getGameController().requestProjectileHit(damage, unitID, target.getID());
+        applyBuffs(effectData.hitBuffs, target);
+    }
+
+    protected void applyBuffs(HitBuff[] buffs, Unit target)
+    {
+        for (int i = 0; i < buffs.Length; i++)
+        {
+            HitBuff hbuff = buffs[i];
+            object[] parameters = new object[] { hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent };
+            string name = "get" + hbuff.type.ToString();
+            GameMaster.getGameController().requestAddBuff(target.getID(), name, parameters);
+        }
+    }
 
 }

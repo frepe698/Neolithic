@@ -336,7 +336,6 @@ public class WorldSection {
 
             tangents[i] = new Vector4(n.x, n.y, n.z, 1);
         }
-        Debug.Log("set tangents");
 
         mesh.tangents = tangents;
     }

@@ -200,6 +200,7 @@ public class OfflineController : GameController {
 		
 	}
 
+    /*
 	public override void requestFireProjectile(int unitID, Vector3 target)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
@@ -210,13 +211,13 @@ public class OfflineController : GameController {
 			approveFireProjectile(unitID, target, name, damage);
 		}
 	}
-
-    public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
+    */
+    public override void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName)
     {
         Unit unit = GameMaster.getUnit(unitID);
         if (unit != null)
         {
-            approveFireProjectile(unitID, target, projectileName, damage);
+            approveFireProjectile(unitID, target, dataName, projectileName);
         }
     }
 
@@ -294,6 +295,11 @@ public class OfflineController : GameController {
     public override void requestLearnAbility(string ability, int unitID)
     {
         approveLearnAbility(ability, unitID);
+    }
+
+    public override void requestAddBuff(int unitID, string name, params object[] parameters)
+    {
+        approveAddBuff(unitID, name, parameters);
     }
 
     [RPC]

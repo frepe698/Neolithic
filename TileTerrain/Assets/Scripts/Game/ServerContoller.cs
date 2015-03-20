@@ -198,7 +198,7 @@ public class ServerController : GameController {
 		}
 	}
 
-	public override void requestFireProjectile(int unitID, Vector3 target)
+	/*public override void requestFireProjectile(int unitID, Vector3 target)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
 		if(unit != null)
@@ -207,15 +207,15 @@ public class ServerController : GameController {
 			string name = unit.getProjectileName();
 			gameMaster.getNetView().RPC ("approveFireProjectile", RPCMode.All, unitID, target, name, damage);
 		}
-	}
+	}*/
 
-    public override void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName)
+    public override void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName)
     {
         Unit unit = GameMaster.getUnit(unitID);
         if (unit != null)
         {
             
-            gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, projectileName, damage);
+            gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, projectileName, dataName);
         }
     }
 	
@@ -306,6 +306,11 @@ public class ServerController : GameController {
     public override void requestLearnAbility(string ability, int unitID)
     {
         gameMaster.getNetView().RPC("approveLearnAbility", RPCMode.All, ability, unitID);
+    }
+
+    public override void requestAddBuff(int unitID, string name, params object[] parameters)
+    {
+        gameMaster.getNetView().RPC("approveAddBuff", RPCMode.All, unitID, name, parameters);
     }
 
     [RPC]
