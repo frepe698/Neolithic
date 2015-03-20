@@ -2,7 +2,7 @@
 using System.Collections;
 
 public abstract class Buff {
-    public abstract void apply();
+    public abstract void apply(Unit unit);
     public abstract void remove();
     public abstract void update();
     public abstract bool isFinished();
@@ -16,11 +16,11 @@ public enum BuffType
 
 public class StatBuff : Buff
 {
-    public static readonly int UNIT_PARAM = 0;
-    public static readonly int STAT_PARAM = 1;
-    public static readonly int DURATION_PARAM = 2;
-    public static readonly int AMOUNT_PARAM = 3;
-    public static readonly int PERCENT_PARAM = 4;
+ 
+    public static readonly int STAT_PARAM = 0;
+    public static readonly int DURATION_PARAM = 1;
+    public static readonly int AMOUNT_PARAM = 2;
+    public static readonly int PERCENT_PARAM = 3;
 
     private Stat stat;
     private float duration;
@@ -31,15 +31,16 @@ public class StatBuff : Buff
     private bool finished = false;
     public StatBuff(object[] parameters)
     {
-        this.unit = (Unit)parameters[UNIT_PARAM];
+        
         this.stat = (Stat)parameters[STAT_PARAM];
         this.duration = (float)parameters[DURATION_PARAM];
         this.amount = (float)parameters[AMOUNT_PARAM];
         this.percent = (bool)parameters[PERCENT_PARAM];
     }
 
-    public override void apply()
+    public override void apply(Unit unit)
     {
+        this.unit = unit; 
         Debug.Log("Buff applied");
         if(percent)
         {

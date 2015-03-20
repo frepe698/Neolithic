@@ -23,17 +23,13 @@ public class AbilityEffect {
 
     protected void applyBuffs(HitBuff[] buffs, Unit target)
     {
-        
-        
-        
+ 
         for(int i = 0; i < buffs.Length; i++)
         {
             HitBuff hbuff = buffs[i];
-            object[] parameters = new object[]{target, hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent};
-            Debug.Log(hbuff.type.ToString());
-            MethodInfo info = typeof(BuffGetter).GetMethod("get" + hbuff.type.ToString(), BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
-            Buff buff = (Buff)info.Invoke(this, new object[]{ parameters });
-            buff.apply();
+            object[] parameters = new object[]{hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent};
+            string name = "get" + hbuff.type.ToString();
+            GameMaster.getGameController().requestAddBuff(target.getID(), name, parameters);
         }
     }
 

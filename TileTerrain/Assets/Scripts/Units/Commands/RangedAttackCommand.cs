@@ -37,7 +37,7 @@ public class RangedAttackCommand : Command {
 			if(attackTime <= 0) 
 			{
 				unit.playSound(unit.getAttackSound(0));
-				unit.fireProjectile(target);
+				//unit.fireProjectile(target);
 				hasAttacked = true;
 
                 unit.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME)/unit.getAttackSpeed());

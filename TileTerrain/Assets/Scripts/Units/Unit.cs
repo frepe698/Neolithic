@@ -300,11 +300,13 @@ public class Unit {
 		command.start ();
 	}
 
-	public void giveRangedAttackCommand(Vector3 target)
-	{
-		command = new RangedAttackCommand(this, target);
-		command.start ();
-	}
+    public void giveAttackCommand(Vector3 target)
+    {
+        if (target == null) return;
+        command = new AbilityCommand(this, target, getBasicAttack());
+        command.start();
+    }
+
 
     public void giveAbilityCommand(Unit target, int ability)
     {
@@ -449,10 +451,10 @@ public class Unit {
 		GameMaster.getGameController().requestAttack(id, target.getID());
 	}
 
-	public void fireProjectile(Vector3 target)
+	/*public void fireProjectile(Vector3 target)
 	{
 		GameMaster.getGameController().requestFireProjectile(id, target);
-	}
+	}*/
 	
 	public void loot(LootableObject lootableObject)
 	{

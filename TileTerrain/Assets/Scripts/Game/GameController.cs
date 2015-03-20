@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Reflection;
 
 public abstract class GameController : MonoBehaviour{
 
@@ -177,7 +179,7 @@ public abstract class GameController : MonoBehaviour{
 			//Debug.Log("desync!");
 		}
 		
-		unit.giveRangedAttackCommand(target);
+		unit.giveAttackCommand(target);
 	}
 
 
@@ -566,14 +568,14 @@ public abstract class GameController : MonoBehaviour{
 
     public abstract void requestAttack(int unitID, int targetID);
 
-    public abstract void requestFireProjectile(int unitID, Vector3 target);
+    //public abstract void requestFireProjectile(int unitID, Vector3 target);
 
-    public abstract void requestFireProjectile(int unitID, Vector3 target, int damage, string projectileName);
+    public abstract void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName);
 
     [RPC]
-    protected void approveFireProjectile(int unitID, Vector3 goal, string name, int damage)
+    protected void approveFireProjectile(int unitID, Vector3 goal, string dataName, string projectileName)
     {
-        GameMaster.addProjectile(unitID, goal, name, damage);
+        GameMaster.addProjectile(unitID, goal, projectileName, dataName);
     }
 
     public abstract void requestProjectileHit(int damage, int unitID, int targetID);
@@ -593,7 +595,16 @@ public abstract class GameController : MonoBehaviour{
 
     #region BUFFS
 
-    //public abstract void requestAddBuff(int unitID, params object[] parameters)
+    public abstract void requestAddBuff(int unitID, string name, params object[] parameters);
+
+    [RPC]
+    protected void approveAddBuff(int unitID, string name, params object[] parameters)
+    {
+        Unit target = GameMaster.getUnit(unitID);
+        MethodInfo info = typeof(BuffGetter).GetMethod( name, BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+        Buff buff = (Buff)info.Invoke(this, new object[] { parameters });
+        buff.apply(target);
+    }
     #endregion
 
     #region GATHERING

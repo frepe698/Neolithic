@@ -13,7 +13,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>Health</stat>
           <amount>-0.5</amount>
           <duration>3</duration>
           <percent>false</percent>
@@ -81,7 +81,15 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.5</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
@@ -130,7 +138,15 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.5</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
       <weaponProjectile>true</weaponProjectile>
       <angle>20</angle>
     </ProjectileEffectData>
@@ -143,7 +159,15 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.5</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
       <weaponProjectile>true</weaponProjectile>
       <angle>-20</angle>
     </ProjectileEffectData>
