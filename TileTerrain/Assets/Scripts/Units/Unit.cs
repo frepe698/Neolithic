@@ -763,12 +763,14 @@ public class Unit {
 
     public void addToStat(Stat stat, float value)
     {
+        Debug.Log("add to stat " + stat.ToString());
         unitstats.addToStat(stat, value);
         unitstats.updateStats();
     }
 
     public void addMultiplierToStat(Stat stat, float value)
     {
+        Debug.Log("add to stat " + stat.ToString());
         unitstats.addMultiplierToStat(stat, value);
         unitstats.updateStats();
     }

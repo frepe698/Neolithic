@@ -216,6 +216,7 @@ namespace Edit
         public HitBuffEdit(HitBuff hitBuff)
         {
             type = hitBuff.type;
+            stat = hitBuff.stat;
             percent = hitBuff.percent;
             amount = hitBuff.amount;
             duration = hitBuff.duration;

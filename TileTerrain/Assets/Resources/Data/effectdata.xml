@@ -13,10 +13,10 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Health</stat>
+          <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>3</duration>
-          <percent>false</percent>
+          <percent>true</percent>
         </HitBuff>
       </hitBuffs>
     </SingleTargetEffectData>
@@ -127,7 +127,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Health</stat>
+          <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>4</duration>
           <percent>true</percent>
