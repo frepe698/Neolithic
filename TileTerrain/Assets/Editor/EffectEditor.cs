@@ -462,11 +462,14 @@ public class EffectEditor : ObjectEditor
         {
             data.hitDamages.Add(new HitDamageEdit());
         }
+
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Hit Buff:", EditorStyles.boldLabel);
         foreach(HitBuffEdit edit in data.hitBuffs)
         {
-            EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 100;
-
+            edit.type = (BuffType)EditorGUILayout.EnumPopup("Buff Type: ", edit.type);
+            EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.fieldWidth = 40;
             edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
             EditorGUIUtility.fieldWidth = 10;

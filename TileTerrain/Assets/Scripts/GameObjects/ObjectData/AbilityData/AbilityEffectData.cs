@@ -50,6 +50,7 @@ public class HitDamage
 
 public class HitBuff
 {
+    public readonly BuffType type;
     public readonly Stat stat;
     public readonly float amount;
     public readonly float duration;
@@ -59,6 +60,7 @@ public class HitBuff
 
     public HitBuff(HitBuffEdit edit)
     {
+        this.type = edit.type;
         this.stat = edit.stat;
         this.amount = edit.amount;
         this.duration = edit.duration;

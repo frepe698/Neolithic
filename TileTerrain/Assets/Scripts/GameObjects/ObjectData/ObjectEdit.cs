@@ -202,6 +202,7 @@ namespace Edit
     [Serializable]
     public class HitBuffEdit
     {
+        public BuffType type;
         public Stat stat;
         public bool percent;
         public float amount;
@@ -214,7 +215,7 @@ namespace Edit
 
         public HitBuffEdit(HitBuff hitBuff)
         {
-            stat = hitBuff.stat;
+            type = hitBuff.type;
             percent = hitBuff.percent;
             amount = hitBuff.amount;
             duration = hitBuff.duration;
@@ -222,6 +223,7 @@ namespace Edit
 
         public HitBuffEdit(HitBuffEdit edit)
         {
+            type = edit.type;
             stat = edit.stat;
             percent = edit.percent;
             amount = edit.amount;

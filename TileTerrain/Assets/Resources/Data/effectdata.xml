@@ -37,7 +37,7 @@
       <hitBuffs />
       <radius>4</radius>
     </AreaOfEffectData>
-    <AreaOfEffectData name="leap_land">
+    <AreaOfEffectData name="leap_land" gameName="" modelName="">
       <hitDamage>
         <HitDamage>
           <stat>Armor</stat>
@@ -102,6 +102,7 @@
       </hitDamage>
       <hitBuffs>
         <HitBuff>
+          <type>StatBuff</type>
           <stat>Movespeed</stat>
           <amount>-0.5</amount>
           <duration>4</duration>

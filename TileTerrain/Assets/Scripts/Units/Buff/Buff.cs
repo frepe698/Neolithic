@@ -8,6 +8,12 @@ public abstract class Buff {
     public abstract bool isFinished();
 }
 
+public enum BuffType
+{
+    StatBuff,
+    Stun,
+}
+
 public class StatBuff : Buff
 {
     public static readonly int STAT_PARAM = 0;
@@ -74,5 +80,10 @@ public static class BuffGetter
     public static Buff getStatBuff(Unit unit, params object[] parameters)
     {
 	    return new StatBuff(unit, parameters);
+    }
+
+    public static Buff getStun(Unit unit, params object[] parameters)
+    {
+        return null;
     }
 }
