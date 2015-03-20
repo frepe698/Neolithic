@@ -5,10 +5,10 @@ public class ProjectileEffect : AbilityEffect {
 
     private ProjectileEffectData data;
 
-    public ProjectileEffect(string name, Unit unit, Vector3 targetPosition) : base(name,unit,targetPosition)
+    public ProjectileEffect(string name, Unit unit, Vector3 targetPosition, ProjectileEffectData data) : base(name,unit,targetPosition)
     {
         //Fetch data with name
-        this.data = (ProjectileEffectData)DataHolder.Instance.getEffectData(name);
+        this.data = data;
     }
 
     public override void action()

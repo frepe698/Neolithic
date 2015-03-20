@@ -127,6 +127,30 @@ namespace Edit
             angle = edit.angle;
         }
     }
+
+    [Serializable]
+    public class MovementEffectEdit : AbilityEffectEdit
+    {
+        public float range;
+        public float travelTime;
+
+        public MovementEffectEdit() : base() { }
+
+        public MovementEffectEdit(MovementEffectData data)
+            : base(data)
+        {
+            range = data.range;
+            travelTime = data.travelTime;
+        }
+
+        public MovementEffectEdit(MovementEffectEdit data)
+            : base(data)
+        {
+            range = data.range;
+            travelTime = data.travelTime;
+        }
+
+    }
     
 
     [Serializable]

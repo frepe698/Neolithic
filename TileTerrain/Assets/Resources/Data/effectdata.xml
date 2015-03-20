@@ -34,6 +34,17 @@
       </hitDamage>
       <radius>4</radius>
     </AreaOfEffectData>
+    <AreaOfEffectData name="leap_land">
+      <hitDamage>
+        <HitDamage>
+          <stat>Armor</stat>
+          <percent>2</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <radius>1</radius>
+    </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>
     <ProjectileEffectData name="rangedbasicattack" gameName="Ranged Basic Attack" modelName="rangedbasicattack">
@@ -111,4 +122,11 @@
       <angle>-20</angle>
     </ProjectileEffectData>
   </ProjectileEffects>
+  <MovementEffects>
+    <MovementEffectData name="leap_move" gameName="Leap" modelName="leap">
+      <hitDamage />
+      <range>8</range>
+      <travelTime>1</travelTime>
+    </MovementEffectData>
+  </MovementEffects>
 </EffectsRoot>

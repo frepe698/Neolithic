@@ -175,5 +175,30 @@
       <range>99999</range>
       <tags>6</tags>
     </AbilityData>
+    <AbilityData name="leap" gameName="Leap" modelName="leap">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>leap_move</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+        <AbilityEffectAndTime>
+          <name>leap_land</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>20</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>8</range>
+    </AbilityData>
   </Abilities>
 </AbilityRoot>

@@ -5,10 +5,10 @@ public class AreaOfEffect : AbilityEffect {
 
     private AreaOfEffectData data;
 
-    public AreaOfEffect(string name, Unit unit, Vector3 targetPosition) : base(name,unit,targetPosition)
+    public AreaOfEffect(string name, Unit unit, Vector3 targetPosition, AreaOfEffectData data) : base(name,unit,targetPosition)
     {
         //Fetch data with name
-        this.data = (AreaOfEffectData)DataHolder.Instance.getEffectData(name);
+        this.data = data;
     }
     public override void action()
     {

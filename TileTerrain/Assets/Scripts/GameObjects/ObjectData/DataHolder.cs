@@ -110,11 +110,16 @@ public class DataHolder {
     public class EffectDataHolder
     {
         public EffectDataHolder() { }
-        public EffectDataHolder(SingleTargetEffectData[] singletargets, AreaOfEffectData[] aoe, ProjectileEffectData[] ped)
+        public EffectDataHolder(
+            SingleTargetEffectData[] singletargets,
+            AreaOfEffectData[] aoe,
+            ProjectileEffectData[] ped,
+            MovementEffectData[] med)
         {
             this.singleTargetEffectData = singletargets;
             this.areaOfEffectData = aoe;
             this.projectileEffectData = ped;
+            this.movementEffectData = med;
         }
         [XmlArray("SingleTargets"), XmlArrayItem("SingleTargetEffectData")]
         public readonly SingleTargetEffectData[] singleTargetEffectData;
@@ -124,6 +129,9 @@ public class DataHolder {
 
         [XmlArray("ProjectileEffects"), XmlArrayItem("ProjectileEffectData")]
         public readonly ProjectileEffectData[] projectileEffectData;
+
+        [XmlArray("MovementEffects"), XmlArrayItem("MovementEffectData")]
+        public readonly MovementEffectData[] movementEffectData;
     }
 
 	[XmlRoot("ResourcesRoot")]
@@ -370,6 +378,10 @@ public class DataHolder {
             if (data.name.Equals(name)) return data;
         }
         foreach (ProjectileEffectData data in effectDataHolder.projectileEffectData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (MovementEffectData data in effectDataHolder.movementEffectData)
         {
             if (data.name.Equals(name)) return data;
         }

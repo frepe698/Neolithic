@@ -16,6 +16,6 @@ public class AreaOfEffectData : AbilityEffectData {
 
     public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
     {
-        return new AreaOfEffect(name, unit, targetPosition);
+        return new AreaOfEffect(name, unit, targetPosition, this);
     }
 }
