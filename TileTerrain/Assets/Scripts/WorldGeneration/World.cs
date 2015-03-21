@@ -523,13 +523,13 @@ public class World : MonoBehaviour {
                         //GameMaster.addUnit(unit);
                         GameMaster.addDaySpawner("hare", 1, new Vector2i(x, y));
                     }
-                    else if(Random.value < 0.5f)
+                    else if(Random.value < 0.1f)
                     {
                         GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
                         //AIUnit unit = new AIUnit("wolf", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
                         //GameMaster.addUnit(unit);
                     }
-                    else 
+                    else if(Random.value < 0.1f)
                     {
                         GameMaster.addNightSpawner("goblin", Random.Range(3,6), new Vector2i(x, y));
                         

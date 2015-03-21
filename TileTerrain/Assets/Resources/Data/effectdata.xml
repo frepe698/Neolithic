@@ -16,7 +16,7 @@
           <stat>Movespeed</stat>
           <amount>-0.47</amount>
           <duration>3</duration>
-          <percent>false</percent>
+          <percent>true</percent>
         </HitBuff>
       </hitBuffs>
     </SingleTargetEffectData>

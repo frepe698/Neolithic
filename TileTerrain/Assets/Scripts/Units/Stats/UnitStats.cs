@@ -75,7 +75,6 @@ public class UnitStats {
 
         foreach(Buff buff in unit.getBuffs())
         {
-            Debug.Log("Hello?");
             StatBuff statBuff = buff as StatBuff;
             if (statBuff == null)
             {
