@@ -30,6 +30,8 @@ public class GameMaster : MonoBehaviour {
 	private float maxzoom = 1;
 	private float minzoom = -7;
 	private Camera playerCamera;
+
+    private GameMode mode;
 	
 	void Start () 
 	{
@@ -37,8 +39,9 @@ public class GameMaster : MonoBehaviour {
 		guiManager = gameObject.AddComponent<GUIManager>();
 		world = GameObject.Find("World").GetComponent<World>();
 		netView = GetComponent<NetworkView>();
-
-		world.initPvPWorld();
+        mode = new TrialOfTheGods(this);
+        mode.initWorld();
+        //world.initPvPWorld();
 		
 		if(!NetworkMaster.isConnected())
 		{
@@ -72,7 +75,7 @@ public class GameMaster : MonoBehaviour {
 			gameController = gameObject.AddComponent<OfflineController>();
 			gameController.init(this, playerUnitID);
 		}
-		spawnHeroes();
+		mode.spawnHeroes();
         setPlayerUnit(playerUnitID);
 
         //getHero(playerUnitID).learnAbility("volley");
@@ -387,49 +390,7 @@ public class GameMaster : MonoBehaviour {
         if (nightSpawners == null || nightSpawners.Count == 0) return 0;
         return nightSpawners[nightSpawners.Count - 1].getID() + 1;
     }
-	private void spawnHeroes()
-	{
-
-		string[] heroNames = new string[]
-		{
-			"halftroll",
-			"halftroll",
-			"halftroll",
-			"halftroll"
-		};
-		//spawn heroes
-		for(int i = 0; i < 4; i++)
-		{
-			//GameObject vrodlGo = (GameObject)Instantiate(vrodl, new Vector3(World.tileMap.basePos.x+i*2, 0, World.tileMap.basePos.y), Quaternion.identity);
-			//Hero vrodlU = vrodlGo.GetComponent<Hero>();
-			//vrodlU.init(i);
-            //Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.getCaveEntrance(i).x, 0, World.tileMap.getCaveEntrance(i).y), new Vector3(0, 0, 0), i);
-            Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.basePos.x + i * 2, 0, World.tileMap.basePos.y), new Vector3(0, 0, 0), i);
-			heroes.Add(hero);
-			units.Add(hero);
-			hero.activate();
-		}
-
-		/*
-		string[] heroNames = new string[]
-		{
-			"vrodl",
-			"caveman",
-			"halftroll",
-			"vrodl"
-		};
-		
-		for(int i = 0; i < playerToUnitID.Count; i++)
-		{
-			int heroID = playerToUnitID[i];
-			Hero hero = new Hero(heroNames[heroID], new Vector3(World.tileMap.basePos.x+i*2, 0, World.tileMap.basePos.y), new Vector3(0,0,0) , i);
-			//playerToUnitID[i] = i;
-			heroes.Add(hero);
-			units.Add(hero);
-			hero.activate();
-		}
-		*/
-	}
+    
 
 	private void spawnHeroesNew()
 	{
@@ -474,6 +435,13 @@ public class GameMaster : MonoBehaviour {
 	{
 		units.Add(unit);
 	}
+
+    public static void addHero(Hero hero)
+    {
+        heroes.Add(hero);
+        units.Add(hero);
+        hero.activate();
+    }
 
 	public static void removeUnit(Unit unit)
 	{

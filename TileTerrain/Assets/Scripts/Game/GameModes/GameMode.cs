@@ -11,4 +11,5 @@ public abstract class GameMode {
     }
     public abstract void initWorld();
     public abstract void update();
+    public abstract void spawnHeroes();
 }

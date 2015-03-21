@@ -67,6 +67,7 @@ public class World : MonoBehaviour {
         activeTiles.Clear();
     }
 
+    /*
 	public void initWorld()
 	{
 		if(seed != -1)
@@ -80,16 +81,16 @@ public class World : MonoBehaviour {
 		initObjectPools();
 		generateWater();
 		addObjects();
-	}
+	}*/
 
-    public void initPvPWorld()
+    public void initPvPWorld(TrialOfTheGods mode)
     {
         if (seed != -1)
         {
             Random.seed = seed;
         }
         tileMap = new TileMap(4, 1);
-        tileMap.generatePvPMap();
+        tileMap.generatePvPMap(mode);
         tileMap.generateGround();
         tileMap.generateCaves();
         generateWorldSections();
@@ -421,7 +422,7 @@ public class World : MonoBehaviour {
 
 		groundRenderers[0].sharedMaterial.SetTexture("_ColorTexture", texture);
 	}
-	
+	/*
 	void generateHeights()
 	{
 		tileMap = new TileMap(4,1);
@@ -434,7 +435,7 @@ public class World : MonoBehaviour {
 		tileMap.smoothMap(1, 1);
 		tileMap.flattenBaseAndSummons();
 	}
-	
+	*/
 	void addObjects()
     {
         for (int i = 0; i < 4; i++)
@@ -461,17 +462,17 @@ public class World : MonoBehaviour {
             Cave cave = tileMap.getCave(4);
             Vector2[] baseOffset = new Vector2[]
             {
-                new Vector2(0, baseSize/2),
-                new Vector2(0, -baseSize/2),
-                new Vector2(baseSize/2, 0),
-                new Vector2(-baseSize/2, 0),
+                new Vector2(0, baseSize),
+                new Vector2(0, -baseSize),
+                new Vector2(baseSize, 0),
+                new Vector2(-baseSize, 0),
             };
 
             List<Vector2i> entrances = cave.entrancePoses;
             List<Vector2> doormats = cave.doorMatPositions;
             for (int i = 0; i < entrances.Count; i++)
             {
-                Vector2 pos1 = tileMap.basePos.toVector2() + baseOffset[i];
+                Vector2 pos1 = new Vector2(tileMap.getMainMapSize()/2,tileMap.getMainMapSize()/2)  + baseOffset[i];
                 Vector2 pos2 = entrances[i].toVector2();
                 Tile tile1 = tileMap.getTile(new Vector2i(pos1));
                 Tile tile2 = tileMap.getTile(new Vector2i(pos2));
@@ -527,7 +528,6 @@ public class World : MonoBehaviour {
     public void addSpawners()
     {
         //Random.seed = 10;
-        GameMaster.addDaySpawner("hare", 2, new Vector2i(tileMap.basePos.x + 10, tileMap.basePos.y + 10));
         for(int i = 0; i < tileMap.getCaves().Count; i++)
         {
             Cave cave = tileMap.getCaves()[i];
