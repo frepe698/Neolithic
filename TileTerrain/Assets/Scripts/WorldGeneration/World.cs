@@ -170,7 +170,8 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/goblin"), 4, true);
         
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/rock"),20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/arrow"),20, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Projectiles/arrow"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Projectiles/fireball"), 10, true);
 
 
         //PARTICLES

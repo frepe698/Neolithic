@@ -243,5 +243,27 @@
       <range>8</range>
       <tags>17</tags>
     </AbilityData>
+    <AbilityData name="fireball" gameName="Fireball" modelName="leap">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>fireball</name>
+          <time>0.5</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>cast_projectile</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>20</healthCost>
+      <cooldown>2</cooldown>
+      <range>9999</range>
+      <tags>0</tags>
+    </AbilityData>
   </Abilities>
 </AbilityRoot>

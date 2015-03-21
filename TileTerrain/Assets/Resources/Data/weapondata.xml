@@ -231,7 +231,7 @@
         <int>1</int>
       </damage>
       <attackAnims>
-        <string>attack_axe</string>
+        <string>attack_spear</string>
         <string>chop_axe</string>
         <string>mine_axe</string>
       </attackAnims>
