@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameLobby : MonoBehaviour {
 
@@ -9,7 +10,11 @@ public class GameLobby : MonoBehaviour {
 	private readonly int LEFT_MOUSE_BUTTON = 0;
 
 	private int[] selectedHeroes = new int[] {-1, -1, -1, -1};
+    private List<int>[] playerTeam = new List<int>[] {new List<int>(), new List<int>()};
 	private Text[] playerNameHeroes = new Text[4];
+
+    private Transform[] teamHolders;
+    private List<Text>[] teamPlayerNames = new List<Text>[] {new List<Text>(), new List<Text>()}; 
 
 	private float activateTime;
 	private bool buttonsActive = false;
@@ -30,6 +35,13 @@ public class GameLobby : MonoBehaviour {
 			playerNameHeroes[i] = uiObject.transform.FindChild ("Hero"+(i)).GetComponent<Text>();
 			playerNameHeroes[i].text = "Available";
 		}
+
+        Transform teams = uiObject.transform.FindChild("Teams");
+        teamHolders = new Transform[2];
+        teamHolders[0] = teams.FindChild("Team0");
+        teamHolders[1] = teams.FindChild("Team1");
+
+
         uiObject.SetActive(false);
 	}
 
@@ -202,8 +214,8 @@ public class GameLobby : MonoBehaviour {
     void onPlayerConnected(NetworkPlayer player, int playerID, string name)
     {
         globalMenu.addChatMessage(name + " has connected.");
-        NetworkMaster.addPlayer(playerID, name);
-        if (Network.isServer)
+        addPlayer(playerID, name);
+        if (Network.isServer && player != Network.player)
         {
             {
                 int id = NetworkMaster.getPlayerID();
@@ -225,6 +237,46 @@ public class GameLobby : MonoBehaviour {
     void addPlayer(int playerID, string name)
     {
         NetworkMaster.addPlayer(playerID, name);
+        playerJoinTeam(playerID, 0);
+    }
+
+    void playerJoinTeam(int playerID, int team)
+    {
+        for (int i = 0; i < playerTeam.Length; i++)
+        {
+            foreach (int pid in playerTeam[0])
+            {
+                if (pid == playerID)
+                {
+                    playerTeam[i].Remove(pid);
+                }
+            }
+        }
+        playerTeam[team].Add(playerID);
+
+        updateTeamDisplay();
+    }
+
+    void updateTeamDisplay()
+    {
+        for (int i = 0; i < playerTeam.Length; i++)
+        {
+            List<Text> teamNames = teamPlayerNames[i];
+            while (teamNames.Count < playerTeam[i].Count)
+            {
+                GameObject prefab = Resources.Load<GameObject>("GUI/LobbyPlayerText");
+                GameObject go = Instantiate(prefab);
+                go.transform.SetParent(teamHolders[i]);
+
+                Text text = go.GetComponent<Text>();
+                text.rectTransform.anchoredPosition = new Vector2(0, (teamNames.Count + 1) * -25);
+                text.rectTransform.localScale = new Vector3(1, 1, 1);
+
+                text.text = NetworkMaster.getPlayerName(playerTeam[i][teamNames.Count]);
+
+                teamNames.Add(text);
+            }
+        }
     }
 	
 	void OnServerInitialized()
