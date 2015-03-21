@@ -205,7 +205,12 @@
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>fireball</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
     <SkillData name="lightmagic" gameName="Light Magic">
       <requiredExp>

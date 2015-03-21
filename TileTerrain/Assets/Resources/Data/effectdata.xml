@@ -110,7 +110,15 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>1</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
       <projectileName>fireball</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
