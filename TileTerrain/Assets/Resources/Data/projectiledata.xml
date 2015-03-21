@@ -12,5 +12,11 @@
 			<speed>30</speed>
 			<range>15</range>
 		</ProjectileData>
+
+    <ProjectileData name = "fireball" gameName = "Fireball" modelName = "fireball">
+      <damage>7</damage>
+      <speed>20</speed>
+      <range>10</range>
+    </ProjectileData>
 	</Projectiles>
 </ProjectilesRoot>

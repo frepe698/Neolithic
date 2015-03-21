@@ -260,10 +260,10 @@
       </animations>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
-      <healthCost>20</healthCost>
+      <healthCost>0</healthCost>
       <cooldown>2</cooldown>
       <range>9999</range>
-      <tags>0</tags>
+      <tags>17</tags>
     </AbilityData>
   </Abilities>
 </AbilityRoot>
