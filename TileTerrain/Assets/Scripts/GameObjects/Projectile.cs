@@ -77,7 +77,7 @@ public class Projectile {
 				Tile tile = World.getMap().getTile(x,y);
 				foreach(Unit target in tile.getUnits())
 				{
-					if(target.getID() == unitID) continue;
+					if(target.getID() == unitID || target.getTeam() == unit.getTeam()) continue;
 					if(line.distanceFromPoint(target.get2DPos()) < target.getSize())
 					{
                         hitTarget(target);

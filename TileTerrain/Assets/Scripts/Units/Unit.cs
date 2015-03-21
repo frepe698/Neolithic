@@ -765,24 +765,27 @@ public class Unit {
     {
         Debug.Log("add to stat " + stat.ToString());
         unitstats.addToStat(stat, value);
-        unitstats.updateStats();
+        
     }
 
     public void addMultiplierToStat(Stat stat, float value)
     {
         Debug.Log("add to stat " + stat.ToString());
         unitstats.addMultiplierToStat(stat, value);
-        unitstats.updateStats();
+        
     }
 
     public void addBuff(Buff buff)
     {
         buffs.Add(buff);
+        unitstats.updateStats();
     }
 
     public void removeBuff(Buff buff)
     {
         buffs.Remove(buff);
+        unitstats.updateStats();
+
     }
 
     public void updateBuffs()
@@ -797,6 +800,11 @@ public class Unit {
                 i--;
             }
         }
+    }
+
+    public List<Buff> getBuffs()
+    {
+        return buffs;
     }
 
     public GameObject addEffectObject(GameObject prefab, Vector3 position)

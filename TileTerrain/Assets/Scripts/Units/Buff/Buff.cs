@@ -39,8 +39,14 @@ public class StatBuff : Buff
 
     public override void apply(Unit unit)
     {
-        this.unit = unit; 
-        if(percent)
+        this.unit = unit;
+        unit.addBuff(this);
+    }
+
+
+    public void applyStats(Unit unit)
+    {
+        if (percent)
         {
             unit.addMultiplierToStat(stat, amount);
         }
@@ -48,11 +54,10 @@ public class StatBuff : Buff
         {
             unit.addToStat(stat, amount);
         }
-        unit.addBuff(this);
     }
-
     public override void remove()
     {
+        /*
         if (percent)
         {
             unit.addMultiplierToStat(stat, -amount);
@@ -60,12 +65,13 @@ public class StatBuff : Buff
         else
         {
             unit.addToStat(stat, -amount);
-        }
+        }*/
         unit.removeBuff(this);
     }
 
     public override void update()
     {
+        Debug.Log("updating");
         duration -= Time.deltaTime;
         if (duration <= 0) finished = true;
     }

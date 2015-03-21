@@ -55,6 +55,18 @@ public class HeroStats : UnitStats {
             addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
         }
 
+        foreach (Buff buff in unit.getBuffs())
+        {
+            StatBuff statBuff = buff as StatBuff;
+            if (statBuff == null)
+            {
+
+                continue;
+            }
+
+            statBuff.applyStats(unit);
+        }
+
         //Multiply stats
         for (int s = 0; s < stats.Length; s++)
         {
