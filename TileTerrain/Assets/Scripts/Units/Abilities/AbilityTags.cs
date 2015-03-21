@@ -7,4 +7,5 @@ public enum AbilityTags{
     Bow = 4, 
     Slinger = 8,
     Unarmed = 16,
+    All = int.MaxValue
 }

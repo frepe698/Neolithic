@@ -188,4 +188,25 @@
       <travelTime>1</travelTime>
     </MovementEffectData>
   </MovementEffects>
+  <SelfBuffEffects>
+    <SelfBuffEffectData name="adrenaline" gameName="Adrenaline" modelName="">
+      <hitDamage />
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>0.3</amount>
+          <duration>5</duration>
+          <percent>true</percent>
+        </HitBuff>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>IncreasedAttackspeed</stat>
+          <amount>0.5</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+    </SelfBuffEffectData>
+  </SelfBuffEffects>
 </EffectsRoot>

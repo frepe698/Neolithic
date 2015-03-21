@@ -114,12 +114,14 @@ public class DataHolder {
             SingleTargetEffectData[] singletargets,
             AreaOfEffectData[] aoe,
             ProjectileEffectData[] ped,
-            MovementEffectData[] med)
+            MovementEffectData[] med,
+            SelfBuffEffectData[] sed)
         {
             this.singleTargetEffectData = singletargets;
             this.areaOfEffectData = aoe;
             this.projectileEffectData = ped;
             this.movementEffectData = med;
+            this.selfBuffEffectData = sed;
         }
         [XmlArray("SingleTargets"), XmlArrayItem("SingleTargetEffectData")]
         public readonly SingleTargetEffectData[] singleTargetEffectData;
@@ -132,6 +134,9 @@ public class DataHolder {
 
         [XmlArray("MovementEffects"), XmlArrayItem("MovementEffectData")]
         public readonly MovementEffectData[] movementEffectData;
+
+        [XmlArray("SelfBuffEffects"), XmlArrayItem("SelfBuffEffectData")]
+        public readonly SelfBuffEffectData[] selfBuffEffectData;
     }
 
 	[XmlRoot("ResourcesRoot")]
@@ -382,6 +387,10 @@ public class DataHolder {
             if (data.name.Equals(name)) return data;
         }
         foreach (MovementEffectData data in effectDataHolder.movementEffectData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach(SelfBuffEffectData data in effectDataHolder.selfBuffEffectData)
         {
             if (data.name.Equals(name)) return data;
         }
