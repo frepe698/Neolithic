@@ -52,6 +52,8 @@ public class ProjectileEffect : AbilityEffect {
             projectileName = unit.getProjectileName();
         else
             projectileName = data.projectileName;
+
+        Debug.Log("fire proj " + projectileName);
         GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, data.name, projectileName); //TODO: använd projectile name
     }
 }
