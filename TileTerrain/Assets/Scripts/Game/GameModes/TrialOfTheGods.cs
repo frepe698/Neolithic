@@ -47,7 +47,7 @@ public class TrialOfTheGods : GameMode {
             //Hero vrodlU = vrodlGo.GetComponent<Hero>();
             //vrodlU.init(i);
             //Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.getCaveEntrance(i).x, 0, World.tileMap.getCaveEntrance(i).y), new Vector3(0, 0, 0), i);
-            Hero hero = new Hero(heroNames[i], new Vector3(teams[i % 2].basePosition.x + i * 2, 0, teams[i % 2].basePosition.y), new Vector3(0, 0, 0), i);
+            Hero hero = new Hero(heroNames[i], new Vector3(teams[i % 2].basePosition.x + i * 2, 0, teams[i % 2].basePosition.y), new Vector3(0, 0, 0), i, teams[i % 2].teamIndex);
             GameMaster.addHero(hero);
         }
 

@@ -37,7 +37,7 @@ public class ForestGround : GroundType {
 
 	public override bool spawnResource ()
 	{
-		return (Random.value > 0.85f);
+		return (Random.value > 0.9f);
 	}
 
 	public override int spawnLootAmount ()

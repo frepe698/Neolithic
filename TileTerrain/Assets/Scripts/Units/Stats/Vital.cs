@@ -43,7 +43,6 @@ public class Vital : BaseStat {
 	
 	public int getBase(){
 		return baseValue;
-        //iho
 	}
 	
 	public int getLevelAdd(){

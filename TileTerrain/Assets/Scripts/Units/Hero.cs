@@ -16,31 +16,16 @@ public class Hero : Unit {
     private Ability meleeBasicAttack;
     private Ability rangedBasicAttack;
 
-	//HERO STATS
+    private int team;
 
 	//HUNGER
 	private float maxHunger = 100;
 	private float hunger;
 	private readonly float BASE_HUNGER_GAIN;
 
-
-	//ENERGY
-	//private float maxEnergy = 100;
-	//private float energy;
-	//private readonly float BASE_ENERGY_GAIN; 
-
-	//LIFE
-	//protected readonly float BASE_LIFE_GAIN;
-	
-	//Attributes
-	private int stamina;
-	private int vitality;
-	private int dexterity;
-
-
     protected bool colliderActive = true;
 
-	public Hero(string unit, Vector3 position, Vector3 rotation, int id) 
+	public Hero(string unit, Vector3 position, Vector3 rotation, int id, int team) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
 	{
 		HeroData data = DataHolder.Instance.getHeroData(unit);
@@ -88,6 +73,8 @@ public class Hero : Unit {
 
         meleeBasicAttack = new Ability("meleebasicattack", this);
         rangedBasicAttack = new Ability("rangedbasicattack", this);
+
+        this.team = team;
 
 		activate();
 	}
@@ -350,7 +337,7 @@ public class Hero : Unit {
 
     public override int getTeam()
     {
-        return 2;
+        return team;
     }
 
     public void activateCollider(bool activate)
