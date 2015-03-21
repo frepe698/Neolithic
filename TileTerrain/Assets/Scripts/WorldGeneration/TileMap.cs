@@ -233,10 +233,52 @@ public class TileMap {
             mainMapSectionCount * WorldSection.SIZE,
             WorldSection.SIZE,
             WorldSection.SIZE));
-            generateCave(theHall);
+            generateTheHall(theHall);
             caves.Add(theHall);
         }
         
+    }
+
+    private void generateTheHall(Cave cave)
+    {
+        int width = cave.width;
+        int height = cave.height;
+
+        cave.addEntrancePos(new Vector2i(width / 2, height - cave.MARGIN) + cave.position, new Vector2(width / 2, height - cave.MARGIN - 2) + cave.position.toVector2());
+        cave.addEntrancePos(new Vector2i(width / 2, cave.MARGIN) + cave.position, new Vector2(width / 2, cave.MARGIN + 2) + cave.position.toVector2());
+        cave.addEntrancePos(new Vector2i(width - cave.MARGIN, height / 2) + cave.position, new Vector2(width - cave.MARGIN - 2, height / 2) + cave.position.toVector2());
+        cave.addEntrancePos(new Vector2i(cave.MARGIN, height / 2) + cave.position, new Vector2(cave.MARGIN + 2, height / 2) + cave.position.toVector2());
+
+        cave.bossPos = new Vector2i(width / 2, height / 2) + cave.position;
+
+        int size = width/2 - cave.MARGIN + 2;
+        setCircleHeight(1, cave.bossPos, size);
+        setCircleGround(GroundType.Type.Mountain, cave.bossPos, size);
+        setCircleFixed(cave.bossPos, size);
+
+        //Set ground type
+        for (int x = cave.position.x; x < cave.position.x + width; x++)
+        {
+            for (int y = cave.position.y; y < cave.position.y + height; y++)
+            {
+                Tile tile = tiles[x, y];
+                if (tile.state != Tile.stFixed)
+                {
+                    tile.height = 5;
+                    tile.ground = (short)GroundType.Type.Mountain;
+                    tile.setCliff(true);
+                }
+            }
+        }
+        int offset = size/3;
+        cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-offset, -offset));
+        cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-offset, offset));
+        cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(offset, offset));
+        cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(offset, -offset));
+        //cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, -offset));
+        //cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-offset, 0));
+        //cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, offset));
+        //cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(offset, 0));
     }
 
     private void generateCave(Cave cave)
@@ -263,14 +305,14 @@ public class TileMap {
             by = height - ey; //other side of the cave
         
         }
-        cave.entrancePos = new Vector2i(ex, ey) + cave.position;
+        cave.mainEntrance = new Vector2i(ex, ey) + cave.position;
         cave.bossPos = new Vector2i(bx, by) + cave.position;
 
-        Debug.Log("Entrance: " + cave.entrancePos.x + ", " + cave.entrancePos.y);
-        Debug.Log("Boss: " + cave.bossPos.x + ", " + cave.bossPos.y);
+        //Debug.Log("Entrance: " + cave.entrancePos.x + ", " + cave.entrancePos.y);
+        //Debug.Log("Boss: " + cave.bossPos.x + ", " + cave.bossPos.y);
 
         //Make a road from entrance to boss
-        cave.waypoints.Add(cave.entrancePos);
+        cave.waypoints.Add(cave.mainEntrance);
         cave.waypoints.Add(cave.bossPos);
 
         
@@ -363,7 +405,7 @@ public class TileMap {
                 loops++;
                 if (loops == 2)
                 {
-                    cave.doorMatPosition = new Vector2((float)lastx, (float)lasty);
+                    cave.mainDoormat = new Vector2((float)lastx, (float)lasty);
                 }
             }
         }
@@ -373,7 +415,7 @@ public class TileMap {
 
         if (cave.width > cave.height)
         {
-            if(cave.entrancePos.x < cave.bossPos.x)
+            if(cave.mainEntrance.x < cave.bossPos.x)
                 cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(cave.MARGIN - 1.5f, 0));
             else
                 cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(-cave.MARGIN + 2.5f, 0));
@@ -383,7 +425,7 @@ public class TileMap {
         }
         else
         {
-            if (cave.entrancePos.y < cave.bossPos.y)
+            if (cave.mainEntrance.y < cave.bossPos.y)
                 cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, cave.MARGIN - 1.5f));
             else
                 cave.torchPositions.Add(cave.bossPos.toVector2() + new Vector2(0, -cave.MARGIN + 2.5f));
@@ -1158,6 +1200,6 @@ public class TileMap {
 
     public Vector2i getCaveEntrance(int index)
     {
-        return caves[index].entrancePos;
+        return caves[index].mainEntrance;
     }
 }

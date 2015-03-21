@@ -105,6 +105,7 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone03"), 50, true);
 
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/walltorch"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/thehall_pillar"), 4, true);
 
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveEntrance"), 2, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveExit"), 2, true);
@@ -424,12 +425,12 @@ public class World : MonoBehaviour {
         {
             Cave cave = tileMap.getCave(i);
             Vector2 pos1 = tileMap.summonPos[i].toVector2();
-            Vector2 pos2 = cave.entrancePos.toVector2();
+            Vector2 pos2 = cave.mainEntrance.toVector2();
             Tile tile1 = tileMap.getTile(new Vector2i(pos1));
             Tile tile2 = tileMap.getTile(new Vector2i(pos2));
 
             float rot = cave.getExitRotation() * Mathf.Rad2Deg;
-            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPosition, rot+180));
+            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.mainDoormat, rot+180));
             tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
 
             foreach (Vector2 v in cave.torchPositions)
@@ -442,18 +443,31 @@ public class World : MonoBehaviour {
         //Add the hall entrance
         {
             Cave cave = tileMap.getCave(4);
-            Vector2 pos1 = tileMap.basePos.toVector2();
-            Vector2 pos2 = cave.entrancePos.toVector2();
-            Tile tile1 = tileMap.getTile(new Vector2i(pos1));
-            Tile tile2 = tileMap.getTile(new Vector2i(pos2));
+            Vector2[] baseOffset = new Vector2[]
+            {
+                new Vector2(0, baseSize/2),
+                new Vector2(0, -baseSize/2),
+                new Vector2(baseSize/2, 0),
+                new Vector2(-baseSize/2, 0),
+            };
 
-            float rot = cave.getExitRotation() * Mathf.Rad2Deg;
-            tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPosition, rot+180));
-            tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
+            List<Vector2i> entrances = cave.entrancePoses;
+            List<Vector2> doormats = cave.doorMatPositions;
+            for (int i = 0; i < entrances.Count; i++)
+            {
+                Vector2 pos1 = tileMap.basePos.toVector2() + baseOffset[i];
+                Vector2 pos2 = entrances[i].toVector2();
+                Tile tile1 = tileMap.getTile(new Vector2i(pos1));
+                Tile tile2 = tileMap.getTile(new Vector2i(pos2));
+
+                float rot = cave.getExitRotation(i) * Mathf.Rad2Deg;
+                tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPositions[i], rot + 180));
+                tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
+            }
 
             foreach (Vector2 v in cave.torchPositions)
             {
-                tileMap.getTile(new Vector2i(v)).setTileObject(new EyecandyObject(new Vector3(v.x, getHeight(v), v.y), 0, "walltorch"));
+                tileMap.getTile(new Vector2i(v)).setTileObject(new EyecandyObject(new Vector3(v.x, getHeight(v), v.y), Random.Range(0, 4)*90, "thehall_pillar"));
             }
         }
 
