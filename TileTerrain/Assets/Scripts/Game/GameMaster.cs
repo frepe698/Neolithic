@@ -38,7 +38,7 @@ public class GameMaster : MonoBehaviour {
 		world = GameObject.Find("World").GetComponent<World>();
 		netView = GetComponent<NetworkView>();
 
-		world.initWorld();
+		world.initPvPWorld();
 		
 		if(!NetworkMaster.isConnected())
 		{

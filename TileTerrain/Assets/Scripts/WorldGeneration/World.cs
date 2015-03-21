@@ -81,6 +81,22 @@ public class World : MonoBehaviour {
 		generateWater();
 		addObjects();
 	}
+
+    public void initPvPWorld()
+    {
+        if (seed != -1)
+        {
+            Random.seed = seed;
+        }
+        tileMap = new TileMap(4, 1);
+        tileMap.generatePvPMap();
+        tileMap.generateGround();
+        tileMap.generateCaves();
+        generateWorldSections();
+        initObjectPools();
+        generateWater();
+        addObjects();
+    }
 	
 	
 	void initObjectPools()
@@ -409,7 +425,7 @@ public class World : MonoBehaviour {
 	void generateHeights()
 	{
 		tileMap = new TileMap(4,1);
-		tileMap.generateDiamond();
+        tileMap.generateTeamMap();
 		tileMap.generateRiver(new Vector2i((tileMap.getMainMapSize() - 1), (tileMap.getMainMapSize() - 1)/2), new Vector2i((tileMap.getMainMapSize() - 1)/2,(tileMap.getMainMapSize() - 1)),
 		                      6, 30, -2, 0, 8, 3); 
 		

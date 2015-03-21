@@ -71,6 +71,27 @@ public class TileMap {
 			}
 		}
 	}
+
+    public void generatePvPBases(Vector2i[] basePositions)
+    {
+        foreach(Vector2i basePos in basePositions)
+        {
+            tiles[(int)basePos.x, (int)basePos.y].height = (short)Mathf.Max(tiles[(int)basePos.x, (int)basePos.y].height, 1);
+            short baseHeight = (short)Mathf.Max(calculateAvgHeight(basePos.x, basePos.y, World.baseSize / 2), 2);
+
+            for (int x = (int)basePos.x - World.baseSize; x < (int)basePos.x + World.baseSize; x++)
+            {
+                for (int y = (int)basePos.y - World.baseSize; y < (int)basePos.y + World.baseSize; y++)
+                {
+                    if (Vector2i.getDistance(new Vector2i(x, y), basePos) < World.baseSize)
+                    {
+                        tiles[x, y].height = baseHeight;
+                        tiles[x, y].ground = (short)GroundType.Type.Road;
+                    }
+                }
+            }
+        }
+    }
 	
 	public void generateSummons()
 	{
@@ -104,6 +125,39 @@ public class TileMap {
 			}
 		}
 	}
+
+    public void generatePvPSummons(Vector2i[] basePositions)
+    {
+        Vector2i baseSmallPos = basePositions[0] / KEY_RES;
+        //0 = up, 1 = right, 2 = down, 3 = left
+        Vector2i[] summonBasePos = new Vector2i[]{
+			summonPosDirections[0]*World.summonDistanceFromBase,
+			summonPosDirections[1]*World.summonDistanceFromBase,
+			summonPosDirections[2]*World.summonDistanceFromBase,
+			summonPosDirections[3]*World.summonDistanceFromBase};
+
+        summonPos = new Vector2i[4];
+        for (int i = 0; i < 4; i++)
+        {
+
+            Vector2i myPos = summonPos[i] = keyHeightBounds(baseSmallPos + summonBasePos[i] + new Vector2i(Random.Range(-World.summonBounds, World.summonBounds + 1),
+                                                                                                        Random.Range(-World.summonBounds, World.summonBounds + 1))) * KEY_RES;
+
+            //myPos = summonPos[i] = autoBounds(myPos, summonSize);
+            short height = (short)Mathf.Max(calculateAvgHeight(myPos.x, myPos.y, World.summonSize), 2);
+            for (int x = (int)myPos.x - World.summonSize; x < (int)myPos.x + World.summonSize; x++)
+            {
+                for (int y = (int)myPos.y - World.summonSize; y < (int)myPos.y + World.summonSize; y++)
+                {
+                    if (Vector2i.getDistance(new Vector2i(x, y), myPos) < World.summonSize)
+                    {
+                        tiles[x, y].height = height;
+                        tiles[x, y].ground = (short)GroundType.Type.Road;
+                    }
+                }
+            }
+        }
+    }
 	
 	public void generateRoads()
 	{
@@ -498,6 +552,17 @@ public class TileMap {
 		}
 	}
 
+    public void flattenBaseAndSummons(Vector2i[] basePositions, Vector2i[] summonPositions)
+    {
+        for(int i = 0; i < basePositions.Length; i++)
+        {
+            flattenBase(basePositions[i], World.baseSize + 2, 5);
+        }
+        for(int i = 0; i < summonPositions.Length; i++)
+        {
+            flattenBase(summonPositions[i], World.summonSize + 2, 5);
+        }
+    }
 	public void flattenBaseAndSummons()
 	{
 		flattenBase(basePos, World.baseSize+2, 5);
@@ -510,7 +575,7 @@ public class TileMap {
 	void flattenBase(Vector2i center, int flatRadius, int smoothRadius)
 	{
 		int radius = flatRadius+smoothRadius;
-		short height = getTile(center).height;
+		short height =(short) Mathf.Clamp(getTile(center).height, 1, getTile(center).height );
 		for(int x = center.x-radius; x < center.x + radius; x++)
 		{
 			for(int y = center.y-radius; y < center.y + radius; y++)
@@ -548,35 +613,109 @@ public class TileMap {
 		}
 	}
 
-	public void generateDiamond()
-	{
-		int end = mainMapSize - 1;
+    void clampMapHeight(Vector2i center, int radius, int min, int max)
+    {
+        for (int x = center.x - radius; x < center.x + radius; x++)
+        {
+            for (int y = center.y - radius; y < center.y + radius; y++)
+            {
+                if (!isValidTile(x, y)) continue;
+                Tile tile = tiles[x, y];
+                if (tile.state != Tile.stUnset && Vector2i.getDistance(center, new Vector2i(x, y)) < radius)
+                {
+                    tile.height = (short)Mathf.Clamp(tile.height, min, max);
+                }
 
-		/* 10  	8  	5
+            }
+        }
+    }
+
+    public void generatePvPMap()
+    {
+        /* 0  	1  	5
 		 * 
-		 * 4   	5  	1
+		 * 1   	5  	7
 		 *
-		 * 3   	1  	0	
+		 * 5  	7  	10	
 		 *
 		 */
+        int end = mainMapSize - 1;
+        //TOP ROW
+        tiles[0, 0].height = 0; //LT
+        tiles[end / 2, 0].height = 1; //MT
+        tiles[end, 0].height = 5; //RT
+
+        //MID ROW
+        tiles[0, end / 2].height = 1; //LM
+        tiles[end / 2, end / 2].height = 5; //MID
+        tiles[end, end / 2].height = 7; //RM
+
+        //BOT ROW
+        tiles[0, end].height = 5; //LB
+        tiles[end / 2, end].height = 7; //MB
+        tiles[end, end].height = 10; //RB
 
 
-		//TOP ROW
-		tiles[0, 0].height = 10; //RT
-		tiles[end/2, 0].height = 8; //MT
-		tiles[end, 0].height = 5; //LT
+        divide(end / 2, 8, 2, 12);
 
-		//MID ROW
-		tiles[0, end/2].height = 4; //RM
-		tiles[end/2, end/2].height = 5; //MID
-		tiles[end, end/2].height = 1; //LM
+        Vector2i[] basePositions = new Vector2i[] {  new Vector2i(mainMapSize/mainMapSectionCount, mainMapSize * (mainMapSectionCount-1)/mainMapSectionCount),
+                                                    new Vector2i(mainMapSize * (mainMapSectionCount-1)/mainMapSectionCount, mainMapSize/mainMapSectionCount)};
+        basePos = (new Vector2i(Random.Range(0, 2), Random.Range(0, 2)) + new Vector2i(mainMapSize / KEY_RES / 2, mainMapSize / KEY_RES / 2)) * KEY_RES;
 
-		//BOT ROW
-		tiles[0, end].height = 3; //RB
-		tiles[end/2, end].height = 1; //MB
-		tiles[end, end].height = 0; //LB
+        generatePvPBases(basePositions);
+        generatePvPSummons(basePositions);
+
+        clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 3);
+        clampMapHeight(basePositions[1], WorldSection.SIZE - 10, 2, 3);
+        generateRoads();
+
+        divide(8, 1, 0, 12);
+        clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 6);
+        clampMapHeight(basePositions[1], WorldSection.SIZE - 10, 2, 6);
 
 
+       // generateRiver(new Vector2i((getMainMapSize() - 1), (getMainMapSize() - 1) / 2), new Vector2i((getMainMapSize() - 1) / 2, (getMainMapSize() - 1)),
+         //                     6, 30, -2, 0, 8, 3);
+
+        generateRiver(new Vector2i(0, (getMainMapSize() - 1) / 2), new Vector2i((getMainMapSize() - 1) / 2, 0),
+                              6, 30, -2, 0, 8, 3);
+
+        smoothMap(4, 2);
+
+        //smoothMap(1, 1);
+        flattenBaseAndSummons(basePositions, summonPos);
+    }
+
+    public void generateTeamMap()
+    {
+        /* 0  	1  	5
+		 * 
+		 * 1   	5  	7
+		 *
+		 * 5  	7  	10	
+		 *
+		 */
+        int end = mainMapSize - 1;
+        //TOP ROW
+        tiles[0, 0].height = 0; //LT
+        tiles[end / 2, 0].height = 1; //MT
+        tiles[end, 0].height = 5; //RT
+
+        //MID ROW
+        tiles[0, end / 2].height = 1; //LM
+        tiles[end / 2, end / 2].height = 5; //MID
+        tiles[end, end / 2].height = 7; //RM
+
+        //BOT ROW
+        tiles[0, end].height = 5; //LB
+        tiles[end / 2, end].height = 7; //MB
+        tiles[end, end].height = 10; //RB
+
+        generateDiamond();
+    }
+	public void generateDiamond()
+	{
+        int end = mainMapSize - 1;
 
 		divide(end/2, 8, 2, 12);
 
@@ -589,6 +728,25 @@ public class TileMap {
 		clampMapCenterHeight(2, 6);
 
 	}
+
+    public void generatePvPDiamond()
+    {
+        int end = mainMapSize - 1;
+
+        divide(end / 2, 8, 2, 12);
+
+        Vector2i[] basePositions = new Vector2i[] {  new Vector2i(mainMapSize/mainMapSectionCount, mainMapSize * (mainMapSectionCount-1)/mainMapSectionCount),
+                                                    new Vector2i(mainMapSize * (mainMapSectionCount-1)/mainMapSectionCount, mainMapSize/mainMapSectionCount)};
+        basePos = (new Vector2i(Random.Range(0, 2), Random.Range(0, 2)) + new Vector2i(mainMapSize / KEY_RES / 2, mainMapSize / KEY_RES / 2)) * KEY_RES;
+        generatePvPBases(basePositions);
+        generatePvPSummons(basePositions);
+        clampMapCenterHeight(2, 3);
+        generateRoads();
+
+        divide(8, 1, 0, 12);
+        clampMapCenterHeight(2, 6);
+
+    }
 
 
 
