@@ -15,10 +15,12 @@ public class EffectEditor : ObjectEditor
     private const int AREAOFEFFECT = 1;
     private const int PROJECTILEEFFECT = 2;
     private const int MOVEMENTEFFECT = 3;
+    private const int SELFBUFFEFFECT = 4;
     private List<SingleTargetEffectEdit> singletargets = new List<SingleTargetEffectEdit>();
     private List<AreaOfEffectEdit> areaofeffects = new List<AreaOfEffectEdit>();
     private List<ProjectileEffectEdit> projectileeffects = new List<ProjectileEffectEdit>();
     private List<MovementEffectEdit> movementeffects = new List<MovementEffectEdit>();
+    private List<SelfBuffEffectEdit> selfbuffeffects = new List<SelfBuffEffectEdit>();
 
     private Vector2 scroll;
 
@@ -26,6 +28,7 @@ public class EffectEditor : ObjectEditor
     private int selectedAreaOfEffect = -1;
     private int selectedProjectile = -1;
     private int selectedMovement = -1;
+    private int selectedSelfBuff = -1;
 
     protected static EffectEditor window;
 
@@ -61,6 +64,7 @@ public class EffectEditor : ObjectEditor
             areaofeffects = new List<AreaOfEffectEdit>();
             projectileeffects = new List<ProjectileEffectEdit>();
             movementeffects = new List<MovementEffectEdit>();
+            selfbuffeffects = new List<SelfBuffEffectEdit>();
             foreach (SingleTargetEffectData mdata in effectDataHolder.singleTargetEffectData)
             {
                 singletargets.Add(new SingleTargetEffectEdit(mdata));
@@ -83,6 +87,13 @@ public class EffectEditor : ObjectEditor
                     movementeffects.Add(new MovementEffectEdit(pdata));
                 }
             }
+            if(effectDataHolder.selfBuffEffectData != null)
+            {
+                foreach(SelfBuffEffectData sdata in effectDataHolder.selfBuffEffectData)
+                {
+                    selfbuffeffects.Add(new SelfBuffEffectEdit(sdata));
+                }
+            }
            
 
             this.filePath = filePath;
@@ -102,6 +113,7 @@ public class EffectEditor : ObjectEditor
         AreaOfEffectData[] areaOfEffectData = new AreaOfEffectData[areaofeffects.Count];
         ProjectileEffectData[] projectileEffectData = new ProjectileEffectData[projectileeffects.Count];
         MovementEffectData[] movementEffectData = new MovementEffectData[movementeffects.Count];
+        SelfBuffEffectData[] selfBuffEffectData = new SelfBuffEffectData[selfbuffeffects.Count];
 
         int i = 0;
         foreach (SingleTargetEffectEdit medit in singletargets)
@@ -125,9 +137,17 @@ public class EffectEditor : ObjectEditor
         foreach(MovementEffectEdit medit in movementeffects)
         {
             movementEffectData[i] = new MovementEffectData(medit);
+            i++;
+        }
+        i = 0;
+        foreach(SelfBuffEffectEdit sedit in selfbuffeffects)
+        {
+            selfBuffEffectData[i] = new SelfBuffEffectData(sedit);
+            i++;
         }
         DataHolder.EffectDataHolder effectDataHolder = new DataHolder.EffectDataHolder(singleTargetData, areaOfEffectData,
-                                                                                       projectileEffectData, movementEffectData);
+                                                                                       projectileEffectData, movementEffectData,
+                                                                                       selfBuffEffectData);
 
         using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
@@ -152,6 +172,7 @@ public class EffectEditor : ObjectEditor
             selectedAreaOfEffect = -1;
             selectedProjectile = -1;
             selectedMovement = -1;
+            selectedSelfBuff = -1;
             if (!openWindow(SINGLETARGET, selectedSingleTarget))
             {
                 WindowSettings window = new WindowSettings();
@@ -170,6 +191,8 @@ public class EffectEditor : ObjectEditor
             selectedSingleTarget = -1;
             selectedProjectile = -1;
             selectedMovement = -1;
+            selectedSelfBuff = -1;
+
             if (!openWindow(AREAOFEFFECT, selectedAreaOfEffect))
             {
                 WindowSettings window = new WindowSettings();
@@ -188,6 +211,8 @@ public class EffectEditor : ObjectEditor
             selectedAreaOfEffect = -1;
             selectedSingleTarget = -1;
             selectedMovement = -1;
+            selectedSelfBuff = -1;
+
             if (!openWindow(PROJECTILEEFFECT, selectedProjectile)) 
             {
                 WindowSettings window = new WindowSettings();
@@ -206,6 +231,8 @@ public class EffectEditor : ObjectEditor
             selectedAreaOfEffect = -1;
             selectedSingleTarget = -1;
             selectedProjectile = -1;
+            selectedSelfBuff = -1;
+
             if (!openWindow(MOVEMENTEFFECT, selectedMovement))
             {
                 WindowSettings window = new WindowSettings();
@@ -217,7 +244,26 @@ public class EffectEditor : ObjectEditor
                 windows.Add(window);
             }
         }
-       
+        GUILayout.Label("Self Buff Effects", EditorStyles.boldLabel);
+        selectedSelfBuff = GUILayout.SelectionGrid(selectedSelfBuff, getSelfBuffStrings(), 1);
+        if(selectedSelfBuff >= 0)
+        {
+            selectedAreaOfEffect = -1;
+            selectedSingleTarget = -1;
+            selectedProjectile = -1;
+            selectedMovement = -1;
+
+            if(!openWindow(SELFBUFFEFFECT, selectedSelfBuff))
+            {
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = SELFBUFFEFFECT;
+                window.objectIndex = selectedSelfBuff;
+                window.windowFunc = editSelfBuffEffect;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
+            }
+        }
         
 
         GUILayout.EndScrollView();
@@ -250,6 +296,10 @@ public class EffectEditor : ObjectEditor
         if (GUILayout.Button("+Movement Effect"))
         {
             movementeffects.Add(new MovementEffectEdit());
+        }
+        if (GUILayout.Button("+Self Buff Effect"))
+        {
+            selfbuffeffects.Add(new SelfBuffEffectEdit());
         }
         if (GUILayout.Button("Remove"))
         {
@@ -300,6 +350,18 @@ public class EffectEditor : ObjectEditor
         string[] result = new string[movementeffects.Count];
         int i = 0;
         foreach (MovementEffectEdit edit in movementeffects)
+        {
+            result[i] = edit.name;
+            i++;
+        }
+        return result;
+    }
+
+    private string[] getSelfBuffStrings()
+    {
+        string[] result = new string[selfbuffeffects.Count];
+        int i = 0;
+        foreach(SelfBuffEffectEdit edit in selfbuffeffects)
         {
             result[i] = edit.name;
             i++;
@@ -424,6 +486,31 @@ public class EffectEditor : ObjectEditor
         GUI.DragWindow();
     }
 
+    protected void editSelfBuffEffect(int windowID)
+    {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            if (selectedSelfBuff == windows[windowID].objectIndex) selectedSelfBuff = -1;
+            windows.RemoveAt(windowID);
+            return;
+        }
+        WindowSettings window = windows[windowID];
+        SelfBuffEffectEdit data = selfbuffeffects[window.objectIndex];
+        if(data == null)
+        {
+            windows.RemoveAt(windowID);
+        }
+
+        EditorGUIUtility.labelWidth = 120;
+
+        window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
+        editEffect(data);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+        
+    }
+
     private void editEffect(AbilityEffectEdit data)
     {
         data.name = EditorGUILayout.TextField("Name: ", data.name);
@@ -506,6 +593,7 @@ public class EffectEditor : ObjectEditor
         if (window.objectListIndex == AREAOFEFFECT) return editAreaOfEffect;
         if (window.objectListIndex == PROJECTILEEFFECT) return editProjectileEffect;
         if (window.objectListIndex == MOVEMENTEFFECT) return editMovementEffect;
+        if (window.objectListIndex == SELFBUFFEFFECT) return editSelfBuffEffect;
         return null;
     }
 
@@ -521,6 +609,8 @@ public class EffectEditor : ObjectEditor
                 return projectileeffects[index];
             case(MOVEMENTEFFECT):
                 return movementeffects[index];
+            case(SELFBUFFEFFECT):
+                return selfbuffeffects[index];
             default:
                 return null;
         }
@@ -538,6 +628,8 @@ public class EffectEditor : ObjectEditor
                 return index >= projectileeffects.Count;
             case(MOVEMENTEFFECT):
                 return index >= movementeffects.Count;
+            case (SELFBUFFEFFECT):
+                return index >= selfbuffeffects.Count;
             default:
                 return true;
         }
@@ -569,6 +661,12 @@ public class EffectEditor : ObjectEditor
             deleteWindowListIndex = MOVEMENTEFFECT;
             GUI.BringWindowToFront(DELETEWINDOWID);
         }
+        else if (selectedSelfBuff >= 0)
+        {
+            deleteWindowIndex = selectedSelfBuff;
+            deleteWindowListIndex = SELFBUFFEFFECT;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
        
     }
 
@@ -597,6 +695,11 @@ public class EffectEditor : ObjectEditor
                     closeWindow(MOVEMENTEFFECT, index);
                     movementeffects.RemoveAt(index);
                     if (selectedMovement > 0) selectedMovement--;
+                    break;
+                case(SELFBUFFEFFECT):
+                    closeWindow(SELFBUFFEFFECT, index);
+                    selfbuffeffects.RemoveAt(index);
+                    if (selectedSelfBuff > 0) selectedSelfBuff--;
                     break;
             }
         }
@@ -636,6 +739,14 @@ public class EffectEditor : ObjectEditor
             movementeffects.Insert(selectedMovement + 1, temp);
             selectedMovement++;
         }
+        else if (selectedSelfBuff >= 0)
+        {
+            SelfBuffEffectEdit temp = new SelfBuffEffectEdit(selfbuffeffects[selectedSelfBuff]);
+            temp.name += "(Copy)";
+            temp.gameName += "(Copy)";
+            selfbuffeffects.Insert(selectedSelfBuff + 1, temp);
+            selectedSelfBuff++;
+        }
     }
 
     private void moveUp()
@@ -669,6 +780,13 @@ public class EffectEditor : ObjectEditor
             movementeffects.Insert(selectedMovement - 1, temp);
             selectedMovement -= 1;
         }
+        else if (selectedSelfBuff > 0)
+        {
+            SelfBuffEffectEdit temp = selfbuffeffects[selectedSelfBuff];
+            selfbuffeffects.RemoveAt(selectedSelfBuff);
+            selfbuffeffects.Insert(selectedSelfBuff - 1, temp);
+            selectedSelfBuff -= 1;
+        }
     }
 
     private void moveDown()
@@ -700,6 +818,13 @@ public class EffectEditor : ObjectEditor
             movementeffects.RemoveAt(selectedMovement);
             movementeffects.Insert(selectedMovement + 1, temp);
             selectedMovement += 1;
+        }
+        else if (selectedSelfBuff >= 0 && selectedSelfBuff < selfbuffeffects.Count - 1)
+        {
+            SelfBuffEffectEdit temp = selfbuffeffects[selectedSelfBuff];
+            selfbuffeffects.RemoveAt(selectedSelfBuff);
+            selfbuffeffects.Insert(selectedSelfBuff + 1, temp);
+            selectedSelfBuff += 1;
         }
     }
 }

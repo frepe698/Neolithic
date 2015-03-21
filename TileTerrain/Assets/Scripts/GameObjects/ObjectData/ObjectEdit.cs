@@ -118,6 +118,16 @@ namespace Edit
     }
 
     [Serializable]
+    public class SelfBuffEffectEdit : AbilityEffectEdit
+    {
+        public SelfBuffEffectEdit() : base()
+        { }
+        public SelfBuffEffectEdit(SelfBuffEffectData data) : base(data)
+        { }
+        public SelfBuffEffectEdit(SelfBuffEffectEdit edit) : base(edit)
+        { }
+    }
+    [Serializable]
     public class ProjectileEffectEdit : AbilityEffectEdit
     {
         public string projectileName;
