@@ -35,7 +35,7 @@ public class TrialOfTheGods : GameMode {
 
         string[] heroNames = new string[]
 		{
-			"halftroll",
+			"vrodl",
 			"halftroll",
 			"halftroll",
 			"halftroll"

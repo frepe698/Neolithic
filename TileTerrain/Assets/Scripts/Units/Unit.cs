@@ -763,16 +763,14 @@ public class Unit {
 
     public void addToStat(Stat stat, float value)
     {
-        Debug.Log("add to stat " + stat.ToString());
+        //Debug.Log("add to stat " + stat.ToString());
         unitstats.addToStat(stat, value);
-        
     }
 
     public void addMultiplierToStat(Stat stat, float value)
     {
-        Debug.Log("add to stat " + stat.ToString());
+        //Debug.Log("add to stat " + stat.ToString());
         unitstats.addMultiplierToStat(stat, value);
-        
     }
 
     public void addBuff(Buff buff)

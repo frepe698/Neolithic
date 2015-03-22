@@ -41,10 +41,7 @@ public class AbilityData : ObjectData {
         {
             animations[i] = new AbilityAnimation(edit.animations[i]);
         }
-        foreach(AbilityTags tag in edit.tags)
-        {
-            tags = (tags | (int)tag);
-        }
+        tags = edit.tags;
         energyCost = edit.energyCost;
         healthCost = edit.healthCost;
         cooldown = edit.cooldown;

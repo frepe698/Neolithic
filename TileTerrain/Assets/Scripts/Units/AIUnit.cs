@@ -63,7 +63,7 @@ public class AIUnit : Unit {
 
 							if(hostile) 
 							{
-								GameMaster.getGameController().requestAttackCommand(id, unit.getID());
+								GameMaster.getGameController().requestAttackCommandUnit(id, unit.getID());
 							}
 							else if(unit.isHostile())
 							{
@@ -139,7 +139,7 @@ public class AIUnit : Unit {
 		{
 			if(hostile && dealer != null) 
 			{
-				GameMaster.getGameController().requestAttackCommand(id, dealerID);
+				GameMaster.getGameController().requestAttackCommandUnit(id, dealerID);
 			}
 		}
 	}

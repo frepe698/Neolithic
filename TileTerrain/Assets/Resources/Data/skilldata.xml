@@ -242,7 +242,12 @@
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>heal</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
     <SkillData name="alchemy" gameName="Alchemy">
       <requiredExp>

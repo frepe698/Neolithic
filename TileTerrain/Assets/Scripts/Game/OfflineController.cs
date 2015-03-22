@@ -65,23 +65,23 @@ public class OfflineController : GameController {
     }
 
 	[RPC]
-	public override void requestAttackCommand(int unitID, int targetID)
+	public override void requestAttackCommandUnit(int unitID, int targetID)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
 		Unit target = GameMaster.getUnit (targetID);
         if (target != null && unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
 		{
-			approveAttackCommand(unitID, targetID, GameMaster.getUnit(unitID).getPosition());
+			approveAttackCommandUnit(unitID, targetID, GameMaster.getUnit(unitID).getPosition());
 		}
 	}
 
 	[RPC]
-	public override void requestRangedAttackCommand(int unitID, Vector3 target)
+	public override void requestAttackCommandPos(int unitID, Vector3 target)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null && unit.canStartCommand(new RangedAttackCommand(unit, target)))
+        if (unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
 		{
-			approveRangedAttackCommand(unitID, target, GameMaster.getUnit(unitID).getPosition());
+			approveAttackCommandPos(unitID, target, GameMaster.getUnit(unitID).getPosition());
 		}
 	}
 

@@ -14,8 +14,8 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.47</amount>
-          <duration>3</duration>
+          <amount>-0.1</amount>
+          <duration>2</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
@@ -212,6 +212,18 @@
           <stat>IncreasedAttackspeed</stat>
           <amount>0.5</amount>
           <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+    </SelfBuffEffectData>
+    <SelfBuffEffectData name="heal" gameName="Heal">
+      <hitDamage />
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>HealthRegen</stat>
+          <amount>40</amount>
+          <duration>4</duration>
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>

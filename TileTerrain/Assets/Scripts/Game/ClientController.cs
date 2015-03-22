@@ -52,13 +52,13 @@ public class ClientController : GameController {
     }
 
 	[RPC]
-	public override void requestAttackCommand(int unitID, int targetID)
+	public override void requestAttackCommandUnit(int unitID, int targetID)
 	{
 		gameMaster.getNetView().RPC ("requestAttackCommand", RPCMode.Server, unitID, targetID);
 	}
 
 	[RPC]
-	public override void requestRangedAttackCommand(int unitID, Vector3 target)
+	public override void requestAttackCommandPos(int unitID, Vector3 target)
 	{
 		gameMaster.getNetView().RPC ("requestRangedAttackCommand", RPCMode.Server, unitID, target);
 	}

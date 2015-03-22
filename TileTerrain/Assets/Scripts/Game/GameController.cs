@@ -149,13 +149,13 @@ public abstract class GameController : MonoBehaviour{
     }
 
 	[RPC]
-	public abstract void requestAttackCommand(int unitID, int targetID);
+	public abstract void requestAttackCommandUnit(int unitID, int targetID);
 
 	[RPC]
-	public abstract void requestRangedAttackCommand(int unitID, Vector3 target);
+	public abstract void requestAttackCommandPos(int unitID, Vector3 target);
 
 	[RPC]
-	protected void approveAttackCommand(int unitID, int targetID, Vector3 startPos)
+	protected void approveAttackCommandUnit(int unitID, int targetID, Vector3 startPos)
 	{
 		Vector2i startTile = new Vector2i(startPos.x, startPos.z);
 		Unit unit = GameMaster.getUnit (unitID);
@@ -169,7 +169,7 @@ public abstract class GameController : MonoBehaviour{
 	}
 
 	[RPC]
-	protected void approveRangedAttackCommand(int unitID, Vector3 target, Vector3 startPos)
+	protected void approveAttackCommandPos(int unitID, Vector3 target, Vector3 startPos)
 	{
 		Vector2i startTile = new Vector2i(startPos.x, startPos.z);
 		Unit unit = GameMaster.getUnit (unitID);
@@ -462,11 +462,11 @@ public abstract class GameController : MonoBehaviour{
                         {
                             if (GameMaster.getPlayerHero().isMelee())
                             {
-                                requestAttackCommand(unitID, targetUnitID);
+                                requestAttackCommandUnit(unitID, targetUnitID);
                             }
                             else
                             {
-                                requestRangedAttackCommand(unitID, target.transform.position + Vector3.up);
+                                requestAttackCommandPos(unitID, target.transform.position + Vector3.up);
                             }
                         }
                         else
@@ -530,13 +530,13 @@ public abstract class GameController : MonoBehaviour{
 				{
 					if(GameMaster.getPlayerHero().isMelee())
 					{
-						requestAttackCommand(unitID, targetUnitID);
+						requestAttackCommandUnit(unitID, targetUnitID);
 					}
 					else 
 					{
 						Unit target = GameMaster.getUnit(targetUnitID);
 						if(target != null)
-						requestRangedAttackCommand(unitID,  target.getPosition() + Vector3.up);
+						requestAttackCommandPos(unitID,  target.getPosition() + Vector3.up);
 					}
 				}
 

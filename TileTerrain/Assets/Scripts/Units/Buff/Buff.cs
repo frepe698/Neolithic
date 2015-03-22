@@ -71,7 +71,6 @@ public class StatBuff : Buff
 
     public override void update()
     {
-        Debug.Log("updating");
         duration -= Time.deltaTime;
         if (duration <= 0) finished = true;
     }

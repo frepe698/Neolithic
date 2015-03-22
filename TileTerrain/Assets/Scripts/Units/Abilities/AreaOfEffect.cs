@@ -20,6 +20,7 @@ public class AreaOfEffect : AbilityEffect {
         {
             for (int y = targetTile.y - (int)radius - 1; y < targetTile.y + (int)radius + 1; y++)
             {
+                if (!World.tileMap.isValidTile(x, y)) continue;
                 Vector2i tile = new Vector2i(x, y);
                 foreach(Unit target in World.tileMap.getTile(tile).getUnits())
                 {

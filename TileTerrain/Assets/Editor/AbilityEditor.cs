@@ -228,6 +228,9 @@ public class AbilityEditor : ObjectEditor
             data.animations.Add(new AbilityAnimationEdit());
         }
 
+        data.tags = EditorGUILayout.MaskField("Tags", data.tags, AbilityEdit.tagNames);
+
+        /*
         for (int i = 0; i < data.tags.Count; i++)
         {
             
@@ -249,7 +252,7 @@ public class AbilityEditor : ObjectEditor
         {
             data.tags.Add(AbilityTags.Melee);
         }
-
+        */
 
         GUILayout.EndScrollView();
         GUI.DragWindow();

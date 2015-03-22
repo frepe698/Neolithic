@@ -68,23 +68,23 @@ public class ServerController : GameController {
     }
 
 	[RPC]
-	public override void requestAttackCommand(int unitID, int targetID)
+	public override void requestAttackCommandUnit(int unitID, int targetID)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
 		Unit target = GameMaster.getUnit (targetID);
 		if(target != null && unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
 		{
-			gameMaster.getNetView().RPC ("approveAttackCommand", RPCMode.All, unitID, targetID, GameMaster.getUnit(unitID).getPosition());
+			gameMaster.getNetView().RPC ("approveAttackCommandUnit", RPCMode.All, unitID, targetID, GameMaster.getUnit(unitID).getPosition());
 		}
 	}
 
 	[RPC]
-	public override void requestRangedAttackCommand(int unitID, Vector3 target)
+	public override void requestAttackCommandPos(int unitID, Vector3 target)
 	{
 		Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null && unit.canStartCommand(new RangedAttackCommand(unit, target)))
+        if (unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
 		{
-			gameMaster.getNetView().RPC ("approveRangedAttackCommand", RPCMode.All, unitID, target, GameMaster.getUnit(unitID).getPosition());
+			gameMaster.getNetView().RPC ("approveAttackCommandPos", RPCMode.All, unitID, target, GameMaster.getUnit(unitID).getPosition());
 		}
 	}
 

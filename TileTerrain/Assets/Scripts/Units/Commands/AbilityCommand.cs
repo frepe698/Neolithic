@@ -66,7 +66,6 @@ public class AbilityCommand : Command {
                         }
                         else
                         {
-                            Debug.Log("play anim " + animation.name);
                             float speed = unit.getAttackSpeed() * animation.speed;
                             unit.setAnimationRestart(animation.name, speed);
                         }

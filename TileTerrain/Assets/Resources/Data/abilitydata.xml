@@ -263,7 +263,7 @@
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
       <range>1000</range>
-      <tags>31</tags>
+      <tags>-1</tags>
     </AbilityData>
     <AbilityData name="fireball" gameName="Fireball" modelName="leap">
       <effects>
@@ -285,7 +285,29 @@
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
       <range>9999</range>
-      <tags>17</tags>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="heal" gameName="Heal" modelName="leap">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>heal</name>
+          <time>0.75</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>cast_sky</name>
+          <time>0</time>
+          <speed>0.75</speed>
+        </AbilityAnimation>
+      </animations>
+      <totalTime>1.5</totalTime>
+      <energyCost>5</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>5</cooldown>
+      <range>1000</range>
+      <tags>-1</tags>
     </AbilityData>
   </Abilities>
 </AbilityRoot>
