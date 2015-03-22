@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 public class UnitSpawner {
 
-    private readonly string unitName;
-    private int maxUnits;
-    private List<Unit> units = new List<Unit>();
-    private Vector2i position;
-    private int id;
+    protected readonly string unitName;
+    protected int maxUnits;
+    protected List<Unit> units = new List<Unit>();
+    protected Vector2i position;
+    protected int id;
     public UnitSpawner(string unitName, int maxUnits, Vector2i pos, int id)
     {
         this.unitName = unitName;
         this.maxUnits = maxUnits;
         this.position = pos;
-        respawnUnits();
+        //respawnUnits();
 
     }
 
-    public void respawnUnits()
+    public virtual void respawnUnits()
     {
         for (int i = 0; i < units.Count; i++)
         {

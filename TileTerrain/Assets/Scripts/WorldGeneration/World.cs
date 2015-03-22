@@ -97,6 +97,7 @@ public class World : MonoBehaviour {
         initObjectPools();
         generateWater();
         addObjects();
+        addRoadSpawners(mode);
     }
 	
 	
@@ -542,6 +543,8 @@ public class World : MonoBehaviour {
             GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
         }
 
+        
+
         for (int x = 0; x < getMainMapSize(); x++)
         {
             for (int y = 0; y < getMainMapSize(); y++)
@@ -550,22 +553,31 @@ public class World : MonoBehaviour {
                 {
                     if (Random.value < 0.7f)
                     {
-                        //AIUnit unit = new AIUnit("hare", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
-                        //GameMaster.addUnit(unit);
                         GameMaster.addDaySpawner("hare", 1, new Vector2i(x, y));
                     }
                     else if(Random.value < 0.1f)
                     {
                         GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
-                        //AIUnit unit = new AIUnit("wolf", new Vector3(x, 0, y), Vector3.zero, GameMaster.getNextUnitID());
-                        //GameMaster.addUnit(unit);
                     }
                     else if(Random.value < 0.1f)
                     {
                         GameMaster.addNightSpawner("goblin", Random.Range(3,6), new Vector2i(x, y));
-                        
                     }
                 }
+            }
+        }
+    }
+
+    public void addRoadSpawners(TrialOfTheGods mode)
+    {
+        for(int i = 0; i < mode.teams.Length; i++)
+        {
+            
+            for(int j = 0; j < mode.teams[i].roads.Length; j++)
+            {
+                Road road = mode.teams[i].roads[j];
+                List<WorldPoint> points = new List<WorldPoint>(road.getWaypoints());
+                GameMaster.addDaySpawner("goblin", Random.Range(2,4), points[points.Count - 1].get2D(), points);
             }
         }
     }

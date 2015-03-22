@@ -173,6 +173,7 @@ public class GameMaster : MonoBehaviour {
 
 	public void updateAI()
 	{
+        
 		foreach(Unit unit in awakeUnits)
 		{
 			unit.updateAI();
@@ -181,6 +182,7 @@ public class GameMaster : MonoBehaviour {
 
 	private void updateAwakeUnits()
 	{
+        
 		for(int i = 0; i < awakeUnits.Count; i++)
 		{
 			Unit unit = awakeUnits[i];
@@ -193,7 +195,7 @@ public class GameMaster : MonoBehaviour {
 				}
 			}
 			unit.setAwake(awake);
-			if(awake == false)
+			if(unit.isAwake() == false)
 			{
 				awakeUnits.Remove (unit);
 				unit.inactivate();
@@ -374,12 +376,25 @@ public class GameMaster : MonoBehaviour {
         UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextDaySpawnerID());
         daySpawners.Add(spawner);
     }
+  
+    public static void addDaySpawner(string name, int maxUnits, Vector2i pos, List<WorldPoint> points)
+    {
+        UnitSpawner spawner = new PathUnitSpawner(name, maxUnits, pos, getNextDaySpawnerID(), points);
+        daySpawners.Add(spawner);
+    }
 
     public static void addNightSpawner(string name, int maxUnits, Vector2i pos)
     {
         UnitSpawner spawner = new UnitSpawner(name, maxUnits, pos, getNextNightSpawnerID());
         nightSpawners.Add(spawner);
     }
+  
+    public static void addNightSpawner(string name, int maxUnits, Vector2i pos, List<WorldPoint> points)
+    {
+        UnitSpawner spawner = new PathUnitSpawner(name, maxUnits, pos, getNextNightSpawnerID(), points);
+        nightSpawners.Add(spawner);
+    }
+  
     public static int getNextDaySpawnerID()
     {
         if (daySpawners == null || daySpawners.Count == 0) return 0;
@@ -435,6 +450,13 @@ public class GameMaster : MonoBehaviour {
 	{
 		units.Add(unit);
 	}
+
+    public static void addAwakeUnit(Unit unit)
+    {
+        units.Add(unit);
+        unit.setAwake(true);
+        awakeUnits.Add(unit);
+    }
 
     public static void addHero(Hero hero)
     {
