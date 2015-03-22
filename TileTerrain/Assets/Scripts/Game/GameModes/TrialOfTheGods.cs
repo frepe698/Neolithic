@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TrialOfTheGods : GameMode {
     public const int TEAM_COUNT = 2;

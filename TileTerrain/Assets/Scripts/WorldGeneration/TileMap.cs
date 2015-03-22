@@ -742,7 +742,9 @@ public class TileMap {
             mode.teams[i].roads = new Road[] {
                 generateRoad(basePosition, mode.teams[i].summonPositions[0]), 
                 generateRoad(basePosition, mode.teams[i].summonPositions[1])};
+            Debug.Log(mode.teams[i].roads[0].getWaypoints()[0].get2D().x);
         }
+        
             
         divide(8, 1, 0, 12);
         clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 6);

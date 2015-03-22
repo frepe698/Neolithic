@@ -26,6 +26,11 @@ public class WorldPoint {
 		this.height = 0;
 	}
 
+    public WorldPoint getClone()
+    {
+        return new WorldPoint(x, y, height);
+    }
+
 	public static float get2DAngle(WorldPoint start, WorldPoint end)
 	{
 		float dx = end.x - start.x;

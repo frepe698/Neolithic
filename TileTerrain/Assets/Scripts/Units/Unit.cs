@@ -99,7 +99,7 @@ public class Unit {
 		//audio.dopplerLevel = 0;
 	}
 
-	public void setAwake(bool awake)
+	public virtual void setAwake(bool awake)
 	{
 		this.awake = awake;
 	}
