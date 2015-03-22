@@ -35,6 +35,7 @@ public class PathAIUnit : AIUnit
         {
             followingRoad = true;
             returnCounter = 0;
+            //findNextWaypoint();
             GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
             justGotCommandTimer = 0.2f;
         }
@@ -68,6 +69,26 @@ public class PathAIUnit : AIUnit
     public override void setAwake(bool awake)
     {
         base.setAwake(true);
+    }
+
+    private void findNextWaypoint()
+    {
+        if (waypoints.Count == 0) return;
+        List<WorldPoint> tempPoints = new List<WorldPoint>(waypoints);
+        Vector2i deltaGoal = tempPoints[0].get2D() - getTile();
+
+        for(int i = tempPoints.Count - 1; i >= 0; i--)
+        {
+            Vector2i deltaPoint = tempPoints[i].get2D() - getTile();
+            if(deltaGoal.x * deltaPoint.x < 0 || deltaGoal.y * deltaPoint.y < 0) //point is in wrong direction from goal
+            {
+                destination = popLastWaypoint();
+            }
+            else //If not we have a point in right direction and can return
+            {
+                return;
+            }
+        }
     }
 
     private Vector2 popLastWaypoint()
