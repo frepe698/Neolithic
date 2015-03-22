@@ -16,7 +16,7 @@
         </AbilityAnimation>
       </animations>
       <totalTime>1</totalTime>
-      <energyCost>8</energyCost>
+      <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>2</range>

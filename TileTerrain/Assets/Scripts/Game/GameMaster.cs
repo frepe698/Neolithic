@@ -469,7 +469,7 @@ public class GameMaster : MonoBehaviour {
 	{
         if (unit == null) return;
         //Fix: if a unit is "afk" and you shoot it with an arrow, this function checks a tile outside of the map
-		World.getMap().getTile(unit.getTile()).removeUnit (unit);
+        if (!World.getMap().getTile(unit.getTile()).removeUnit(unit)) Debug.LogError("Did not remove unit from tile");
         unit.setAlive(false);
 		unit.setAwake(false);
 		unit.inactivate();

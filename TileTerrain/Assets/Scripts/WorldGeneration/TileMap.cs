@@ -239,8 +239,11 @@ public class TileMap {
         Road road = new Road(new WorldPoint(start.x, start.y, tiles[(int)start.x, (int)start.y].height),
 			                    new WorldPoint(end.x , end.y, tiles[(int)end.x, (int)end.y].height),
 			                    new Line[]{new Line(new Vector2(0,0), new Vector2(0,0)), new Line(new Vector2(0,0), new Vector2(0,0))},Color.yellow);
-			
-			road.subdivide();
+
+        road.subdivide();
+        road.subdivide();
+        road.subdivide();
+        road.subdivide();
 			//roads[i].subdivide();
 			//roads[i].subdivide();
 			List<WorldPoint> wpts = road.getWaypoints();

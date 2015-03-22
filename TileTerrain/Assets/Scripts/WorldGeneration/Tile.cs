@@ -289,9 +289,9 @@ public class Tile {
 		return units.Count > 0;
 	}
 
-	public void removeUnit(Unit unit)
+	public bool removeUnit(Unit unit)
 	{
-		units.Remove(unit);
+		return units.Remove(unit);
 	}
 
 	public List<Unit> getUnits()

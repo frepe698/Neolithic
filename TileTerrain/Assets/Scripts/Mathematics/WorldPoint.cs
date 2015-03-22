@@ -93,4 +93,9 @@ public class WorldPoint {
 	{
 		return x*100000000 + y*10000000 + height;
 	}
+
+    public override string ToString()
+    {
+        return x + ", " + y;
+    }
 }

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class AIUnit : Unit {
 
-	private float commandTimer;
+	protected float commandTimer;
+    protected float justGotCommandTimer;
 	private int damage;
 	private float attackspeed;
     private string attackSound;
@@ -46,50 +47,48 @@ public class AIUnit : Unit {
 
 	public override void updateAI()
 	{
-
-		if(command == null)
+        justGotCommandTimer -= Time.deltaTime;
+        if ((command == null || command is MoveCommand) && justGotCommandTimer < 0)
 		{
-			for(int x = tile.x - lineOfSight; x < tile.x + lineOfSight + 1; x++)
-			{
-				for(int y = tile.y - lineOfSight; y < tile.y + lineOfSight + 1; y++)
-				{
-					if(!World.getMap().isValidTile(x,y)) continue;
-					Tile checkTile = World.getMap().getTile(x,y);
-					if(checkTile.containsUnits() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
-					{
-						foreach(Unit unit in checkTile.getUnits())
-						{
-                            if (unit.getID() == id || unit.getTeam() == getTeam()) continue;
+            Unit closestUnit = findClosestEnemy(lineOfSight);
+            if (fleeOrFight(closestUnit)) return;
 
-							if(hostile) 
-							{
-								GameMaster.getGameController().requestAttackCommandUnit(id, unit.getID());
-							}
-							else if(unit.isHostile())
-							{
-								int dx = tile.x - x;
-								if(dx != 0) dx = dx / Mathf.Abs(dx);
-								int dy = tile.y - y;
-								if(dy != 0) dy = dy / Mathf.Abs(dy);
-								if(!hostile)
-								{
-
-									GameMaster.getGameController().requestMoveCommand(id,tile.x + dx*5, tile.y + dy*5);
-									return;
-								}
-							}
-						}
-					}
-				}
-			}
 			commandTimer-=Time.deltaTime;
 			if(commandTimer < 0)
 			{
 				GameMaster.getGameController().requestMoveCommand(id,tile.x+Random.Range(-10.0f, 10.0f), tile.y+Random.Range(-10.0f, 10.0f));
-				commandTimer = Random.Range(0, 8);
+				commandTimer = Random.Range(8, 30);
 			}
 		}
 	}
+
+    //Returns true if it did something
+    public bool fleeOrFight(Unit other)
+    {
+        if (other != null)
+        {
+            if (hostile)
+            {
+                GameMaster.getGameController().requestAttackCommandUnit(id, other.getID());
+                justGotCommandTimer = 0.2f;
+                return true;
+            }
+            else if (other.isHostile())
+            {
+                int dx = tile.x - other.getTile().x;
+                if (dx != 0) dx = dx / Mathf.Abs(dx);
+                int dy = tile.y - other.getTile().y;
+                if (dy != 0) dy = dy / Mathf.Abs(dy);
+                if (!hostile)
+                {
+                    GameMaster.getGameController().requestMoveCommand(id, tile.x + dx * 5, tile.y + dy * 5);
+                    justGotCommandTimer = 0.2f;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public override Ability getBasicAttack()
     {

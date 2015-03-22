@@ -577,7 +577,7 @@ public class World : MonoBehaviour {
             {
                 Road road = mode.teams[i].roads[j];
                 List<WorldPoint> points = new List<WorldPoint>(road.getWaypoints());
-                GameMaster.addDaySpawner("goblin", Random.Range(2,4), points[points.Count - 1].get2D(), points);
+                GameMaster.addDaySpawner("goblin", Random.Range(3, 6), mode.teams[i].summonPositions[j], points);
             }
         }
     }

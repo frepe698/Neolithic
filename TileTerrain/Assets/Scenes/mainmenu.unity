@@ -544,7 +544,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465586, guid: c6b2fc3dee7499346b846945e5ceb30c, type: 2}
       propertyPath: m_SizeDelta.y
-      value: -91.1330032
+      value: -91.5730362
       objectReference: {fileID: 0}
     - target: {fileID: 22465586, guid: c6b2fc3dee7499346b846945e5ceb30c, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -1926,7 +1926,7 @@ GameObject:
   - 33: {fileID: 372600697}
   - 64: {fileID: 372600696}
   - 23: {fileID: 372600695}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9678,6 +9678,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1614760187}
+--- !u!1 &1622120926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1622120928}
+  - 119: {fileID: 1622120927}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!119 &1622120927
+Projector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622120926}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: .00999999978
+  m_FarClipPlane: 2.75999999
+  m_FieldOfView: 46.0499992
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 3.20000005
+  m_Material: {fileID: 2100000, guid: c5e739347cc49d74c85467dd44c0fc76, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 4294967039
+--- !u!4 &1622120928
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1622120926}
+  m_LocalRotation: {x: .707106709, y: -1.42108547e-14, z: -1.42108547e-14, w: .707106829}
+  m_LocalPosition: {x: .00999999978, y: -.550000012, z: 9.06000042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
 --- !u!1 &1628435262
 GameObject:
   m_ObjectHideFlags: 0

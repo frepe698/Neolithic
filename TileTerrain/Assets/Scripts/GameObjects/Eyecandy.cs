@@ -30,7 +30,7 @@ public class Eyecandy
 
     public void render()
     {
-        Graphics.DrawMesh(renderData.mesh, position, rotation, renderData.material, 0, Camera.main, 0, renderData.property, false, true);
+        //Graphics.DrawMesh(renderData.mesh, position, rotation, renderData.material, 0, Camera.main, 0, renderData.property, false, true);
     }
 
     public Vector3 getPosition()

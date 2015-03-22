@@ -78,7 +78,7 @@ public class Unit {
 
     public void init()
     {
-        tile = getTile();
+        tile = new Vector2i(get2DPos());
         World.tileMap.getTile(tile).addUnit(this);
     }
 	public virtual void activate()
@@ -435,7 +435,7 @@ public class Unit {
 	
 	public Vector2i getTile()
 	{
-		return new Vector2i(position.x, position.z);
+        return tile;
 	}
 
 	public void setPosition(Vector3 position)
@@ -812,6 +812,36 @@ public class Unit {
             return unitController.addEffectObject(prefab, position);
         }
         return null;
+    }
+
+    public Unit findClosestEnemy(int radius)
+    {
+        float dist = 99999;
+        Unit closestUnit = null;
+        for (int x = tile.x - lineOfSight; x < tile.x + lineOfSight + 1; x++)
+        {
+            for (int y = tile.y - lineOfSight; y < tile.y + lineOfSight + 1; y++)
+            {
+                if (!World.getMap().isValidTile(x, y)) continue;
+                Tile checkTile = World.getMap().getTile(x, y);
+                if (checkTile.containsUnits() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
+                {
+
+                    foreach (Unit unit in checkTile.getUnits())
+                    {
+                        if (unit.getID() == id || unit.getTeam() == getTeam()) continue;
+
+                        float newDist = Vector2.Distance(get2DPos(), unit.get2DPos());
+                        if (newDist < dist)
+                        {
+                            closestUnit = unit;
+                            dist = newDist;
+                        }
+                    }
+                }
+            }
+        }
+        return closestUnit;
     }
 
 }
