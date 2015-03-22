@@ -35,7 +35,7 @@ public class PathAIUnit : AIUnit
         {
             followingRoad = true;
             returnCounter = 0;
-            //findNextWaypoint();
+            findNextWaypoint();
             GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
             justGotCommandTimer = 0.2f;
         }
