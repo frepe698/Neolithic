@@ -255,7 +255,12 @@ public class OfflineController : GameController {
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{
-		if(GameMaster.getHero(unitID).getInventory().hasIngredients(DataHolder.Instance.getRecipeData(name).ingredients))
+        Hero hero = GameMaster.getHero(unitID);
+        RecipeData data = DataHolder.Instance.getRecipeData(name);
+
+        //Check if the hero's skill level is high enough and it has all the ingredients
+		if(hero.getSkillManager().getSkill((int)data.skill).getLevel() >= data.requiredSkillLevel && 
+            hero.getInventory().hasIngredients(data.ingredients))
 		{
 			approveItemCraft(unitID, name);
 		}
@@ -278,19 +283,36 @@ public class OfflineController : GameController {
 		}
 	}
 
-    public override void requestHit(int damage, int unitID, int targetID)
+    public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
         Unit target = GameMaster.getUnit(targetID);
         if (target == null) return;
-        target.playSound("hitBow01");
-        if (target.getHealth() <= damage)
+        if (damage < 0)
         {
-            killUnit(targetID, unitID);
+            changeHealth(targetID, -damage);
+            if (skill >= 0) giveExperience(unitID, skill, -damage);
         }
         else
         {
-            hitUnit(targetID, unitID, damage);
+            target.playSound("hitBow01");
+            if (target.getHealth() <= damage)
+            {
+                killUnit(targetID, unitID);
+            }
+            else
+            {
+                hitUnit(targetID, unitID, damage);
+            }
+            if (target.isHostile())
+            {
+                if (skill >= 0) giveExperience(unitID, skill, damage);
+            }
+            else
+            {
+                giveExperience(unitID, (int)Skills.Hunting, damage * 2);
+            }
         }
+        
     }
 
     [RPC]

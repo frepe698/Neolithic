@@ -264,33 +264,8 @@ public class RecipeEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
-        data.name = TextField("Name: ", data.name);
-        data.gameName = TextField("Game Name: ", data.gameName);
-        EditorGUILayout.PrefixLabel("Description:");
-        data.description = EditorGUILayout.TextField(data.description);
 
-        GUILayout.Space(20);
-        EditorGUILayout.LabelField("Product:", EditorStyles.boldLabel);
-        data.product = EditorGUILayout.TextField(data.product);
-
-        GUILayout.Space(20);
-        EditorGUILayout.LabelField("Ingredients:", EditorStyles.boldLabel);
-        foreach (IngredientEdit edit in data.ingredients)
-        {
-            EditorGUILayout.BeginHorizontal();
-            edit.name = EditorGUILayout.TextField(edit.name);
-            edit.amount = EditorGUILayout.IntField(edit.amount);
-            if (GUILayout.Button("-"))
-            {
-                data.ingredients.Remove(edit);
-                break;
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-        if (GUILayout.Button("+Ingredient"))
-        {
-            data.ingredients.Add(new IngredientEdit());
-        }
+        editRecipe(data);
 
         GUILayout.EndScrollView();
         GUI.DragWindow();
@@ -314,33 +289,8 @@ public class RecipeEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
-        data.name = TextField("Name: ", data.name);
-        data.gameName = TextField("Game Name: ", data.gameName);
-        EditorGUILayout.PrefixLabel("Description:");
-        data.description = EditorGUILayout.TextField(data.description);
 
-        GUILayout.Space(20);
-        EditorGUILayout.LabelField("Product:", EditorStyles.boldLabel);
-        data.product = EditorGUILayout.TextField(data.product);
-
-        GUILayout.Space(20);
-        EditorGUILayout.LabelField("Ingredients:", EditorStyles.boldLabel);
-        foreach (IngredientEdit edit in data.ingredients)
-        {
-            EditorGUILayout.BeginHorizontal();
-            edit.name = EditorGUILayout.TextField(edit.name);
-            edit.amount = EditorGUILayout.IntField(edit.amount);
-            if (GUILayout.Button("-"))
-            {
-                data.ingredients.Remove(edit);
-                break;
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-        if (GUILayout.Button("+Ingredient"))
-        {
-            data.ingredients.Add(new IngredientEdit());
-        }
+        editRecipe(data);
 
         GUILayout.EndScrollView();
         GUI.DragWindow();
@@ -364,10 +314,25 @@ public class RecipeEditor : ObjectEditor
         EditorGUIUtility.labelWidth = 120;
 
         window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
+
+        editRecipe(data);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+    }
+
+    protected void editRecipe(RecipeEdit data)
+    {
         data.name = TextField("Name: ", data.name);
         data.gameName = TextField("Game Name: ", data.gameName);
         EditorGUILayout.PrefixLabel("Description:");
         data.description = EditorGUILayout.TextField(data.description);
+
+        GUILayout.Space(10);
+        EditorGUILayout.LabelField("Skill:", EditorStyles.boldLabel);
+        data.skill = (Skills)EditorGUILayout.EnumPopup("Skill: ", data.skill);
+        data.expAmount = EditorGUILayout.IntField("Exp Gain: ", data.expAmount);
+        data.requiredSkillLevel = EditorGUILayout.IntField("Req level: ", data.requiredSkillLevel);
 
         GUILayout.Space(20);
         EditorGUILayout.LabelField("Product:", EditorStyles.boldLabel);
@@ -391,9 +356,6 @@ public class RecipeEditor : ObjectEditor
         {
             data.ingredients.Add(new IngredientEdit());
         }
-
-        GUILayout.EndScrollView();
-        GUI.DragWindow();
     }
 
     protected override GUI.WindowFunction getWindowFunc(WindowSettings window)

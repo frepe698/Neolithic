@@ -261,7 +261,7 @@ public abstract class GameController : MonoBehaviour{
 
         if (Input.GetKeyDown("return"))
         {
-            gameMaster.getGUIManager().toggleChatInput();
+            gameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"));
         }
         if (gameMaster.getGUIManager().takeKeyboardInput())
         {
@@ -598,7 +598,7 @@ public abstract class GameController : MonoBehaviour{
 
     public abstract void requestProjectileHit(int damage, int unitID, int targetID);
 
-    public abstract void requestHit(int damage, int unitID, int targetID);
+    public abstract void requestHit(int damage, int unitID, int targetID, int skill = -1);
 
     [RPC]
     public abstract void requestLearnAbility(string ability, int unitID);
@@ -724,6 +724,16 @@ public abstract class GameController : MonoBehaviour{
             hero.changeEnergy(energy);
         }
     }
+
+    [RPC]
+    protected void changeHealth(int targetID, int health)
+    {
+        Unit unit = GameMaster.getUnit(targetID);
+        if (unit != null)
+        {
+            unit.heal(health);
+        }
+    }
     #endregion
 
     #region INVENTORY AND CRAFTING
@@ -736,7 +746,9 @@ public abstract class GameController : MonoBehaviour{
 	protected void approveItemCraft(int unitID, string name)
 	{
 		Inventory inv = GameMaster.getHero(unitID).getInventory();
-		inv.craftItem(DataHolder.Instance.getRecipeData(name));
+        RecipeData data = DataHolder.Instance.getRecipeData(name);
+		inv.craftItem(data);
+        giveExperience(unitID, (int)data.skill, data.expAmount);
 	}
 
 	[RPC]
@@ -835,7 +847,7 @@ public abstract class GameController : MonoBehaviour{
     [RPC]
     public void recieveChatMessage(int unitID, string msg)
     {
-        gameMaster.getGUIManager().addChatMessage(unitID + ": " + msg);
+        gameMaster.getGUIManager().addChatMessage(NetworkMaster.getPlayerName(unitID) + ": " + msg);
     }
 
     #endregion

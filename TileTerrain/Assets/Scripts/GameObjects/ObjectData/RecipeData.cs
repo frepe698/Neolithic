@@ -14,6 +14,11 @@ public abstract class RecipeData : ObjectData
 
     public readonly string description;
 
+    public readonly Skills skill = Skills.Crafting;
+    public readonly int expAmount;
+
+    public readonly int requiredSkillLevel;
+
     public RecipeData()
     { 
     }
@@ -24,6 +29,10 @@ public abstract class RecipeData : ObjectData
         product = edit.product;
         ingredients = edit.getIngredients();
         description = edit.description;
+
+        skill = edit.skill;
+        expAmount = edit.expAmount;
+        requiredSkillLevel = edit.requiredSkillLevel;
     }
 
     public abstract Item getCraftedItem();

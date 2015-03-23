@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ServerController : GameController {
 
@@ -257,7 +258,12 @@ public class ServerController : GameController {
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{
-		if(GameMaster.getHero(unitID).getInventory().hasIngredients(DataHolder.Instance.getRecipeData(name).ingredients))
+        Hero hero = GameMaster.getHero(unitID);
+        RecipeData data = DataHolder.Instance.getRecipeData(name);
+
+        //Check if the hero's skill level is high enough and it has all the ingredients
+        if (hero.getSkillManager().getSkill((int)data.skill).getLevel() >= data.requiredSkillLevel &&
+            hero.getInventory().hasIngredients(data.ingredients))
 		{
 			gameMaster.getNetView().RPC ("approveItemCraft", RPCMode.All, unitID, name);
 		}
@@ -284,20 +290,34 @@ public class ServerController : GameController {
 
 	}
 
-    public override void requestHit(int damage, int unitID, int targetID)
+    public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
         Unit target = GameMaster.getUnit(targetID);
         if (target != null)
         {
-            if (target.getHealth() <= damage)
+            if (damage < 0)
             {
-                gameMaster.getNetView().RPC("killUnit", RPCMode.All, targetID, unitID);
-                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
+                gameMaster.getNetView().RPC("changeHealth", RPCMode.All, targetID, -damage);
+                if (skill >= 0) gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, skill, -damage);
             }
             else
             {
-                gameMaster.getNetView().RPC("hitUnit", RPCMode.All, targetID, unitID, damage);
-                gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
+                if (target.getHealth() <= damage)
+                {
+                    gameMaster.getNetView().RPC("killUnit", RPCMode.All, targetID, unitID);
+                }
+                else
+                {
+                    gameMaster.getNetView().RPC("hitUnit", RPCMode.All, targetID, unitID, damage);
+                }
+                if (target.isHostile())
+                {
+                    if (skill >= 0) gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, skill, damage);
+                }
+                else
+                {
+                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, (int)Skills.Hunting, damage*2);
+                }
             }
         }
 
@@ -327,7 +347,19 @@ public class ServerController : GameController {
 
     public override void sendChatMessage(string msg)
     {
-        gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, GameMaster.getPlayerUnitID(), msg);
+        if (msg.StartsWith("/all"))
+        {
+            gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, NetworkMaster.getMyPlayerID(), "(All) " + msg.Substring(4));
+        }
+        else
+        {
+            List<OnlinePlayer> team = NetworkMaster.getTeamPlayers(NetworkMaster.getMe().getTeam());
+            foreach (OnlinePlayer p in team)
+            {
+                if (p.getID() == NetworkMaster.getMyPlayerID()) recieveChatMessage(p.getID(), msg);
+                else gameMaster.getNetView().RPC("recieveChatMessage", p.getNetworkPlayer(), NetworkMaster.getMyPlayerID(), msg);
+            }
+        }
     }
     public override void requestRemoveUnit(int unitID)
     {

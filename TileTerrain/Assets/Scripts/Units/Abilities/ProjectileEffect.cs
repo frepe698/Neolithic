@@ -13,6 +13,7 @@ public class ProjectileEffect : AbilityEffect {
 
     public override void action()
     {
+        
         int angle = (int)data.angle;
         string name = data.modelName;
         
@@ -53,6 +54,7 @@ public class ProjectileEffect : AbilityEffect {
         else
             projectileName = data.projectileName;
 
+        Debug.Log("fire projectile " + data.name);
         GameMaster.getGameController().requestFireProjectile(unit.getID(), finalTarget, data.name, projectileName); //TODO: använd projectile name
     }
 }

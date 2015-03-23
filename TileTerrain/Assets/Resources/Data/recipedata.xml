@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <RecipesRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EquipmentRecipes>
+    <EquipmentRecipeData name="craftSharpenedstick" gameName="Sharpened Stick" modelName="">
+      <product>sharpenedstick</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Sharpen a stick</description>
+      <skill>Crafting</skill>
+      <expAmount>50</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftWoodenclub" gameName="Wooden Club" modelName="">
+      <product>woodenclub</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Take a log and make a club</description>
+      <skill>Crafting</skill>
+      <expAmount>70</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </EquipmentRecipeData>
     <EquipmentRecipeData name="craftStoneAxe" gameName="Stone Axe" modelName="">
       <product>stoneAxe</product>
       <ingredients>
@@ -14,6 +40,43 @@
         </Ingredient>
       </ingredients>
       <description>Craft a Stone Axe</description>
+      <skill>Crafting</skill>
+      <expAmount>120</expAmount>
+      <requiredSkillLevel>1</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
+      <product>stonePickaxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>4</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a stone pickaxe</description>
+      <skill>Crafting</skill>
+      <expAmount>140</expAmount>
+      <requiredSkillLevel>1</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
+      <product>shortbow</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>rope</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a short bow</description>
+      <skill>Crafting</skill>
+      <expAmount>150</expAmount>
+      <requiredSkillLevel>2</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintAxe" gameName="Flint Axe" modelName="">
       <product>flintAxe</product>
@@ -32,34 +95,9 @@
         </Ingredient>
       </ingredients>
       <description>Craft a flint axe</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
-      <product>ironAxe</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>iron</name>
-          <amount>2</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a Iron Axe</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
-      <product>stonePickaxe</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>stone</name>
-          <amount>4</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a stone pickaxe</description>
+      <skill>Crafting</skill>
+      <expAmount>250</expAmount>
+      <requiredSkillLevel>3</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
       <product>flintPickaxe</product>
@@ -78,6 +116,43 @@
         </Ingredient>
       </ingredients>
       <description>Craft a flint pickaxe</description>
+      <skill>Crafting</skill>
+      <expAmount>300</expAmount>
+      <requiredSkillLevel>3</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
+      <product>torch</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>1</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>puffball</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a torch</description>
+      <skill>Crafting</skill>
+      <expAmount>100</expAmount>
+      <requiredSkillLevel>3</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
+      <product>ironAxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a Iron Axe</description>
+      <skill>Crafting</skill>
+      <expAmount>500</expAmount>
+      <requiredSkillLevel>6</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
       <product>ironPickaxe</product>
@@ -96,94 +171,9 @@
         </Ingredient>
       </ingredients>
       <description>Craft a iron pickaxe</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
-      <product>superAxe</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>1</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>iron</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>trolldryck</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a super axe</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
-      <product>torch</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>1</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>puffball</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a torch</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
-      <product>shortbow</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>rope</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a short bow</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftQuillrain" gameName="Quill Rain" modelName="">
-      <product>quillrain</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>gold</name>
-          <amount>1</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>rope</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>trolldryck</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Craft a quill rain</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftSharpenedstick" gameName="Sharpened Stick" modelName="">
-      <product>sharpenedstick</product>
-      <ingredients>
-        <Ingredient>
-          <name>stick</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Sharpen a stick</description>
-    </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftWoodenclub" gameName="Wooden Club" modelName="">
-      <product>woodenclub</product>
-      <ingredients>
-        <Ingredient>
-          <name>log</name>
-          <amount>1</amount>
-        </Ingredient>
-      </ingredients>
-      <description>Take a log and make a club</description>
+      <skill>Crafting</skill>
+      <expAmount>600</expAmount>
+      <requiredSkillLevel>6</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod" modelName="">
       <product>fishingrod</product>
@@ -202,8 +192,11 @@
         </Ingredient>
       </ingredients>
       <description>Craft a fishing rod</description>
+      <skill>Crafting</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>10</requiredSkillLevel>
     </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftHarehat" gameName="Hare Hat">
+    <EquipmentRecipeData name="craftHarehat" gameName="Hare Hat" modelName="">
       <product>harehat</product>
       <ingredients>
         <Ingredient>
@@ -212,18 +205,24 @@
         </Ingredient>
       </ingredients>
       <description>Funny hat</description>
+      <skill>Crafting</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>4</requiredSkillLevel>
     </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftFurarmor" gameName="Fur Armor">
+    <EquipmentRecipeData name="craftFurarmor" gameName="Fur Armor" modelName="">
       <product>furarmor</product>
       <ingredients>
         <Ingredient>
           <name>fur</name>
-          <amount>3</amount>
+          <amount>5</amount>
         </Ingredient>
       </ingredients>
       <description>Make a warm fur armor</description>
+      <skill>Crafting</skill>
+      <expAmount>400</expAmount>
+      <requiredSkillLevel>5</requiredSkillLevel>
     </EquipmentRecipeData>
-    <EquipmentRecipeData name="craftFuzzyboots" gameName="Fuzzy Boots">
+    <EquipmentRecipeData name="craftFuzzyboots" gameName="Fuzzy Boots" modelName="">
       <product>fuzzyboots</product>
       <ingredients>
         <Ingredient>
@@ -232,6 +231,9 @@
         </Ingredient>
       </ingredients>
       <description>Make a pair of fuzzy boots</description>
+      <skill>Crafting</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>3</requiredSkillLevel>
     </EquipmentRecipeData>
   </EquipmentRecipes>
   <MaterialRecipes>
@@ -244,6 +246,9 @@
         </Ingredient>
       </ingredients>
       <description>Make gold from stone</description>
+      <skill>Alchemy</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>19</requiredSkillLevel>
     </MaterialRecipeData>
     <MaterialRecipeData name="craftRope" gameName="Nettle Rope" modelName="">
       <product>rope</product>
@@ -254,8 +259,11 @@
         </Ingredient>
       </ingredients>
       <description>Make rope from nettles</description>
+      <skill>Crafting</skill>
+      <expAmount>80</expAmount>
+      <requiredSkillLevel>2</requiredSkillLevel>
     </MaterialRecipeData>
-    <MaterialRecipeData name="craftFur" gameName="Fur From Hare">
+    <MaterialRecipeData name="craftFur" gameName="Fur From Hare" modelName="">
       <product>fur</product>
       <ingredients>
         <Ingredient>
@@ -264,6 +272,9 @@
         </Ingredient>
       </ingredients>
       <description>Make fur from hare pelt</description>
+      <skill>Hunting</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>2</requiredSkillLevel>
     </MaterialRecipeData>
   </MaterialRecipes>
   <ConsumableRecipes>
@@ -280,6 +291,9 @@
         </Ingredient>
       </ingredients>
       <description>A magical potion</description>
+      <skill>Alchemy</skill>
+      <expAmount>150</expAmount>
+      <requiredSkillLevel>5</requiredSkillLevel>
     </ConsumableRecipeData>
   </ConsumableRecipes>
 </RecipesRoot>

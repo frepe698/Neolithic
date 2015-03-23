@@ -28,4 +28,9 @@ public class OnlineClient : NetworkConnection {
     {
         return Network.GetAveragePing(Network.player);
     }
+
+    public override bool isServer()
+    {
+        return false;
+    }
 }

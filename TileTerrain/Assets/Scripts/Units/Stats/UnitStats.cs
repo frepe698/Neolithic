@@ -73,17 +73,11 @@ public class UnitStats {
             addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
         }
 
-        foreach(Buff buff in unit.getBuffs())
+        foreach (Buff buff in unit.getBuffs())
         {
-            StatBuff statBuff = buff as StatBuff;
-            if (statBuff == null)
-            {
-                
-                continue;
-            }
-            
-            statBuff.applyStats(unit);
+            buff.applyStats(this);
         }
+
 		//Multiply stats
 		for(int s = 0; s < stats.Length; s++){
 			stats[s].multiply();

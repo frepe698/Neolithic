@@ -9,11 +9,11 @@ public class GameLobby : MonoBehaviour {
     private GlobalMenu globalMenu;
 	private readonly int LEFT_MOUSE_BUTTON = 0;
 
-	private int[] selectedHeroes = new int[] {-1, -1, -1, -1};
-    private List<int>[] playerTeam = new List<int>[] {new List<int>(), new List<int>()};
+	//private int[] selectedHeroes = new int[] {-1, -1, -1, -1};
 	private Text[] playerNameHeroes = new Text[4];
 
-    private Transform[] teamHolders;
+    private RectTransform[] teamHolders;
+    private Button[] joinTeamButtons;
     private List<Text>[] teamPlayerNames = new List<Text>[] {new List<Text>(), new List<Text>()}; 
 
 	private float activateTime;
@@ -37,9 +37,16 @@ public class GameLobby : MonoBehaviour {
 		}
 
         Transform teams = uiObject.transform.FindChild("Teams");
-        teamHolders = new Transform[2];
-        teamHolders[0] = teams.FindChild("Team0");
-        teamHolders[1] = teams.FindChild("Team1");
+        teamHolders = new RectTransform[2];
+        joinTeamButtons = new Button[2];
+
+        for (int i = 0; i < 2; i++)
+        {
+            teamHolders[i] = teams.FindChild("Team"+i).GetComponent<RectTransform>();
+            joinTeamButtons[i] = teamHolders[i].FindChild("Join").GetComponent<Button>();
+            int team = i;
+            joinTeamButtons[i].onClick.AddListener(() => buttonJoinTeam(team)); 
+        }
 
 
         uiObject.SetActive(false);
@@ -57,8 +64,11 @@ public class GameLobby : MonoBehaviour {
 		this.singleplayer = singleplayer;
         if (NetworkMaster.isOnline())
         {
-            //NetworkMaster.addPlayer(NetworkMaster.getPlayerID(), GlobalMenu.playerName);
-            netView.RPC("onPlayerConnected", RPCMode.All, Network.player, NetworkMaster.getPlayerID(), GlobalMenu.playerName);
+            netView.RPC("onPlayerConnected", RPCMode.All, Network.player, GlobalMenu.playerName);
+        }
+        else
+        {
+            addPlayer(Network.player, GlobalMenu.playerName, 0);
         }
 		//NetworkMaster.connect();
 		activateTime = Time.time + 1;
@@ -126,53 +136,102 @@ public class GameLobby : MonoBehaviour {
 		netView.RPC ("requestSelectHero", RPCMode.Server, index, int.Parse(Network.player.ToString()));
 	}
 
+    public void buttonJoinTeam(int team)
+    {
+        if (NetworkMaster.isOnline())
+        {
+            netView.RPC("requestJoinTeam", RPCMode.Server, NetworkMaster.getMe().getID(), team);
+        }
+        else
+        {
+            approveJoinTeam(NetworkMaster.getMe().getID(), team);
+        }
+    }
+
+    [RPC]
+    void requestJoinTeam(int playerID, int team)
+    {
+        netView.RPC("approveJoinTeam", RPCMode.All, playerID, team);
+    }
+
+    [RPC]
+    void approveJoinTeam(int playerID, int team)
+    {
+        NetworkMaster.findPlayer(playerID).setTeam(team);
+        updateTeamDisplay();
+
+        if (playerID == NetworkMaster.getMe().getID())
+        {
+            for (int i = 0; i < joinTeamButtons.Length; i++)
+                joinTeamButtons[i].interactable = i != team;
+        }
+    }
+
 	void selectHeroSingleplayer(int index)
 	{
-		for(int i = 0; i < 4; i++)
+        if (index >= GameMaster.heroNames.Length) return;
+		for(int i = 0; i < playerNameHeroes.Length; i++)
 		{
 			if(i != index)
 			{
-				selectedHeroes[i] = -1;
                 playerNameHeroes[i].text = "<color=white>Available</color>";
 			}
 			else
 			{
-				selectedHeroes[i] = 0;
                 playerNameHeroes[i].text = "<color=#fcfc11ff>Selected</color>";
 			}
 		}
+        NetworkMaster.getMe().setHero(index);
+
+        updateTeamDisplay();
 	}
 
 	[RPC]
 	void requestSelectHero(int index, int playerID)
 	{
-		if(selectedHeroes[index] == -1)
-		{
-			for(int i = 0; i < 4; i++)
-			{
-				if(selectedHeroes[i] == playerID) netView.RPC("selectHero", RPCMode.AllBuffered, i, -1);
-			}
-			netView.RPC("selectHero", RPCMode.AllBuffered, index, playerID);
-		}
+        if (index >= GameMaster.heroNames.Length) return;
+		if(!NetworkMaster.isServer()) netView.RPC("requestSelectHero", RPCMode.Server, index, playerID);
+        else netView.RPC("selectHero", RPCMode.All, index, playerID);
 	}
 
 	[RPC]
 	void selectHero(int index, int playerID)
 	{
-		selectedHeroes[index] = playerID;
-		if(playerID == -1)
+        OnlinePlayer player = NetworkMaster.findPlayer(playerID);
+        if (player != null)
+        {
+            player.setHero(index);
+
+            updateTeamDisplay();
+
+            if (playerID == NetworkMaster.getMe().getID())
+            {
+                for (int i = 0; i < playerNameHeroes.Length; i++)
+                {
+                    if (i != index)
+                    {
+                        playerNameHeroes[i].text = "<color=white>Available</color>";
+                    }
+                    else
+                    {
+                        playerNameHeroes[i].text = "<color=#fcfc11ff>Selected</color>";
+                    }
+                }
+            }
+        }
+        /*if(playerID == -1)
 		{
 			playerNameHeroes[index].text = "<color=white>Available</color>";
 		}
 		else
 		{
             string colorcode = "<color=#1111d6ff>";
-            if (playerID == NetworkMaster.getPlayerID())
+            if (playerID == NetworkMaster.getMyPlayerID())
             {
                 colorcode = "<color=#f6f622ff>";
             }
             playerNameHeroes[index].text = colorcode + NetworkMaster.getPlayerName(int.Parse(playerID.ToString())) + "</color>";
-		}
+		}*/
 	}
 
 	[RPC]
@@ -181,8 +240,8 @@ public class GameLobby : MonoBehaviour {
 		World.seed = worldSeed;
 		for(int i = 0; i < 4; i++)
 		{
-			if(selectedHeroes[i] == -1) selectedHeroes[i] = 100000 + i;
-			GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
+			//if(selectedHeroes[i] == -1) selectedHeroes[i] = 100000 + i;
+			//GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
 		}
 		Application.LoadLevel("world");
 	}
@@ -192,77 +251,82 @@ public class GameLobby : MonoBehaviour {
 		World.seed = Random.seed;
 		for(int i = 0; i < 4; i++)
 		{
-			if(selectedHeroes[i] != -1)
-				GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
+			//if(selectedHeroes[i] != -1)
+			//	GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
 		}
 		Application.LoadLevel ("world");
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
 	{
-		if(Network.isServer)
-		{
-			for(int i = 0; i < 4; i++)
-			{
-				if(selectedHeroes[i] == int.Parse(player.ToString())) netView.RPC("selectHero", RPCMode.AllBuffered, i, -1);
-			}
-		}
         globalMenu.addChatMessage(NetworkMaster.getPlayerName(int.Parse(player.ToString())) + " disconnected."); 
+        NetworkMaster.removePlayer(player);
 	}
 
     [RPC]
-    void onPlayerConnected(NetworkPlayer player, int playerID, string name)
+    void onPlayerConnected(NetworkPlayer player, string name)
     {
         globalMenu.addChatMessage(name + " has connected.");
-        addPlayer(playerID, name);
-        if (Network.isServer && player != Network.player)
-        {
-            {
-                int id = NetworkMaster.getPlayerID();
-                netView.RPC("addPlayer", player, id, NetworkMaster.getPlayerName(id));
-            }
-            foreach (NetworkPlayer np in Network.connections)
-            {
+        int team = 0;
 
-                if(np != player)
+
+        //Add all connected players to the newly connected player
+        if (Network.isServer)
+        {
+            if (player != Network.player)
+            {
+                List<OnlinePlayer> players = NetworkMaster.getAllPlayers();
+                foreach (OnlinePlayer op in players)
                 {
-                    int id = int.Parse(np.ToString());
-                    netView.RPC("addPlayer", player, id, NetworkMaster.getPlayerName(id));
+                    netView.RPC("addPlayer", player, op.getNetworkPlayer(), op.getName(), op.getTeam());
                 }
+
+                //Everyone adds the new player
+                netView.RPC("addPlayer", RPCMode.All, player, name, team);
+            }
+            else
+            {
+                //Servers adds itself
+                addPlayer(player, name, team);
             }
         }
     }
-
     [RPC]
-    void addPlayer(int playerID, string name)
+    void addPlayer(NetworkPlayer player, string name, int team)
     {
-        NetworkMaster.addPlayer(playerID, name);
-        playerJoinTeam(playerID, 0);
-    }
-
-    void playerJoinTeam(int playerID, int team)
-    {
-        for (int i = 0; i < playerTeam.Length; i++)
-        {
-            foreach (int pid in playerTeam[0])
-            {
-                if (pid == playerID)
-                {
-                    playerTeam[i].Remove(pid);
-                }
-            }
-        }
-        playerTeam[team].Add(playerID);
-
+        NetworkMaster.addPlayer(player, name, team);
         updateTeamDisplay();
+        if (NetworkMaster.getMe() != null && player == NetworkMaster.getMe().getNetworkPlayer())
+        {
+            for (int i = 0; i < joinTeamButtons.Length; i++)
+                joinTeamButtons[i].interactable = i != team;
+        }
     }
 
     void updateTeamDisplay()
     {
-        for (int i = 0; i < playerTeam.Length; i++)
+        for (int i = 0; i < 2; i++)
         {
+            List<OnlinePlayer> players = NetworkMaster.getTeamPlayers(i);
             List<Text> teamNames = teamPlayerNames[i];
-            while (teamNames.Count < playerTeam[i].Count)
+
+            for (int j = 0; j < teamNames.Count; j++)
+            {
+                if (j >= players.Count)
+                {
+                    Destroy(teamNames[j].gameObject);
+                    teamNames.RemoveAt(j);
+                    j--;
+                    continue;
+                }
+
+                teamNames[j].text = players[j].getName();
+                int hero = players[j].getHero();
+                if (hero >= 0 && hero < GameMaster.heroNames.Length)
+                    teamNames[j].text += " (" + GameMaster.heroNames[hero] + ")";
+            }
+
+            while (teamNames.Count < players.Count)
             {
                 GameObject prefab = Resources.Load<GameObject>("GUI/LobbyPlayerText");
                 GameObject go = Instantiate(prefab);
@@ -272,11 +336,17 @@ public class GameLobby : MonoBehaviour {
                 text.rectTransform.anchoredPosition = new Vector2(0, (teamNames.Count + 1) * -25);
                 text.rectTransform.localScale = new Vector3(1, 1, 1);
 
-                text.text = NetworkMaster.getPlayerName(playerTeam[i][teamNames.Count]);
+                text.text = players[teamNames.Count].getName();
+
+                int hero = players[teamNames.Count].getHero();
+                if (hero >= 0 && hero < GameMaster.heroNames.Length)
+                    text.text += " ("+ GameMaster.heroNames[hero] + ")";
 
                 teamNames.Add(text);
             }
         }
+
+        teamHolders[1].anchoredPosition = new Vector2(0, -(40 + 25 * teamPlayerNames[0].Count)); 
     }
 	
 	void OnServerInitialized()

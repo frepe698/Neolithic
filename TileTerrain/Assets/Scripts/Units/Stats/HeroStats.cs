@@ -64,7 +64,7 @@ public class HeroStats : UnitStats {
                 continue;
             }
 
-            statBuff.applyStats(unit);
+            statBuff.applyStats(this);
         }
 
         //Multiply stats

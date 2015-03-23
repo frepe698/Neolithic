@@ -11,6 +11,9 @@ public abstract class AbilityEffectData : ObjectData {
     [XmlArray("hitBuffs"), XmlArrayItem("HitBuff")]
     public readonly HitBuff[] hitBuffs;
 
+    public readonly int expSkill = 0;
+    public readonly float expMultiplier = 1;
+
     public AbilityEffectData() { }
     public AbilityEffectData(AbilityEffectEdit edit) : base(edit)
     {
@@ -24,6 +27,9 @@ public abstract class AbilityEffectData : ObjectData {
         {
             hitBuffs[i] = new HitBuff(edit.hitBuffs[i]);
         }
+
+        expSkill = (int)edit.expSkill;
+        expMultiplier = edit.expMultiplier;
     }
 
     public abstract AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition);

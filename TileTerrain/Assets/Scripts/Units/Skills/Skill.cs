@@ -15,8 +15,6 @@ public class Skill {
     public static readonly int Ranged = 9;
     public static readonly int WoodChopping = 10;
 
-    public readonly string name;
-    public readonly string gameName;
     public const int MAXLEVEL = 20;
     public readonly SkillData data;
     private int experience;
@@ -27,7 +25,6 @@ public class Skill {
 
     public Skill(string name, SkillManager manager)
     {
-        this.name = name;
         this.manager = manager;
         data = DataHolder.Instance.getSkillData(name);
         if (data == null) Debug.LogWarning("could not load data for the skill: " + name);
@@ -39,12 +36,12 @@ public class Skill {
         if (level > MAXLEVEL) return false;
         bool leveledup = false;
         this.experience += experience;
-        Debug.Log(gameName + " experience is now " + this.experience);
+        Debug.Log(data.gameName + " experience is now " + this.experience);
         while (level+1 < MAXLEVEL && this.experience >= data.requiredExp[level])
         {
             level++;
             manager.increaseLevel();
-            Debug.Log("Skill leveled up! " + gameName + " is now level " + level);
+            Debug.Log("Skill leveled up! " + data.gameName + " is now level " + level);
             leveledup = true;
         }
         return leveledup;
@@ -85,7 +82,7 @@ public class Skill {
 
     public StatChange[] getStatsPerLevel()
     {
-        if (data.statsPerLevel == null) Debug.LogWarning("error in " + name);
+        if (data.statsPerLevel == null) Debug.LogWarning("error in " + data.name);
         return data.statsPerLevel;
     }
 
@@ -94,4 +91,19 @@ public class Skill {
         return unlockedLevel;
     }
 	
+}
+
+public enum Skills
+{
+    Melee,
+    Mining,
+    Building,
+    Crafting,
+    DarkMagic,
+    LightMagic,
+    Alchemy,
+    Harvesting,
+    Hunting,
+    Ranged,
+    WoodChopping,
 }

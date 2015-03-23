@@ -43,24 +43,10 @@ public class SingleTargetEffect  : AbilityEffect {
         if (closestTarget == null) return;
 
         //Target is officially hit here, calculate damage
-        int selfDamage = 0;
-        int damage = 0;
-        foreach (HitDamage hit in data.hitDamage)
-        {
-            int tempDamage;
-            if (hit.yourStat)
-            {
-                tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat) * hit.percent);
-            }
-            else
-            {
-                tempDamage = (int)(closestTarget.getUnitStats().getStatV(hit.stat) * hit.percent);
-            }
-            if (hit.damageSelf) selfDamage += tempDamage;
-            else damage += tempDamage;
-        }
-        GameMaster.getGameController().requestHit(damage, unit.getID(), closestTarget.getID());
-        //applyBuffs(data.hitBuffs, closestTarget);
-        GameMaster.getGameController().requestApplyEffect(unit.getID(), closestTarget.getID(), data.name);
+        applyDamage(data.hitDamage, unit, closestTarget, data.expSkill);
+
+        //Apply buffs if there are buffs
+        if (data.hitBuffs.Length > 0)
+            GameMaster.getGameController().requestApplyEffect(unit.getID(), closestTarget.getID(), data.name);
     }
 }

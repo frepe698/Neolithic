@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ClientController : GameController {
 
@@ -154,7 +155,7 @@ public class ClientController : GameController {
 		//do nada
 	}
 
-    public override void requestHit(int damage, int unitID, int targetID)
+    public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
         //do nada
     }
@@ -167,7 +168,18 @@ public class ClientController : GameController {
 
     public override void sendChatMessage(string msg)
     {
-        gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, GameMaster.getPlayerUnitID(), msg);
+        if (msg.StartsWith("/all"))
+        {
+            gameMaster.getNetView().RPC("recieveChatMessage", RPCMode.All, NetworkMaster.getMyPlayerID(), "(All) " + msg.Substring(4));
+        }
+        else
+        {
+            List<OnlinePlayer> team = NetworkMaster.getTeamPlayers(NetworkMaster.getMe().getTeam());
+            foreach (OnlinePlayer p in team)
+            {
+                gameMaster.getNetView().RPC("recieveChatMessage", p.getNetworkPlayer(), NetworkMaster.getMyPlayerID(), msg);
+            }
+        }
     }
 
     public override void requestRemoveUnit(int unitID)
