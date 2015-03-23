@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <SkillsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Skills>
-    <SkillData name="melee" gameName="Melee">
+    <SkillData name="melee" gameName="Melee" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -59,7 +59,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="mining" gameName="Mining">
+    <SkillData name="mining" gameName="Mining" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -111,7 +111,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="building" gameName="Building">
+    <SkillData name="building" gameName="Building" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -143,28 +143,28 @@
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="crafting" gameName="Crafting">
+    <SkillData name="crafting" gameName="Crafting" modelName="">
       <requiredExp>
-        <int>179</int>
-        <int>430</int>
-        <int>754</int>
-        <int>1150</int>
-        <int>1619</int>
-        <int>2160</int>
-        <int>2773</int>
-        <int>3459</int>
-        <int>4217</int>
-        <int>5047</int>
-        <int>5950</int>
-        <int>6925</int>
-        <int>7973</int>
-        <int>9093</int>
-        <int>10285</int>
-        <int>11549</int>
-        <int>12886</int>
-        <int>14295</int>
-        <int>15777</int>
-        <int>17331</int>
+        <int>81</int>
+        <int>204</int>
+        <int>370</int>
+        <int>578</int>
+        <int>829</int>
+        <int>1122</int>
+        <int>1457</int>
+        <int>1835</int>
+        <int>2255</int>
+        <int>2717</int>
+        <int>3222</int>
+        <int>3769</int>
+        <int>4359</int>
+        <int>4991</int>
+        <int>5665</int>
+        <int>6382</int>
+        <int>7141</int>
+        <int>7942</int>
+        <int>8785</int>
+        <int>9671</int>
       </requiredExp>
       <statsPerLevel>
         <StatChange>
@@ -175,7 +175,7 @@
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="darkmagic" gameName="Dark Magic">
+    <SkillData name="darkmagic" gameName="Dark Magic" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -212,7 +212,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="lightmagic" gameName="Light Magic">
+    <SkillData name="lightmagic" gameName="Light Magic" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -249,7 +249,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="alchemy" gameName="Alchemy">
+    <SkillData name="alchemy" gameName="Alchemy" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -281,7 +281,7 @@
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="harvesting" gameName="Harvesting">
+    <SkillData name="harvesting" gameName="Harvesting" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -313,7 +313,7 @@
       </statsPerLevel>
       <learnableAbilities />
     </SkillData>
-    <SkillData name="hunting" gameName="Hunting">
+    <SkillData name="hunting" gameName="Hunting" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -355,7 +355,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="ranged" gameName="Ranged">
+    <SkillData name="ranged" gameName="Ranged" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>
@@ -397,7 +397,7 @@
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
-    <SkillData name="woodchopping" gameName="Wood Chopping">
+    <SkillData name="woodchopping" gameName="Wood Chopping" modelName="">
       <requiredExp>
         <int>179</int>
         <int>430</int>

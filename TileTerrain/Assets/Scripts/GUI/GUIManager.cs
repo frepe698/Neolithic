@@ -694,7 +694,13 @@ public class GUIManager : MonoBehaviour{
     {
         this.skillManager = skillManager;
         skillManager.onSkillsUpdatedListener += new System.EventHandler(onSkillsUpdated);
+        skillManager.onLevelUpDisplayListener += new SkillManager.LevelUpDisplayEventHandler(onSkillLevelUp);
         updateAbilityWindow();
+    }
+
+    private void onSkillLevelUp(object sender, SkillManager.TextArgs args)
+    {
+        addChatMessage(args.text);
     }
 
     private void onSkillsUpdated(object sender, System.EventArgs args)

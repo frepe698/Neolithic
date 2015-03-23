@@ -11,6 +11,14 @@ public class SkillManager {
     private Unit unit;
 
     public event EventHandler onSkillsUpdatedListener;
+    public event LevelUpDisplayEventHandler onLevelUpDisplayListener;
+
+    public delegate void LevelUpDisplayEventHandler(object sender, TextArgs e);
+    public class TextArgs : EventArgs
+    {
+        public TextArgs(string skill) { this.text = text; }
+        public string text;
+    }
 
     public SkillManager(Unit unit)
     {
@@ -37,9 +45,18 @@ public class SkillManager {
             onSkillsUpdatedListener(this, EventArgs.Empty);
     }
 
+    private void levelUpDisplay(string text)
+    {
+        if (onLevelUpDisplayListener != null)
+            onLevelUpDisplayListener(this, new TextArgs(text));
+    }
+
     public void giveExperience(int skill, int experience)
     {
-        skills[skill].grantExperience(experience);
+        if (skills[skill].grantExperience(experience))
+        {
+            levelUpDisplay(((Skills)skill).ToString() + " is now level " + skills[skill].getLevel());
+        }
     }
 
     public Skill[] getSkills()
@@ -57,7 +74,7 @@ public class SkillManager {
     public void grantAbilityPoint()
     {
         abilityPoints++;
-        onSkillsUpdated();
+        //onSkillsUpdated();
     }
 
     public void removeAbilityPoint()
@@ -71,7 +88,7 @@ public class SkillManager {
     public void increaseLevel()
     {
         unit.increaseSkillLevel();
-        //onSkillsUpdated();
+        onSkillsUpdated();
     }
 
     public void learnAbility(string name)

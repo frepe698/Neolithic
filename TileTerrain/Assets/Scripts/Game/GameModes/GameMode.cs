@@ -3,6 +3,14 @@ using System.Collections;
 
 public abstract class GameMode {
 
+    public static readonly string[] teamColors = new string[]
+    {
+        "858FFFFF",
+        "FF763BFF",
+    };
+
+    
+
     private GameMaster gameMaster;
 
     public GameMode(GameMaster gameMaster)

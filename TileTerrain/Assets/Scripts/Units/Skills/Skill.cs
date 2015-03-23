@@ -43,6 +43,7 @@ public class Skill {
             manager.increaseLevel();
             Debug.Log("Skill leveled up! " + data.gameName + " is now level " + level);
             leveledup = true;
+
         }
         return leveledup;
 

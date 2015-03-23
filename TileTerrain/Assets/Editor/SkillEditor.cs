@@ -179,6 +179,10 @@ public class SkillEditor : ObjectEditor
             {
                 data.requiredExp[i] = IntField("Level " + (i + 1) + ": ", data.requiredExp[i]);
             }
+            if (GUILayout.Button("reset"))
+            {
+                data.resetRequiredExp();
+            }
         }
 
         GUILayout.Space(20);

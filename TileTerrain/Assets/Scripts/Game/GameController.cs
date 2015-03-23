@@ -845,9 +845,10 @@ public abstract class GameController : MonoBehaviour{
     public abstract void sendChatMessage(string msg);
 
     [RPC]
-    public void recieveChatMessage(int unitID, string msg)
+    public void recieveChatMessage(int playerID, string msg)
     {
-        gameMaster.getGUIManager().addChatMessage(NetworkMaster.getPlayerName(unitID) + ": " + msg);
+        OnlinePlayer player = NetworkMaster.findPlayer(playerID);
+        gameMaster.getGUIManager().addChatMessage("<color=#"+GameMode.teamColors[player.getTeam()]+">"+player.getName() + ": " + msg + "</color>");
     }
 
     #endregion

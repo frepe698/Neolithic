@@ -132,6 +132,7 @@ public class UnitStats {
         {
             levelUp();
         }
+        updateStats();
     }
 
 
@@ -141,7 +142,6 @@ public class UnitStats {
         level++;
         getHealth().setCurValue(getHealth().getValue());
         getEnergy().setCurValue(getEnergy().getValue());
-        updateStats();
         Debug.Log("You are now level " + level + "!");
         unit.grantAbilityPoint();
         unit.onLevelUp();

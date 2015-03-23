@@ -390,11 +390,7 @@ namespace Edit
             name = "new skill";
             gameName = "New Skill";
             requiredExp = new int[Skill.MAXLEVEL];
-            for (int i = 0; i < Skill.MAXLEVEL; i++)
-            {
-                int level = i + 1;
-                requiredExp[i] = (int)((level + level * (level * 0.253f)) * 143f);
-            }
+            resetRequiredExp();
             statsPerLevel = new List<PassiveStat>();
             abilities = new List<LearnableAbility>();
         }
@@ -423,6 +419,15 @@ namespace Edit
             if (statsPerLevel == null) statsPerLevel = new List<PassiveStat>();
             abilities = data.abilities;
             if (abilities == null) abilities = new List<LearnableAbility>();
+        }
+
+        public void resetRequiredExp()
+        {
+            for (int i = 0; i < Skill.MAXLEVEL; i++)
+            {
+                int level = i + 1;
+                requiredExp[i] = (int)((level + level * (level * 0.353f)) * 60);
+            }
         }
     }
 
