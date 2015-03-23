@@ -3,6 +3,10 @@ using System.Collections;
 
 public class OfflineController : GameController {
 
+    public override void requestLaneSpawning()
+    {
+        approveLaneSpawning();
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

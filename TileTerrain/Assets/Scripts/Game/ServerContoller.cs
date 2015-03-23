@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class ServerController : GameController {
 
-
+    public override void requestLaneSpawning()
+    {
+        gameMaster.getNetView().RPC("approveLaneSpawning", RPCMode.All);
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

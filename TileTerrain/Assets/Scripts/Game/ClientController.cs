@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class ClientController : GameController {
 
+    public override void requestLaneSpawning()
+    {
+        //do nada;
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

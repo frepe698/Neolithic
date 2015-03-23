@@ -15,8 +15,8 @@ public class PathAIUnit : AIUnit
     private float returnCounter = 0;
     private readonly int RETURN_NOW = 3;
 
-    public PathAIUnit(string unit, Vector3 position, Vector3 rotation, int id, List<WorldPoint> waypoints)
-        : base(unit, position, rotation, id)
+    public PathAIUnit(string unit, Vector3 position, Vector3 rotation, int id, List<WorldPoint> waypoints, int level)
+        : base(unit, position, rotation, id, level)
     {
         this.waypoints = new List<WorldPoint>(waypoints);
         if (this.waypoints.Count > 0) popLastWaypoint();
@@ -82,19 +82,16 @@ public class PathAIUnit : AIUnit
         if (waypoints.Count == 0) return;
         List<WorldPoint> tempPoints = new List<WorldPoint>(waypoints);
         Vector2i deltaGoal = tempPoints[0].get2D() - getTile();
-        int removedCounter = 0;
+
         for(int i = tempPoints.Count - 1; i >= 0; i--)
         {
             Vector2i deltaPoint = tempPoints[i].get2D() - getTile();
             if(deltaGoal.x * deltaPoint.x < 0 || deltaGoal.y * deltaPoint.y < 0) //point is in wrong direction from goal
             {
                 destination = popLastWaypoint();
-                removedCounter++;
             }
             else //If not we have a point in right direction and can return
             {
-                Debug.Log("Removed: " + removedCounter);
-
                 return;
             }
         }

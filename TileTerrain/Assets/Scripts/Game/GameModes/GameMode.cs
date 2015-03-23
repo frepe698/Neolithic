@@ -12,4 +12,6 @@ public abstract class GameMode {
     public abstract void initWorld();
     public abstract void update();
     public abstract void spawnHeroes();
+    public abstract void initSpawning();
+    public abstract void grantFavour(int team, int favour);
 }

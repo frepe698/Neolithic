@@ -38,6 +38,14 @@ public abstract class GameController : MonoBehaviour{
 
     #region UNIT SPAWNING
 
+    public abstract void requestLaneSpawning();
+
+    [RPC]
+    public void approveLaneSpawning()
+    {
+        GameMaster.startSpawning();
+    }
+
     //Spawn a unit
     [RPC]
     public abstract void requestAIUnitSpawn(int unitID, string name, float x, float y);
@@ -48,6 +56,8 @@ public abstract class GameController : MonoBehaviour{
         AIUnit unit = new AIUnit(name, new Vector3(x, 0, y), Vector3.zero, unitID);
 		GameMaster.addUnit(unit);
     }
+
+    
 
     //Spawner respawns all units that are dead
     public abstract void requestSpawnerRespawn(int spawnerID);
@@ -272,6 +282,10 @@ public abstract class GameController : MonoBehaviour{
             if (Input.GetKeyDown("p"))
             {
                 gameMaster.getGUIManager().toggleAbilityWindow();
+            }
+            if(Input.GetKeyDown("space"))
+            {
+                gameMaster.getGUIManager().closeAllWindows();
             }
             if (Input.GetKeyDown("escape"))
             {

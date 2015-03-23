@@ -11,7 +11,7 @@ public class AIUnit : Unit {
 
     private Ability basicAttack;
 
-	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id) 
+	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id, int level = 0) 
 		: base(unit, position, rotation, id)
 	{
 		AIUnitData data = DataHolder.Instance.getAIUnitData(unit);
@@ -39,9 +39,8 @@ public class AIUnit : Unit {
 		}
         init();
 
-        this.unitstats = new UnitStats(this, 0, data);
+        this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
-
         basicAttack = new Ability("aimeleebasicattack", this);
 	}
 

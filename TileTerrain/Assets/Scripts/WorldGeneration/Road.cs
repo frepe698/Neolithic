@@ -22,7 +22,7 @@ public class Road {
 		{
 			Vector2i cur = waypoints[i].get2D();
 			Vector2i next = waypoints[i+1].get2D();
-			float angle = Vector2i.getAngle(cur, next) + Random.Range(-45, 45);
+			float angle = Vector2i.getAngle(cur, next) + Random.Range(-15, 15);
 
 			float dist = Vector2i.getDistance(cur, next)/2;
 			int height = Mathf.FloorToInt((float)(waypoints[i].height + waypoints[i+1].height)/2.0f);
