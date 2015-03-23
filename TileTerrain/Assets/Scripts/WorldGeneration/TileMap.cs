@@ -13,6 +13,7 @@ public class TileMap {
 	// Key locations
 	//public Vector2i basePos;
 	public Vector2i[] summonPos;
+    public Vector2i[] cavePos;
 	Vector2i[] summonPosDirections = new Vector2i[]{new Vector2i(0, -1), new Vector2i(1, 0), new Vector2i(0, 1), new Vector2i(-1, 0)};
 	Road[] roads;
 	Line[] roadAreas;
@@ -161,6 +162,27 @@ public class TileMap {
         this.summonPos = summonPos;
         mode.teams[0].summonPositions = new Vector2i[] { summonPos[0], summonPos[1] };
         mode.teams[1].summonPositions = new Vector2i[] { summonPos[2], summonPos[3] };
+    }
+
+    public void generatePvpCavePositions()
+    {
+        /* 0  	1  	5
+		 * 
+		 * 1   	5  	7
+		 *
+		 * 5  	7  	10	
+		 *
+		 */
+        int end = mainMapSize - 1;
+        int halfSection = WorldSection.SIZE/2;
+
+        cavePos = new Vector2i[]{new Vector2i(end - halfSection, end/2 + halfSection), new Vector2i(end - halfSection, end/2 - halfSection),
+                                new Vector2i(end/2 + halfSection, end - halfSection), new Vector2i(end/2 - halfSection, end - halfSection)};
+        for(int i = 0; i < cavePos.Length; i++)
+        {
+            Vector2i tile = cavePos[i];
+            setAreaGround(GroundType.Type.Road, tile, 4);
+        }
     }
 	
     /*
@@ -736,6 +758,7 @@ public class TileMap {
 
         generatePvPBases(basePositions);
         generatePvPSummons(mode, basePositions);
+        generatePvpCavePositions();
 
         clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 3);
         clampMapHeight(basePositions[1], WorldSection.SIZE - 10, 2, 3);
