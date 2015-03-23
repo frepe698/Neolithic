@@ -410,7 +410,9 @@ public class Unit {
                     } 
 #endif
                     moving = true;
+                    command.setDestination(path.getDestination());
                     destination = path.popCheckPoint();
+                    
                 }
                 else
                 {

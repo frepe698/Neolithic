@@ -31,6 +31,7 @@ public class PathAIUnit : AIUnit
     public override void updateAI()
     {
         returnCounter += Time.deltaTime;
+        justGotCommandTimer -= Time.deltaTime;
         if (!followingRoad && Vector2i.getManhattan(roadPos, getTile()) > RETURN_DISTANCE)
         {
             followingRoad = true;
@@ -39,7 +40,7 @@ public class PathAIUnit : AIUnit
             GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
             justGotCommandTimer = 0.2f;
         }
-        justGotCommandTimer -= Time.deltaTime;
+        
         if (returnCounter > RETURN_NOW && (command == null || command is MoveCommand) && justGotCommandTimer < 0)
         {
             Unit closestUnit = findClosestEnemy(lineOfSight);
@@ -64,6 +65,11 @@ public class PathAIUnit : AIUnit
             GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
             justGotCommandTimer = 0.2f;
         }
+        else if(followingRoad && command == null)
+        {
+            GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+            justGotCommandTimer = 0.2f;
+        }
     }
 
     public override void setAwake(bool awake)
@@ -76,19 +82,25 @@ public class PathAIUnit : AIUnit
         if (waypoints.Count == 0) return;
         List<WorldPoint> tempPoints = new List<WorldPoint>(waypoints);
         Vector2i deltaGoal = tempPoints[0].get2D() - getTile();
-
+        int removedCounter = 0;
         for(int i = tempPoints.Count - 1; i >= 0; i--)
         {
             Vector2i deltaPoint = tempPoints[i].get2D() - getTile();
             if(deltaGoal.x * deltaPoint.x < 0 || deltaGoal.y * deltaPoint.y < 0) //point is in wrong direction from goal
             {
                 destination = popLastWaypoint();
+                removedCounter++;
             }
             else //If not we have a point in right direction and can return
             {
+                Debug.Log("Removed: " + removedCounter);
+
                 return;
             }
         }
+        destination = tempPoints[0].get2D().toVector2();
+        Debug.Log("Removed all");
+
     }
 
     private Vector2 popLastWaypoint()

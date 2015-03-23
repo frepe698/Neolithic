@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 public class Pathfinder {
 
-	private static readonly int NOT_WORTH_IT = 500;
+	private static readonly int NOT_WORTH_IT = 300;
     private static readonly int RESOLUTION = 15; //number of spline-samples between every pair of checkpoints.
 
 	private static readonly Vector2i[] neighborCoordinates = new Vector2i[]
