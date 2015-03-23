@@ -442,7 +442,7 @@ public class World : MonoBehaviour {
         for (int i = 0; i < 4; i++)
         {
             Cave cave = tileMap.getCave(i);
-            Vector2 pos1 = tileMap.summonPos[i].toVector2();
+            Vector2 pos1 = tileMap.cavePos[i].toVector2();
             Vector2 pos2 = cave.mainEntrance.toVector2();
             Tile tile1 = tileMap.getTile(new Vector2i(pos1));
             Tile tile2 = tileMap.getTile(new Vector2i(pos2));
@@ -463,10 +463,10 @@ public class World : MonoBehaviour {
             Cave cave = tileMap.getCave(4);
             Vector2[] baseOffset = new Vector2[]
             {
-                new Vector2(0, baseSize),
-                new Vector2(0, -baseSize),
-                new Vector2(baseSize, 0),
-                new Vector2(-baseSize, 0),
+                new Vector2(0, baseSize*4),
+                new Vector2(0, -baseSize*4),
+                new Vector2(baseSize*4, 0),
+                new Vector2(-baseSize*4, 0),
             };
 
             List<Vector2i> entrances = cave.entrancePoses;
