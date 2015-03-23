@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameMaster : MonoBehaviour {
+
+    public static readonly string[] heroNames = new string[]
+    {
+        "vrodl",
+        "halftroll"
+    };
 	
 	public static Dictionary<int, int> playerToUnitID = new Dictionary<int, int>();
 	static List<Hero> heroes = new List<Hero>();
@@ -50,7 +56,7 @@ public class GameMaster : MonoBehaviour {
 			Debug.Log ("connect offline");
 		}
 		
-		playerID = NetworkMaster.getPlayerID();
+		playerID = NetworkMaster.getMyPlayerID();
 		
 		try
 		{

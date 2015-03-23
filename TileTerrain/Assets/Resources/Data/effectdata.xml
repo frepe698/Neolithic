@@ -19,6 +19,8 @@
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
     </SingleTargetEffectData>
     <SingleTargetEffectData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
       <hitDamage>
@@ -38,6 +40,8 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
     </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
@@ -51,6 +55,8 @@
         </HitDamage>
       </hitDamage>
       <hitBuffs />
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
       <radius>4</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="leap_land" gameName="" modelName="">
@@ -63,6 +69,8 @@
         </HitDamage>
       </hitDamage>
       <hitBuffs />
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
       <radius>1</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
@@ -70,13 +78,15 @@
     <ProjectileEffectData name="rangedbasicattack" gameName="Ranged Basic Attack" modelName="rangedbasicattack">
       <hitDamage>
         <HitDamage>
-          <stat>MeleeDamage</stat>
+          <stat>RangedDamage</stat>
           <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
       <hitBuffs />
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
@@ -98,14 +108,16 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
     <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball">
       <hitDamage>
         <HitDamage>
-          <stat>TreeDamage</stat>
-          <percent>2</percent>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>10</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -119,6 +131,8 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>4</expSkill>
+      <expMultiplier>1</expMultiplier>
       <projectileName>fireball</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -141,6 +155,8 @@
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
       <projectileName>rock</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -163,6 +179,8 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
       <angle>20</angle>
     </ProjectileEffectData>
@@ -184,6 +202,8 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
       <angle>-20</angle>
     </ProjectileEffectData>
@@ -192,6 +212,8 @@
     <MovementEffectData name="leap_move" gameName="Leap" modelName="leap">
       <hitDamage />
       <hitBuffs />
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
       <range>8</range>
       <travelTime>1</travelTime>
     </MovementEffectData>
@@ -215,18 +237,29 @@
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>8</expSkill>
+      <expMultiplier>1</expMultiplier>
     </SelfBuffEffectData>
-    <SelfBuffEffectData name="heal" gameName="Heal">
-      <hitDamage />
+    <SelfBuffEffectData name="heal" gameName="Heal" modelName="">
+      <hitDamage>
+        <HitDamage>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>-50</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
           <stat>HealthRegen</stat>
-          <amount>40</amount>
+          <amount>0</amount>
           <duration>4</duration>
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
+      <expSkill>5</expSkill>
+      <expMultiplier>1</expMultiplier>
     </SelfBuffEffectData>
   </SelfBuffEffects>
 </EffectsRoot>

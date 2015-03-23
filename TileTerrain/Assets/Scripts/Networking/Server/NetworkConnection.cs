@@ -24,6 +24,11 @@ public abstract class NetworkConnection {
         return true;
     }
 
+    public virtual bool isServer()
+    {
+        return true;
+    }
+
     public abstract int getPing();
 	
 }

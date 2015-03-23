@@ -29,26 +29,11 @@ public class AreaOfEffect : AbilityEffect {
                         || Vector2.Distance(target.get2DPos(), targetPosition2D) > radius) continue;
 
                     //Target is officially hit here, calculate damage
-                    int selfDamage = 0;
-                    int damage = 0;
-                    foreach(HitDamage hit in data.hitDamage)
-                    {
-                        int tempDamage;
-                        if(hit.yourStat)
-                        {
-                            tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat)*hit.percent);
-                        }
-                        else
-                        {
-                            tempDamage = (int)(target.getUnitStats().getStatV(hit.stat)*hit.percent);
-                        }
-                        if (hit.damageSelf) selfDamage += tempDamage;
-                        else damage += tempDamage;
-                    }
-                    GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID());
+                    applyDamage(data.hitDamage, unit, target, data.expSkill);
                     
-                    //applyBuffs(data.hitBuffs, target);
-                    GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), data.name);
+                    //Apply buffs if there are buffs
+                    if(data.hitBuffs.Length > 0)
+                        GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), data.name);
                 }
             }
         }

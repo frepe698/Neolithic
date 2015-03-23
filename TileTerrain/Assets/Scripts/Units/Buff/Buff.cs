@@ -11,6 +11,8 @@ public abstract class Buff {
     public abstract void remove();
     public abstract void update();
     public abstract bool isFinished();
+
+    public virtual void applyStats(UnitStats stats) { }
 }
 
 public enum BuffType
@@ -30,7 +32,6 @@ public class StatBuff : Buff
     private bool finished = false;
     public StatBuff(object[] parameters)
     {
-        
         this.stat = (Stat)parameters[STAT_PARAM];
         this.duration = (float)parameters[DURATION_PARAM];
         this.amount = (float)parameters[AMOUNT_PARAM];
@@ -44,28 +45,16 @@ public class StatBuff : Buff
     }
 
 
-    public void applyStats(Unit unit)
+    public override void applyStats(UnitStats stats)
     {
         if (percent)
-        {
-            unit.addMultiplierToStat(stat, amount);
-        }
+            stats.getStat(stat).multiply(1+amount);
         else
-        {
-            unit.addToStat(stat, amount);
-        }
+            stats.addToStat(stat, amount);
     }
+
     public override void remove()
     {
-        /*
-        if (percent)
-        {
-            unit.addMultiplierToStat(stat, -amount);
-        }
-        else
-        {
-            unit.addToStat(stat, -amount);
-        }*/
         unit.removeBuff(this);
     }
 

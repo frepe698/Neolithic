@@ -81,7 +81,8 @@ public class GUIManager : MonoBehaviour{
 	private const int TAB_CONSUMABLE = 2;
 
 	private int selectedItem = -1;
-	private Color itemTextColor = new Color(0,0,0);
+    private Color itemTextColor = new Color(0, 0, 0);
+    private Color redTextColor = new Color(0.7f, 0.0f, 0.0f);
 	private Color selectedItemTextColor = new Color(1,1,1);
 
 	private bool inventoryActive;
@@ -97,6 +98,7 @@ public class GUIManager : MonoBehaviour{
 
     public const int RECIPE_TYPE_COUNT = 3;
 	private List<Button>[] craftingButtons;
+    private List<RecipeData>[] recipes;
     private bool[] recipeFoldOpen;
     private RectTransform[] recipeFolds;
     private RectTransform[] recipeFoldArrows;
@@ -295,7 +297,7 @@ public class GUIManager : MonoBehaviour{
             craftingButtons[i] = new List<Button>();
             recipeFoldOpen[i] = true;
         }
-        updateCrafting();
+        initCrafting();
         #endregion
 
         #region TOOLTIPS INIT
@@ -391,7 +393,11 @@ public class GUIManager : MonoBehaviour{
 
 		if(inventory != null)
 		{
-            if (inventory.shouldUpdate()) updateInventory();
+            if (inventory.shouldUpdate())
+            {
+                updateInventory();
+                updateCrafting();
+            }
 		}
 		mouseOverGUI = eventSystem.IsPointerOverGameObject();
         if (mouseOverGUI)
@@ -544,15 +550,26 @@ public class GUIManager : MonoBehaviour{
         {
             recipeTooltipIndex = index;
             recipeTooltip.SetActive(true);
-            recipeTooltipName.text = data.gameName;
-            string ing = "";
+            recipeTooltipName.text = data.gameName + "\nRecipe";
+            if (skillManager.getSkill((int)data.skill).getLevel() < data.requiredSkillLevel)
+                recipeTooltipName.text += "\n<color=red>" + data.skill + " " + data.requiredSkillLevel + "</color>";
+
+
+            string ing = "\n";
             foreach (Ingredient i in data.ingredients)
             {
-                ing += i.name + " x" + i.amount + "\n";
-            }
-            recipeTooltipIngredients.text = ing;
-            recipeTooltipDescription.text = data.description;
+                int amount;
+                if(!inventory.hasIngredient(i, out amount)) 
+                    ing += "<color=red>"+ i.name + " x" + i.amount + "</color> ["+amount+"]\n";
+                else
+                    ing += i.name + " x" + i.amount + " [" + amount + "]\n";
 
+            }
+            Vector2 pos = recipeTooltipDescription.rectTransform.anchoredPosition = new Vector2(0, recipeTooltipName.rectTransform.anchoredPosition.y - recipeTooltipName.preferredHeight);
+            recipeTooltipDescription.text = ing;
+            recipeTooltipDescription.text += "\n<i>" + data.description+"</i>";
+            Vector2 size = recipeTooltipDescription.rectTransform.sizeDelta = new Vector2(95, recipeTooltipDescription.preferredHeight);
+            recipeTooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(100, -pos.y + size.y); 
             ItemData item = DataHolder.Instance.getItemData(data.product);
             if (item != null)
             {
@@ -683,6 +700,7 @@ public class GUIManager : MonoBehaviour{
     private void onSkillsUpdated(object sender, System.EventArgs args)
     {
         updateAbilityWindow();
+        updateCrafting();
     }
 
     private void updateAbilityWindow()
@@ -1126,9 +1144,10 @@ public class GUIManager : MonoBehaviour{
 
     #region CRAFTING
 
-    private void updateCrafting()
+    private void initCrafting()
 	{
-        List<RecipeData>[] recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
+        Debug.Log("init crafting");
+        recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
         recipes[TAB_CRAFTED] = new List<RecipeData>();
         for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
         {
@@ -1249,6 +1268,35 @@ public class GUIManager : MonoBehaviour{
         consumableRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, fheight);
 #endif
 	}
+
+    private void updateCrafting()
+    {
+        Debug.Log("update crafting");
+        for(int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            for(int j = 0; j < craftingButtons[i].Count; j++)
+            {
+                RecipeData recipe = recipes[i][j];
+                Text text = craftingButtons[i][j].transform.FindChild("Text").GetComponent<Text>();
+                if (skillManager.getSkill((int)recipe.skill).getLevel() < recipe.requiredSkillLevel)
+                {
+                    text.text = recipe.gameName + "<color=red> ["+recipe.skill+" "+recipe.requiredSkillLevel+"]</color>";
+                    //text.color = redTextColor;
+                }
+                else if (!inventory.hasIngredients(recipe.ingredients))
+                {
+                    text.text = recipe.gameName + "<color=red> [Need Ingredients]</color>";
+                    //text.color = redTextColor;
+                }
+                else
+                {
+                    text.text = recipe.gameName;
+                    //text.color = itemTextColor;
+                }
+            }
+        }
+
+    }
 
     public void craftingTabButtonClick(int index)
     {
@@ -1397,7 +1445,7 @@ public class GUIManager : MonoBehaviour{
         chatOutputOpen = true;
     }
 
-    public void toggleChatInput()
+    public void toggleChatInput(bool allChat)
     {
         if (chatting)
         {
@@ -1420,6 +1468,7 @@ public class GUIManager : MonoBehaviour{
             chatObject.SetActive(true);
             chatInputObject.SetActive(true);
             justOpenedChat = true;
+            chatInputField.text = "/all";
         }
 
     }
@@ -1443,6 +1492,8 @@ public class GUIManager : MonoBehaviour{
         setInventory(hero.getInventory());
         setUnitStats(hero.getHeroStats());
         setSkillManager(hero.getSkillManager());
+
+        updateCrafting();
 
         hero.onAbilityUpdatedListener += new System.EventHandler(onAbilityUpdated);
 

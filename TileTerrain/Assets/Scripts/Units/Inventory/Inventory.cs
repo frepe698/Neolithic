@@ -338,11 +338,44 @@ public class Inventory {
 		return result;
 	}
 
+
+    public bool hasIngredient(Ingredient ingredient, out int amount)
+    {
+        MaterialItem mi = findMaterialItem(ingredient.name);
+        if (mi != null)
+        {
+            amount = mi.getAmount();
+            if (amount >= ingredient.amount) return true;
+        }
+        ConsumableItem ci = findConsumableItem(ingredient.name);
+        if (ci != null)
+        {
+            amount = ci.getAmount();
+            if (amount >= ingredient.amount) return true;
+        }
+        amount = 0;
+        return false;
+    }
+
+    public bool hasIngredient(Ingredient ingredient)
+    {
+        MaterialItem mi = findMaterialItem(ingredient.name);
+        if (mi == null || mi.getAmount() < ingredient.amount)
+        {
+            ConsumableItem ci = findConsumableItem(ingredient.name);
+            if (ci == null || ci.getAmount() < ingredient.amount)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 	public bool hasIngredients(Ingredient[] ingredients)
 	{
 		foreach(Ingredient i in ingredients)
 		{
-			MaterialItem mi = findMaterialItem(i.name);
+            MaterialItem mi = findMaterialItem(i.name);
             if (mi == null || mi.getAmount() < i.amount)
             {
                 ConsumableItem ci = findConsumableItem(i.name);
@@ -352,7 +385,6 @@ public class Inventory {
                 }
             }
 		}
-
 		return true;
 	}
 

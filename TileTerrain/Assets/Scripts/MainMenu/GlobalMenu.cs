@@ -152,7 +152,7 @@ public class GlobalMenu : MonoBehaviour {
         playerName = name;
         if (Network.isClient || Network.isServer)
         {
-            netView.RPC("recieveNameChange", RPCMode.All, NetworkMaster.getPlayerID(), name);
+            netView.RPC("recieveNameChange", RPCMode.All, NetworkMaster.getMyPlayerID(), name);
         }
         else
         {
@@ -164,7 +164,7 @@ public class GlobalMenu : MonoBehaviour {
     {
         if (Network.isClient || Network.isServer)
         {
-            netView.RPC("recieveChatMessage", RPCMode.All, NetworkMaster.getPlayerID(), msg);
+            netView.RPC("recieveChatMessage", RPCMode.All, NetworkMaster.getMyPlayerID(), msg);
         }
         else
         {

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class NetworkMaster{
 
-    private static Dictionary<int, string> playerName = new Dictionary<int,string>();
+    private static OnlinePlayer me;
+    private static List<OnlinePlayer> players = new List<OnlinePlayer>();
 
 	public static readonly string gameTypeName = "StoneAgeTowerDefense";
 
@@ -41,6 +42,11 @@ public class NetworkMaster{
         return connection != null && connection.isOnline();
     }
 
+    public static bool isServer()
+    {
+        return connection != null && connection.isServer();
+    }
+
     public static int getAveragePing()
     {
         if (connection != null)
@@ -70,24 +76,92 @@ public class NetworkMaster{
         return false;
     }
 
-	public static int getPlayerID()
+	public static int getMyPlayerID()
 	{
 		return connection != null ? connection.getPlayerID() : 0;
 	}
 
-    public static void addPlayer(int id, string name)
+    public static NetworkPlayer getMyPlayer()
     {
-        playerName[id] = name;
+        return Network.player;
+    }
+
+    public static void addPlayer(NetworkPlayer player, string name, int team)
+    {
+        OnlinePlayer p = new OnlinePlayer(player, name, team);
+        players.Add(p);
+
+        if (player == getMyPlayer())
+            me = p;
+    }
+
+    public static void addPlayer(OnlinePlayer player)
+    {
+        players.Add(player);
+
+        if (player.getNetworkPlayer() == getMyPlayer())
+            me = player; 
+    }
+
+    public static bool removePlayer(NetworkPlayer player)
+    {
+        OnlinePlayer op = findPlayer(player);
+        if (op != null)
+        {
+            return players.Remove(op);
+        }
+        return false;
     }
 
     public static string getPlayerName(int id)
     {
-        return playerName[id];
+        OnlinePlayer player = findPlayer(id);
+        if (player == null) return null;
+        return player.getName();
     }
 
     public static void changePlayerName(int id, string name)
     {
-        playerName[id] = name;
+        OnlinePlayer player = findPlayer(id);
+        if (player != null) player.setName(name);
+    }
+
+    public static OnlinePlayer findPlayer(int id)
+    {
+        foreach (OnlinePlayer player in players)
+        {
+            if (player.getID() == id) return player;
+        }
+        return null;
+    }
+
+    public static OnlinePlayer findPlayer(NetworkPlayer netPlayer)
+    {
+        foreach (OnlinePlayer player in players)
+        {
+            if (player.getNetworkPlayer() == netPlayer) return player;
+        }
+        return null;
+    }
+
+    public static List<OnlinePlayer> getAllPlayers()
+    {
+        return players;
+    }
+
+    public static List<OnlinePlayer> getTeamPlayers(int team)
+    {
+        List<OnlinePlayer> teamPlayers = new List<OnlinePlayer>();
+        foreach (OnlinePlayer player in players)
+        {
+            if (player.getTeam() == team) teamPlayers.Add(player);
+        }
+        return teamPlayers;
+    }
+
+    public static OnlinePlayer getMe()
+    {
+        return me;
     }
 
 }

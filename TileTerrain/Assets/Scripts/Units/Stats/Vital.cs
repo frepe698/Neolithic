@@ -27,6 +27,12 @@ public class Vital : BaseStat {
 		value = value*multiplier;
 		curValue = value*percent;
 	}
+
+    public override void multiply(float mult)
+    {
+        value *= mult;
+        curValue *= mult;
+    }
 	
 	public float getCurValue(){
 		return curValue;

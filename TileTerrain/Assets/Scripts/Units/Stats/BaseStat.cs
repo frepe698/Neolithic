@@ -22,6 +22,11 @@ public class BaseStat {
 	public virtual void multiply(){
 		value = value*multiplier;
 	}
+
+    public virtual void multiply(float mult)
+    {
+        value *= mult;
+    }
 	
 	public virtual float getValue(){
 		return value;

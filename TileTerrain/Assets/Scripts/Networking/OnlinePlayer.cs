@@ -3,13 +3,21 @@ using System.Collections;
 
 public class OnlinePlayer {
 
-	private NetworkPlayer player;
+	private NetworkPlayer networkPlayer;
 	private string name;
+    private int team;
+    private int id;
 
-	public OnlinePlayer(NetworkPlayer player, string name)
+    private int hero;
+
+	public OnlinePlayer(NetworkPlayer player, string name, int team)
 	{
-		this.player = player;
+		this.networkPlayer = player;
 		this.name = name;
+        this.team = team;
+        id = int.Parse(player.ToString());
+
+        hero = -1;
 	}
 
 	public string getName()
@@ -17,10 +25,40 @@ public class OnlinePlayer {
 		return name;
 	}
 
+    public void setName(string name)
+    {
+        this.name = name;
+    }
+
+    public int getTeam()
+    {
+        return team;
+    }
+
+    public void setTeam(int team)
+    {
+        this.team = team;
+    }
+
+    public NetworkPlayer getNetworkPlayer()
+    {
+        return networkPlayer;
+    }
+
 	public int getID()
 	{
-		return int.Parse(player.ToString());
+        return id;
 	}
+
+    public int getHero()
+    {
+        return hero;
+    }
+
+    public void setHero(int hero)
+    {
+        this.hero = hero;
+    }
 
 
 }

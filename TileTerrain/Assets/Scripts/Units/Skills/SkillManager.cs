@@ -39,7 +39,6 @@ public class SkillManager {
 
     public void giveExperience(int skill, int experience)
     {
-        if (skill >= skills.Length) return;
         skills[skill].grantExperience(experience);
     }
 

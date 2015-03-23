@@ -83,8 +83,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.51000023, y: -1.75, z: -1.28999996}
-  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_LocalPosition: {x: 11.4020004, y: -2.02200007, z: 7.76000023}
+  m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children:
   - {fileID: 486152}
   m_Father: {fileID: 0}
@@ -130,12 +130,12 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: .985294104, g: .773845613, b: .318771631, a: 1}
-  m_Intensity: 1.02999997
-  m_Range: 26.2999992
+  m_Intensity: 8
+  m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_Strength: .400000006
     m_Bias: .0500000007
@@ -171,7 +171,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194330}
   lengthInSec: 5
-  startDelay: 0
+  startDelay: .00100000005
   speed: 1
   randomSeed: 0
   looping: 1
@@ -181,16 +181,11 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: .150000006
+      scalar: .100000001
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 1
           value: 1
           inSlope: 0
           outSlope: 0
@@ -201,18 +196,13 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 1
-          value: 0
+          value: .699999988
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 3
     startSpeed:
       scalar: 0
       maxCurve:
@@ -393,7 +383,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 0
-    radius: .0599999987
+    radius: .239999995
     angle: 25
     length: 5
     boxX: 1
@@ -407,7 +397,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 50
+      scalar: 150
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1204,7 +1194,7 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194330}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_Materials:
   - {fileID: 2100000, guid: 94136b92361e44f4cb5dd0f5844a28c4, type: 2}

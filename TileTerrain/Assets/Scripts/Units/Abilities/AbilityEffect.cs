@@ -36,6 +36,35 @@ public class AbilityEffect {
 
     }
 #endif
+
+    public static void applyDamage(HitDamage[] hitDamage, Unit unit, Unit target, int expSkill)
+    {
+        int selfDamage = 0;
+        int damage = 0;
+        foreach (HitDamage hit in hitDamage)
+        {
+            int tempDamage;
+            if (hit.yourStat)
+            {
+                tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat) * hit.percent);
+            }
+            else
+            {
+                tempDamage = (int)(target.getUnitStats().getStatV(hit.stat) * hit.percent);
+            }
+            if (hit.damageSelf) selfDamage += tempDamage;
+            else damage += tempDamage;
+        }
+        if (damage != 0)
+        {
+            Debug.Log("Take Damage " + damage);
+            GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID(), expSkill);
+        }
+
+        //Should you get xp for hitting yourself?
+        if (selfDamage != 0) GameMaster.getGameController().requestHit(selfDamage, unit.getID(), unit.getID());
+    }
+
     public static void applyBuffs(string dataName, Unit unit, Unit target)
     {
         AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);

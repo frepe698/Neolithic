@@ -41,6 +41,10 @@ namespace Edit
     {
         public List<HitDamageEdit> hitDamages;
         public List<HitBuffEdit> hitBuffs;
+
+        public Skills expSkill;
+        public float expMultiplier = 1;
+
         //On hit effects go here too
         public AbilityEffectEdit() 
         {
@@ -62,6 +66,9 @@ namespace Edit
                     hitBuffs.Add(new HitBuffEdit(buff));
                 }
             }
+
+            expSkill = (Skills)data.expSkill;
+            expMultiplier = data.expMultiplier;
             
         }
         public AbilityEffectEdit(AbilityEffectEdit edit) : base(edit)
@@ -73,6 +80,10 @@ namespace Edit
             hitBuffs = new List<HitBuffEdit>();
             foreach (HitBuffEdit hbe in edit.hitBuffs)
                 hitBuffs.Add(new HitBuffEdit(hbe));
+
+
+            expSkill = edit.expSkill;
+            expMultiplier = edit.expMultiplier;
         }
     }
 
@@ -915,12 +926,18 @@ namespace Edit
         public List<IngredientEdit> ingredients;
         public string description;
 
+        public Skills skill;
+        public int expAmount;
+        public int requiredSkillLevel;
+
         public RecipeEdit()
         {
             name = "new recipe";
             gameName = "new recipe";
 
             ingredients = new List<IngredientEdit>();
+
+            
         }
 
         public RecipeEdit(RecipeData data)
@@ -934,6 +951,10 @@ namespace Edit
             }
 
             description = data.description;
+
+            skill = data.skill;
+            expAmount = data.expAmount;
+            requiredSkillLevel = data.requiredSkillLevel;
         }
 
         public RecipeEdit(RecipeEdit data)
@@ -946,6 +967,10 @@ namespace Edit
                 ingredients.Add(new IngredientEdit(i));
             }
             description = data.description;
+
+            skill = data.skill;
+            expAmount = data.expAmount;
+            requiredSkillLevel = data.requiredSkillLevel;
         }
 
         public Ingredient[] getIngredients()
@@ -964,7 +989,8 @@ namespace Edit
     public class EquipmentRecipeEdit : RecipeEdit
     {
         public EquipmentRecipeEdit()
-        { 
+        {
+            skill = Skills.Crafting;
         }
         public EquipmentRecipeEdit(EquipmentRecipeData data)
             : base(data)
@@ -982,6 +1008,7 @@ namespace Edit
     {
         public MaterialRecipeEdit()
         {
+            skill = Skills.Crafting;
         }
         public MaterialRecipeEdit(MaterialRecipeData data)
             : base(data)
@@ -999,6 +1026,7 @@ namespace Edit
     {
         public ConsumableRecipeEdit()
         {
+            skill = Skills.Alchemy;
         }
         public ConsumableRecipeEdit(ConsumableRecipeData data)
             : base(data)

@@ -516,6 +516,15 @@ public class EffectEditor : ObjectEditor
         data.name = EditorGUILayout.TextField("Name: ", data.name);
         data.gameName = EditorGUILayout.TextField("Game Name: ", data.gameName);
         data.modelName = EditorGUILayout.TextField("Model Name: ", data.modelName);
+        GUILayout.Space(10);
+        EditorGUILayout.LabelField("Experience gain:", EditorStyles.boldLabel);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUIUtility.labelWidth = 50;
+        data.expSkill = (Skills)EditorGUILayout.EnumPopup("Skill: ", data.expSkill);
+        EditorGUIUtility.fieldWidth = 20;
+        data.expMultiplier = EditorGUILayout.FloatField("Mult: ", data.expMultiplier);
+        EditorGUILayout.EndHorizontal();
+            
 
         GUILayout.Space(20);
         EditorGUILayout.LabelField("Hit Damage:", EditorStyles.boldLabel);
@@ -527,7 +536,7 @@ public class EffectEditor : ObjectEditor
             EditorGUIUtility.fieldWidth = 40;
             edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
             EditorGUIUtility.fieldWidth = 10;
-
+            EditorGUIUtility.labelWidth = 40;
             edit.percent = EditorGUILayout.FloatField(edit.percent);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();

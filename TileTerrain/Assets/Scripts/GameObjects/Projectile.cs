@@ -137,19 +137,11 @@ public class Projectile {
 
     private void hitTarget(Unit target)
     {
-        int damage = 0;
-        foreach (HitDamage hit in effectData.hitDamage)
-        {
-            int tempDamage = 0;
-            if (hit.yourStat)
-            {
-                tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat) * hit.percent);
-            }
-            damage += tempDamage;
-        }
-        GameMaster.getGameController().requestProjectileHit(damage, unitID, target.getID());
-        GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), effectData.name);
-        //applyBuffs(effectData.hitBuffs, target);
+        AbilityEffect.applyDamage(effectData.hitDamage, unit, target, effectData.expSkill);
+     
+        //If there are buffs apply them
+        if(effectData.hitBuffs.Length > 0)
+            GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), effectData.name);
     }
 
     protected void applyBuffs(HitBuff[] buffs, Unit target)
