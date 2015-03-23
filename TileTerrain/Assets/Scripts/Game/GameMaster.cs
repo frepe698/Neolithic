@@ -53,18 +53,24 @@ public class GameMaster : MonoBehaviour {
 		{
 			NetworkMaster.initializeOfflineServer();
 			NetworkMaster.connect();
-			Debug.Log ("connect offline");
+            OnlinePlayer player = new OnlinePlayer(Network.player, "player", 0);
+            player.setHero(0);
+            NetworkMaster.addPlayer(player);
 		}
-		
+
+        mode.spawnHeroes();
+
 		playerID = NetworkMaster.getMyPlayerID();
 		
 		try
 		{
 			playerUnitID = playerToUnitID[playerID];
+            Debug.Log(playerUnitID);
 		}
 		catch(KeyNotFoundException)
 		{
 			playerUnitID = 2; //TODO fixa om man är offline med dictionary
+            Debug.Log("key not find");
 		}
 		if(Network.isServer)
 		{
@@ -81,7 +87,7 @@ public class GameMaster : MonoBehaviour {
 			gameController = gameObject.AddComponent<OfflineController>();
 			gameController.init(this, playerUnitID);
 		}
-		mode.spawnHeroes();
+		
         setPlayerUnit(playerUnitID);
 
         //getHero(playerUnitID).learnAbility("volley");

@@ -10,7 +10,7 @@ public class GameLobby : MonoBehaviour {
 	private readonly int LEFT_MOUSE_BUTTON = 0;
 
 	//private int[] selectedHeroes = new int[] {-1, -1, -1, -1};
-	private Text[] playerNameHeroes = new Text[4];
+	private Text[] playerNameHeroes = new Text[2];
 
     private RectTransform[] teamHolders;
     private Button[] joinTeamButtons;
@@ -30,7 +30,7 @@ public class GameLobby : MonoBehaviour {
 		netView = GetComponent<NetworkView>();
 
         uiObject = GameObject.Find("Game Lobby");
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < 2; i++)
 		{
 			playerNameHeroes[i] = uiObject.transform.FindChild ("Hero"+(i)).GetComponent<Text>();
 			playerNameHeroes[i].text = "Available";
@@ -238,22 +238,22 @@ public class GameLobby : MonoBehaviour {
 	void startGameMultiplayer(int worldSeed)
 	{
 		World.seed = worldSeed;
-		for(int i = 0; i < 4; i++)
+		/*for(int i = 0; i < 4; i++)
 		{
-			//if(selectedHeroes[i] == -1) selectedHeroes[i] = 100000 + i;
-			//GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
-		}
+			if(selectedHeroes[i] == -1) selectedHeroes[i] = 100000 + i;
+			GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
+		}*/
 		Application.LoadLevel("world");
 	}
 
 	void startGame()
 	{
 		World.seed = Random.seed;
-		for(int i = 0; i < 4; i++)
+		/*for(int i = 0; i < 4; i++)
 		{
-			//if(selectedHeroes[i] != -1)
-			//	GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
-		}
+			if(selectedHeroes[i] != -1)
+				GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
+		}*/
 		Application.LoadLevel ("world");
 	}
 
@@ -303,7 +303,7 @@ public class GameLobby : MonoBehaviour {
         }
     }
 
-    void updateTeamDisplay()
+    public void updateTeamDisplay()
     {
         for (int i = 0; i < 2; i++)
         {

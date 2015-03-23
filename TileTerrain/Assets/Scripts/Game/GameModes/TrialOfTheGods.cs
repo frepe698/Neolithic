@@ -56,7 +56,21 @@ public class TrialOfTheGods : GameMode {
     }
     public override void spawnHeroes()
     {
+        int unitID = 0;
+        for (int i = 0; i < TEAM_COUNT; i++)
+        {
+            List<OnlinePlayer> players = NetworkMaster.getTeamPlayers(i);
+            for (int j = 0; j < players.Count; j++)
+            {
+                OnlinePlayer player = players[j];
+                Hero hero = new Hero(GameMaster.heroNames[player.getHero()], new Vector3(teams[i].basePosition.x + j * 2, 0, teams[i].basePosition.y), new Vector3(0, 0, 0), unitID, teams[i].teamIndex);
+                GameMaster.playerToUnitID.Add(player.getID(), unitID);
+                GameMaster.addHero(hero);
 
+                unitID++;
+            }
+        }
+        return;
         string[] heroNames = new string[]
 		{
 			"vrodl",
@@ -72,7 +86,7 @@ public class TrialOfTheGods : GameMode {
             //vrodlU.init(i);
             //Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.getCaveEntrance(i).x, 0, World.tileMap.getCaveEntrance(i).y), new Vector3(0, 0, 0), i);
             Hero hero = new Hero(heroNames[i], new Vector3(teams[i % 2].basePosition.x + i * 2, 0, teams[i % 2].basePosition.y), new Vector3(0, 0, 0), i, teams[i % 2].teamIndex);
-            GameMaster.addHero(hero);
+            
         }
 
 

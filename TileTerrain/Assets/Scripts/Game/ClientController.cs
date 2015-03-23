@@ -177,7 +177,8 @@ public class ClientController : GameController {
             List<OnlinePlayer> team = NetworkMaster.getTeamPlayers(NetworkMaster.getMe().getTeam());
             foreach (OnlinePlayer p in team)
             {
-                gameMaster.getNetView().RPC("recieveChatMessage", p.getNetworkPlayer(), NetworkMaster.getMyPlayerID(), msg);
+                if (p.getID() == NetworkMaster.getMyPlayerID()) recieveChatMessage(p.getID(), msg);
+                else gameMaster.getNetView().RPC("recieveChatMessage", p.getNetworkPlayer(), NetworkMaster.getMyPlayerID(), msg);
             }
         }
     }

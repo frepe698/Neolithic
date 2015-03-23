@@ -157,6 +157,12 @@ public class GlobalMenu : MonoBehaviour {
         else
         {
             addChatMessage("You changed name to " + name + ".");
+            OnlinePlayer player = NetworkMaster.getMe();
+            if (player != null)
+            {
+                player.setName(name);
+                gameLobby.updateTeamDisplay();
+            }
         }
     }
 
@@ -177,6 +183,8 @@ public class GlobalMenu : MonoBehaviour {
     {
         addChatMessage(NetworkMaster.getPlayerName(player) + " changed name to " + name + ".");
         NetworkMaster.changePlayerName(player, name);
+
+        gameLobby.updateTeamDisplay();
     }
 
     [RPC]

@@ -1475,7 +1475,7 @@ public class GUIManager : MonoBehaviour{
             chatObject.SetActive(true);
             chatInputObject.SetActive(true);
             justOpenedChat = true;
-            chatInputField.text = "/all";
+            if(allChat) chatInputField.text = "/all";
         }
 
     }

@@ -15,10 +15,11 @@ public class OnlinePlayer {
 		this.networkPlayer = player;
 		this.name = name;
         this.team = team;
-        id = int.Parse(player.ToString());
+        id = Mathf.Max(int.Parse(player.ToString()), 0);
 
         hero = -1;
 	}
+
 
 	public string getName()
 	{
