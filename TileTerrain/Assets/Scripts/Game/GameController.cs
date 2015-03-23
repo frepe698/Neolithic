@@ -283,6 +283,10 @@ public abstract class GameController : MonoBehaviour{
             {
                 gameMaster.getGUIManager().toggleAbilityWindow();
             }
+            if(Input.GetKeyDown("space"))
+            {
+                gameMaster.getGUIManager().closeAllWindows();
+            }
             if (Input.GetKeyDown("escape"))
             {
                 gameMaster.getGUIManager().toggleIngameMenu();

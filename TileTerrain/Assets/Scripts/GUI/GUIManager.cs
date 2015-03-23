@@ -1356,6 +1356,13 @@ public class GUIManager : MonoBehaviour{
         activateHeroStats(!heroStatsActive);
     }
 
+    public void closeAllWindows()
+    {
+        activateInventory(false);
+        activateHeroStats(false);
+        activateAbilityWindow(false);
+    }
+
     public void toggleAbilityWindow()
     {
         activateAbilityWindow(!abilityWindowActive);
