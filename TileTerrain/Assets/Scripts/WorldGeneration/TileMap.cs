@@ -259,6 +259,7 @@ public class TileMap {
                 while (true)
                 {
                     tiles[lastx, lasty].height = (short)Mathf.FloorToInt(lastHeight);
+                    setAreaGround(GroundType.Type.Road, new Vector2i(lastx, lasty), 1);
                     tiles[lastx, lasty].ground = (short)GroundType.Type.Road;
                     if (dx == 0 && dy == 0) break;
                     if (dy == 0)
