@@ -97,7 +97,7 @@ public class World : MonoBehaviour {
         initObjectPools();
         generateWater();
         addObjects();
-        addRoadSpawners(mode);
+        //addRoadSpawners(mode);
     }
 	
 	

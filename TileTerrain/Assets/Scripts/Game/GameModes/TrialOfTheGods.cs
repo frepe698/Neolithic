@@ -6,6 +6,11 @@ public class TrialOfTheGods : GameMode {
     public const int TEAM_COUNT = 2;
     public Team[] teams;
 
+
+    private bool spawning = false;
+    private float spawnTimer = 0;
+    private const float spawnTime = 1;
+
     public TrialOfTheGods(GameMaster gameMaster)
         : base(gameMaster)
     {
@@ -30,6 +35,24 @@ public class TrialOfTheGods : GameMode {
                 //game over
             }
         }
+        if(spawning)
+        {
+            if(spawnTimer <= 0)
+            {
+                for (int i = 0; i < teams.Length; i++)
+                {
+                    spawning = teams[i].spawnNextUnit();
+                }
+                spawnTimer = spawnTime;
+            }
+            spawnTimer -= Time.deltaTime;
+            
+        }
+    }
+
+    public override void initSpawning()
+    {
+        spawning = true;
     }
     public override void spawnHeroes()
     {
@@ -55,9 +78,13 @@ public class TrialOfTheGods : GameMode {
 
     }
 
+    public override void grantFavour(int team, int favour)
+    {
+        teams[team].grantFavour(favour);
+    }
     public int getSummonLevel(int team)
     {
-        return teams[team].favour / 100;
+        return teams[team].getSpawningLevel();
     }
 
 
@@ -79,6 +106,10 @@ public class TrialOfTheGods : GameMode {
 
         public bool defeated = false;
 
+        private string[] spawns = new string[] { "goblin", "goblin", "goblin", "goblin", "troll", "troll", "trollking" };
+        private int nextUnit = 0;
+        private int maxUnit;
+
         public Team(string name, int index)
         {
             this.name = name;
@@ -86,6 +117,36 @@ public class TrialOfTheGods : GameMode {
 
             teamIndex = index + 2;
             baseHealth = BASE_MAX_HEALTH;
+            maxUnit = spawns.Length;
+        }
+
+        public bool spawnNextUnit()
+        {
+            for(int i = 0; i < summonPositions.Length; i++)
+            {
+                Vector2 spawnPos = summonPositions[i].toVector2();
+                int unitID = GameMaster.getNextUnitID();
+                AIUnit unit = new PathAIUnit(spawns[nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel());
+                GameMaster.addAwakeUnit(unit);
+            }
+            nextUnit++;
+            if(nextUnit == maxUnit)
+            {
+                nextUnit = 0;
+                return false;
+            }
+            return true;
+            
+        }
+
+        public int getSpawningLevel()
+        {
+            return (int)Mathf.Floor(favour / 100);
+        }
+
+        public void grantFavour(int favour)
+        {
+            this.favour += favour;
         }
     }
 }

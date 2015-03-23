@@ -20,5 +20,6 @@ public class NightTime : TimeSetting {
     {
         base.start();
         GameMaster.respawnAllNightSpawners();
+        GameMaster.requestLaneSpawningStart();
     }
 }

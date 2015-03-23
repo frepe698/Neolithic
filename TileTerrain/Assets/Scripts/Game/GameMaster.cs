@@ -31,7 +31,7 @@ public class GameMaster : MonoBehaviour {
 	private float minzoom = -7;
 	private Camera playerCamera;
 
-    private GameMode mode;
+    private static GameMode mode;
 	
 	void Start () 
 	{
@@ -124,7 +124,8 @@ public class GameMaster : MonoBehaviour {
         TimeManager.Instance.update();
 		checkIfUnitsAwake();
 		gameController.update();
-
+        mode.update();
+        
 		for(int i = 0; i < units.Count; i++)
 		{
 			Unit unit = units[i];
@@ -170,6 +171,15 @@ public class GameMaster : MonoBehaviour {
 			updateTime += 1;
 		}
 	}
+
+    public static void requestLaneSpawningStart()
+    {
+        gameController.requestLaneSpawning();
+    }
+    public static void startSpawning()
+    {
+        mode.initSpawning();
+    }
 
 	public void updateAI()
 	{

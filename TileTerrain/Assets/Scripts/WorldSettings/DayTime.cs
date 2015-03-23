@@ -21,6 +21,7 @@ public class DayTime : TimeSetting {
         base.start();
         GameMaster.allNightSpawnersRemoveUnits();
         GameMaster.respawnAllDaySpawners();
+        //GameMaster.requestLaneSpawningStart();
         
     }
 	
