@@ -3,7 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System;
 
-public class AbilityEffect {
+public abstract class AbilityEffect {
 
     protected Unit unit;
     protected Vector3 targetPosition;
@@ -16,10 +16,7 @@ public class AbilityEffect {
         this.targetPosition = targetPosition;
     }
 
-    public virtual void action()
-    {
-        //DO the shiet
-    }
+    public abstract void action(AbilityCommand ability);
     #if false
     protected void applyBuffs(HitBuff[] buffs, Unit target)
     {

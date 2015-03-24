@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Edit;
 
 public class AbilityCommand : Command {
 
 	private Unit target;
 	private bool attacking;
-	private bool hasAttacked;
+	private bool doneAllEffects;
 	private float attackTime;
+    private float speedIncrease;
 	private Vector2 attackPosition;
     private float attackHeight;
     private Vector2i targetTile;
@@ -16,26 +18,37 @@ public class AbilityCommand : Command {
     private Ability ability;
     private int lastUsedEffect;
     private int lastPlayedAnimation;
+
+    private List<DurationEffect> activeDurationEffects;
 	
 	public AbilityCommand(Unit unit, Unit target, Ability ability)
         : base(unit)
 	{
 		this.target = target;
-		this.destination = target.get2DPos();
-		this.attackPosition = this.destination;
-		this.targetTile = target.getTile();
-
-        this.ability = ability;
+        init(target.getPosition(), ability);
 	}
 
     public AbilityCommand(Unit unit, Vector3 attackPosition, Ability ability)
         : base(unit)
     {
         this.target = null;
+        init(attackPosition, ability);
+    }
+
+    private void init(Vector3 attackPosition, Ability ability)
+    {
         this.destination = this.attackPosition = new Vector2(attackPosition.x, attackPosition.z);
         this.attackHeight = attackPosition.y;
         this.targetTile = new Vector2i(this.attackPosition);
         this.ability = ability;
+
+        activeDurationEffects = new List<DurationEffect>();
+
+        speedIncrease = 1;
+        foreach (SpeedIncrease s in ability.data.speedIncreases)
+        {
+            speedIncrease *= 1 + s.percent * (unit.getUnitStats().getStatV(s.stat)-1);
+        }
     }
 	
 	public override void start ()
@@ -45,13 +58,24 @@ public class AbilityCommand : Command {
 	
 	public override void update()
 	{
-        
-
 		if(attacking)
 		{
-			if(!hasAttacked)
+            for (int i = 0; i < activeDurationEffects.Count; i++)
+            {
+                DurationEffect de = activeDurationEffects[i];
+                if (de.done())
+                {
+                    activeDurationEffects.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+
+                de.update(speedIncrease);
+            }
+
+			if(!doneAllEffects)
 			{
-                attackTime += Time.deltaTime * unit.getAttackSpeed();
+                attackTime += Time.deltaTime * speedIncrease;
 
                 if (lastPlayedAnimation < ability.data.animations.Length)
                 {
@@ -60,13 +84,13 @@ public class AbilityCommand : Command {
                     {
                         if (animation.weaponAttackAnimation)
                         {
-                            float speed = unit.getAttackSpeed() * animation.speed;
+                            float speed = speedIncrease * animation.speed;
                             unit.playWeaponAttackAnimation(speed);
                             unit.setAnimationRestart(unit.getAttackAnim(0), speed);
                         }
                         else
                         {
-                            float speed = unit.getAttackSpeed() * animation.speed;
+                            float speed = speedIncrease * animation.speed;
                             unit.setAnimationRestart(animation.name, speed);
                         }
                         lastPlayedAnimation++;
@@ -92,16 +116,15 @@ public class AbilityCommand : Command {
                     {
                         //TODO: get effect sound
                         unit.playSound(unit.getAttackSound(0));
-                        effect.action();
+                        effect.action(this);
                         //unit.attack(target);
 
                         lastUsedEffect++;
                         //if it was the last effect set command as completed
                         if (lastUsedEffect >= ability.data.effects.Length)
                         {
-                            hasAttacked = true;
+                            doneAllEffects = true;
                             
-                            setCompleted();
                             break;
                         }
 
@@ -110,6 +133,11 @@ public class AbilityCommand : Command {
                     }
                 }
 			}
+
+            if (doneAllEffects && activeDurationEffects.Count < 1)
+            {
+                setCompleted();
+            }
 		}
 		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < ability.data.range) //TODO weapon range here
 		{
@@ -118,7 +146,7 @@ public class AbilityCommand : Command {
 			attacking = true;
             attackTime = 0;
             lastUsedEffect = 0;
-			hasAttacked = false;
+			doneAllEffects = false;
 			calculateRotation();
 		}
         else if(target != null)
@@ -161,6 +189,11 @@ public class AbilityCommand : Command {
         return data.getAbilityEffect(unit, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }
 
+    public void addDurationEffect(DurationEffect effect)
+    {
+        activeDurationEffects.Add(effect);
+    }
+
 	public override bool Equals(object o)
 	{
 		AbilityCommand other = o as AbilityCommand;
@@ -172,6 +205,11 @@ public class AbilityCommand : Command {
 	{
 		return base.GetHashCode ();
 	}
+
+    public override bool canBeOverridden()
+    {
+        return activeDurationEffects.Count < 1;
+    }
 
     public override bool canStartOverride(Command command)
     {

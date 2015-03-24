@@ -11,7 +11,7 @@ public class ProjectileEffect : AbilityEffect {
         this.data = data;
     }
 
-    public override void action()
+    public override void action(AbilityCommand ability)
     {
         
         int angle = (int)data.angle;

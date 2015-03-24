@@ -35,7 +35,7 @@ public class UnitStats {
                 new BaseStat("Stone Damage", 0),
                 new BaseStat("Ranged Damage", 0),
                 new BaseStat("Increased Magic Damage", 1),
-                new BaseStat("Increased Attackspeed", 1),
+                new BaseStat("Attackspeed", 0),
 
                 //Damage conversion
                 new BaseStat("TreeToAttack", 0),
@@ -72,6 +72,7 @@ public class UnitStats {
         {
             addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
         }
+        addToStat(Stat.Attackspeed, unit.getBaseAttackSpeed());
 
         foreach (Buff buff in unit.getBuffs())
         {

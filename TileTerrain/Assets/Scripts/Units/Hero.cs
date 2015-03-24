@@ -164,9 +164,14 @@ public class Hero : Unit {
         return isMelee() ? meleeBasicAttack : rangedBasicAttack;
     }
 
+    public override float getBaseAttackSpeed()
+    {
+        return heldItem.attackSpeed;
+    }
+
 	public override float getAttackSpeed()
 	{
-		return heldItem.attackSpeed*unitstats.getStatV(Stat.IncreasedAttackspeed);
+		return unitstats.getStatV(Stat.Attackspeed);
 	}
 	
 	public override int getDamage(int damageType)

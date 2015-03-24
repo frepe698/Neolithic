@@ -119,6 +119,11 @@ public class AIUnit : Unit {
         return damage;
     }
 
+    public override float getBaseAttackSpeed()
+    {
+        return attackspeed;
+    }
+
 	public override float getAttackSpeed ()
 	{
 		return attackspeed;

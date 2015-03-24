@@ -178,6 +178,29 @@ public class AbilityEditor : ObjectEditor
         data.totalTime = EditorGUILayout.FloatField("Total Time: ", data.totalTime);
         data.range = EditorGUILayout.FloatField("Range: ", data.range);
 
+        EditorGUILayout.LabelField("Speed Increases:", EditorStyles.boldLabel);
+        foreach (SpeedIncreaseEdit edit in data.speedIncreases)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 100;
+            EditorGUIUtility.fieldWidth = 40;
+            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
+            EditorGUIUtility.fieldWidth = 40;
+            EditorGUIUtility.labelWidth = 20;
+            edit.percent = EditorGUILayout.FloatField("%",edit.percent);
+
+            if (GUILayout.Button("-"))
+            {
+                data.speedIncreases.Remove(edit);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Speed Increase"))
+        {
+            data.speedIncreases.Add(new SpeedIncreaseEdit());
+        }
+
         EditorGUILayout.LabelField("Effects:", EditorStyles.boldLabel);
         foreach(AbilityEffectAndTimeEdit edit in data.effects)
         {

@@ -12,7 +12,7 @@ public class SingleTargetEffect  : AbilityEffect {
         this.data = data;
     }
 
-    public override void action()
+    public override void action(AbilityCommand ability)
     {
         //Load some kind of visual effect
         Vector2i targetTile = new Vector2i(targetPosition);

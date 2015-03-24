@@ -9,7 +9,7 @@ public class SelfBuffEffect : AbilityEffect{
         this.data = data;
     }
 
-    public override void action()
+    public override void action(AbilityCommand ability)
     {
         applyDamage(data.hitDamage, unit, unit, data.expSkill);
         GameMaster.getGameController().requestApplyEffect(unit.getID(), unit.getID(), data.name);

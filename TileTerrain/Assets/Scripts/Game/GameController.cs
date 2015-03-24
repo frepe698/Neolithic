@@ -265,9 +265,11 @@ public abstract class GameController : MonoBehaviour{
         }
         if (gameMaster.getGUIManager().takeKeyboardInput())
         {
-            if (Input.GetKeyDown("s"))
+            if (Input.GetKeyDown("space"))
             {
-                GameMaster.getPlayerHero().giveCommand(new StunnedCommand(GameMaster.getPlayerHero(), 2));
+                gameMaster.getGUIManager().activateInventory(false);
+                gameMaster.getGUIManager().activateHeroStats(false);
+                gameMaster.getGUIManager().activateAbilityWindow(false);
             }
             if (Input.GetKeyDown("i"))
             {
@@ -277,7 +279,6 @@ public abstract class GameController : MonoBehaviour{
             if (Input.GetKeyDown("c"))
             {
                 gameMaster.getGUIManager().toggleHeroStats();
-                //gameMaster.getGUIManager().toggleCrafting();
             }
             if (Input.GetKeyDown("p"))
             {
