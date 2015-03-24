@@ -31,6 +31,7 @@ public class StunnedCommand : Command {
         }
     }
 
+
     public override bool Equals(object obj)
     {
         StunnedCommand other = obj as StunnedCommand;

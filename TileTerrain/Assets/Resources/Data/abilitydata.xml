@@ -296,7 +296,7 @@
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
-      <totalTime>1</totalTime>
+      <totalTime>1.375</totalTime>
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -379,6 +379,29 @@
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
+      <range>1000</range>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="bolt" gameName="Bolt" modelName="leap">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>bolt</name>
+          <time>0.5</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>cast_sky</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases />
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>20</healthCost>
+      <cooldown>0</cooldown>
       <range>1000</range>
       <tags>-1</tags>
     </AbilityData>

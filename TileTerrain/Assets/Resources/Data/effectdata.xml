@@ -81,6 +81,28 @@
       <expMultiplier>1</expMultiplier>
       <radius>2</radius>
     </AreaOfEffectData>
+    <AreaOfEffectData name="bolt" gameName="Bolt" modelName="bolt">
+      <hitDamage>
+        <HitDamage>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>25</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>2</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>4</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <radius>1.5</radius>
+    </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>
     <ProjectileEffectData name="rangedbasicattack" gameName="Ranged Basic Attack" modelName="rangedbasicattack">

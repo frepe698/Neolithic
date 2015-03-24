@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitController : MonoBehaviour {
 
@@ -7,7 +8,7 @@ public class UnitController : MonoBehaviour {
 
 	private float animationEndTime;
 
-
+    private List<GameObject> effectObjects;
 	
 	private Transform holdParentR;
 	private Transform holdParentL;
@@ -32,6 +33,17 @@ public class UnitController : MonoBehaviour {
 		holdParentL = transform.FindChild("rig/hold.L");
 		
 	}
+
+    void OnDisable()
+    {
+        if (effectObjects != null)
+        {
+            foreach (GameObject g in effectObjects)
+            {
+                if (g != null) Destroy(g);
+            }
+        }
+    }
 
     public void setWeaponAnimation(string animation, bool rightHand, float speed = 1)
 	{
@@ -170,13 +182,14 @@ public class UnitController : MonoBehaviour {
 
     public GameObject addEffectObject(GameObject prefab, Vector3 position)
     {
-        
+        if (effectObjects == null) effectObjects = new List<GameObject>();
         GameObject go = Instantiate(prefab);
         go.transform.SetParent(transform);
         go.transform.localPosition = position + new Vector3(0, GetComponentInChildren<SkinnedMeshRenderer>().bounds.size.y, 0);
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = new Vector3(1, 1, 1);
 
+        effectObjects.Add(go);
         return go;
     }
 

@@ -4,7 +4,7 @@
    }
    SubShader {
       Pass {      
-         Blend One One 
+         Blend Zero OneMinusSrcAlpha
             // add color of _ShadowTex to the color in the framebuffer 
          ZWrite Off // don't change depths
          Offset -1, -1 // avoid depth fighting

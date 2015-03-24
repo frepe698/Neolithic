@@ -15,7 +15,9 @@ public class AreaOfEffect : AbilityEffect {
         ParticleSystem particles = ParticlePoolingManager.Instance.GetObject(data.modelName);
         if (particles != null)
         {
-            particles.transform.position = targetPosition;
+            particles.transform.position = targetPosition - Vector3.up;
+            
+            particles.gameObject.SetActive(true);
             particles.Play();
         }
         //Load some kind of visual effect
