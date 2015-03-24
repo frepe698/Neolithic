@@ -16,7 +16,7 @@ public class SkillManager {
     public delegate void LevelUpDisplayEventHandler(object sender, TextArgs e);
     public class TextArgs : EventArgs
     {
-        public TextArgs(string skill) { this.text = text; }
+        public TextArgs(string text) { this.text = text; }
         public string text;
     }
 
@@ -45,7 +45,7 @@ public class SkillManager {
             onSkillsUpdatedListener(this, EventArgs.Empty);
     }
 
-    private void levelUpDisplay(string text)
+    public void levelUpDisplay(string text)
     {
         if (onLevelUpDisplayListener != null)
             onLevelUpDisplayListener(this, new TextArgs(text));
@@ -55,7 +55,7 @@ public class SkillManager {
     {
         if (skills[skill].grantExperience(experience))
         {
-            levelUpDisplay(((Skills)skill).ToString() + " is now level " + skills[skill].getLevel());
+            levelUpDisplay(((Skills)skill).ToString() + " is now level " + skills[skill].getDisplayLevel() + "!");
         }
     }
 
@@ -74,6 +74,7 @@ public class SkillManager {
     public void grantAbilityPoint()
     {
         abilityPoints++;
+        levelUpDisplay("You are not level " + (unit.getUnitStats().getLevel()+1) + "!");
         //onSkillsUpdated();
     }
 

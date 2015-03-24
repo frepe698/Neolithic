@@ -10,8 +10,14 @@ public class AreaOfEffect : AbilityEffect {
         //Fetch data with name
         this.data = data;
     }
-    public override void action()
+    public override void action(AbilityCommand ability)
     {
+        ParticleSystem particles = ParticlePoolingManager.Instance.GetObject(data.modelName);
+        if (particles != null)
+        {
+            particles.transform.position = targetPosition;
+            particles.Play();
+        }
         //Load some kind of visual effect
         float radius = data.radius;
         Vector2i targetTile = new Vector2i(targetPosition);

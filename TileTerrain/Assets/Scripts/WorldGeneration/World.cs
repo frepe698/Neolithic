@@ -200,6 +200,7 @@ public class World : MonoBehaviour {
         ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/stoneMineParticles"), 4, true);
         ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bloodParticles"), 4, true);
         ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/levelupParticles"), 2, true);
+        ParticlePoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/leap_land"), 2, true);
 	}
 	
 	void generateWorldSections()

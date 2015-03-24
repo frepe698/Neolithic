@@ -43,7 +43,7 @@
         </LearnableAbility>
         <LearnableAbility>
           <name>leap</name>
-          <reqLevel>5</reqLevel>
+          <reqLevel>0</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
           <name>cleave</name>
@@ -338,13 +338,13 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>IncreasedAttackspeed</stat>
+          <stat>Attackspeed</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>0.1</value>
+          <value>0.05</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -385,9 +385,9 @@
           <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
-          <stat>IncreasedAttackspeed</stat>
+          <stat>Attackspeed</stat>
           <value>0.05</value>
-          <isMultiplier>false</isMultiplier>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities>

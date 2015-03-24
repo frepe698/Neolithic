@@ -54,6 +54,7 @@ public class HeroStats : UnitStats {
         {
             addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
         }
+        addToStat(Stat.Attackspeed, unit.getBaseAttackSpeed());
 
         foreach (Buff buff in unit.getBuffs())
         {

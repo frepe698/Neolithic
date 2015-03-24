@@ -12,6 +12,9 @@ public class AbilityData : ObjectData {
     [XmlArray("animations"), XmlArrayItem("AbilityAnimation")]
     public readonly AbilityAnimation[] animations;
 
+    [XmlArray("speedIncreases"), XmlArrayItem("SpeedIncrease")]
+    public readonly SpeedIncrease[] speedIncreases;
+
     public readonly float totalTime;
 
     public readonly int energyCost;
@@ -40,6 +43,11 @@ public class AbilityData : ObjectData {
         for (int i = 0; i < animations.Length; i++)
         {
             animations[i] = new AbilityAnimation(edit.animations[i]);
+        }
+        speedIncreases = new SpeedIncrease[edit.speedIncreases.Count];
+        for (int i = 0; i < speedIncreases.Length; i++)
+        {
+            speedIncreases[i] = new SpeedIncrease(edit.speedIncreases[i]);
         }
         tags = edit.tags;
         energyCost = edit.energyCost;
@@ -90,5 +98,18 @@ public class AbilityEffectAndTime
     {
         this.name = edit.name;
         this.time = edit.time;
+    }
+}
+
+public class SpeedIncrease
+{
+    public readonly Stat stat;
+    public readonly float percent;
+
+    public SpeedIncrease() { }
+    public SpeedIncrease(SpeedIncreaseEdit edit)
+    {
+        this.stat = edit.stat;
+        this.percent = edit.percent;
     }
 }

@@ -15,6 +15,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -36,6 +42,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -57,6 +69,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
@@ -78,6 +96,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -99,6 +123,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>50</energyCost>
       <healthCost>10</healthCost>
@@ -138,6 +168,12 @@
           <speed>3</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>3</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
@@ -159,6 +195,12 @@
           <speed>0.75</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1.5</totalTime>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
@@ -181,6 +223,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
@@ -210,6 +258,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -225,17 +279,23 @@
         </AbilityEffectAndTime>
         <AbilityEffectAndTime>
           <name>leap_land</name>
-          <time>0.583</time>
+          <time>1</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
           <weaponAttackAnimation>false</weaponAttackAnimation>
-          <name>chop_unarmed</name>
+          <name>leap</name>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>0.5</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
@@ -258,6 +318,7 @@
           <speed>5</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases />
       <totalTime>0</totalTime>
       <energyCost>30</energyCost>
       <healthCost>0</healthCost>
@@ -280,6 +341,12 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -302,6 +369,12 @@
           <speed>0.75</speed>
         </AbilityAnimation>
       </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1.5</totalTime>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>

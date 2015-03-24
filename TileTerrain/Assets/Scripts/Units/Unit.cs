@@ -227,6 +227,21 @@ public class Unit {
         updateBuffs();
 	}
 
+    public void move(Vector2 amount)
+    {
+        Vector3 newPos = position + new Vector3(amount.x, 0, amount.y);
+        Vector2i newTile = new Vector2i(newPos);
+        if (newTile != tile)
+        {
+
+            World.tileMap.getTile(tile).removeUnit(this);
+            World.tileMap.getTile(newTile).addUnit(this);
+        }
+        tile = newTile;
+        position = newPos;
+        ground();
+    }
+
 	protected virtual void updateTransform()
 	{
 		if(!isActive()) return;
@@ -527,7 +542,11 @@ public class Unit {
 		if(c1 == null || c2 == null) return false;
 		return c1.Equals(c2);
 	}
-	
+
+    public virtual float getBaseAttackSpeed()
+    {
+        return gatherTime;
+    }
 	
 	public virtual float getAttackSpeed()
 	{

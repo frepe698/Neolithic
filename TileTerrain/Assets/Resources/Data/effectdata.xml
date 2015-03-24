@@ -45,7 +45,7 @@
     </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
-    <AreaOfEffectData name="cleave" gameName="Cleave" modelName="cleave">
+    <AreaOfEffectData name="cleave" gameName="Cleave" modelName="leap_land">
       <hitDamage>
         <HitDamage>
           <stat>Health</stat>
@@ -59,19 +59,27 @@
       <expMultiplier>1</expMultiplier>
       <radius>4</radius>
     </AreaOfEffectData>
-    <AreaOfEffectData name="leap_land" gameName="" modelName="">
+    <AreaOfEffectData name="leap_land" gameName="" modelName="leap_land">
       <hitDamage>
         <HitDamage>
-          <stat>Armor</stat>
+          <stat>MeleeDamage</stat>
           <percent>2</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs />
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>1</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
-      <radius>1</radius>
+      <radius>2</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>
@@ -103,9 +111,9 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.5</amount>
+          <amount>-0.1</amount>
           <duration>5</duration>
-          <percent>false</percent>
+          <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>9</expSkill>
@@ -174,9 +182,9 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.5</amount>
+          <amount>-0.1</amount>
           <duration>5</duration>
-          <percent>false</percent>
+          <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>9</expSkill>
@@ -197,9 +205,9 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.5</amount>
+          <amount>-0.1</amount>
           <duration>5</duration>
-          <percent>false</percent>
+          <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>9</expSkill>
@@ -215,7 +223,7 @@
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
       <range>8</range>
-      <travelTime>1</travelTime>
+      <travelTime>0.4166</travelTime>
     </MovementEffectData>
   </MovementEffects>
   <SelfBuffEffects>
@@ -231,7 +239,7 @@
         </HitBuff>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>IncreasedAttackspeed</stat>
+          <stat>Attackspeed</stat>
           <amount>0.5</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -249,15 +257,7 @@
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
-      <hitBuffs>
-        <HitBuff>
-          <type>StatBuff</type>
-          <stat>HealthRegen</stat>
-          <amount>0</amount>
-          <duration>4</duration>
-          <percent>false</percent>
-        </HitBuff>
-      </hitBuffs>
+      <hitBuffs />
       <expSkill>5</expSkill>
       <expMultiplier>1</expMultiplier>
     </SelfBuffEffectData>

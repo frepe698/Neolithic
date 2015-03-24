@@ -258,6 +258,7 @@ namespace Edit
     {
         public List<AbilityEffectAndTimeEdit> effects;
         public List<AbilityAnimationEdit> animations;
+        public List<SpeedIncreaseEdit> speedIncreases;
 
         public int tags;
         public static readonly string[] tagNames = new string[]
@@ -282,6 +283,7 @@ namespace Edit
             gameName = "New Ability";
             effects = new List<AbilityEffectAndTimeEdit>();
             animations = new List<AbilityAnimationEdit>();
+            speedIncreases = new List<SpeedIncreaseEdit>();
             range = 2;
         }
 
@@ -299,6 +301,14 @@ namespace Edit
                 foreach (AbilityAnimation a in data.animations)
                 {
                     animations.Add(new AbilityAnimationEdit(a));
+                }
+            }
+            speedIncreases = new List<SpeedIncreaseEdit>();
+            if (data.speedIncreases != null)
+            {
+                foreach (SpeedIncrease s in data.speedIncreases)
+                {
+                    speedIncreases.Add(new SpeedIncreaseEdit(s));
                 }
             }
             tags = data.tags;
@@ -321,6 +331,24 @@ namespace Edit
             totalTime = data.totalTime;
             range = data.range;
             tags = data.tags;
+        }
+    }
+
+    [Serializable]
+    public class SpeedIncreaseEdit
+    {
+        public Stat stat;
+        public float percent;
+
+        public SpeedIncreaseEdit()
+        {
+            stat = Stat.Attackspeed;
+            percent = 1;
+        }
+        public SpeedIncreaseEdit(SpeedIncrease edit)
+        {
+            this.stat = edit.stat;
+            this.percent = edit.percent;
         }
     }
 
