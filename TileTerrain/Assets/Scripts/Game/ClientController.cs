@@ -8,11 +8,28 @@ public class ClientController : GameController {
     {
         //do nada;
     }
+
+    public override void requestDamageBase(int team, int damage, int unitID)
+    {
+        //do nada
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {
         //Do NADA
     }
+
+    public override void requestHeroStartRespawn(int unitID)
+    {
+        //do nada
+    }
+
+    public override void requestRespawnHero(int unitID)
+    {
+        //do nada
+    }
+
+   
 
     public override void requestSpawnerRespawn(int spawnerID)
     {

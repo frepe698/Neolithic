@@ -143,29 +143,52 @@ public class GameMaster : MonoBehaviour {
 			Unit unit = units[i];
 			if(!unit.isAlive())
 			{
-				removeUnit(unit);
-				i--;
+                removeUnit(unit);
+                i--;
+                
 			}
 			else
 			{
 				unit.update();
 			}
 		}
+        for (int i = 0; i < heroes.Count; i++ )
+        {
+            Hero hero = heroes[i];
 
-		for(int i = 0; i < projectiles.Count; i++)
-		{
-			Projectile proj = projectiles[i];
-			if(proj.isRemoved())
-			{
-				proj.Inactivate();
-				projectiles.RemoveAt(i);
-				i--;
-			}
-			else
-			{
-				proj.update();
-			}
-		}
+            if (!hero.isAlive())
+            {
+                if(hero.isWaitingRespawn())
+                {
+                    if (hero.updateRespawnTimer())
+                    {
+                        gameController.requestRespawnHero(hero.getID());
+                    }
+                }
+                else 
+                {
+                    gameController.requestHeroStartRespawn(hero.getID());
+                }
+                
+
+            }
+
+        }
+
+        for (int i = 0; i < projectiles.Count; i++)
+        {
+            Projectile proj = projectiles[i];
+            if (proj.isRemoved())
+            {
+                proj.Inactivate();
+                projectiles.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                proj.update();
+            }
+        }
 
 		foreach(Hero hero in heroes)
 		{
@@ -191,6 +214,16 @@ public class GameMaster : MonoBehaviour {
     public static void startSpawning()
     {
         mode.initSpawning();
+    }
+
+    public static void requestDamageBase(int team, int damage, int unitID)
+    {
+        gameController.requestDamageBase(team, damage, unitID);
+    }
+
+    public static void damageBase(int team, int damage)
+    {
+        mode.damageBase(team, damage);
     }
 
 	public void updateAI()
@@ -495,12 +528,48 @@ public class GameMaster : MonoBehaviour {
         unit.setAlive(false);
 		unit.setAwake(false);
 		unit.inactivate();
+
+        Hero hero = unit as Hero;
+        if (hero != null && !hero.isWaitingRespawn())
+        {
+            gameController.requestHeroStartRespawn(hero.getID());
+        }
         bool removedFromUnits = units.Remove(unit);
 		bool removedFromAwake = awakeUnits.Remove(unit);
         if (removedFromAwake && !removedFromUnits) Debug.LogError("only removed unit from awake list");
-		Hero hero = unit as Hero;
-		if(hero != null) heroes.Remove(hero);
+
+        /*Hero hero = unit as Hero;
+		if(hero != null) heroes.Remove(hero);*/
 	}
+
+    public static void startHeroRespawn(int unitID)
+    {
+        foreach(Hero hero in heroes)
+        {
+            if(hero.getID() == unitID)
+            {
+                hero.startRespawn();
+            }
+        }
+    }
+
+    public static void respawnHero(int unitID)
+    {
+        foreach(Hero hero in heroes)
+        {
+            if(hero.getID() == unitID)
+            {
+                hero.setAlive(true);
+                hero.setAwake(true);
+                hero.activate();
+                hero.respawn();
+                units.Add(hero);
+                awakeUnits.Add(hero);
+            }
+        }
+        
+
+    }
 
 	public static int getNextUnitID()
 	{

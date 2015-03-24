@@ -32,6 +32,7 @@ public class TrialOfTheGods : GameMode {
             if (team.baseHealth <= 0)
             {
                 team.defeated = true;
+                Debug.Log("Team " + i + " has lost!");
                 //game over
             }
         }
@@ -54,6 +55,11 @@ public class TrialOfTheGods : GameMode {
     {
         spawning = true;
     }
+
+    public override void damageBase(int team, int damage)
+    {
+        teams[team].damageBase(damage);
+    }
     public override void spawnHeroes()
     {
         int unitID = 0;
@@ -71,25 +77,6 @@ public class TrialOfTheGods : GameMode {
             }
         }
         return;
-        string[] heroNames = new string[]
-		{
-			"vrodl",
-			"halftroll",
-			"halftroll",
-			"halftroll"
-		};
-        //spawn heroes
-        for (int i = 0; i < 4; i++)
-        {
-            //GameObject vrodlGo = (GameObject)Instantiate(vrodl, new Vector3(World.tileMap.basePos.x+i*2, 0, World.tileMap.basePos.y), Quaternion.identity);
-            //Hero vrodlU = vrodlGo.GetComponent<Hero>();
-            //vrodlU.init(i);
-            //Hero hero = new Hero(heroNames[i], new Vector3(World.tileMap.getCaveEntrance(i).x, 0, World.tileMap.getCaveEntrance(i).y), new Vector3(0, 0, 0), i);
-            Hero hero = new Hero(heroNames[i], new Vector3(teams[i % 2].basePosition.x + i * 2, 0, teams[i % 2].basePosition.y), new Vector3(0, 0, 0), i, teams[i % 2].teamIndex);
-            
-        }
-
-
     }
 
     public override void grantFavour(int team, int favour)
@@ -111,7 +98,7 @@ public class TrialOfTheGods : GameMode {
 
         //base 
         public Vector2i basePosition;
-        public const int BASE_MAX_HEALTH = 30;
+        public const int BASE_MAX_HEALTH = 500;
         public int baseHealth;
 
         //summons
@@ -120,7 +107,7 @@ public class TrialOfTheGods : GameMode {
 
         public bool defeated = false;
 
-        private string[] spawns = new string[] { "goblin", "goblin", "goblin", "goblin", "troll", "troll", "trollking" };
+        private string[] spawns = new string[] { "goblin", "goblin", "goblin", "goblin", "wolf", "wolf", "troll" };
         private int nextUnit = 0;
         private int maxUnit;
 
@@ -140,7 +127,7 @@ public class TrialOfTheGods : GameMode {
             {
                 Vector2 spawnPos = summonPositions[i].toVector2();
                 int unitID = GameMaster.getNextUnitID();
-                AIUnit unit = new PathAIUnit(spawns[nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel());
+                AIUnit unit = new PathAIUnit(spawns[nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel(), getEnemyTeam());
                 GameMaster.addAwakeUnit(unit);
             }
             nextUnit++;
@@ -161,6 +148,16 @@ public class TrialOfTheGods : GameMode {
         public void grantFavour(int favour)
         {
             this.favour += favour;
+        }
+        public void damageBase(int damage)
+        {
+            baseHealth -= damage;
+            Debug.Log("Base " + teamIndex + " took " + damage + " damage!");
+        }
+
+        public int getEnemyTeam()
+        {
+            return (teamIndex + 1) % 2;
         }
     }
 }

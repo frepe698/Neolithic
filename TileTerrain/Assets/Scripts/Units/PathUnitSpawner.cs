@@ -33,7 +33,7 @@ public class PathUnitSpawner : UnitSpawner
                 Vector2i spawnPos = position + new Vector2i(x, y);
                 if (World.tileMap.isValidTile(spawnPos) && World.tileMap.getTile(spawnPos).isWalkable(unitID))
                 {
-                    AIUnit unit = new PathAIUnit(unitName, new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, points,0);
+                    AIUnit unit = new PathAIUnit(unitName, new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, points,0,0);
                     GameMaster.addAwakeUnit(unit);
                     units.Add(unit);
                     unitsSpawned++;

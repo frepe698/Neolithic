@@ -25,6 +25,11 @@ public class Hero : Unit {
 
     protected bool colliderActive = true;
 
+    private float respawnTimer;
+    private const float RESPAWN_TIME = 10;
+    private bool waitingForRespawn = false;
+    private Vector2 respawnPosition;
+
 	public Hero(string unit, Vector3 position, Vector3 rotation, int id, int team) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
 	{
@@ -75,7 +80,7 @@ public class Hero : Unit {
         rangedBasicAttack = new Ability("rangedbasicattack", this);
 
         this.team = team;
-
+        respawnPosition = get2DPos();
 		activate();
 	}
 
@@ -396,5 +401,34 @@ public class Hero : Unit {
     {
         skillManager.grantAbilityPoint();
     }
+
+    public void startRespawn()
+    {
+        waitingForRespawn = true;
+        respawnTimer = RESPAWN_TIME;
+    }
+
+    public bool isWaitingRespawn()
+    {
+        return waitingForRespawn;
+    }
+
+    public bool updateRespawnTimer()
+    {
+        Debug.Log("Hero is waiting for respawn. " + respawnTimer + " seconds left.");
+        respawnTimer -= Time.deltaTime;
+        return respawnTimer <= 0;
+    }
+
+    public void respawn()
+    {
+        buffs.Clear();
+        unitstats.resetVitals();
+        unitstats.updateStats();
+        waitingForRespawn = false;
+        warp(respawnPosition);
+
+    }
+
 
 }

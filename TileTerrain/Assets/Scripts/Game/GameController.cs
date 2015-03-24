@@ -45,7 +45,30 @@ public abstract class GameController : MonoBehaviour{
     {
         GameMaster.startSpawning();
     }
+    
+    public abstract void requestDamageBase(int team, int damage, int unitID);
 
+    [RPC]
+    public void approveDamageBase(int team, int damage, int unitID)
+    {
+        GameMaster.damageBase(team, damage);
+        requestRemoveUnit(unitID);
+    }
+
+    public abstract void requestHeroStartRespawn(int unitID);
+    public abstract void requestRespawnHero(int unitID);
+
+    [RPC]
+    public void approveHeroStartRespawn(int unitID)
+    {
+        GameMaster.startHeroRespawn(unitID);
+    }
+
+    [RPC]
+    public void approveRespawnHero(int unitID)
+    {
+        GameMaster.respawnHero(unitID);
+    }
     //Spawn a unit
     [RPC]
     public abstract void requestAIUnitSpawn(int unitID, string name, float x, float y);

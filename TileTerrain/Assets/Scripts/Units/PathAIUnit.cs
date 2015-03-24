@@ -6,6 +6,7 @@ public class PathAIUnit : AIUnit
 {
     private List<WorldPoint> waypoints;
     private Vector2 destination;
+    private int enemyBase;
 
     private Vector2i roadPos;
     private bool followingRoad;
@@ -15,7 +16,7 @@ public class PathAIUnit : AIUnit
     private float returnCounter = 0;
     private readonly int RETURN_NOW = 3;
 
-    public PathAIUnit(string unit, Vector3 position, Vector3 rotation, int id, List<WorldPoint> waypoints, int level)
+    public PathAIUnit(string unit, Vector3 position, Vector3 rotation, int id, List<WorldPoint> waypoints, int level, int enemyBase)
         : base(unit, position, rotation, id, level)
     {
         this.waypoints = new List<WorldPoint>(waypoints);
@@ -26,6 +27,7 @@ public class PathAIUnit : AIUnit
         justGotCommandTimer = 0.2f;
         followingRoad = false;
         roadPos = getTile();
+        this.enemyBase = enemyBase;
     }
 
     public override void updateAI()
@@ -57,13 +59,22 @@ public class PathAIUnit : AIUnit
                 justGotCommandTimer = 0.2f;
             }
         }
-
-        if (followingRoad && Vector2.Distance(get2DPos(), destination) < 1 && waypoints.Count > 0)
+        float distance = Vector2.Distance(get2DPos(), destination);
+        if (followingRoad && distance < 2)
         {
-            destination = popLastWaypoint();
             
-            GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
-            justGotCommandTimer = 0.2f;
+            if(waypoints.Count <= 0)
+            {
+                GameMaster.requestDamageBase(enemyBase, getDamage(0), id);
+            }
+            if (distance < 1)
+            {
+                destination = popLastWaypoint();
+
+                GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+                justGotCommandTimer = 0.2f;
+            }
+            
         }
         else if(followingRoad && command == null)
         {
