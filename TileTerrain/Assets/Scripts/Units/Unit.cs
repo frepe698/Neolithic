@@ -187,7 +187,7 @@ public class Unit {
 				{
 
                     //ERROR: This checks tiles outside of the tilemap
-					if(!World.tileMap.getTile(newTile).isWalkable(id))
+					if(!World.tileMap.isValidTile(newTile) || !World.tileMap.getTile(newTile).isWalkable(id))
 					{
 						Vector2 start = new Vector2(getTile().x + 0.5f, getTile().y + 0.5f);
 						path = Pathfinder.findPath(World.tileMap,start,command.getDestination(),id); //start was get2DPos earlier
