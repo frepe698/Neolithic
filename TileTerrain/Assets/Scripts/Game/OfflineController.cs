@@ -7,6 +7,22 @@ public class OfflineController : GameController {
     {
         approveLaneSpawning();
     }
+
+    public override void requestHeroStartRespawn(int unitID)
+    {
+        approveHeroStartRespawn(unitID);
+    }
+
+    public override void requestRespawnHero(int unitID)
+    {
+        approveRespawnHero(unitID);
+    }
+    public override void requestDamageBase(int team, int damage, int unitID)
+    {
+        approveDamageBase(team, damage, unitID);
+        
+
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

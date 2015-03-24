@@ -148,6 +148,12 @@ public class UnitStats {
         unit.onLevelUp();
     }
 
+    public void resetVitals()
+    {
+        getHealth().setCurValue(getHealth().getValue());
+        getEnergy().setCurValue(getEnergy().getValue());
+    }
+
     public int getLevel() { return level; }
     public int getDisplayLevel() { return level+1; }
     public BaseStat getStat(int stat) { return stats[stat]; }

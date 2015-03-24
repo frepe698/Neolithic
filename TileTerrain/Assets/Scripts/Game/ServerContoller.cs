@@ -8,6 +8,22 @@ public class ServerController : GameController {
     {
         gameMaster.getNetView().RPC("approveLaneSpawning", RPCMode.All);
     }
+
+    public override void requestHeroStartRespawn(int unitID)
+    {
+        gameMaster.getNetView().RPC("approveHeroStartRespawn", RPCMode.All, unitID);
+    }
+
+    public override void requestRespawnHero(int unitID)
+    {
+        gameMaster.getNetView().RPC("approveRespawnHero", RPCMode.All, unitID);
+    }
+
+    public override void requestDamageBase(int team, int damage, int unitID)
+    {
+        gameMaster.getNetView().RPC("approveDamageBase", RPCMode.All, team, damage, unitID);
+    }
+
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {
