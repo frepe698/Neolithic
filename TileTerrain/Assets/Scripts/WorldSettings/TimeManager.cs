@@ -40,7 +40,7 @@ public class TimeManager{
     private bool inDoors = false;
     public TimeManager()
     {
-        currentTime = times[NIGHT];
+        currentTime = times[DAY];
         currentTime.start();
         sun = new GameObject("sun").AddComponent<Light>();
         sunRotation = currentTime.getSunRotation();

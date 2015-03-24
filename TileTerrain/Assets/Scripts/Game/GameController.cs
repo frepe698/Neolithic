@@ -288,12 +288,6 @@ public abstract class GameController : MonoBehaviour{
         }
         if (gameMaster.getGUIManager().takeKeyboardInput())
         {
-            if (Input.GetKeyDown("space"))
-            {
-                gameMaster.getGUIManager().activateInventory(false);
-                gameMaster.getGUIManager().activateHeroStats(false);
-                gameMaster.getGUIManager().activateAbilityWindow(false);
-            }
             if (Input.GetKeyDown("i"))
             {
                 gameMaster.getGUIManager().toggleInventory();
