@@ -12,13 +12,10 @@ public class AreaOfEffect : AbilityEffect {
     }
     public override void action(AbilityCommand ability)
     {
-        ParticleSystem particles = ParticlePoolingManager.Instance.GetObject(data.modelName);
-        if (particles != null)
+        GameObject prefab = Resources.Load<GameObject>("Effects/"+data.modelName);
+        if (prefab != null)
         {
-            particles.transform.position = targetPosition - Vector3.up;
-            
-            particles.gameObject.SetActive(true);
-            particles.Play();
+            GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
         }
         //Load some kind of visual effect
         float radius = data.radius;
