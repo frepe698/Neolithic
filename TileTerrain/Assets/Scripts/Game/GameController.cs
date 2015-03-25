@@ -16,6 +16,7 @@ public abstract class GameController : MonoBehaviour{
 	private int targetUnitID = -1;
 	private string targetTag;
     private bool attackingGround = false;
+    private Vector3 attackPosition;
 	private static readonly int RIGHT_MOUSE_BUTTON = 1;
 	private static readonly int LEFT_MOUSE_BUTTON = 0;
     private static readonly string ATTACK_GROUND = "left shift";
@@ -41,6 +42,17 @@ public abstract class GameController : MonoBehaviour{
 		attackCursor = Resources.Load<Texture2D>("GUI/Cursors/attack_cursor");
 	}
 
+    public abstract void requestGameStart();
+
+    [RPC]
+    protected void approveGameStart()
+    {
+        gameMaster.startGame();
+    }
+
+    [RPC]
+    public abstract void setPlayerLoaded(int playerID);
+        
     #region UNIT SPAWNING
 
     public abstract void requestLaneSpawning();
@@ -361,7 +373,8 @@ public abstract class GameController : MonoBehaviour{
 		
 		if(!gameMaster.getGUIManager().isMouseOverGUI())
 		{
-            bool playerIsMelee = GameMaster.getPlayerHero().isMelee();
+            Hero hero = GameMaster.getPlayerHero();
+            bool playerIsMelee = hero.isMelee();
             //Find all objects under cursor
 			RaycastHit[] rayhits;
             rayhits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -446,7 +459,7 @@ public abstract class GameController : MonoBehaviour{
 
             if (gameMaster.getGUIManager().takeKeyboardInput())
             {
-                Hero hero = GameMaster.getPlayerHero();
+                
                 for (int i = 0; i < ABILITY_INPUT.Length; i++)
                 {
                     if (Input.GetKeyDown(ABILITY_INPUT[i]))
@@ -484,8 +497,18 @@ public abstract class GameController : MonoBehaviour{
             {
                 if(hitGround && Input.GetKey(ATTACK_GROUND))
                 {
-                    requestAttackCommandPos(unitID, groundPosition+Vector3.up);
-                    targetPosition = groundPosition + Vector3.up;
+                    Ability ability = hero.getBasicAttack();
+                    Vector2 heroPos = hero.get2DPos();
+                    Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
+
+                    attackPosition = groundPosition;
+                    if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                    {
+                        Vector2 dir = (groundPos2D - heroPos).normalized;
+                        attackPosition = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
+                    }
+                    requestAttackCommandPos(unitID, attackPosition+Vector3.up);
+                    targetPosition = attackPosition + Vector3.up;
                     attackingGround = true;
                 }
                 else
@@ -577,7 +600,18 @@ public abstract class GameController : MonoBehaviour{
                 }
                 else if (attackingGround && hitGround)
                 {
-                    requestAttackCommandPos(unitID, groundPosition + Vector3.up);
+                    Ability ability = hero.getBasicAttack();
+                    Vector2 heroPos = hero.get2DPos();
+                    Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
+
+                    attackPosition = groundPosition;
+                    if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                    {
+                        Vector2 dir = (groundPos2D - heroPos).normalized;
+                        attackPosition = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
+                    }
+                    requestAttackCommandPos(unitID, attackPosition + Vector3.up);
+                    targetPosition = attackPosition + Vector3.up;
                 }
 
             }

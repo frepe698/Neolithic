@@ -3,6 +3,17 @@ using System.Collections;
 
 public class OfflineController : GameController {
 
+    public override void requestGameStart()
+    {
+        approveGameStart();
+    }
+
+    [RPC]
+    public override void setPlayerLoaded(int playerID)
+    {
+        requestGameStart();
+    }
+
     public override void requestLaneSpawning()
     {
         approveLaneSpawning();

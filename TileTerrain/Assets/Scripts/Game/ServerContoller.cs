@@ -4,6 +4,24 @@ using System.Collections.Generic;
 
 public class ServerController : GameController {
 
+    public override void requestGameStart()
+    {
+        gameMaster.getNetView().RPC("approveGameStart", RPCMode.All);
+    }
+
+    [RPC]
+    public override void setPlayerLoaded(int playerID)
+    {
+        NetworkMaster.findPlayer(playerID).setInGame(true);
+
+        //If all players are in game start the game
+        foreach (OnlinePlayer player in NetworkMaster.getAllPlayers())
+        {
+            if (!player.isInGame()) return;
+        }
+        requestGameStart();
+    }
+
     public override void requestLaneSpawning()
     {
         gameMaster.getNetView().RPC("approveLaneSpawning", RPCMode.All);

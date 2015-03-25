@@ -97,6 +97,16 @@ public class World : MonoBehaviour {
         initObjectPools();
         generateWater();
         addObjects();
+
+        foreach (TrialOfTheGods.Team team in mode.teams)
+        {
+            tileMap.getTile(team.basePosition).setTileObject(
+                new EyecandyObject(new Vector3(
+                    team.basePosition.x + 0.5f,
+                    getHeight(team.basePosition.toVector2()),
+                    team.basePosition.y + 0.5f),
+                    Random.value * 360, "baseFire"));
+        }
         //addRoadSpawners(mode);
     }
 	
@@ -124,6 +134,7 @@ public class World : MonoBehaviour {
 
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/walltorch"), 4, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/thehall_pillar"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/baseFire"), 1, true);
 
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveEntrance"), 2, true);
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveExit"), 2, true);
