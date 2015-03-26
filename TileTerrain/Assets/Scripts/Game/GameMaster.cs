@@ -38,6 +38,8 @@ public class GameMaster : MonoBehaviour {
 	private Camera playerCamera;
 
     private static GameMode mode;
+
+    private bool gameStarted = false;
 	
 	void Start () 
 	{
@@ -90,38 +92,14 @@ public class GameMaster : MonoBehaviour {
 		
         setPlayerUnit(playerUnitID);
 
-        //getHero(playerUnitID).learnAbility("volley");
-        //getHero(playerUnitID).learnAbility("leap");
-        //getHero(playerUnitID).learnAbility("stonethrow");
-        //getHero(playerUnitID).learnAbility("cleave");
-	    //world.addAnimals();
-
         world.addSpawners();
 		
 		playerCamera = Camera.main;
 		zoom = minzoom;
 
-
-//		hero.getInventory().addItem(new CraftedItem("flintAxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-//		hero.getInventory().addItem(new CraftedItem("flintPickaxe"));
-
-//		hero.getInventory().addItem(new MaterialItem("Stone"));
-//		hero.getInventory().addItem(new MaterialItem("Stone"));
-//		hero.getInventory().addItem(new MaterialItem("Stone"));
-//		hero.getInventory().addItem(new MaterialItem("Stick"));
-//		hero.getInventory().addItem(new MaterialItem("Stick"));
-//		hero.getInventory().addItem(new MaterialItem("Stick"));
-//		hero.getInventory().addItem(new MaterialItem("Stick"));
-
         guiManager.setPlayerHero(hero);
-		
+
+        gameController.setPlayerLoaded(NetworkMaster.getMyPlayerID());
 	}
 
 	private void setPlayerUnit(int id)
@@ -130,9 +108,20 @@ public class GameMaster : MonoBehaviour {
 		world.setUnit(hero);
 		hero.activateCollider(false);
 	}
+
+    public void startGame()
+    {
+        gameStarted = true;
+        guiManager.startGame();
+    }
 	
 	void Update () 
 	{
+        if (!gameStarted)
+        {
+            if (Time.timeSinceLevelLoad > 30) gameController.requestGameStart();
+            return;
+        }
         TimeManager.Instance.update();
 		checkIfUnitsAwake();
 		gameController.update();
@@ -732,6 +721,8 @@ public class GameMaster : MonoBehaviour {
 
 	    projectiles.Clear();
         hero = null;
+
+        playerToUnitID = new Dictionary<int, int>();
     }
 	
 }

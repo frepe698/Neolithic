@@ -22,7 +22,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
-      <energyCost>0</energyCost>
+      <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>2</range>
@@ -171,7 +171,7 @@
       <speedIncreases>
         <SpeedIncrease>
           <stat>Attackspeed</stat>
-          <percent>3</percent>
+          <percent>1.5</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
@@ -198,10 +198,10 @@
       <speedIncreases>
         <SpeedIncrease>
           <stat>Attackspeed</stat>
-          <percent>1</percent>
+          <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
-      <totalTime>1.5</totalTime>
+      <totalTime>1.1</totalTime>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -265,9 +265,9 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
-      <energyCost>0</energyCost>
+      <energyCost>10</energyCost>
       <healthCost>0</healthCost>
-      <cooldown>0</cooldown>
+      <cooldown>3</cooldown>
       <range>99999</range>
       <tags>14</tags>
     </AbilityData>

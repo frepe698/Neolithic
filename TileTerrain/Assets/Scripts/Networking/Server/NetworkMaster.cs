@@ -66,11 +66,14 @@ public class NetworkMaster{
 
     public static bool disconnect()
     {
+        players = new List<OnlinePlayer>();
+        me = null;
         if (connection != null)
         {
             if (connection.disconnect())
             {
                 connection = null;
+                return true;
             }
         }
         return false;

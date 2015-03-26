@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public class ClientController : GameController {
 
+    public override void requestGameStart()
+    {
+        //do nade
+    }
+
+    [RPC]
+    public override void setPlayerLoaded(int playerID)
+    {
+        gameMaster.getNetView().RPC("setPlayerLoaded", RPCMode.Server, playerID);
+    }
+
     public override void requestLaneSpawning()
     {
         //do nada;

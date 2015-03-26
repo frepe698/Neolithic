@@ -15,14 +15,20 @@ public abstract class GameController : MonoBehaviour{
 	private Vector3 targetPosition = new Vector3();
 	private int targetUnitID = -1;
 	private string targetTag;
-	private readonly int RIGHT_MOUSE_BUTTON = 1;
-	private readonly int LEFT_MOUSE_BUTTON = 0;
-	private Renderer targetRenderer;
+    private bool attackingGround = false;
+    private Vector3 attackPosition;
+	private static readonly int RIGHT_MOUSE_BUTTON = 1;
+	private static readonly int LEFT_MOUSE_BUTTON = 0;
+    private static readonly string ATTACK_GROUND = "left shift";
+    private static readonly string[] ABILITY_INPUT = new string[] 
+    {
+        "q", "w", "e", "r"
+    };
+	private Renderer[] targetRenderers;
 	private Texture2D moveCursor;
 	private Texture2D chopCursor;
 	private Texture2D lootCursor;
 	private Texture2D attackCursor;
-
 
 
 	public void init(GameMaster gameMaster, int unitID)
@@ -36,6 +42,17 @@ public abstract class GameController : MonoBehaviour{
 		attackCursor = Resources.Load<Texture2D>("GUI/Cursors/attack_cursor");
 	}
 
+    public abstract void requestGameStart();
+
+    [RPC]
+    protected void approveGameStart()
+    {
+        gameMaster.startGame();
+    }
+
+    [RPC]
+    public abstract void setPlayerLoaded(int playerID);
+        
     #region UNIT SPAWNING
 
     public abstract void requestLaneSpawning();
@@ -278,6 +295,21 @@ public abstract class GameController : MonoBehaviour{
 
     public abstract void update();
 
+    private void setHighlightOnTarget(int highlight)
+    {
+        if (targetRenderers != null)
+        {
+            foreach (Renderer r in targetRenderers)
+            {
+                if (r == null) break;
+                foreach (Material m in r.materials)
+                {
+                    m.SetFloat("_Highlight", highlight);
+                }
+            }
+        }
+    }
+
 	protected void updateInput()
 	{
 		if(clickTimer > 0) clickTimer -= Time.deltaTime;
@@ -341,43 +373,413 @@ public abstract class GameController : MonoBehaviour{
 		
 		if(!gameMaster.getGUIManager().isMouseOverGUI())
 		{
+            Hero hero = GameMaster.getPlayerHero();
+            bool playerIsMelee = hero.isMelee();
+            //Find all objects under cursor
+			RaycastHit[] rayhits;
+            rayhits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
 
-			RaycastHit rayhit;
-			if(targetRenderer != null)
-			{
-				foreach(Material mat in targetRenderer.materials)
-				{
-					mat.SetFloat("_Highlight", 0);
-				}
-			}
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayhit))
-			{
-				Vector3 targetPoint = rayhit.point;
+            //Loop through all and find the first of each kind
+            Transform firstUnit = null;
+            Transform firstLoot = null;
+            Transform firstAction = null;
+            Transform firstResource = null;
+            Vector3 groundPosition = Vector3.zero;
+            bool hitGround = false;
+            foreach (RaycastHit hit in rayhits)
+            {
+                string tag = hit.collider.tag;
+                if (tag == "Unit")
+                {
+                    if (firstUnit == null)
+                    {
+                        firstUnit = hit.transform;
+                    }
+                }
+                else if (tag == "Loot")
+                {
+                    if (firstLoot == null)
+                    {
+                        firstLoot = hit.transform;
+                    }
+                }
+                else if (tag == "Action")
+                {
+                    if (firstAction == null)
+                    {
+                        firstAction = hit.transform;
+                    }
+                }
+                else if (playerIsMelee && tag == "Resource")
+                {
+                    if (firstResource == null)
+                    {
+                        firstResource = hit.transform;
+                    }
+                }
+                else if (tag == "Ground")
+                {
+                    groundPosition = hit.point;
+                    hitGround = true;
+                }
+            }
 
-				string holdTag = rayhit.collider.tag;
-				if(holdTag == "Loot")
-				{
-					Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
-					targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
-					foreach(Material mat in targetRenderer.materials)
-					{
-						mat.SetFloat("_Highlight", 1);
-					}
+            //Dehighlight the previous target
+            setHighlightOnTarget(0);
 
-					targetPoint = rayhit.transform.position;
+            //Highlight the prefered one and set cursor
+            if (firstUnit != null)
+            {
+                Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+                targetRenderers = firstUnit.GetComponentsInChildren<Renderer>();
+                setHighlightOnTarget(1);
+            }
+            else if (firstLoot != null)
+            {
+                Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
+                targetRenderers = firstLoot.GetComponentsInChildren<Renderer>();
+                setHighlightOnTarget(1);
+            }
+            else if (firstAction != null)
+            {
+                Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
+                targetRenderers = firstAction.GetComponentsInChildren<Renderer>();
+                setHighlightOnTarget(1);
+            }
+            else if (firstResource != null)
+            {
+                Cursor.SetCursor(chopCursor, Vector2.zero, CursorMode.Auto);
+                targetRenderers = firstResource.GetComponentsInChildren<Renderer>();
+                setHighlightOnTarget(1);
+            }
+            else
+            {
+                Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
+            }
 
-				}
-				else if(holdTag == "Resource")
-				{
-					Cursor.SetCursor(chopCursor, Vector2.zero, CursorMode.Auto);
-					targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
-					foreach(Material mat in targetRenderer.materials)
-					{
-						mat.SetFloat("_Highlight", 1);
-					}
+            if (gameMaster.getGUIManager().takeKeyboardInput())
+            {
+                
+                for (int i = 0; i < ABILITY_INPUT.Length; i++)
+                {
+                    if (Input.GetKeyDown(ABILITY_INPUT[i]))
+                    {
+                        if (!hero.hasAbility(i)) continue;
+                        if (hitGround && Input.GetKey(ATTACK_GROUND))
+                        {
+                            Ability ability = hero.getAbility(i);
+                            Vector2 heroPos = hero.get2DPos();
+                            Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
 
-					targetPoint = rayhit.transform.position;
-				}
+                            Vector3 attackPos = groundPosition;
+                            if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                            {
+                                Vector2 dir = (groundPos2D - heroPos).normalized;
+                                attackPos = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
+                            }
+                            requestAbilityCommandVec(unitID, attackPos + Vector3.up, i);
+                        }
+                        else if (firstUnit != null)
+                        {
+                            int targetID = firstUnit.GetComponent<UnitController>().getID();
+                            requestAbilityCommandID(unitID, targetID, i);
+                        }
+                        else if(hitGround)
+                        {
+                            requestAbilityCommandVec(unitID, groundPosition + Vector3.up, i);
+                        }
+                    }
+                }
+            }
+
+
+			if(Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+            {
+                if(hitGround && Input.GetKey(ATTACK_GROUND))
+                {
+                    Ability ability = hero.getBasicAttack();
+                    Vector2 heroPos = hero.get2DPos();
+                    Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
+
+                    attackPosition = groundPosition;
+                    if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                    {
+                        Vector2 dir = (groundPos2D - heroPos).normalized;
+                        attackPosition = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
+                    }
+                    requestAttackCommandPos(unitID, attackPosition+Vector3.up);
+                    targetPosition = attackPosition + Vector3.up;
+                    attackingGround = true;
+                }
+                else
+                {
+                    if(firstUnit != null)
+                    {
+                        targetSelected = false;
+                        UnitController target = firstUnit.GetComponent<UnitController>();
+                        targetUnitID = target.getID();
+                        if (targetUnitID != unitID)
+                        {
+                            requestAttackCommandUnit(unitID, targetUnitID);
+                        }
+                        else
+                        {
+                            Debug.Log("Target is null");
+                            targetUnitID = -1;
+                        }
+                    }
+                    else if(firstLoot != null)
+                    {
+                        targetSelected = true;
+                        targetTag = "Loot";
+						targetPosition = firstLoot.position;
+						int lootID = firstLoot.GetComponent<LootId>().getId();
+						requestLootCommand(unitID, Mathf.FloorToInt(targetPosition.x), Mathf.FloorToInt(targetPosition.z), lootID);
+                    }
+                    else if(firstAction != null)
+                    {
+                        targetSelected = true;
+                        targetTag = "Action";
+                        targetPosition = firstAction.position;
+                        requestActionCommand(unitID, targetPosition.x, targetPosition.z);
+                    }
+                    else if(firstResource != null)
+                    {
+                        targetSelected = true;
+                        targetTag = "Resource";
+						targetPosition = firstResource.position;
+						requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
+                    }
+                    else
+                    {
+                        targetSelected = false;
+                        requestMoveCommand(unitID, groundPosition.x, groundPosition.z);
+                    }
+                }
+            }
+            else if (hitGround && (Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON)
+                   || (Input.GetMouseButton(RIGHT_MOUSE_BUTTON) && clickTimer <= 0)
+                   || (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && !attackingGround && !targetSelected && targetUnitID < 0 && clickTimer <= 0)
+                   || Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON)))
+            {
+                clickTimer = clickTime;
+                requestMoveCommand(unitID, groundPosition.x, groundPosition.z);
+            }
+            else if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
+            {
+                targetSelected = false;
+                targetUnitID = -1;
+                attackingGround = false;
+            }
+            else if (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && clickTimer <= 0)
+            {
+                if (targetSelected)
+                {
+                    if (targetTag == "Resource")
+                    {
+                        if (GameMaster.getPlayerHero().isMelee())
+                        {
+                            Debug.Log("gather");
+                            requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+                        else
+                        {
+                            Debug.Log("move");
+                            requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+                    }
+                    else if (targetTag == "Action")
+                    {
+                        requestActionCommand(unitID, targetPosition.x, targetPosition.z);
+                    }
+
+                }
+                else if (targetUnitID >= 0)
+                {
+                    requestAttackCommandUnit(unitID, targetUnitID);
+                }
+                else if (attackingGround && hitGround)
+                {
+                    Ability ability = hero.getBasicAttack();
+                    Vector2 heroPos = hero.get2DPos();
+                    Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
+
+                    attackPosition = groundPosition;
+                    if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                    {
+                        Vector2 dir = (groundPos2D - heroPos).normalized;
+                        attackPosition = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
+                    }
+                    requestAttackCommandPos(unitID, attackPosition + Vector3.up);
+                    targetPosition = attackPosition + Vector3.up;
+                }
+
+            }
+        }
+    }
+#if false
+                if (holdTag == "Unit")
+                {
+                    Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+                    targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
+                    foreach (Material mat in targetRenderer.materials)
+                    {
+                        mat.SetFloat("_Highlight", 1);
+                    }
+                    if (gameMaster.getGUIManager().takeKeyboardInput())
+                    {
+                        if (Input.GetKey("q"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommandID(unitID, targetID, 0);
+                        }
+                        else if (Input.GetKey("w"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommandID(unitID, targetID, 1);
+                        }
+                        else if (Input.GetKey("e"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommandID(unitID, targetID, 2);
+                        }
+                        else if (Input.GetKey("r"))
+                        {
+                            int targetID = rayhit.transform.GetComponent<UnitController>().getID();
+                            requestAbilityCommandID(unitID, targetID, 3);
+                        }
+                    }
+                    targetPoint = rayhit.transform.position;
+                }
+                else if (holdTag == "Ground")
+                {
+                    Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
+
+                    if (gameMaster.getGUIManager().takeKeyboardInput())
+                    {
+                        if (Input.GetKey("q"))
+                        {
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 0);
+                        }
+                        else if (Input.GetKey("w"))
+                        {
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 1);
+                        }
+                        else if (Input.GetKey("e"))
+                        {
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 2);
+                        }
+                        else if (Input.GetKey("r"))
+                        {
+                            requestAbilityCommandVec(unitID, targetPoint + Vector3.up, 3);
+                        }
+                    }
+                }
+            }
+#endif
+
+#if false //Old input
+
+    protected void OLDupdateInput()
+    {
+        if (clickTimer > 0) clickTimer -= Time.deltaTime;
+
+        if (Input.GetKeyDown("return"))
+        {
+            gameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"));
+        }
+        if (gameMaster.getGUIManager().takeKeyboardInput())
+        {
+            if (Input.GetKeyDown("i"))
+            {
+                gameMaster.getGUIManager().toggleInventory();
+            }
+
+            if (Input.GetKeyDown("c"))
+            {
+                gameMaster.getGUIManager().toggleHeroStats();
+            }
+            if (Input.GetKeyDown("p"))
+            {
+                gameMaster.getGUIManager().toggleAbilityWindow();
+            }
+            if (Input.GetKeyDown("space"))
+            {
+                gameMaster.getGUIManager().closeAllWindows();
+            }
+            if (Input.GetKeyDown("escape"))
+            {
+                gameMaster.getGUIManager().toggleIngameMenu();
+            }
+            if (Input.GetKeyDown("g"))
+            {
+                GameMaster.getWorld().toggleDrawGrid();
+            }
+            if (Input.GetKey("up"))
+            {
+                GameMaster.getWorld().changeSnowAmount(Time.deltaTime * 0.5f);
+            }
+            if (Input.GetKey("down"))
+            {
+                GameMaster.getWorld().changeSnowAmount(Time.deltaTime * -0.5f);
+            }
+
+            //item quick use
+            for (int i = 0; i < GUIManager.QUICK_USE_ITEM_COUNT; i++)
+            {
+                if (Input.GetKeyDown((i + 1).ToString()))
+                {
+                    if (Input.GetKey("left shift"))
+                    {
+                        gameMaster.getGUIManager().setQuickUseItem(i);
+                    }
+                    else
+                    {
+                        gameMaster.getGUIManager().quickUseItem(i);
+                    }
+                }
+            }
+        }
+
+        if (!gameMaster.getGUIManager().isMouseOverGUI())
+        {
+
+            RaycastHit rayhit;
+            if (targetRenderer != null)
+            {
+                foreach (Material mat in targetRenderer.materials)
+                {
+                    mat.SetFloat("_Highlight", 0);
+                }
+            }
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rayhit))
+            {
+                Vector3 targetPoint = rayhit.point;
+
+                string holdTag = rayhit.collider.tag;
+                if (holdTag == "Loot")
+                {
+                    Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
+                    targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
+                    foreach (Material mat in targetRenderer.materials)
+                    {
+                        mat.SetFloat("_Highlight", 1);
+                    }
+
+                    targetPoint = rayhit.transform.position;
+
+                }
+                else if (holdTag == "Resource")
+                {
+                    Cursor.SetCursor(chopCursor, Vector2.zero, CursorMode.Auto);
+                    targetRenderer = rayhit.collider.transform.GetComponentInChildren<Renderer>();
+                    foreach (Material mat in targetRenderer.materials)
+                    {
+                        mat.SetFloat("_Highlight", 1);
+                    }
+
+                    targetPoint = rayhit.transform.position;
+                }
                 else if (holdTag == "Action")
                 {
                     Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
@@ -447,38 +849,38 @@ public abstract class GameController : MonoBehaviour{
                     }
                 }
 
-				
-			}
-			//Clicking a target with LMB will set it selected until the button is released. 
-			//While selected no other command can be excecuted
-			if(Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
-			{
-				RaycastHit hit;
-				if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-				{
-					targetTag = hit.collider.tag;
-					if(targetTag == "Loot")
-					{
-						targetSelected = true;
-						targetPosition = hit.transform.position;
-						int lootID = hit.transform.GetComponent<LootId>().getId();
-						requestLootCommand(unitID, Mathf.FloorToInt(targetPosition.x), Mathf.FloorToInt(targetPosition.z), lootID);					
-					}
-					else if(targetTag == "Resource")
-					{
-						if(GameMaster.getPlayerHero().isMelee())
-						{
-							targetSelected = true;
-							targetPosition = hit.transform.position;
-							requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
-						}
-						else
-						{
-							targetPosition = hit.transform.position;
-							requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
-						}
 
-					}
+            }
+            //Clicking a target with LMB will set it selected until the button is released. 
+            //While selected no other command can be excecuted
+            if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                {
+                    targetTag = hit.collider.tag;
+                    if (targetTag == "Loot")
+                    {
+                        targetSelected = true;
+                        targetPosition = hit.transform.position;
+                        int lootID = hit.transform.GetComponent<LootId>().getId();
+                        requestLootCommand(unitID, Mathf.FloorToInt(targetPosition.x), Mathf.FloorToInt(targetPosition.z), lootID);
+                    }
+                    else if (targetTag == "Resource")
+                    {
+                        if (GameMaster.getPlayerHero().isMelee())
+                        {
+                            targetSelected = true;
+                            targetPosition = hit.transform.position;
+                            requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+                        else
+                        {
+                            targetPosition = hit.transform.position;
+                            requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+
+                    }
                     else if (targetTag == "Action")
                     {
                         targetSelected = true;
@@ -512,69 +914,71 @@ public abstract class GameController : MonoBehaviour{
                         targetSelected = false;
                         requestMoveCommand(unitID, hit.point.x, hit.point.z);
                     }
-					
-				}
-			}
-			else if( Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON) 
-			   || (Input.GetMouseButton(RIGHT_MOUSE_BUTTON) && clickTimer <= 0 )
-			   || (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && !targetSelected && targetUnitID < 0 && clickTimer <= 0)
-			   || Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
-			{
-				clickTimer = clickTime;
-				RaycastHit hit;
-				if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100f, 1 << 8))
-				{
-					string tag = hit.collider.tag;
-					if(tag == "Ground")
-					{
-						requestMoveCommand(unitID, hit.point.x, hit.point.z);
-					}
-				}
-			}
 
-			else if(Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
-			{
-				targetSelected = false;
-				targetUnitID = -1;
-			}
-			else if(Input.GetMouseButton(LEFT_MOUSE_BUTTON) && clickTimer <= 0)
-			{
-				if(targetSelected)
-				{
-					if(targetTag == "Resource")
-					{
-						if(GameMaster.getPlayerHero().isMelee())
-						{
-							requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
-						}
-						else
-						{
-							requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
-						}
-					}
+                }
+            }
+            else if (Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON)
+               || (Input.GetMouseButton(RIGHT_MOUSE_BUTTON) && clickTimer <= 0)
+               || (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && !targetSelected && targetUnitID < 0 && clickTimer <= 0)
+               || Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+            {
+                clickTimer = clickTime;
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100f, 1 << 8))
+                {
+                    string tag = hit.collider.tag;
+                    if (tag == "Ground")
+                    {
+                        requestMoveCommand(unitID, hit.point.x, hit.point.z);
+                    }
+                }
+            }
+
+            else if (Input.GetMouseButtonUp(LEFT_MOUSE_BUTTON))
+            {
+                targetSelected = false;
+                targetUnitID = -1;
+            }
+            else if (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && clickTimer <= 0)
+            {
+                if (targetSelected)
+                {
+                    if (targetTag == "Resource")
+                    {
+                        if (GameMaster.getPlayerHero().isMelee())
+                        {
+                            requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+                        else
+                        {
+                            requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
+                        }
+                    }
                     else if (targetTag == "Action")
                     {
                         requestActionCommand(unitID, targetPosition.x, targetPosition.z);
                     }
 
-				}
-				else if(targetUnitID >= 0)
-				{
-					if(GameMaster.getPlayerHero().isMelee())
-					{
-						requestAttackCommandUnit(unitID, targetUnitID);
-					}
-					else 
-					{
-						Unit target = GameMaster.getUnit(targetUnitID);
-						if(target != null)
-						requestAttackCommandPos(unitID,  target.getPosition() + Vector3.up);
-					}
-				}
+                }
+                else if (targetUnitID >= 0)
+                {
+                    if (GameMaster.getPlayerHero().isMelee())
+                    {
+                        requestAttackCommandUnit(unitID, targetUnitID);
+                    }
+                    else
+                    {
+                        Unit target = GameMaster.getUnit(targetUnitID);
+                        if (target != null)
+                            requestAttackCommandPos(unitID, target.getPosition() + Vector3.up);
+                    }
+                }
 
-			}
-		}
-	}
+            }
+        }
+    }
+
+#endif
 
     [RPC]
     public abstract void requestRemoveUnit(int unitID);

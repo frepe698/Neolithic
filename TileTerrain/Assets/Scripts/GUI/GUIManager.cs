@@ -153,6 +153,7 @@ public class GUIManager : MonoBehaviour{
     #endregion //END FPS DISPLAY MEMBERS
 
     private bool mouseOverGUI = false;
+    private GameObject waitingForPlayers;
 
 	void Awake()
     {
@@ -350,6 +351,17 @@ public class GUIManager : MonoBehaviour{
         activateCrafting(false);
         activateHeroStats(false);
         activateAbilityWindow(false);
+
+        waitingForPlayers = Instantiate(Resources.Load<GameObject>("GUI/WaitingForPlayers"));
+        //Image image = waitingForPlayers.AddComponent<Image>();
+        //image.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
+        RectTransform rectTransform = waitingForPlayers.GetComponent<RectTransform>();
+        waitingForPlayers.transform.SetParent(canvas);
+        
+        waitingForPlayers.transform.localScale = new Vector3(1, 1, 1);
+        rectTransform.sizeDelta = new Vector2(0, 0);
+        rectTransform.anchoredPosition = Vector2.zero;
+
     }
 
     #region UPDATE
@@ -1511,5 +1523,10 @@ public class GUIManager : MonoBehaviour{
         hero.onAbilityUpdatedListener += new System.EventHandler(onAbilityUpdated);
 
         updateAbilityIcons();
+    }
+
+    public void startGame()
+    {
+        Destroy(waitingForPlayers);
     }
 }

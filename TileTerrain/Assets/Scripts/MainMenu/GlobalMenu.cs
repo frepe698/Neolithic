@@ -166,7 +166,7 @@ public class GlobalMenu : MonoBehaviour {
         }
     }
 
-    private void sendChatMessage(string msg)
+    public void sendChatMessage(string msg)
     {
         if (Network.isClient || Network.isServer)
         {
@@ -185,6 +185,12 @@ public class GlobalMenu : MonoBehaviour {
         NetworkMaster.changePlayerName(player, name);
 
         gameLobby.updateTeamDisplay();
+    }
+
+    [RPC]
+    public void recieveServerMessage(string msg)
+    {
+        addChatMessage("<color=yellow><b>"+msg+"</b></color>");
     }
 
     [RPC]

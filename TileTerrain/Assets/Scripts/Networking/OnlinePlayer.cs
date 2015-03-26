@@ -10,6 +10,8 @@ public class OnlinePlayer {
 
     private int hero;
 
+    private bool inGame = false;
+
 	public OnlinePlayer(NetworkPlayer player, string name, int team)
 	{
 		this.networkPlayer = player;
@@ -59,6 +61,16 @@ public class OnlinePlayer {
     public void setHero(int hero)
     {
         this.hero = hero;
+    }
+
+    public void setInGame(bool inGame)
+    {
+        this.inGame = inGame;
+    }
+
+    public bool isInGame()
+    {
+        return inGame;
     }
 
 

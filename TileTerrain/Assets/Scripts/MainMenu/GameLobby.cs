@@ -117,11 +117,33 @@ public class GameLobby : MonoBehaviour {
 	{
 		if(Network.isServer)
 		{
-			netView.RPC("startGameMultiplayer", RPCMode.All, Random.seed);
+            bool allPickedHero = true;
+            foreach (OnlinePlayer player in NetworkMaster.getAllPlayers())
+            {
+                if (player.getHero() < 0)
+                {
+                    netView.RPC("recieveServerMessage", RPCMode.All, player.getName() + " has to pick a hero for the game to start!");
+                    allPickedHero = false;
+                }
+            }
+			
+            if(allPickedHero)
+                netView.RPC("startGameMultiplayer", RPCMode.All, Random.seed);
 		}
 		else if(singleplayer)
 		{
-			startGame();
+            bool allPickedHero = true;
+            foreach (OnlinePlayer player in NetworkMaster.getAllPlayers())
+            {
+                if (player.getHero() < 0)
+                {
+                    globalMenu.recieveServerMessage(player.getName() + " has to pick a hero for the game to start!");
+                    allPickedHero = false;
+                }
+            }
+
+            if (allPickedHero)
+			    startGame();
 		}
 	}
 
@@ -243,7 +265,10 @@ public class GameLobby : MonoBehaviour {
 			if(selectedHeroes[i] == -1) selectedHeroes[i] = 100000 + i;
 			GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
 		}*/
-		Application.LoadLevel("world");
+
+		Application.LoadLevel("loadingscreen");
+
+        //Application.LoadLevel("world");
 	}
 
 	void startGame()
@@ -254,13 +279,16 @@ public class GameLobby : MonoBehaviour {
 			if(selectedHeroes[i] != -1)
 				GameMaster.playerToUnitID.Add(selectedHeroes[i], i);
 		}*/
-		Application.LoadLevel ("world");
+        Application.LoadLevel("loadingscreen");
+
+		//Application.LoadLevel ("world");
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
 	{
         globalMenu.addChatMessage(NetworkMaster.getPlayerName(int.Parse(player.ToString())) + " disconnected."); 
         NetworkMaster.removePlayer(player);
+        updateTeamDisplay();
 	}
 
     [RPC]
