@@ -51,6 +51,7 @@ public class GUIManager : MonoBehaviour{
     private Text headerText;
     private Text[] skillLevelText;
     private Button[,] abilityButtons;
+    private Image[,] abilityButtonBorders;
 
     private bool abilityWindowActive;
     #endregion //END ABILITY WINDOW MEMBERS
@@ -189,7 +190,7 @@ public class GUIManager : MonoBehaviour{
         chatScrollbar = chatObject.transform.FindChild("Scrollbar").GetComponent<Scrollbar>();
         #endregion
 
-        #region HERO STATS INIT
+        #region HERO STATS AND ABILITY WINDOW INIT
         //Hero stats
         heroStatsObject = canvas.FindChild("HeroStats").gameObject;
 
@@ -201,6 +202,7 @@ public class GUIManager : MonoBehaviour{
             SkillData[] skillData = DataHolder.Instance.getAllSkillData();
             skillLevelText = new Text[skillData.Length];
             abilityButtons = new Button[skillData.Length, 5];
+            abilityButtonBorders = new Image[skillData.Length, 5];
             float width = skillPrefab.GetComponent<RectTransform>().sizeDelta.x;
             float startX = (-(abilityWindowObject.GetComponent<RectTransform>().sizeDelta.x) / 2) + width; 
             for (int i = 0; i < skillData.Length; i++)
@@ -234,7 +236,12 @@ public class GUIManager : MonoBehaviour{
                     {
                         int levelIndex = b;
                         button.onClick.AddListener(() => abilityButtonClick(skillIndex, levelIndex));
-                        button.GetComponentInChildren<Text>().text = data.abilities[b].name;
+                        button.GetComponentInChildren<Text>().text = data.abilities[b].reqLevel.ToString();
+
+                        AbilityData aData = DataHolder.Instance.getAbilityData(data.abilities[b].name);
+                        button.image.sprite = aData.getIcon();
+
+
                     }
                     else
                     {
@@ -242,6 +249,8 @@ public class GUIManager : MonoBehaviour{
                     }
 
                     abilityButtons[i, b] = button;
+
+                    abilityButtonBorders[i, b] = button.transform.FindChild("Border").GetComponent<Image>();
                 }
             }
         }
@@ -684,7 +693,7 @@ public class GUIManager : MonoBehaviour{
                 go.transform.localScale = new Vector3(1, 1, 1);
 
                 Text text = go.GetComponent<Text>();
-                text.rectTransform.anchoredPosition = new Vector3(0, -30 - i * 20);
+                text.rectTransform.anchoredPosition = new Vector3(0, -30 - i * 12);
 
                 statTexts[i] = go.GetComponent<Text>();
 
@@ -736,12 +745,15 @@ public class GUIManager : MonoBehaviour{
             //Update buttons
             for (int bi = 0; bi < 5; bi++)
             {
-                abilityButtons[i, bi].interactable = bi == skills[i].getUnlockedLevel();
-                abilityButtons[i, bi].image.color = bi <= skills[i].getUnlockedLevel() ? Color.yellow : Color.gray;
+                if (bi >= skills[i].data.abilities.Length) break;
+                //abilityButtons[i, bi].interactable = bi == skills[i].getUnlockedLevel();
+                abilityButtons[i, bi].image.color = bi <= skills[i].getUnlockedLevel() ? Color.white : Color.gray;
+                //abilityButtons[i, bi].image.color = Color.white;
+                abilityButtonBorders[i, bi].color = bi < skills[i].getUnlockedLevel() ? Color.white : Color.gray;
+                if(skills[i].canUnlock(bi)) abilityButtonBorders[i, bi].color = Color.yellow;
             }
+
         }
-        
-        
     }
 
     public void abilityButtonClick(int skill, int level)

@@ -91,6 +91,11 @@ public class Skill {
     {
         return unlockedLevel;
     }
+
+    public bool canUnlock(int level)
+    {
+        return level == unlockedLevel && manager.hasAbilitypoint() && this.level >= data.abilities[level].reqLevel;
+    }
 	
 }
 

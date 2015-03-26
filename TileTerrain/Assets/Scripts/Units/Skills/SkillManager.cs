@@ -96,5 +96,10 @@ public class SkillManager {
     {
         GameMaster.getGameController().requestLearnAbility(name, unit.getID());
     }
+
+    public bool hasAbilitypoint()
+    {
+        return abilityPoints > 0;
+    }
     
 }

@@ -43,19 +43,19 @@
         </LearnableAbility>
         <LearnableAbility>
           <name>leap</name>
-          <reqLevel>0</reqLevel>
+          <reqLevel>4</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
           <name>cleave</name>
-          <reqLevel>10</reqLevel>
+          <reqLevel>9</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
           <name>tripplestrike</name>
-          <reqLevel>15</reqLevel>
+          <reqLevel>14</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
           <name>meleebasicattack</name>
-          <reqLevel>20</reqLevel>
+          <reqLevel>19</reqLevel>
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
