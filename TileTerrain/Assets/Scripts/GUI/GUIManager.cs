@@ -1153,6 +1153,11 @@ public class GUIManager : MonoBehaviour{
 		selectedItem = index;
 	}
 
+    public void dropSelectedItem()
+    {
+        GameMaster.getGameController().requestItemDrop(GameMaster.getPlayerUnitID(), selectedItem);
+    }
+
     public int getSelectedItemIndex()
     {
         return selectedItem;

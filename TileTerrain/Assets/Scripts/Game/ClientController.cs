@@ -236,6 +236,12 @@ public class ClientController : GameController {
         gameMaster.getNetView().RPC("requestItemCraft", RPCMode.Server, unitID, name);
     }
 
+    [RPC]
+    public override void requestItemDrop(int unitID, int itemIndex)
+    {
+        gameMaster.getNetView().RPC("requestItemDrop", RPCMode.Server, unitID, itemIndex);
+    }
+
 	public override void update()
 	{
 		updateInput();

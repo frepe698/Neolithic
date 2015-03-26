@@ -38,7 +38,7 @@
       </statsPerLevel>
       <learnableAbilities>
         <LearnableAbility>
-          <name>heavystrike</name>
+          <name>skullcrush</name>
           <reqLevel>0</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
@@ -107,6 +107,10 @@
       <learnableAbilities>
         <LearnableAbility>
           <name>stonethrow</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>earthbreaker</name>
           <reqLevel>0</reqLevel>
         </LearnableAbility>
       </learnableAbilities>

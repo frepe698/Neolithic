@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: quillrain
+  m_Name: oakbow
   m_Shader: {fileID: 4800000, guid: b57e1c465553bff4780f3f9d5e8b295b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -49,4 +49,4 @@ Material:
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: .92636919, b: .514705896, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}

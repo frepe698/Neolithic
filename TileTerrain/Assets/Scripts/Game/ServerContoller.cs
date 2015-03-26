@@ -303,6 +303,17 @@ public class ServerController : GameController {
 		}
 	}
 
+    [RPC]
+    public override void requestItemDrop(int unitID, int itemIndex)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        Item item = hero.getInventory().getItem(itemIndex);
+        if (item != null)
+        {
+            gameMaster.getNetView().RPC("approveItemDrop", RPCMode.All, unitID, itemIndex, item.getName(), hero.getPosition());
+        }
+    }
+
 	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
 		Unit target = GameMaster.getUnit(targetID);

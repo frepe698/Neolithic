@@ -306,6 +306,36 @@
       <projectileModelName>shortarrow</projectileModelName>
       <projectileName>arrow</projectileName>
     </RangedWeaponData>
+    <RangedWeaponData name="stronkbow" gameName="Stronk Bow" modelName="stronkbow">
+      <durability>10</durability>
+      <rightHand>false</rightHand>
+      <idleAnim>idle_bow</idleAnim>
+      <runAnim>run_bow</runAnim>
+      <lootAnim>loot_bow</lootAnim>
+      <attackSpeed>1</attackSpeed>
+      <weaponAttackAnim>bow_attack</weaponAttackAnim>
+      <tags>6</tags>
+      <damage>20</damage>
+      <attackAnim>attack_bow</attackAnim>
+      <attackSound>attackBow01</attackSound>
+      <projectileModelName>shortarrow</projectileModelName>
+      <projectileName>arrow</projectileName>
+    </RangedWeaponData>
+    <RangedWeaponData name="goldbow" gameName="Gold Bow" modelName="quillrain">
+      <durability>10</durability>
+      <rightHand>false</rightHand>
+      <idleAnim>idle_bow</idleAnim>
+      <runAnim>run_bow</runAnim>
+      <lootAnim>loot_bow</lootAnim>
+      <attackSpeed>1.4</attackSpeed>
+      <weaponAttackAnim>bow_attack</weaponAttackAnim>
+      <tags>6</tags>
+      <damage>18</damage>
+      <attackAnim>attack_bow</attackAnim>
+      <attackSound>attackBow01</attackSound>
+      <projectileModelName>shortarrow</projectileModelName>
+      <projectileName>arrow</projectileName>
+    </RangedWeaponData>
     <RangedWeaponData name="quillrain" gameName="Quill Rain" modelName="quillrain">
       <durability>10</durability>
       <rightHand>false</rightHand>

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 5712a24dbd6579c4db1ad96c546f58a7
+timeCreated: 1427375028
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: torch
@@ -33,6 +35,7 @@ TextureImporter:
     21300056: furarmor
     21300058: fuzzyboots
     21300060: harehat
+    21300062: stronkbow
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,6 +54,9 @@ TextureImporter:
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -61,6 +67,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
@@ -354,5 +361,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+    - name: stronkbow
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

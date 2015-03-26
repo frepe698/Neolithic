@@ -7,8 +7,9 @@
       Pass { 
          ZWrite off 
          Fog { Color (1, 1, 1) } 
+		 AlphaTest Greater 0
          ColorMask RGB 
-         Blend Zero SrcColor
+         Blend SrcAlpha One
          SetTexture [_ShadowTex] { 
             combine texture, ONE - texture 
             Matrix [_Projector] 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8210f85ab6555784499dfca47de96082
-timeCreated: 1426794329
+timeCreated: 1427373229
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,10 +9,13 @@ TextureImporter:
     21300004: stonethrow
     21300006: leap
     21300008: meleebasicattack
-    21300010: abilityicons01_5
-    21300012: abilityicons01_6
-    21300014: abilityicons01_7
-    21300016: abilityicons01_8
+    21300010: adrenalin
+    21300012: bolt
+    21300014: fireball
+    21300016: skullcrush
+    21300018: tripplestrike
+    21300020: heal
+    21300022: earthbreaker
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -108,7 +111,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: abilityicons01_5
+    - name: adrenalin
       rect:
         serializedVersion: 2
         x: 128
@@ -116,9 +119,9 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: abilityicons01_6
+    - name: bolt
       rect:
         serializedVersion: 2
         x: 256
@@ -126,9 +129,9 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: abilityicons01_7
+    - name: fireball
       rect:
         serializedVersion: 2
         x: 384
@@ -136,9 +139,9 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: abilityicons01_8
+    - name: skullcrush
       rect:
         serializedVersion: 2
         x: 0
@@ -146,7 +149,37 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tripplestrike
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: heal
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: earthbreaker
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

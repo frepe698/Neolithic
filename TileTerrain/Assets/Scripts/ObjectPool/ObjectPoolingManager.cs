@@ -75,8 +75,14 @@ public class ObjectPoolingManager
 	/// <param name="maxPoolSize">Maximum number of objects allowed to exist in this pool.</param>
 	/// <param name="shouldShrink">Should this pool shrink back down to the initial size when it receives a shrink event.</param>
 	/// <returns></returns>
-	public bool CreatePool(GameObject objToPool, int targetPoolSize, bool shouldShrink)
+	public bool CreatePool(string resourcePath, int targetPoolSize, bool shouldShrink)
 	{
+        GameObject objToPool = Resources.Load<GameObject>(resourcePath);
+        if (objToPool == null)
+        {
+            Debug.LogError("no object at: " + resourcePath);
+            return false;
+        }
 		//Check to see if the pool already exists.
 		if (ObjectPoolingManager.Instance.objectPools.ContainsKey(objToPool.name))
 		{

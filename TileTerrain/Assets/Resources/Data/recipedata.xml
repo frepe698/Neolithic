@@ -137,16 +137,37 @@
       <expAmount>100</expAmount>
       <requiredSkillLevel>3</requiredSkillLevel>
     </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftStronkBow" gameName="Stronk Bow" modelName="">
+      <product>stronkbow</product>
+      <ingredients>
+        <Ingredient>
+          <name>finewood</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>rope</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>flint</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a very stronk bow</description>
+      <skill>Crafting</skill>
+      <expAmount>250</expAmount>
+      <requiredSkillLevel>5</requiredSkillLevel>
+    </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
       <product>ironAxe</product>
       <ingredients>
         <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
+          <name>finewood</name>
+          <amount>4</amount>
         </Ingredient>
         <Ingredient>
           <name>iron</name>
-          <amount>2</amount>
+          <amount>4</amount>
         </Ingredient>
       </ingredients>
       <description>Craft a Iron Axe</description>
@@ -158,22 +179,39 @@
       <product>ironPickaxe</product>
       <ingredients>
         <Ingredient>
-          <name>stick</name>
-          <amount>2</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>iron</name>
+          <name>finewood</name>
           <amount>4</amount>
         </Ingredient>
         <Ingredient>
-          <name>log</name>
-          <amount>1</amount>
+          <name>iron</name>
+          <amount>6</amount>
         </Ingredient>
       </ingredients>
       <description>Craft a iron pickaxe</description>
       <skill>Crafting</skill>
       <expAmount>600</expAmount>
       <requiredSkillLevel>6</requiredSkillLevel>
+    </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftGoldBow" gameName="Gold Bow" modelName="">
+      <product>goldbow</product>
+      <ingredients>
+        <Ingredient>
+          <name>finewood</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>rope</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>gold</name>
+          <amount>5</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a very fancy bow</description>
+      <skill>Crafting</skill>
+      <expAmount>600</expAmount>
+      <requiredSkillLevel>8</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod" modelName="">
       <product>fishingrod</product>

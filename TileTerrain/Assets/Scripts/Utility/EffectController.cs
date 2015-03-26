@@ -18,6 +18,7 @@ public class EffectController : MonoBehaviour {
 	void Start () {
         audioSource = GetComponent<AudioSource>();
         startTime = Time.time;
+        Destroy(gameObject, lifeTime);
 	}
 	
 	// Update is called once per frame

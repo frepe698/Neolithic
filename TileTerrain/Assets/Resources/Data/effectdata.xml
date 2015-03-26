@@ -22,11 +22,11 @@
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
     </SingleTargetEffectData>
-    <SingleTargetEffectData name="heavystrike" gameName="Heavy Strike" modelName="heavystrike">
+    <SingleTargetEffectData name="skullcrush" gameName="Skull Crush" modelName="skullcrush">
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>3</percent>
+          <percent>1.5</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -49,15 +49,49 @@
       <hitDamage>
         <HitDamage>
           <stat>Health</stat>
-          <percent>0.5</percent>
+          <percent>0.2</percent>
           <yourStat>false</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
       <hitBuffs />
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
-      <radius>4</radius>
+      <radius>2</radius>
+    </AreaOfEffectData>
+    <AreaOfEffectData name="earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
+      <hitDamage>
+        <HitDamage>
+          <stat>Health</stat>
+          <percent>0.2</percent>
+          <yourStat>false</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.5</amount>
+          <duration>1.5</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <radius>2</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="leap_land" gameName="" modelName="leap_land">
       <hitDamage>

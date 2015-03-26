@@ -109,34 +109,35 @@
       <range>99999</range>
       <tags>18</tags>
     </AbilityData>
-    <AbilityData name="cleave" gameName="Cleave" modelName="leap">
+    <AbilityData name="cleave" gameName="Cleave" modelName="meleebasicattack">
       <effects>
         <AbilityEffectAndTime>
           <name>cleave</name>
-          <time>0.583</time>
+          <time>0.8745</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_axe</name>
           <time>0</time>
-          <speed>1</speed>
+          <speed>0.75</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases>
         <SpeedIncrease>
           <stat>Attackspeed</stat>
-          <percent>1</percent>
+          <percent>0.75</percent>
         </SpeedIncrease>
       </speedIncreases>
-      <totalTime>1</totalTime>
+      <totalTime>1.5</totalTime>
       <energyCost>50</energyCost>
-      <healthCost>10</healthCost>
-      <cooldown>3</cooldown>
+      <healthCost>0</healthCost>
+      <cooldown>5</cooldown>
       <range>2</range>
       <tags>1</tags>
     </AbilityData>
-    <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="meleebasicattack">
+    <AbilityData name="tripplestrike" gameName="Tripple Strike" modelName="tripplestrike">
       <effects>
         <AbilityEffectAndTime>
           <name>meleebasicattack</name>
@@ -181,18 +182,18 @@
       <range>2</range>
       <tags>1</tags>
     </AbilityData>
-    <AbilityData name="heavystrike" gameName="Heavy Strike" modelName="meleebasicattack">
+    <AbilityData name="skullcrush" gameName="Skull Crush" modelName="skullcrush">
       <effects>
         <AbilityEffectAndTime>
-          <name>heavystrike</name>
-          <time>0.8745</time>
+          <name>skullcrush</name>
+          <time>0.7</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
           <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
-          <speed>0.75</speed>
+          <speed>0.8333</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases>
@@ -201,7 +202,7 @@
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
-      <totalTime>1.1</totalTime>
+      <totalTime>1.2</totalTime>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -303,7 +304,7 @@
       <range>8</range>
       <tags>17</tags>
     </AbilityData>
-    <AbilityData name="adrenaline" gameName="Adrenaline" modelName="leap">
+    <AbilityData name="adrenaline" gameName="Adrenaline" modelName="adrenalin">
       <effects>
         <AbilityEffectAndTime>
           <name>adrenaline</name>
@@ -326,7 +327,7 @@
       <range>1000</range>
       <tags>-1</tags>
     </AbilityData>
-    <AbilityData name="fireball" gameName="Fireball" modelName="leap">
+    <AbilityData name="fireball" gameName="Fireball" modelName="fireball">
       <effects>
         <AbilityEffectAndTime>
           <name>fireball</name>
@@ -354,7 +355,7 @@
       <range>9999</range>
       <tags>-1</tags>
     </AbilityData>
-    <AbilityData name="heal" gameName="Heal" modelName="leap">
+    <AbilityData name="heal" gameName="Heal" modelName="heal">
       <effects>
         <AbilityEffectAndTime>
           <name>heal</name>
@@ -382,7 +383,7 @@
       <range>1000</range>
       <tags>-1</tags>
     </AbilityData>
-    <AbilityData name="bolt" gameName="Bolt" modelName="leap">
+    <AbilityData name="bolt" gameName="Bolt" modelName="bolt">
       <effects>
         <AbilityEffectAndTime>
           <name>bolt</name>
@@ -404,6 +405,34 @@
       <cooldown>0</cooldown>
       <range>1000</range>
       <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>earthbreaker</name>
+          <time>0.8745</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>mine_axe</name>
+          <time>0</time>
+          <speed>0.75</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>0.5</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1.5</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>1</range>
+      <tags>1</tags>
     </AbilityData>
   </Abilities>
 </AbilityRoot>

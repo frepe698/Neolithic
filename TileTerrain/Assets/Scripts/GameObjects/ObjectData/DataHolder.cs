@@ -319,8 +319,12 @@ public class DataHolder {
     {
         Sprite[] icons = Resources.LoadAll<Sprite>("GUI/abilityicons01");
 
+        foreach (Sprite s in icons)
+            Debug.Log(s.name);
+
         foreach (AbilityData data in abilityDataHolder.abilityData)
         {
+            Debug.Log(data.name + ", " + data.modelName);
             data.setIcon(findSprite(icons, data.modelName));
         }
     }

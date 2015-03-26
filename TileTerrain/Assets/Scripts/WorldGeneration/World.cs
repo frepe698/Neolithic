@@ -113,48 +113,48 @@ public class World : MonoBehaviour {
 	
 	void initObjectPools()
 	{
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/gran01"), 80,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/gran02"), 80,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/gran03"), 80,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/tree01"), 50,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/bigTree01"), 100,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree01"), 30,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree02"), 30,true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree03"), 30, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/deadTree04"), 30, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree01"), 50,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree02"), 50,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/greenTree03"), 50,true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Trees/birch01"), 50,true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Bushes/deadbush01"), 100, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Bushes/greenbush01"), 100, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone01"), 50, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone02"), 50, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Stones/stone03"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/gran01"), 80,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/gran02"), 80,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/gran03"), 80,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/tree01"), 50,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/bigTree01"), 100,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/deadTree01"), 30,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/deadTree02"), 30,true);
+        ObjectPoolingManager.Instance.CreatePool(("Trees/deadTree03"), 30, true);
+        ObjectPoolingManager.Instance.CreatePool(("Trees/deadTree04"), 30, true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/greenTree01"), 50,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/greenTree02"), 50,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/greenTree03"), 50,true);
+		ObjectPoolingManager.Instance.CreatePool(("Trees/birch01"), 50,true);
+        ObjectPoolingManager.Instance.CreatePool("Bushes/deadbush01", 100, true);
+        ObjectPoolingManager.Instance.CreatePool("Bushes/greenbush01", 100, true);
+        ObjectPoolingManager.Instance.CreatePool("Stones/stone01", 50, true);
+        ObjectPoolingManager.Instance.CreatePool("Stones/stone02", 50, true);
+        ObjectPoolingManager.Instance.CreatePool("Stones/stone03", 50, true);
 
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/walltorch"), 4, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("EyecandyObjects/thehall_pillar"), 4, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/baseFire"), 1, true);
+        ObjectPoolingManager.Instance.CreatePool("EyecandyObjects/walltorch", 4, true);
+        ObjectPoolingManager.Instance.CreatePool("EyecandyObjects/thehall_pillar", 4, true);
+        ObjectPoolingManager.Instance.CreatePool("ActionObjects/baseFire", 1, true);
 
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveEntrance"), 2, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("ActionObjects/caveExit"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveEntrance", 2, true);
+        ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveExit", 2, true);
 
 
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/log"), 50, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/finewood"), 20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/stick"), 200, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/stone"), 200, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/flint"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/gold"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/iron"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/deathcap"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/cep"), 50, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Loot/puffball"), 50, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/meat"), 20, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/harepelt"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Loot/fur"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/blueberrybush"), 50, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Harvestable/nettle"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/log"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/finewood"), 20, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/stick"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/stone"), 200, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/flint"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/gold"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/iron"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/deathcap"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/cep"), 50, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Loot/puffball"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/meat"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/harepelt"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool(("Loot/fur"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool(("Harvestable/blueberrybush"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Harvestable/nettle"), 50, true);
 		
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/grass01"), 400, true);
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/fern01"), 150, true);
@@ -177,11 +177,23 @@ public class World : MonoBehaviour {
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/eng02"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/vass01"));
 		RenderDataPool.Instance.CreateEyecandyData((GameObject)Resources.Load ("Eyecandy/waterlily01"));
-		
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Tools/flintaxe"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/flintpickaxe"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/shortbow"), 5, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Tools/quillrain"), 5, true);
+
+        ObjectPoolingManager.Instance.CreatePool(("Tools/sharpenedstick"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/woodenclub"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/stoneaxe"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/stonepickaxe"), 2, true);
+		ObjectPoolingManager.Instance.CreatePool(("Tools/flintaxe"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/flintpickaxe"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/ironaxe"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/fishingrod"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/shortbow"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/stronkbow"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/quillrain"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/torch"), 2, true);
+
+        ObjectPoolingManager.Instance.CreatePool(("Tools/furarmor"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/harehat"), 2, true);
+        ObjectPoolingManager.Instance.CreatePool(("Tools/fuzzyboots"), 2, true);
 
         /* OLD PARTICLES
 		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Particles/treeChopParticles"), 4, true);
@@ -190,18 +202,18 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Particles/bloodParticles"), 4, true);
         */
 
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/hare"), 20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/battlepig"), 20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Animals/wolf"), 20, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/caveman"), 1, true);
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Units/Heroes/vrodl"), 1, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Heroes/halftroll"), 1, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/troll"), 4, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Units/Monsters/goblin"), 4, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Units/Animals/hare"), 20, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Units/Animals/battlepig"), 20, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Units/Animals/wolf"), 20, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Units/Heroes/caveman"), 1, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Units/Heroes/vrodl"), 1, true);
+        ObjectPoolingManager.Instance.CreatePool(("Units/Heroes/halftroll"), 1, true);
+        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/troll"), 4, true);
+        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/goblin"), 4, true);
         
-		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Projectiles/rock"),20, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Projectiles/arrow"), 20, true);
-        ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load("Projectiles/fireball"), 10, true);
+		ObjectPoolingManager.Instance.CreatePool( ("Projectiles/rock"),20, true);
+        ObjectPoolingManager.Instance.CreatePool(("Projectiles/arrow"), 20, true);
+        ObjectPoolingManager.Instance.CreatePool(("Projectiles/fireball"), 10, true);
 
 
         //PARTICLES

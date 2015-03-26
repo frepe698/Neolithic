@@ -353,6 +353,10 @@ public abstract class GameController : MonoBehaviour{
             {
                 GameMaster.getWorld().changeSnowAmount(Time.deltaTime * -0.5f);
             }
+            if (Input.GetKeyDown("d"))
+            {
+                gameMaster.getGUIManager().dropSelectedItem();
+            }
 
             //item quick use
             for (int i = 0; i < GUIManager.QUICK_USE_ITEM_COUNT; i++)
@@ -1195,6 +1199,26 @@ public abstract class GameController : MonoBehaviour{
 		hero.changeHunger(item.getHungerChange());
 		hero.getInventory().consumeItem(itemIndex);
 	}
+
+    [RPC]
+    public abstract void requestItemDrop(int unitID, int itemIndex);
+
+    [RPC]
+    protected void approveItemDrop(int unitID, int itemIndex, string itemName, Vector3 startPos)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        Item item = hero.getInventory().removeItem(itemIndex);
+
+
+        if(hero.getTile() != new Vector2i(startPos)) 
+		{
+			hero.setPosition(startPos); //If desynced: SYNC THAT
+		}
+
+        ItemData data = DataHolder.Instance.getItemData(itemName);
+        World.tileMap.getTile(hero.getTile()).addLoot(data.getLootableObject(new Vector2(startPos.x, startPos.z), UnityEngine.Random.value * 360));
+        GameMaster.getWorld().activateTileIfInActivationRangeOfControlledUnit(hero.getTile().x, hero.getTile().y);
+    }
 
     #endregion
 

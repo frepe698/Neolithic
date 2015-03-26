@@ -189,6 +189,7 @@ public class Inventory {
         args.itemType = ItemType.Equipment;
         args.itemIndex = index;
         onRemovedItem(args);
+        hasBeenChanged = true;
     }
 
     private void removeMaterialItem(int index, int amount = 1)
@@ -202,6 +203,7 @@ public class Inventory {
             onRemovedItem(args);
         }
         onChangeItem(EventArgs.Empty);
+        hasBeenChanged = true;
     }
 
     private void removeConsumableItem(int index, int amount = 1)
@@ -215,6 +217,7 @@ public class Inventory {
             onRemovedItem(args);
         }
         onChangeItem(EventArgs.Empty);
+        hasBeenChanged = true;
     }
 
 	public void consumeItem(int index)
@@ -289,6 +292,36 @@ public class Inventory {
         if (itemIndex < consumableItems.Count)
         {
             return consumableItems[itemIndex];
+        }
+        itemIndex -= consumableItems.Count;
+
+        return null;
+    }
+
+    public Item removeItem(int index)
+    {
+        int itemIndex = index;
+        if (itemIndex < equipmentItems.Count)
+        {
+            EquipmentItem item = equipmentItems[itemIndex];
+            removeEquipmentItem(itemIndex);
+            return item;
+        }
+        itemIndex -= equipmentItems.Count;
+
+        if (itemIndex < materialItems.Count)
+        {
+            MaterialItem item = materialItems[itemIndex];
+            removeMaterialItem(itemIndex);
+            return item;
+        }
+        itemIndex -= materialItems.Count;
+
+        if (itemIndex < consumableItems.Count)
+        {
+            ConsumableItem item = consumableItems[itemIndex];
+            removeConsumableItem(itemIndex);
+            return item;
         }
         itemIndex -= consumableItems.Count;
 
