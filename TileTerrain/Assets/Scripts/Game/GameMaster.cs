@@ -564,7 +564,7 @@ public class GameMaster : MonoBehaviour {
                 hero.setAwake(true);
                 hero.activate();
                 hero.respawn();
-                units.Add(hero);
+                units.Insert(hero.getID(),hero);
                 awakeUnits.Add(hero);
             }
         }
