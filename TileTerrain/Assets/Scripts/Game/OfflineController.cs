@@ -331,6 +331,15 @@ public class OfflineController : GameController {
         
     }
 
+    public override void requestChangeEnergy(int targetID, int energy)
+    {
+        changeEnergy(targetID, energy);
+    }
+    public override void requestChangeHealth(int targetID, int health)
+    {
+        changeHealth(targetID, health);
+    }
+
     [RPC]
     public override void requestLearnAbility(string ability, int unitID)
     {

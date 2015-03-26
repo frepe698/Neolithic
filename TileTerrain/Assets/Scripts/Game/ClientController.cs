@@ -177,6 +177,16 @@ public class ClientController : GameController {
         //do nada
     }
 
+    public override void requestChangeEnergy(int targetID, int energy)
+    {
+       //do nada
+    }
+
+    public override void requestChangeHealth(int targetID, int health)
+    {
+        //do nada
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {
