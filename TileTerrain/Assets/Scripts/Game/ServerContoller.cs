@@ -368,6 +368,15 @@ public class ServerController : GameController {
 
     }
 
+    public override void requestChangeEnergy(int targetID, int energy)
+    {
+        gameMaster.getNetView().RPC("changeEnergy", RPCMode.All, targetID, energy);
+    }
+    public override void requestChangeHealth(int targetID, int health)
+    {
+         gameMaster.getNetView().RPC("changeHealth", RPCMode.All, targetID, health);
+    }
+
     [RPC]
     public override void requestLearnAbility(string ability, int unitID)
     {

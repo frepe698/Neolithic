@@ -106,9 +106,10 @@ public class AbilityCommand : Command {
                     if (lastUsedEffect == 0)
                     {
                         ability.setCooldown();
-                        unit.getUnitStats().getHealth().addCurValue(-ability.getHealthCost());
-                        unit.getUnitStats().getEnergy().addCurValue(-ability.getEnergyCost());
-
+                        //unit.getUnitStats().getHealth().addCurValue(-ability.getHealthCost());
+                        //unit.getUnitStats().getEnergy().addCurValue(-ability.getEnergyCost());
+                        GameMaster.getGameController().requestChangeEnergy(unit.getID(), -ability.getEnergyCost());
+                        GameMaster.getGameController().requestChangeHealth(unit.getID(), -ability.getHealthCost());
                         unit.setCommandEndTime(Time.time + (ability.data.totalTime / unit.getAttackSpeed() - attackTime));
                     }
 

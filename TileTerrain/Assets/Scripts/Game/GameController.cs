@@ -1141,6 +1141,7 @@ public abstract class GameController : MonoBehaviour{
         }
     }
 
+    public abstract void requestChangeEnergy(int targetID, int energy);
     [RPC]
     protected void changeEnergy(int targetID, int energy)
     {
@@ -1151,6 +1152,7 @@ public abstract class GameController : MonoBehaviour{
         }
     }
 
+    public abstract void requestChangeHealth(int targetID, int health);
     [RPC]
     protected void changeHealth(int targetID, int health)
     {

@@ -315,12 +315,13 @@ public class Hero : Unit {
 
 	public override float getMovespeed ()
 	{
+        /*
 		float penalty = 1;
 		if(getEnergy() < 10)
 		{
 			penalty = 0.5f;
-		}
-		return base.getMovespeed()*penalty;
+		}*/
+        return base.getMovespeed();// *penalty;
 	}
 
 	public override void playWeaponAttackAnimation(float speed = 1)
