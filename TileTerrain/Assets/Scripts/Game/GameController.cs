@@ -62,6 +62,14 @@ public abstract class GameController : MonoBehaviour{
     {
         GameMaster.startSpawning();
     }
+
+    public abstract void requestAILevelIncrease();
+    
+    [RPC]
+    protected void approveAILevelIncrease()
+    {
+        GameMaster.increaseAILevel();
+    }
     
     public abstract void requestDamageBase(int team, int damage, int unitID);
 

@@ -49,6 +49,7 @@ public class TimeManager{
         sun.type = LightType.Directional;
         sun.shadows = LightShadows.Hard;
         sun.shadowStrength = 0.4f;
+        sun.intensity = 1.5f;
         
         moon = new GameObject("moon").AddComponent<Light>();
         moonRotation = currentTime.getMoonRotation();
@@ -57,7 +58,7 @@ public class TimeManager{
         moon.type = LightType.Directional;
         moon.shadows = LightShadows.Hard;
         moon.shadowStrength = 0.4f;
-
+        moon.intensity = 1.5f;
         updateIntermissionValues();
     }
     

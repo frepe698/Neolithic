@@ -19,6 +19,11 @@ public class OfflineController : GameController {
         approveLaneSpawning();
     }
 
+    public override void requestAILevelIncrease()
+    {
+        approveAILevelIncrease();
+    }
+
     public override void requestHeroStartRespawn(int unitID)
     {
         approveHeroStartRespawn(unitID);

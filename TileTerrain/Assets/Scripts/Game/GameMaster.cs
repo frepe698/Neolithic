@@ -17,6 +17,8 @@ public class GameMaster : MonoBehaviour {
     static List<UnitSpawner> daySpawners = new List<UnitSpawner>();
     static List<UnitSpawner> nightSpawners = new List<UnitSpawner>();
 
+    private static int aiSpawnLevel = 0;
+
 	static List<Projectile> projectiles = new List<Projectile>();
 
 	static private readonly int AWAKE_RADIUS = 20;
@@ -203,6 +205,16 @@ public class GameMaster : MonoBehaviour {
     public static void startSpawning()
     {
         mode.initSpawning();
+    }
+
+    
+    public static void increaseAILevel()
+    {
+        aiSpawnLevel++;
+    }
+    public static int getAISpawnLevel()
+    {
+        return aiSpawnLevel;
     }
 
     public static void requestDamageBase(int team, int damage, int unitID)
@@ -721,7 +733,7 @@ public class GameMaster : MonoBehaviour {
 
 	    projectiles.Clear();
         hero = null;
-
+        aiSpawnLevel = 0;
         playerToUnitID = new Dictionary<int, int>();
     }
 	
