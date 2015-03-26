@@ -27,6 +27,11 @@ public class ServerController : GameController {
         gameMaster.getNetView().RPC("approveLaneSpawning", RPCMode.All);
     }
 
+    public override void requestAILevelIncrease()
+    {
+        gameMaster.getNetView().RPC("approveAILevelIncrease", RPCMode.All);
+    }
+
     public override void requestHeroStartRespawn(int unitID)
     {
         gameMaster.getNetView().RPC("approveHeroStartRespawn", RPCMode.All, unitID);

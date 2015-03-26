@@ -9,7 +9,7 @@ public class TrialOfTheGods : GameMode {
 
     private bool spawning = false;
     private float spawnTimer = 0;
-    private const float spawnTime = 1;
+    private const float spawnTime = 3;
 
     public TrialOfTheGods(GameMaster gameMaster)
         : base(gameMaster)
@@ -142,7 +142,7 @@ public class TrialOfTheGods : GameMode {
 
         public int getSpawningLevel()
         {
-            return (int)Mathf.Floor(favour / 100);
+            return GameMaster.getAISpawnLevel() + (int)Mathf.Floor(favour / 100);
         }
 
         public void grantFavour(int favour)
@@ -152,7 +152,7 @@ public class TrialOfTheGods : GameMode {
         public void damageBase(int damage)
         {
             baseHealth -= damage;
-            Debug.Log("Base " + teamIndex + " took " + damage + " damage!");
+           // Debug.Log("Base " + teamIndex + " took " + damage + " damage!");
         }
 
         public int getEnemyTeam()

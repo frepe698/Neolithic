@@ -20,6 +20,11 @@ public class ClientController : GameController {
         //do nada;
     }
 
+    public override void requestAILevelIncrease()
+    {
+        //do nada
+    }
+
     public override void requestDamageBase(int team, int damage, int unitID)
     {
         //do nada

@@ -41,7 +41,7 @@ public class UnitSpawner {
                 Vector2i spawnPos = position + new Vector2i(x,y);
                 if(World.tileMap.isValidTile(spawnPos) && World.tileMap.getTile(spawnPos).isWalkable(unitID))
                 {
-                    AIUnit unit = new AIUnit(unitName, new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID);
+                    AIUnit unit = new AIUnit(unitName, new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, GameMaster.getAISpawnLevel());
                     GameMaster.addUnit(unit);
                     units.Add(unit);
                     unitsSpawned++;

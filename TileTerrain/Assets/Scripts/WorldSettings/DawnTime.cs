@@ -15,4 +15,10 @@ public class DawnTime : TimeSetting {
     {
 
     }
+
+    public override void start()
+    {
+        base.start();
+        GameMaster.getGameController().requestAILevelIncrease();
+    }
 }

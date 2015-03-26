@@ -416,7 +416,7 @@ public class Hero : Unit {
 
     public bool updateRespawnTimer()
     {
-        Debug.Log("Hero is waiting for respawn. " + respawnTimer + " seconds left.");
+        //Debug.Log("Hero is waiting for respawn. " + respawnTimer + " seconds left.");
         respawnTimer -= Time.deltaTime;
         return respawnTimer <= 0;
     }
