@@ -462,7 +462,7 @@
       <range>5</range>
       <tags>16</tags>
     </AbilityData>
-    <AbilityData name="ai_fireball" gameName="Fireball" modelName="">
+    <AbilityData name="ai_fireball" gameName="Fireball" modelName="fireball">
       <effects>
         <AbilityEffectAndTime>
           <name>ai_fireball</name>
@@ -485,7 +485,7 @@
       <range>6</range>
       <tags>-1</tags>
     </AbilityData>
-    <AbilityData name="ai_earthbreaker" gameName="Eart Breaker">
+    <AbilityData name="ai_earthbreaker" gameName="Eart Breaker" modelName="earthbreaker">
       <effects>
         <AbilityEffectAndTime>
           <name>ai_earthbreaker</name>
@@ -507,7 +507,7 @@
       <range>2</range>
       <tags>-1</tags>
     </AbilityData>
-    <AbilityData name="ai_bolt" gameName="Bolt">
+    <AbilityData name="ai_bolt" gameName="Bolt" modelName="bolt">
       <effects>
         <AbilityEffectAndTime>
           <name>ai_bolt</name>
