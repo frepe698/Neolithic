@@ -323,8 +323,28 @@ namespace Edit
         public AbilityEdit(AbilityEdit data)
             : base(data)
         {
-            effects = data.effects;
-            animations = data.animations;
+            effects = new List<AbilityEffectAndTimeEdit>();
+            foreach (AbilityEffectAndTimeEdit a in data.effects)
+            {
+                effects.Add(new AbilityEffectAndTimeEdit(a));
+            }
+            animations = new List<AbilityAnimationEdit>();
+            if (data.animations != null)
+            {
+                foreach (AbilityAnimationEdit a in data.animations)
+                {
+                    animations.Add(new AbilityAnimationEdit(a));
+                }
+            }
+            speedIncreases = new List<SpeedIncreaseEdit>();
+            if (data.speedIncreases != null)
+            {
+                foreach (SpeedIncreaseEdit s in data.speedIncreases)
+                {
+                    speedIncreases.Add(new SpeedIncreaseEdit(s));
+                }
+            }
+            tags = data.tags;
             energyCost = data.energyCost;
             healthCost = data.healthCost;
             cooldown = data.cooldown;
@@ -346,6 +366,11 @@ namespace Edit
             percent = 1;
         }
         public SpeedIncreaseEdit(SpeedIncrease edit)
+        {
+            this.stat = edit.stat;
+            this.percent = edit.percent;
+        }
+        public SpeedIncreaseEdit(SpeedIncreaseEdit edit)
         {
             this.stat = edit.stat;
             this.percent = edit.percent;

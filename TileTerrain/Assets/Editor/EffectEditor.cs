@@ -163,7 +163,7 @@ public class EffectEditor : ObjectEditor
     protected override void OnGUI()
     {
 
-        scroll = GUILayout.BeginScrollView(scroll, false, true, GUILayout.Width(160), GUILayout.Height(this.position.height - 170));
+        scroll = GUILayout.BeginScrollView(scroll, false, true, GUILayout.Width(160), GUILayout.Height(this.position.height - 250));
 
         GUILayout.Label("Single Target", EditorStyles.boldLabel);
         selectedSingleTarget = GUILayout.SelectionGrid(selectedSingleTarget, getSingleTargetStrings(), 1);

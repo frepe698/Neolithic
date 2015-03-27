@@ -41,7 +41,7 @@ public class AIUnit : Unit {
 
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
-        basicAttack = new Ability("aimeleebasicattack", this);
+        basicAttack = new Ability("bolt", this);
 	}
 
 	public override void updateAI()
