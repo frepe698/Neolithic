@@ -216,10 +216,11 @@ public class UnitEditor : ObjectEditor {
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Resources: ", EditorStyles.boldLabel);
         data.health = IntField("Health: ", data.health);
+        data.healthperlevel = IntField("Health Per Level: ", data.healthperlevel);
         data.lifegen = FloatField("Lifegen: ", data.lifegen);
         data.energy = FloatField("Energy: ", data.energy);
         data.energygen = FloatField("Energegen: ", data.energygen);
-
+        data.favouronkill = IntField("Favour on Kill", data.favouronkill);
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Shoe size:", EditorStyles.boldLabel);
         data.movespeed = FloatField("Move speed", data.movespeed);
@@ -255,10 +256,11 @@ public class UnitEditor : ObjectEditor {
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Resources: ", EditorStyles.boldLabel);
         data.health = IntField("Health: ", data.health);
+        data.healthperlevel = IntField("Health Per Level: ", data.healthperlevel);
         data.lifegen = FloatField("Lifegen: ", data.lifegen);
         data.energy = FloatField("Energy: ", data.energy);
         data.energygen = FloatField("Energegen: ", data.energygen);
-
+        data.favouronkill = IntField("Favour on Kill", data.favouronkill);
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Shoe size:", EditorStyles.boldLabel);
         data.movespeed = FloatField("Move speed", data.movespeed);
@@ -283,6 +285,8 @@ public class UnitEditor : ObjectEditor {
         Vector2 amount = EditorGUILayout.Vector2Field("Min/Max", new Vector2(data.minDrops, data.maxDrops));
         data.minDrops = (int)amount.x;
         data.maxDrops = (int)amount.y;
+        EditorGUILayout.LabelField("Abilties: ", EditorStyles.boldLabel);
+        data.abilities = EditorGUILayout.TextArea(data.abilities, GUILayout.ExpandHeight(true));
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }

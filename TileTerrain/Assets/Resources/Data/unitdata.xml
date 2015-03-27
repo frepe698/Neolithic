@@ -3,37 +3,45 @@
   <Heroes>
     <HeroData name="vrodl" gameName="Vrodl" modelName="vrodl">
       <health>100</health>
-      <lifegen>2</lifegen>
+      <healthperlevel>7</healthperlevel>
+      <lifegen>2.5</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
+      <favouronkill>100</favouronkill>
     </HeroData>
     <HeroData name="halftroll" gameName="Half Troll" modelName="halftroll">
-      <health>100</health>
+      <health>120</health>
+      <healthperlevel>8</healthperlevel>
       <lifegen>1</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
+      <favouronkill>100</favouronkill>
     </HeroData>
     <HeroData name="caveman" gameName="Caveman" modelName="caveman">
       <health>100</health>
+      <healthperlevel>11</healthperlevel>
       <lifegen>1</lifegen>
       <energy>100</energy>
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
+      <favouronkill>101</favouronkill>
     </HeroData>
   </Heroes>
   <AIUnits>
     <AIUnitData name="hare" gameName="Hare" modelName="hare">
       <health>20</health>
+      <healthperlevel>5</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>5</movespeed>
       <size>0.5</size>
+      <favouronkill>0</favouronkill>
       <damage>3</damage>
       <attackSpeed>1</attackSpeed>
       <hostile>false</hostile>
@@ -45,16 +53,21 @@
       <randomDrops>
         <string>meat</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
     </AIUnitData>
     <AIUnitData name="wolf" gameName="Wolf" modelName="wolf">
       <health>70</health>
+      <healthperlevel>30</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>4.5</movespeed>
       <size>0.75</size>
+      <favouronkill>0</favouronkill>
       <damage>4</damage>
       <attackSpeed>1.4</attackSpeed>
       <attackSound>wolfAttack02</attackSound>
@@ -66,16 +79,21 @@
       <randomDrops>
         <string>meat</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>0</minDrops>
       <maxDrops>3</maxDrops>
     </AIUnitData>
     <AIUnitData name="vrodlbot" gameName="Vrodl Bot" modelName="vrodl">
       <health>40</health>
+      <healthperlevel>0</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>3</movespeed>
       <size>0.5</size>
+      <favouronkill>0</favouronkill>
       <damage>4</damage>
       <attackSpeed>1</attackSpeed>
       <attackSound>punch01</attackSound>
@@ -87,16 +105,21 @@
       <randomDrops>
         <string>stone</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>1</minDrops>
       <maxDrops>2</maxDrops>
     </AIUnitData>
     <AIUnitData name="troll" gameName="Troll" modelName="troll">
       <health>300</health>
+      <healthperlevel>60</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>4</movespeed>
       <size>1</size>
+      <favouronkill>50</favouronkill>
       <damage>15</damage>
       <attackSpeed>0.8</attackSpeed>
       <attackSound>attackTroll01</attackSound>
@@ -108,16 +131,21 @@
       <randomDrops>
         <string>iron</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>2</minDrops>
       <maxDrops>7</maxDrops>
     </AIUnitData>
     <AIUnitData name="trollking" gameName="Troll King" modelName="troll">
-      <health>500</health>
+      <health>650</health>
+      <healthperlevel>150</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>4</movespeed>
       <size>1</size>
+      <favouronkill>100</favouronkill>
       <damage>25</damage>
       <attackSpeed>0.8</attackSpeed>
       <attackSound>attackTroll01</attackSound>
@@ -129,16 +157,21 @@
       <randomDrops>
         <string>gold</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>4</minDrops>
       <maxDrops>10</maxDrops>
     </AIUnitData>
     <AIUnitData name="goblin" gameName="Goblin" modelName="goblin">
       <health>60</health>
+      <healthperlevel>35</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>4.5</movespeed>
       <size>0.5</size>
+      <favouronkill>0</favouronkill>
       <damage>4</damage>
       <attackSpeed>1.1</attackSpeed>
       <attackSound>attackSpear01</attackSound>
@@ -153,16 +186,21 @@
         <string>stick</string>
         <string>gold</string>
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>0</minDrops>
       <maxDrops>1</maxDrops>
     </AIUnitData>
     <AIUnitData name="battlepig" gameName="Battle Pig" modelName="battlepig">
       <health>10000</health>
+      <healthperlevel>0</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
       <movespeed>0</movespeed>
       <size>1</size>
+      <favouronkill>0</favouronkill>
       <damage>1</damage>
       <attackSpeed>1</attackSpeed>
       <attackSound>punch02</attackSound>
@@ -174,6 +212,9 @@
       <randomDrops>
         <string />
       </randomDrops>
+      <abilities>
+        <string>ai_meleebasicattack</string>
+      </abilities>
       <minDrops>0</minDrops>
       <maxDrops>0</maxDrops>
     </AIUnitData>

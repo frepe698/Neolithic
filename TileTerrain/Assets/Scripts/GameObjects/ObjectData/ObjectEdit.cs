@@ -517,30 +517,38 @@ namespace Edit
     public abstract class UnitEdit : ObjectEdit
     {
         public int health;
+        public int healthperlevel;
         public float lifegen;
         public float energy;
         public float energygen;
         public float movespeed;
         public float size;
 
+        public int favouronkill;
+
         public UnitEdit(UnitData data) : base(data)
         {
             health = data.health;
+            healthperlevel = data.healthperlevel;
             lifegen = data.lifegen;
             energy = data.energy;
             energygen = data.energygen;
             movespeed = data.movespeed;
             size = data.size;
+            favouronkill = data.favouronkill;
         }
 
         public UnitEdit(UnitEdit data) : base(data)
         {
             health = data.health;
+            healthperlevel = data.healthperlevel;
             lifegen = data.lifegen;
             energy = data.energy;
             energygen = data.energygen;
             movespeed = data.movespeed;
             size = data.size;
+            favouronkill = data.favouronkill;
+
         }
 
         public UnitEdit()
@@ -560,6 +568,8 @@ namespace Edit
         public string safeDrops;
 
         public string randomDrops;
+
+        public string abilities;
 
         public int minDrops;
         public int maxDrops;
@@ -582,7 +592,15 @@ namespace Edit
             {
                 randomDrops += s + "\n";
             }
-
+            abilities = "";
+            if(data.abilities != null)
+            {
+                foreach (string s in data.abilities)
+                {
+                    abilities += s + "\n";
+                }
+            }
+            
             minDrops = data.minDrops;
             maxDrops = data.maxDrops;
         }
@@ -597,6 +615,7 @@ namespace Edit
 
             safeDrops = data.safeDrops;
             randomDrops = data.randomDrops;
+            abilities = data.abilities;
 
             minDrops = data.minDrops;
             maxDrops = data.maxDrops;

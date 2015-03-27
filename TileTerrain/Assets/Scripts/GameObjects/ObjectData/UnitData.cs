@@ -7,7 +7,7 @@ using Edit;
 public class UnitData : ObjectData {
 
 	public readonly int health;
-	
+    public readonly int healthperlevel;
 	public readonly float lifegen;
 	public readonly float energy;
 	public readonly float energygen;
@@ -16,6 +16,7 @@ public class UnitData : ObjectData {
 	
 	public readonly float size;
 
+    public readonly int favouronkill;
 	
     
     public UnitData()
@@ -26,11 +27,14 @@ public class UnitData : ObjectData {
         : base(data)
     {
         health = data.health;
+        healthperlevel = data.healthperlevel;
         lifegen = data.lifegen;
         energy = data.energy;
         energygen = data.energygen;
         movespeed = data.movespeed;
         size = data.size;
+        favouronkill = data.favouronkill;
+
     }
 
     public virtual string[] getSafeDrops()
