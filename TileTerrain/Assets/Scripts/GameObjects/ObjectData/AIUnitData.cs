@@ -20,6 +20,9 @@ public class AIUnitData : UnitData {
     [XmlArray("randomDrops")]
     public readonly string[] randomDrops;
 
+    [XmlArray("abilities")]
+    public readonly string[] abilities;
+
     public readonly int minDrops;
     public readonly int maxDrops;
 
@@ -38,7 +41,7 @@ public class AIUnitData : UnitData {
 
         if(data.safeDrops != null) safeDrops = data.safeDrops.Trim().Split('\n');
         if(data.randomDrops != null) randomDrops = data.randomDrops.Trim().Split('\n');
-
+        if (data.abilities != null) abilities = data.abilities.Trim().Split('\n');
         minDrops = data.minDrops;
         maxDrops = data.maxDrops;
     }
@@ -58,5 +61,10 @@ public class AIUnitData : UnitData {
     public override int getMaxDrops()
     {
         return maxDrops;
+    }
+
+    public string[] getAbilities()
+    {
+        return abilities;
     }
 }

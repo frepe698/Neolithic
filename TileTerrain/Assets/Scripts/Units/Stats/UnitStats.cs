@@ -23,7 +23,7 @@ public class UnitStats {
 		exp = (int)getSkillsToLevel(level);
 		
 		stats = new BaseStat[] {
-				new Vital("Health", data.health, 20),
+				new Vital("Health", data.health, data.healthperlevel),
 				new Vital("Energy", (int)data.energy, 0),
 				new BaseStat("Armor", 0),
 				new BaseStat("Health regen", (int)data.lifegen),
