@@ -36,8 +36,10 @@ public class OfflineController : GameController {
     public override void requestDamageBase(int team, int damage, int unitID)
     {
         approveDamageBase(team, damage, unitID);
-        
-
+    }
+    public override void requestAddFavour(int team, int favour)
+    {
+        approveAddFavour(team, favour);
     }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)

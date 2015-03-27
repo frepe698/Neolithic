@@ -85,13 +85,17 @@ public class TrialOfTheGods : GameMode {
 
     public override void grantFavour(int team, int favour)
     {
-        teams[team].grantFavour(favour);
+        getTeam(team).grantFavour(favour);
     }
     public int getSummonLevel(int team)
     {
         return teams[team].getSpawningLevel();
     }
 
+    private Team getTeam(int team)
+    {
+        return teams[team - 2];
+    }
 
     public class Team
     {

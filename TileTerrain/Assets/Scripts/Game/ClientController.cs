@@ -29,6 +29,11 @@ public class ClientController : GameController {
     {
         //do nada
     }
+
+    public override void requestAddFavour(int team, int favour)
+    {
+        //do nada
+    }
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

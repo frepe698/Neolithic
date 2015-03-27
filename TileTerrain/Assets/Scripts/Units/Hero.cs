@@ -447,5 +447,8 @@ public class Hero : Unit {
 
     }
 
-
+    public override int getFavour()
+    {
+        return 100;
+    }
 }

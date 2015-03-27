@@ -23,4 +23,5 @@ public abstract class GameMode {
     public abstract void initSpawning();
     public abstract void grantFavour(int team, int favour);
     public abstract void damageBase(int team, int damage);
+
 }

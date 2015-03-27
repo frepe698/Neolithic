@@ -84,6 +84,14 @@ public abstract class GameController : MonoBehaviour{
         requestRemoveUnit(unitID);
     }
 
+    public abstract void requestAddFavour(int team, int favour);
+
+    [RPC]
+    public void approveAddFavour(int team, int favour)
+    {
+        GameMaster.addFavour(team, favour);
+    }
+
     public abstract void requestHeroStartRespawn(int unitID);
     public abstract void requestRespawnHero(int unitID);
 
@@ -1009,9 +1017,14 @@ public abstract class GameController : MonoBehaviour{
     [RPC]
 	protected void killUnit(int targetID, int unitID)
 	{
-		Unit unit = GameMaster.getUnit (targetID); 
-		unit.setAlive(false);
-		requestUnitLootDrop(unit.getName(), unit.getTile());
+		Unit target = GameMaster.getUnit (targetID); 
+		target.setAlive(false);
+		requestUnitLootDrop(target.getName(), target.getTile());
+        Hero hero = GameMaster.getHero(unitID);
+        if(hero != null)
+        {
+            requestAddFavour(hero.getTeam(), target.getFavour());
+        }
 	}
 	
 	[RPC]

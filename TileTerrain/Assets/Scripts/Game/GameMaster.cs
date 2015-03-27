@@ -227,6 +227,11 @@ public class GameMaster : MonoBehaviour {
         mode.damageBase(team, damage);
     }
 
+    public static void addFavour(int team, int favour)
+    {
+        mode.grantFavour(team, favour);
+    }
+
 	public void updateAI()
 	{
         

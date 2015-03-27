@@ -780,6 +780,11 @@ public class Unit {
         return int.MaxValue;
     }
 
+    public virtual int getFavour()
+    {
+        return 0;
+    }
+
     public void addToStat(Stat stat, float value)
     {
         //Debug.Log("add to stat " + stat.ToString());

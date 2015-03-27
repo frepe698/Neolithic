@@ -47,6 +47,11 @@ public class ServerController : GameController {
         gameMaster.getNetView().RPC("approveDamageBase", RPCMode.All, team, damage, unitID);
     }
 
+    public override void requestAddFavour(int team, int favour)
+    {
+        gameMaster.getNetView().RPC("approveAddFavour", RPCMode.All, team, favour);
+    }
+
     [RPC]
     public override void requestAIUnitSpawn(int unitID, string name, float x, float y)
     {

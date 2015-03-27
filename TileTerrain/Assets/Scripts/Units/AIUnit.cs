@@ -8,9 +8,10 @@ public class AIUnit : Unit {
 	private int damage;
 	private float attackspeed;
     private string attackSound;
+    private int favour;
 
     private Ability basicAttack;
-
+    
 	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id, int level = 0) 
 		: base(unit, position, rotation, id)
 	{
@@ -23,7 +24,8 @@ public class AIUnit : Unit {
 			//movespeed = 4;
 			lineOfSight = 8;
 			size = 0.5f;
-			Debug.Log ("The unit data you are looking for does not exist: " + unit);
+            favour = 0;
+			Debug.LogError ("The unit data you are looking for does not exist: " + unit);
 		}
 		else
 		{
@@ -36,13 +38,13 @@ public class AIUnit : Unit {
 			lineOfSight = data.lineofsight;
 			size = data.size;
             modelName = data.modelName;
+            favour = data.favouronkill;
 		}
         init();
 
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
         basicAttack = new Ability(data.basicattack, this);
-
         foreach(string ability in data.abilities)
         {
             addAbility(ability);
@@ -170,6 +172,11 @@ public class AIUnit : Unit {
     public override int getTeam()
     {
         return 1;
+    }
+
+    public override int getFavour()
+    {
+        return favour;
     }
 
 }
