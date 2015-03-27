@@ -338,7 +338,8 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>cast_sky</name>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -457,7 +458,7 @@
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
-      <cooldown>0</cooldown>
+      <cooldown>4</cooldown>
       <range>5</range>
       <tags>16</tags>
     </AbilityData>
@@ -482,6 +483,50 @@
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
       <range>6</range>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="ai_earthbreaker" gameName="Eart Breaker">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>ai_earthbreaker</name>
+          <time>1.166</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>0.5</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases />
+      <totalTime>2</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>5</cooldown>
+      <range>2</range>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="ai_bolt" gameName="Bolt">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>ai_bolt</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases />
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>10</cooldown>
+      <range>5</range>
       <tags>-1</tags>
     </AbilityData>
   </Abilities>
