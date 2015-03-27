@@ -137,6 +137,50 @@
       <expMultiplier>1</expMultiplier>
       <radius>1.5</radius>
     </AreaOfEffectData>
+    <AreaOfEffectData name="ai_bolt" gameName="Bolt" modelName="bolt">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1.5</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>0.5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>4</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <radius>1</radius>
+    </AreaOfEffectData>
+    <AreaOfEffectData name="ai_earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>2</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>Stun</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>0.5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <radius>2</radius>
+    </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>
     <ProjectileEffectData name="rangedbasicattack" gameName="Ranged Basic Attack" modelName="rangedbasicattack">
@@ -167,8 +211,8 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.1</amount>
-          <duration>5</duration>
+          <amount>-0.3</amount>
+          <duration>3</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
@@ -286,15 +330,15 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.1</amount>
-          <duration>5</duration>
+          <amount>-0.3</amount>
+          <duration>3</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
-      <angle>20</angle>
+      <angle>15</angle>
     </ProjectileEffectData>
     <ProjectileEffectData name="splitarrowright" gameName="Split Arrow" modelName="splitarrow">
       <hitDamage>
@@ -309,15 +353,15 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.1</amount>
-          <duration>5</duration>
+          <amount>-0.3</amount>
+          <duration>3</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
       <weaponProjectile>true</weaponProjectile>
-      <angle>-20</angle>
+      <angle>-15</angle>
     </ProjectileEffectData>
   </ProjectileEffects>
   <MovementEffects>
