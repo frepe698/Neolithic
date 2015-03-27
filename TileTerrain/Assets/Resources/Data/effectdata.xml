@@ -201,11 +201,59 @@
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
+    <ProjectileEffectData name="ai_fireball" gameName="Fireball" modelName="fireball">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>2</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Armor</stat>
+          <amount>-4</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>4</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <projectileName>fireball</projectileName>
+      <weaponProjectile>false</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
     <ProjectileEffectData name="stonethrow" gameName="Stone Throw" modelName="">
       <hitDamage>
         <HitDamage>
           <stat>StoneDamage</stat>
           <percent>5</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.25</amount>
+          <duration>4</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <projectileName>rock</projectileName>
+      <weaponProjectile>false</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
+    <ProjectileEffectData name="aistonethrow" gameName="AI Stone Throw" modelName="">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>2</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>

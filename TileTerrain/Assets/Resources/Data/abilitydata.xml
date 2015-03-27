@@ -28,33 +28,6 @@
       <range>2</range>
       <tags>17</tags>
     </AbilityData>
-    <AbilityData name="aimeleebasicattack" gameName="Basic Attack" modelName="meleebasicattack">
-      <effects>
-        <AbilityEffectAndTime>
-          <name>meleebasicattack</name>
-          <time>0.583</time>
-        </AbilityEffectAndTime>
-      </effects>
-      <animations>
-        <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
-          <time>0</time>
-          <speed>1</speed>
-        </AbilityAnimation>
-      </animations>
-      <speedIncreases>
-        <SpeedIncrease>
-          <stat>Attackspeed</stat>
-          <percent>1</percent>
-        </SpeedIncrease>
-      </speedIncreases>
-      <totalTime>1</totalTime>
-      <energyCost>0</energyCost>
-      <healthCost>0</healthCost>
-      <cooldown>0</cooldown>
-      <range>2</range>
-      <tags>17</tags>
-    </AbilityData>
     <AbilityData name="rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
       <effects>
         <AbilityEffectAndTime>
@@ -81,33 +54,6 @@
       <cooldown>0</cooldown>
       <range>99999</range>
       <tags>14</tags>
-    </AbilityData>
-    <AbilityData name="airangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
-      <effects>
-        <AbilityEffectAndTime>
-          <name>rangedbasicattack</name>
-          <time>0.375</time>
-        </AbilityEffectAndTime>
-      </effects>
-      <animations>
-        <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
-          <time>0</time>
-          <speed>1</speed>
-        </AbilityAnimation>
-      </animations>
-      <speedIncreases>
-        <SpeedIncrease>
-          <stat>Attackspeed</stat>
-          <percent>1</percent>
-        </SpeedIncrease>
-      </speedIncreases>
-      <totalTime>1</totalTime>
-      <energyCost>0</energyCost>
-      <healthCost>0</healthCost>
-      <cooldown>0</cooldown>
-      <range>99999</range>
-      <tags>18</tags>
     </AbilityData>
     <AbilityData name="cleave" gameName="Cleave" modelName="meleebasicattack">
       <effects>
@@ -392,8 +338,7 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <weaponAttackAnimation>false</weaponAttackAnimation>
-          <name>cast_sky</name>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -433,6 +378,111 @@
       <cooldown>0</cooldown>
       <range>1</range>
       <tags>1</tags>
+    </AbilityData>
+    <AbilityData name="ai_meleebasicattack" gameName="Basic Attack" modelName="meleebasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>meleebasicattack</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>2</range>
+      <tags>17</tags>
+    </AbilityData>
+    <AbilityData name="ai_rangedbasicattack" gameName="Basic Attack" modelName="rangedbasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>rangedbasicattack</name>
+          <time>0.375</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>99999</range>
+      <tags>18</tags>
+    </AbilityData>
+    <AbilityData name="ai_stonethrow" gameName="Stone Throw" modelName="stonethrow">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>aistonethrow</name>
+          <time>0.583</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>5</range>
+      <tags>16</tags>
+    </AbilityData>
+    <AbilityData name="ai_fireball" gameName="Fireball" modelName="">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>ai_fireball</name>
+          <time>0.388</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1.5</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases />
+      <totalTime>1</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>6</range>
+      <tags>-1</tags>
     </AbilityData>
   </Abilities>
 </AbilityRoot>
