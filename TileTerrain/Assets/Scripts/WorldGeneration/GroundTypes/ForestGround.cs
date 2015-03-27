@@ -19,7 +19,7 @@ public class ForestGround : GroundType {
 		"deathcap",
 		"cep",
 		"puffball",
-		"blueberrybush",
+		"blueberry",
 	};
 
 	private static readonly string[] eyecandyTypes = new string[]
@@ -37,7 +37,7 @@ public class ForestGround : GroundType {
 
 	public override bool spawnResource ()
 	{
-		return (Random.value > 0.9f);
+		return (Random.value > 0.91f);
 	}
 
 	public override int spawnLootAmount ()

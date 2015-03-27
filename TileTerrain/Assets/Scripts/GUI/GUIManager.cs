@@ -30,9 +30,12 @@ public class GUIManager : MonoBehaviour{
     private float chatOutputHeight = 0;
     private Scrollbar chatScrollbar;
     private bool justOpenedChat = false;
+    private bool dontClear = false;
+    private bool allChat = false;
     private bool chatting = false;
     private bool chatOutputOpen = false;
     private float chatCloseTime = 0;
+    private CanvasGroup chatCanvasGroup;
     #endregion //END CHAT MEMBERS
 
     #region HERO STATS MEMBERS
@@ -48,10 +51,19 @@ public class GUIManager : MonoBehaviour{
     private GameObject abilityWindowObject;
     private SkillManager skillManager;
 
-    private Text headerText;
-    private Text[] skillLevelText;
+    private Text abilityWindowHeaderText;
+    private Text[] abilityWindowSkillLevelText;
     private Button[,] abilityButtons;
     private Image[,] abilityButtonBorders;
+
+    //Ability override window
+    private GameObject abilityOverrideObject;
+    private Text abilityOverrideHeaderText;
+    private Button[] abilityOverrideAbilityButtons;
+
+    private bool learningAbility;
+    private int learningAbilitySkillIndex;
+    private int learningAbilityLevel;
 
     private bool abilityWindowActive;
     #endregion //END ABILITY WINDOW MEMBERS
@@ -111,12 +123,14 @@ public class GUIManager : MonoBehaviour{
     #endregion //END CRAFTING MEMBERS
 
     #region TOOLTIP MEMBERS
+    //Recipe tooltip
     private GameObject recipeTooltip;
     private Text recipeTooltipName;
     private Text recipeTooltipIngredients;
     private Text recipeTooltipDescription;
     private int recipeTooltipIndex = -1;
 
+    //Item tooltip
     private GameObject itemTooltip;
     private Text itemTooltipName;
     private Text itemTooltipStats;
@@ -124,6 +138,13 @@ public class GUIManager : MonoBehaviour{
     private string itemTooltipIndexName = "";
     private bool itemTooltipIsRecipe = false;
     // public Vector3 tooltipOffset = Vector3.zero;
+
+    //Ability tooltip
+    private GameObject abilityTooltip;
+    private Text abilityTooltipName;
+    private Text abilityTooltipStats;
+    private int abilityTooltipIndex = -1;
+    private int abilityTooltipSkillIndex = -1;
     #endregion //END TOOLTIP MEMBERS
 
     #region PLAYER STATS MEMBERS
@@ -145,6 +166,9 @@ public class GUIManager : MonoBehaviour{
     public const int ABILITY_COUNT = 4;
     private Image[] abilityIcons;
     private Transform[] abilityCooldown;
+    private int movingAbility = -1;
+    private int hoveredAbility = -1;
+    private Image movingAbilityImage;
     #endregion
 
     #region FPS DISPLAY MEMBERS
@@ -188,6 +212,7 @@ public class GUIManager : MonoBehaviour{
         chatInputField = chatInputObject.GetComponent<InputField>();
         chatOutputText = chatObject.transform.FindChild("ChatOutputScrollmask").FindChild("ChatOutput").GetComponent<Text>();
         chatScrollbar = chatObject.transform.FindChild("Scrollbar").GetComponent<Scrollbar>();
+        chatCanvasGroup = chatObject.GetComponent<CanvasGroup>();
         #endregion
 
         #region HERO STATS AND ABILITY WINDOW INIT
@@ -197,10 +222,10 @@ public class GUIManager : MonoBehaviour{
         {
             //Ability window
             abilityWindowObject = canvas.FindChild("AbilityWindow").gameObject;
-            headerText = abilityWindowObject.transform.FindChild("Header").GetComponent<Text>();
+            abilityWindowHeaderText = abilityWindowObject.transform.FindChild("Header").GetComponent<Text>();
             GameObject skillPrefab = (GameObject)Resources.Load("GUI/Skill");
             SkillData[] skillData = DataHolder.Instance.getAllSkillData();
-            skillLevelText = new Text[skillData.Length];
+            abilityWindowSkillLevelText = new Text[skillData.Length];
             abilityButtons = new Button[skillData.Length, 5];
             abilityButtonBorders = new Image[skillData.Length, 5];
             float width = skillPrefab.GetComponent<RectTransform>().sizeDelta.x;
@@ -225,12 +250,13 @@ public class GUIManager : MonoBehaviour{
                 text.color = color;
 
 
-                skillLevelText[i] = go.transform.FindChild("LevelText").GetComponent<Text>();
+                abilityWindowSkillLevelText[i] = go.transform.FindChild("LevelText").GetComponent<Text>();
 
                 int skillIndex = i;
                 for (int b = 0; b < 5; b++)
                 {
                     Button button = go.transform.FindChild("ButtonAbility" + b).GetComponent<Button>();
+                    button.name += skillIndex;
 
                     if (b < data.abilities.Length)
                     {
@@ -254,6 +280,23 @@ public class GUIManager : MonoBehaviour{
                 }
             }
         }
+
+        //Ability override window init
+        abilityOverrideObject = abilityWindowObject.transform.FindChild("AbilityOverrideWindow").gameObject;
+        abilityOverrideObject.transform.SetAsLastSibling();
+        abilityOverrideHeaderText = abilityOverrideObject.transform.FindChild("Header").GetComponent<Text>();
+        abilityOverrideAbilityButtons = new Button[4];
+        for (int i = 0; i < 4; i++)
+        {
+            Button b = abilityOverrideObject.transform.FindChild("Ability" + i).GetComponent<Button>();
+            int index = i;
+            b.onClick.AddListener(() => abilityOverrideAbilityButtonClick(index));
+            abilityOverrideAbilityButtons[i] = b;
+        }
+        abilityOverrideObject.transform.FindChild("ButtonCancel").GetComponent<Button>().onClick.AddListener(() => abilityOverrideCancelButtonClick());
+        abilityOverrideObject.transform.FindChild("ButtonDontLearn").GetComponent<Button>().onClick.AddListener(() => abilityOverrideDontLearnButtonClick());
+        abilityOverrideObject.SetActive(false);
+
         #endregion
 
         #region INVENTORY INIT
@@ -312,17 +355,25 @@ public class GUIManager : MonoBehaviour{
 
         #region TOOLTIPS INIT
         //Tooltips init
+        //Recipe tooltip
         recipeTooltip = canvas.FindChild("RecipeTooltip").gameObject;
         recipeTooltipName = recipeTooltip.transform.FindChild("GameName").GetComponent<Text>();
         recipeTooltipIngredients = recipeTooltip.transform.FindChild("Ingredients").GetComponent<Text>();
         recipeTooltipDescription = recipeTooltip.transform.FindChild("Description").GetComponent<Text>();
         recipeTooltip.SetActive(false);
 
+        //Item tooltip
         itemTooltip = canvas.FindChild("ItemTooltip").gameObject;
         itemTooltipName = itemTooltip.transform.FindChild("GameName").GetComponent<Text>();
         itemTooltipStats = itemTooltip.transform.FindChild("Stats").GetComponent<Text>();
         itemTooltipDescription = itemTooltip.transform.FindChild("Description").GetComponent<Text>();
         itemTooltip.SetActive(false);
+
+        //Ability tooltip
+        abilityTooltip = canvas.FindChild("AbilityTooltip").gameObject;
+        abilityTooltipName = abilityTooltip.transform.FindChild("GameName").GetComponent<Text>();
+        abilityTooltipStats = abilityTooltip.transform.FindChild("Stats").GetComponent<Text>();
+        abilityTooltip.SetActive(false);
         #endregion
 
         #region QUICK USE ITEMS INIT
@@ -349,6 +400,8 @@ public class GUIManager : MonoBehaviour{
             abilityIcons[i] = rightPanel.FindChild("Ability" + i).GetComponent<Image>();
             abilityCooldown[i] = abilityIcons[i].rectTransform.FindChild("Cooldown");
         }
+        movingAbilityImage = canvas.FindChild("MovingAbility").GetComponent<Image>();
+        movingAbilityImage.gameObject.SetActive(false);
         #endregion
 
         #region FPS DISPLAY INIT
@@ -377,23 +430,32 @@ public class GUIManager : MonoBehaviour{
 
     public void update()
 	{
+        if (Input.GetKeyDown("o")) setGameOver(true);
+        if (Input.GetKeyDown("l")) setGameOver(false);
         if (chatting)
         {
             if (justOpenedChat)
             {
+                chatCanvasGroup.interactable = true;
+                chatCanvasGroup.blocksRaycasts = true;
                 chatInputField.ActivateInputField();
-                chatInputField.Select();
+                if(!dontClear)chatInputField.text = "";
+                if(allChat) chatInputField.text = "/all " + chatInputField.text;
+                //chatInputField.Select();
                 justOpenedChat = false;
             }
             chatInputField.text = chatInputField.text.Replace("\n", "").Replace("\r", "");
             chatObject.SetActive(true);
             chatOutputOpen = true;
             chatInputObject.SetActive(true);
+            
         }
         else
         {
             chatInputField.DeactivateInputField();
             chatInputObject.SetActive(false);
+            chatCanvasGroup.interactable = false;
+            chatCanvasGroup.blocksRaycasts = false;
 
             if (Time.time >= chatCloseTime)
             {
@@ -430,6 +492,35 @@ public class GUIManager : MonoBehaviour{
             inactivateRecipeTooltip();
             inactivateItemTooltip();
         }
+
+        //Ability moving
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (hoveredAbility != -1 && abilityIcons[hoveredAbility].sprite != null)
+            {
+                movingAbility = hoveredAbility;
+                movingAbilityImage.sprite = abilityIcons[movingAbility].sprite;
+                movingAbilityImage.gameObject.SetActive(true);
+            }
+        }
+        if (movingAbility != -1)
+        {
+            float scaleFactor = canvas.GetComponent<Canvas>().scaleFactor;
+            movingAbilityImage.rectTransform.anchoredPosition = Input.mousePosition / scaleFactor;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (hoveredAbility != -1)
+                    swapAbilityMapping(movingAbility, hoveredAbility);
+
+                movingAbility = -1;
+                movingAbilityImage.gameObject.SetActive(false);
+            }
+        }
+        hoveredAbility = -1;
+
+        //Hero stats update
 		Hero hero = GameMaster.getPlayerHero();
 		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / (hero.getMaxHealth()+float.Epsilon)) * 100);
         energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / (hero.getMaxEnergy() + float.Epsilon)) * 100);
@@ -448,8 +539,19 @@ public class GUIManager : MonoBehaviour{
         }
 	}
 
+    private void swapAbilityMapping(int first, int second)
+    {
+        if (first == second) return;
+        int abilitySecond = GameController.playerAbilityMapping[second];
+        GameController.playerAbilityMapping[second] = GameController.playerAbilityMapping[first];
+        GameController.playerAbilityMapping[first] = abilitySecond;
+
+        updateAbilityIcons();
+    }
+
     public void updateMouseCollision()
     {
+        Debug.Log("update mouse collidion");
         PointerEventData pe = new PointerEventData(eventSystem);
         pe.position = Input.mousePosition;
 
@@ -462,16 +564,27 @@ public class GUIManager : MonoBehaviour{
         {
             GameObject g = h.gameObject;
 
-            hit = (g.GetComponent<Button>());
+            if (g.tag == "UIRaycastBlock")
+            {
+                Debug.Log("Ui block");
+                break;
+            }
+
+            hit = (g.tag == "UIRaycastHit");
 
             if(hit)
             {
+                Debug.Log("hit " + g.name);
                 hgo = g;
                 break;
             }
         }
+
         if (hit)
         {
+            bool inaItem = true;
+            bool inaRecipe = true;
+            bool inaAbility = true;
             if (hgo.name.StartsWith(INVENTORY_BUTTON_NAME))
             {
                 int index;
@@ -495,6 +608,7 @@ public class GUIManager : MonoBehaviour{
                     {
                         activateItemTooltip(itemName);
                     }
+                    inaItem = false;
 
                 }
             }
@@ -507,13 +621,44 @@ public class GUIManager : MonoBehaviour{
                     {
                         activateRecipeTooltip(index);
                     }
+                    inaRecipe = false;
+                    inaItem = false;
                 }
             }
+            else if (hgo.name.StartsWith("ButtonAbility")) //if it is a ability learning button
+            {
+                int index;
+                if (int.TryParse(hgo.name.Substring("ButtonAbility".Length, 1), out index))
+                {
+                    int skillIndex;
+                    if (int.TryParse(hgo.name.Substring("ButtonAbility".Length + 1), out skillIndex))
+                    {
+                        if (index != abilityTooltipIndex || skillIndex != abilityTooltipSkillIndex)
+                        {
+                            activateAbilityTooltip(skillIndex, index);
+                        }
+                        inaAbility = false;
+                    }
+                }
+            }
+            else if (hgo.name.StartsWith("Ability")) //if it is ability use image
+            {
+                int index;
+                if (int.TryParse(hgo.name.Substring("Ability".Length), out index))
+                {
+                    hoveredAbility = index;
+                }
+            }
+
+            if (inaItem) inactivateItemTooltip();
+            if (inaRecipe) inactivateRecipeTooltip();
+            if (inaAbility) inactivateAbilityTooltip();
         }
         else
         {
             inactivateRecipeTooltip();
             inactivateItemTooltip();
+            inactivateAbilityTooltip();
         }
 
     }
@@ -554,6 +699,50 @@ public class GUIManager : MonoBehaviour{
     #endregion // IN GAME MENU
 
     #region TOOLTIPS
+
+    private void inactivateAbilityTooltip()
+    {
+        abilityTooltip.SetActive(false);
+        abilityTooltipSkillIndex = -1;
+        abilityTooltipIndex = -1;
+    }
+
+    private void activateAbilityTooltip(int skillIndex, int index)
+    {
+        Edit.LearnableAbility ability = skillManager.getSkill(skillIndex).data.abilities[index];
+        if (ability == null) return;
+        AbilityData data = DataHolder.Instance.getAbilityData(ability.name);
+        if (data != null)
+        {
+            abilityTooltip.SetActive(true);
+            abilityTooltipName.text = data.gameName + "\n" +
+                "Req level: " + (ability.reqLevel+1);
+
+            string stats = "\n";
+            foreach (AbilityEffectAndTime effecttime in data.effects)
+            {
+                AbilityEffectData effectData = DataHolder.Instance.getEffectData(effecttime.name);
+                if(effectData != null)
+                {
+                    foreach (HitDamage damage in effectData.hitDamage)
+                    {
+                        stats += damage.ToString() + "\n";
+                    }
+                }
+            }
+            Vector2 pos = abilityTooltipStats.rectTransform.anchoredPosition = new Vector2(0, abilityTooltipName.rectTransform.anchoredPosition.y - abilityTooltipName.preferredHeight);
+            abilityTooltipStats.text = stats;
+            Vector2 size = abilityTooltipStats.rectTransform.sizeDelta = new Vector2(95, abilityTooltipStats.preferredHeight);
+            abilityTooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(100, -pos.y + size.y);
+            float scaleFactor = canvas.GetComponent<Canvas>().scaleFactor;
+            float ypos = (Input.mousePosition.y - Screen.height) / scaleFactor;
+            if (Input.mousePosition.y < Screen.height * 0.5f) ypos += (-pos.y + size.y);
+            abilityTooltip.GetComponent<RectTransform>().anchoredPosition = new Vector2(Input.mousePosition.x / scaleFactor, ypos);
+            abilityTooltipIndex = index;
+            abilityTooltipSkillIndex = skillIndex;
+        }
+    }
+
     private void inactivateRecipeTooltip()
     {
         recipeTooltipIndex = -1;
@@ -573,7 +762,7 @@ public class GUIManager : MonoBehaviour{
             recipeTooltip.SetActive(true);
             recipeTooltipName.text = data.gameName + "\nRecipe";
             if (skillManager.getSkill((int)data.skill).getLevel() < data.requiredSkillLevel)
-                recipeTooltipName.text += "\n<color=red>" + data.skill + " " + data.requiredSkillLevel + "</color>";
+                recipeTooltipName.text += "\n<color=red>" + data.skill + " " + (data.requiredSkillLevel+1) + "</color>";
 
 
             string ing = "\n";
@@ -734,13 +923,13 @@ public class GUIManager : MonoBehaviour{
     {
         if (unitStats == null) return;
 
-        headerText.text = "Level " + unitStats.getDisplayLevel() + " <color=black>|</color> <color=white>Ability Points "+skillManager.getAbilityPoints()+"</color>";
+        abilityWindowHeaderText.text = "Level " + unitStats.getDisplayLevel() + " <color=black>|</color> <color=white>Ability Points "+skillManager.getAbilityPoints()+"</color>";
 
         Skill[] skills = skillManager.getSkills();
 
         for (int i = 0; i < skills.Length; i++)
         {
-            skillLevelText[i].text = skills[i].getDisplayLevel().ToString();
+            abilityWindowSkillLevelText[i].text = skills[i].getDisplayLevel().ToString();
 
             //Update buttons
             for (int bi = 0; bi < 5; bi++)
@@ -758,7 +947,60 @@ public class GUIManager : MonoBehaviour{
 
     public void abilityButtonClick(int skill, int level)
     {
-        skillManager.getSkill(skill).unlock(level);
+        //skillManager.getSkill(skill).unlock(level);
+        if(skillManager.getSkill(skill).canUnlock(level))
+        {
+            if (playerHero.hasAbility(Hero.MAX_ABILITY_COUNT - 1))
+            {
+                learningAbilitySkillIndex = skill;
+                learningAbilityLevel = level;
+                learningAbility = true;
+                abilityOverrideObject.SetActive(true);
+
+                abilityOverrideHeaderText.text = "You already know four abilities." +
+                " Which ability do you want to forget to make room for " + skillManager.getSkill(skill).getAbilityName(level) + "?";
+
+                for (int i = 0; i < Hero.MAX_ABILITY_COUNT; i++)
+                {
+                    abilityOverrideAbilityButtons[i].image.sprite = abilityIcons[i].sprite;
+                }
+            }
+            else
+            {
+                skillManager.getSkill(skill).unlockAbility(level, true, Hero.MAX_ABILITY_COUNT-1);
+            }
+        }
+    }
+
+    public void abilityOverrideAbilityButtonClick(int index)
+    {
+        if (!learningAbility)
+        {
+            abilityOverrideObject.SetActive(false);
+            return;
+        }
+
+        skillManager.getSkill(learningAbilitySkillIndex).unlockAbility(learningAbilityLevel, true, index);
+        closeAbilityOverrideWindow();
+    }
+
+    public void abilityOverrideCancelButtonClick()
+    {
+        closeAbilityOverrideWindow();
+    }
+
+    public void abilityOverrideDontLearnButtonClick()
+    {
+        skillManager.getSkill(learningAbilitySkillIndex).unlockAbility(learningAbilityLevel, false, 0);
+        closeAbilityOverrideWindow();
+    }
+
+    private void closeAbilityOverrideWindow()
+    {
+        learningAbilitySkillIndex = -1;
+        learningAbilityLevel = -1;
+        learningAbility = false;
+        abilityOverrideObject.SetActive(false);
     }
 
     #endregion
@@ -899,14 +1141,19 @@ public class GUIManager : MonoBehaviour{
     {
         for (int i = 0; i < ABILITY_COUNT; i++)
         {
-            if (playerHero.hasAbility(i))
+            int abilityIndex = GameController.playerAbilityMapping[i];
+            Image icon = abilityIcons[i];
+            if (playerHero.hasAbility(abilityIndex))
             {
-                abilityIcons[i].enabled = true;
-                abilityIcons[i].sprite = playerHero.getAbility(i).data.getIcon();
+                icon.enabled = true;
+                icon.sprite = playerHero.getAbility(abilityIndex).data.getIcon();
+                icon.color = Color.white;
             }
             else
             {
-                abilityIcons[i].enabled = false;
+                icon.enabled = true;
+                icon.sprite = null;
+                icon.color = new Color(0, 0, 0, 0);
             }
             
         }
@@ -1167,7 +1414,10 @@ public class GUIManager : MonoBehaviour{
 
     public void dropSelectedItem()
     {
-        GameMaster.getGameController().requestItemDrop(GameMaster.getPlayerUnitID(), selectedItem);
+        if (selectedItem >= 0)
+        {
+            GameMaster.getGameController().requestItemDrop(GameMaster.getPlayerUnitID(), selectedItem);
+        }
     }
 
     public int getSelectedItemIndex()
@@ -1315,7 +1565,7 @@ public class GUIManager : MonoBehaviour{
                 Text text = craftingButtons[i][j].transform.FindChild("Text").GetComponent<Text>();
                 if (skillManager.getSkill((int)recipe.skill).getLevel() < recipe.requiredSkillLevel)
                 {
-                    text.text = recipe.gameName + "<color=red> ["+recipe.skill+" "+recipe.requiredSkillLevel+"]</color>";
+                    text.text = recipe.gameName + "<color=red> ["+recipe.skill+" "+(recipe.requiredSkillLevel+1)+"]</color>";
                     //text.color = redTextColor;
                 }
                 else if (!inventory.hasIngredients(recipe.ingredients))
@@ -1487,7 +1737,7 @@ public class GUIManager : MonoBehaviour{
         chatOutputOpen = true;
     }
 
-    public void toggleChatInput(bool allChat)
+    public void toggleChatInput(bool allChat, bool dontClear)
     {
         if (chatting)
         {
@@ -1510,7 +1760,8 @@ public class GUIManager : MonoBehaviour{
             chatObject.SetActive(true);
             chatInputObject.SetActive(true);
             justOpenedChat = true;
-            if(allChat) chatInputField.text = "/all";
+            this.allChat = allChat;
+            this.dontClear = dontClear;
         }
 
     }
@@ -1545,5 +1796,14 @@ public class GUIManager : MonoBehaviour{
     public void startGame()
     {
         Destroy(waitingForPlayers);
+    }
+
+    public void setGameOver(bool victory)
+    {
+        Transform obj = canvas.FindChild("GameOver");
+
+        obj.gameObject.SetActive(true);
+        obj.FindChild("Victory").gameObject.SetActive(victory);
+        obj.FindChild("Defeat").gameObject.SetActive(!victory);
     }
 }

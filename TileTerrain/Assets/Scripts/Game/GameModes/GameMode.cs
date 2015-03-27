@@ -11,7 +11,7 @@ public abstract class GameMode {
 
     
 
-    private GameMaster gameMaster;
+    protected GameMaster gameMaster;
 
     public GameMode(GameMaster gameMaster)
     {

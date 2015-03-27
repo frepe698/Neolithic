@@ -52,6 +52,16 @@ public class HitDamage
         this.damageSelf = edit.damageSelf;
     }
 
+    public override string ToString()
+    {
+        string stats;
+        stats = damageSelf ? "Damage yourself for " : "Damage target for ";
+        stats += (percent * 100) + "% ";
+        stats += yourStat ? "of your " : "of the targets ";
+        stats += stat;
+        return stats;
+    }
+
 }
 
 public class HitBuff

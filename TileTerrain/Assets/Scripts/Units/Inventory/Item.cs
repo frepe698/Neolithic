@@ -37,5 +37,8 @@ public abstract class Item {
         return 1;
     }
 
-
+    public virtual bool canBeDropped()
+    {
+        return true;
+    }
 }

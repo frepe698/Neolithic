@@ -24,6 +24,10 @@ public abstract class GameController : MonoBehaviour{
     {
         "q", "w", "e", "r"
     };
+    public static int[] playerAbilityMapping = new int[]
+    {
+        0, 1, 2, 3
+    };
 	private Renderer[] targetRenderers;
 	private Texture2D moveCursor;
 	private Texture2D chopCursor;
@@ -324,7 +328,7 @@ public abstract class GameController : MonoBehaviour{
 
         if (Input.GetKeyDown("return"))
         {
-            gameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"));
+            gameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
         }
         if (gameMaster.getGUIManager().takeKeyboardInput())
         {
@@ -476,10 +480,11 @@ public abstract class GameController : MonoBehaviour{
                 {
                     if (Input.GetKeyDown(ABILITY_INPUT[i]))
                     {
-                        if (!hero.hasAbility(i)) continue;
+                        int abilityIndex = playerAbilityMapping[i];
+                        if (!hero.hasAbility(abilityIndex)) continue;
                         if (hitGround && Input.GetKey(ATTACK_GROUND))
                         {
-                            Ability ability = hero.getAbility(i);
+                            Ability ability = hero.getAbility(abilityIndex);
                             Vector2 heroPos = hero.get2DPos();
                             Vector2 groundPos2D = new Vector2(groundPosition.x, groundPosition.z);
 
@@ -489,16 +494,16 @@ public abstract class GameController : MonoBehaviour{
                                 Vector2 dir = (groundPos2D - heroPos).normalized;
                                 attackPos = new Vector3(heroPos.x + dir.x * ability.data.range, 0, heroPos.y + dir.y * ability.data.range);
                             }
-                            requestAbilityCommandVec(unitID, attackPos + Vector3.up, i);
+                            requestAbilityCommandVec(unitID, attackPos + Vector3.up, abilityIndex);
                         }
                         else if (firstUnit != null)
                         {
                             int targetID = firstUnit.GetComponent<UnitController>().getID();
-                            requestAbilityCommandID(unitID, targetID, i);
+                            requestAbilityCommandID(unitID, targetID, abilityIndex);
                         }
                         else if(hitGround)
                         {
-                            requestAbilityCommandVec(unitID, groundPosition + Vector3.up, i);
+                            requestAbilityCommandVec(unitID, groundPosition + Vector3.up, abilityIndex);
                         }
                     }
                 }
@@ -591,12 +596,10 @@ public abstract class GameController : MonoBehaviour{
                     {
                         if (GameMaster.getPlayerHero().isMelee())
                         {
-                            Debug.Log("gather");
                             requestGatherCommand(unitID, targetPosition.x, targetPosition.z);
                         }
                         else
                         {
-                            Debug.Log("move");
                             requestMoveCommand(unitID, targetPosition.x, targetPosition.z);
                         }
                     }
@@ -1035,12 +1038,13 @@ public abstract class GameController : MonoBehaviour{
     public abstract void requestHit(int damage, int unitID, int targetID, int skill = -1);
 
     [RPC]
-    public abstract void requestLearnAbility(string ability, int unitID);
+    public abstract void requestLearnAbility(string ability, int unitID, int index);
 
     [RPC]
-    protected void approveLearnAbility(string ability, int unitID)
+    protected void approveLearnAbility(string ability, int unitID, int index)
     {
-        GameMaster.getHero(unitID).addAbility(ability);
+        Hero hero = GameMaster.getHero(unitID);
+        hero.addAbility(ability, index);
     }
 
     #endregion

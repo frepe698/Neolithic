@@ -13,6 +13,7 @@ public class Hero : Unit {
 
     protected SkillManager skillManager;
 
+    public const int MAX_ABILITY_COUNT = 4;
     private Ability meleeBasicAttack;
     private Ability rangedBasicAttack;
 
@@ -382,9 +383,24 @@ public class Hero : Unit {
             onAbilityUpdatedListener(this, EventArgs.Empty);
     }
 
+    public void learnAbility(string ability, int index)
+    {
+        GameMaster.getGameController().requestLearnAbility(ability, getID(), index);
+    }
+
     public override void addAbility(string ability)
     {
         base.addAbility(ability);
+        onAbilityUpdated();
+    }
+
+    public virtual void addAbility(string ability, int index)
+    {
+        if (abilities.Count < index || abilities.Count < MAX_ABILITY_COUNT)
+            abilities.Add(new Ability(ability, this));
+        else
+            abilities[index] = new Ability(ability, this);
+
         onAbilityUpdated();
     }
 

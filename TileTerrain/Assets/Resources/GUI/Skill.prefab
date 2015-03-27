@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11454054}
   m_Layer: 5
   m_Name: ButtonAbility1
-  m_TagString: Untagged
+  m_TagString: UIRaycastHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,7 @@ GameObject:
   - 224: {fileID: 22418354}
   - 222: {fileID: 22234244}
   - 114: {fileID: 11488668}
+  - 225: {fileID: 22573414}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -150,7 +151,7 @@ GameObject:
   - 114: {fileID: 11451246}
   m_Layer: 5
   m_Name: ButtonAbility0
-  m_TagString: Untagged
+  m_TagString: UIRaycastHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,7 +169,7 @@ GameObject:
   - 114: {fileID: 11486804}
   m_Layer: 5
   m_Name: ButtonAbility3
-  m_TagString: Untagged
+  m_TagString: UIRaycastHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,6 +201,7 @@ GameObject:
   - 224: {fileID: 22412442}
   - 222: {fileID: 22297862}
   - 114: {fileID: 11458012}
+  - 225: {fileID: 22506050}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -220,7 +222,7 @@ GameObject:
   - 114: {fileID: 11459462}
   m_Layer: 5
   m_Name: ButtonAbility4
-  m_TagString: Untagged
+  m_TagString: UIRaycastHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,6 +237,7 @@ GameObject:
   - 224: {fileID: 22472358}
   - 222: {fileID: 22275548}
   - 114: {fileID: 11468236}
+  - 225: {fileID: 22507712}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -252,6 +255,7 @@ GameObject:
   - 224: {fileID: 22491678}
   - 222: {fileID: 22205378}
   - 114: {fileID: 11456008}
+  - 225: {fileID: 22543890}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -272,7 +276,7 @@ GameObject:
   - 114: {fileID: 11447978}
   m_Layer: 5
   m_Name: ButtonAbility2
-  m_TagString: Untagged
+  m_TagString: UIRaycastHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +291,7 @@ GameObject:
   - 224: {fileID: 22478404}
   - 222: {fileID: 22233190}
   - 114: {fileID: 11420988}
+  - 225: {fileID: 22576558}
   m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
@@ -1298,6 +1303,61 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
+--- !u!225 &22506050
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178888}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &22507712
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182824}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &22543890
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184688}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &22573414
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119248}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &22576558
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194632}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

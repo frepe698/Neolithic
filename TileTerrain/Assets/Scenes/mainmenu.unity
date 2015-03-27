@@ -652,10 +652,6 @@ RectTransform:
 GameObject:
   m_PrefabParentObject: {fileID: 187152, guid: c6b2fc3dee7499346b846945e5ceb30c, type: 2}
   m_PrefabInternal: {fileID: 54388694}
---- !u!1 &54388697
-GameObject:
-  m_PrefabParentObject: {fileID: 112122, guid: c6b2fc3dee7499346b846945e5ceb30c, type: 2}
-  m_PrefabInternal: {fileID: 54388694}
 --- !u!225 &54388698
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -667,17 +663,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 1
---- !u!225 &54388699
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 54388697}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1001 &59098230
 Prefab:
   m_ObjectHideFlags: 0

@@ -53,5 +53,9 @@
       <description>A magical potion</description>
       <hungerChange>-100</hungerChange>
     </ConsumableItemData>
+    <ConsumableItemData name="blueberry" gameName="Blueberry" modelName="blueberry">
+      <description>A blue berry, hence the name.</description>
+      <hungerChange>25</hungerChange>
+    </ConsumableItemData>
   </ConsumableItems>
 </ItemRoot>

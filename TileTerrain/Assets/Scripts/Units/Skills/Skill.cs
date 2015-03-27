@@ -62,7 +62,7 @@ public class Skill {
     public void unlockNext()
     {
         if (unlockedLevel >= data.abilities.Length) return;
-        manager.learnAbility(data.abilities[unlockedLevel].name);
+        manager.learnAbility(data.abilities[unlockedLevel].name, 0);
         unlockedLevel++;
         manager.removeAbilityPoint();
         //Apply changes to unitstats or smth
@@ -74,6 +74,18 @@ public class Skill {
         {
             unlockNext();
         }
+    }
+
+    public void unlockAbility(int level, bool learn, int index)
+    {
+        if (!canUnlock(level)) return;
+
+        if (learn)
+        {
+            manager.learnAbility(data.abilities[level].name, index);
+        }
+        unlockedLevel++;
+        manager.removeAbilityPoint();
     }
 
     public StatChange getStatChange(int index)
@@ -95,6 +107,11 @@ public class Skill {
     public bool canUnlock(int level)
     {
         return level == unlockedLevel && manager.hasAbilitypoint() && this.level >= data.abilities[level].reqLevel;
+    }
+
+    public string getAbilityName(int level)
+    {
+        return data.abilities[level].name;
     }
 	
 }

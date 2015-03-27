@@ -313,7 +313,7 @@ public class ServerController : GameController {
     {
         Hero hero = GameMaster.getHero(unitID);
         Item item = hero.getInventory().getItem(itemIndex);
-        if (item != null)
+        if (item != null && item.canBeDropped())
         {
             gameMaster.getNetView().RPC("approveItemDrop", RPCMode.All, unitID, itemIndex, item.getName(), hero.getPosition());
         }
@@ -383,9 +383,9 @@ public class ServerController : GameController {
     }
 
     [RPC]
-    public override void requestLearnAbility(string ability, int unitID)
+    public override void requestLearnAbility(string ability, int unitID, int index)
     {
-        gameMaster.getNetView().RPC("approveLearnAbility", RPCMode.All, ability, unitID);
+        gameMaster.getNetView().RPC("approveLearnAbility", RPCMode.All, ability, unitID, index);
     }
 
     public override void requestAddBuff(int unitID, string name, params object[] parameters)

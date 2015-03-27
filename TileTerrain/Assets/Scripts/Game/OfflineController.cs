@@ -303,7 +303,7 @@ public class OfflineController : GameController {
     {
         Hero hero = GameMaster.getHero(unitID);
         Item item = hero.getInventory().getItem(itemIndex);
-        if (item != null)
+        if (item != null && item.canBeDropped())
         {
             approveItemDrop(unitID, itemIndex, item.getName(), hero.getPosition());
         }
@@ -368,9 +368,9 @@ public class OfflineController : GameController {
     }
 
     [RPC]
-    public override void requestLearnAbility(string ability, int unitID)
+    public override void requestLearnAbility(string ability, int unitID, int index)
     {
-        approveLearnAbility(ability, unitID);
+        approveLearnAbility(ability, unitID, index);
     }
 
     public override void requestAddBuff(int unitID, string name, params object[] parameters)

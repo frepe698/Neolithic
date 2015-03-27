@@ -42,4 +42,9 @@ public class EquipmentItem : Item {
         return equiped;
     }
 
+    public override bool canBeDropped()
+    {
+        return !isEquiped();
+    }
+
 }

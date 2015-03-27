@@ -750,14 +750,12 @@ public class Unit {
         //do nada
     }
 
-    public void learnAbility(string ability)
-    {
-        GameMaster.getGameController().requestLearnAbility(ability, getID());
-    }
+    
     public virtual void addAbility(string ability)
     {
         abilities.Add(new Ability(ability, this));
     }
+
 
     public Ability getAbility(int ability)
     {

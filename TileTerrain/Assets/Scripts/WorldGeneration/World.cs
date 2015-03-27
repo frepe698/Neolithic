@@ -153,7 +153,7 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool(("Loot/meat"), 20, true);
         ObjectPoolingManager.Instance.CreatePool(("Loot/harepelt"), 10, true);
         ObjectPoolingManager.Instance.CreatePool(("Loot/fur"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool(("Harvestable/blueberrybush"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Harvestable/blueberry"), 50, true);
         ObjectPoolingManager.Instance.CreatePool(("Harvestable/nettle"), 50, true);
 		
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/grass01"), 400, true);

@@ -153,9 +153,9 @@ public class ClientController : GameController {
     }
 
     [RPC]
-    public override void requestLearnAbility(string ability, int unitID)
+    public override void requestLearnAbility(string ability, int unitID, int index)
     {
-        gameMaster.getNetView().RPC("requestLearnAbility", RPCMode.Server, ability, unitID);
+        gameMaster.getNetView().RPC("requestLearnAbility", RPCMode.Server, ability, unitID, index);
     }
 
     public override void requestAddBuff(int unitID, string name, params object[] parameters)

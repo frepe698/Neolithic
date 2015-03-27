@@ -35,6 +35,11 @@
           <value>0.1</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
+        <StatChange>
+          <stat>HealthRegen</stat>
+          <value>0.2</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
       </statsPerLevel>
       <learnableAbilities>
         <LearnableAbility>
@@ -172,9 +177,9 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
-          <isMultiplier>false</isMultiplier>
+          <stat>Armor</stat>
+          <value>0.1</value>
+          <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities />
@@ -245,8 +250,13 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
+          <stat>IncreasedMagicDamage</stat>
+          <value>0.1</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>HealthRegen</stat>
+          <value>0.4</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -347,13 +357,18 @@
       <statsPerLevel>
         <StatChange>
           <stat>Attackspeed</stat>
-          <value>0.1</value>
+          <value>0.02</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>0.05</value>
+          <value>0.02</value>
           <isMultiplier>true</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>EnergyRegen</stat>
+          <value>0.5</value>
+          <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
       <learnableAbilities>
@@ -394,7 +409,7 @@
         </StatChange>
         <StatChange>
           <stat>Attackspeed</stat>
-          <value>0.05</value>
+          <value>0.02</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>

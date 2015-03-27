@@ -32,6 +32,7 @@ public class TrialOfTheGods : GameMode {
             if (team.baseHealth <= 0)
             {
                 team.defeated = true;
+                gameMaster.getGUIManager().setGameOver(NetworkMaster.getMe().getTeam() != i);
                 Debug.Log("Team " + i + " has lost!");
                 //game over
             }
@@ -98,7 +99,7 @@ public class TrialOfTheGods : GameMode {
 
         //base 
         public Vector2i basePosition;
-        public const int BASE_MAX_HEALTH = 500;
+        public const int BASE_MAX_HEALTH = 1;
         public int baseHealth;
 
         //summons

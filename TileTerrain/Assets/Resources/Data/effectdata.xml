@@ -205,8 +205,8 @@
       <hitDamage>
         <HitDamage>
           <stat>StoneDamage</stat>
-          <percent>1</percent>
-          <yourStat>false</yourStat>
+          <percent>5</percent>
+          <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
       </hitDamage>
@@ -296,7 +296,7 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Attackspeed</stat>
-          <amount>0.5</amount>
+          <amount>0.3</amount>
           <duration>5</duration>
           <percent>false</percent>
         </HitBuff>

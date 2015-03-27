@@ -74,7 +74,7 @@ public class SkillManager {
     public void grantAbilityPoint()
     {
         abilityPoints++;
-        levelUpDisplay("You are not level " + (unit.getUnitStats().getLevel()+1) + "!");
+        levelUpDisplay("You are now level " + (unit.getUnitStats().getLevel()+1) + "!");
         //onSkillsUpdated();
     }
 
@@ -92,9 +92,9 @@ public class SkillManager {
         onSkillsUpdated();
     }
 
-    public void learnAbility(string name)
+    public void learnAbility(string name, int index)
     {
-        GameMaster.getGameController().requestLearnAbility(name, unit.getID());
+        GameMaster.getGameController().requestLearnAbility(name, unit.getID(), index);
     }
 
     public bool hasAbilitypoint()
