@@ -995,7 +995,6 @@ public abstract class GameController : MonoBehaviour{
 
 #endif
 
-    [RPC]
     public abstract void requestRemoveUnit(int unitID);
 
     [RPC]

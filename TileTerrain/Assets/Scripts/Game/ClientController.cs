@@ -228,7 +228,7 @@ public class ClientController : GameController {
 
     public override void requestRemoveUnit(int unitID)
     {
-        gameMaster.getNetView().RPC("requestRemoveUnit", RPCMode.Server, unitID);
+        //do nada
     }
 	
 
