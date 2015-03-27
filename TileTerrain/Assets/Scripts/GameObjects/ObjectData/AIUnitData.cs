@@ -8,7 +8,6 @@ public class AIUnitData : UnitData {
 
     public readonly int damage;
     public readonly float attackSpeed = 1;
-
     [XmlElement(IsNullable = false)]
     public readonly string attackSound;
     public readonly bool hostile;
@@ -22,6 +21,8 @@ public class AIUnitData : UnitData {
 
     [XmlArray("abilities")]
     public readonly string[] abilities;
+
+    public readonly string basicattack;
 
     public readonly int minDrops;
     public readonly int maxDrops;
@@ -42,6 +43,7 @@ public class AIUnitData : UnitData {
         if(data.safeDrops != null) safeDrops = data.safeDrops.Trim().Split('\n');
         if(data.randomDrops != null) randomDrops = data.randomDrops.Trim().Split('\n');
         if (data.abilities != null) abilities = data.abilities.Trim().Split('\n');
+        basicattack = data.basicattack.Trim();
         minDrops = data.minDrops;
         maxDrops = data.maxDrops;
     }

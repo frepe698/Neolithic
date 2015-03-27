@@ -285,8 +285,10 @@ public class UnitEditor : ObjectEditor {
         Vector2 amount = EditorGUILayout.Vector2Field("Min/Max", new Vector2(data.minDrops, data.maxDrops));
         data.minDrops = (int)amount.x;
         data.maxDrops = (int)amount.y;
+
         EditorGUILayout.LabelField("Abilties: ", EditorStyles.boldLabel);
         data.abilities = EditorGUILayout.TextArea(data.abilities, GUILayout.ExpandHeight(true));
+        data.basicattack = TextField("Basic Attack: ", data.basicattack);
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }

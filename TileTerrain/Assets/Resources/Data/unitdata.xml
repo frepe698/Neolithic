@@ -54,8 +54,9 @@
         <string>meat</string>
       </randomDrops>
       <abilities>
-        <string>ai_meleebasicattack</string>
+        <string />
       </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
     </AIUnitData>
@@ -80,36 +81,11 @@
         <string>meat</string>
       </randomDrops>
       <abilities>
-        <string>ai_meleebasicattack</string>
+        <string>ai_fireball</string>
       </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>3</maxDrops>
-    </AIUnitData>
-    <AIUnitData name="vrodlbot" gameName="Vrodl Bot" modelName="vrodl">
-      <health>40</health>
-      <healthperlevel>0</healthperlevel>
-      <lifegen>0</lifegen>
-      <energy>0</energy>
-      <energygen>0</energygen>
-      <movespeed>3</movespeed>
-      <size>0.5</size>
-      <favouronkill>0</favouronkill>
-      <damage>4</damage>
-      <attackSpeed>1</attackSpeed>
-      <attackSound>punch01</attackSound>
-      <hostile>true</hostile>
-      <lineofsight>8</lineofsight>
-      <safeDrops>
-        <string>trolldryck</string>
-      </safeDrops>
-      <randomDrops>
-        <string>stone</string>
-      </randomDrops>
-      <abilities>
-        <string>ai_meleebasicattack</string>
-      </abilities>
-      <minDrops>1</minDrops>
-      <maxDrops>2</maxDrops>
     </AIUnitData>
     <AIUnitData name="troll" gameName="Troll" modelName="troll">
       <health>300</health>
@@ -132,8 +108,10 @@
         <string>iron</string>
       </randomDrops>
       <abilities>
-        <string>ai_meleebasicattack</string>
+        <string>ai_earthbreaker</string>
+        <string>ai_stonethrow</string>
       </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>2</minDrops>
       <maxDrops>7</maxDrops>
     </AIUnitData>
@@ -158,8 +136,10 @@
         <string>gold</string>
       </randomDrops>
       <abilities>
-        <string>ai_meleebasicattack</string>
+        <string>ai_earthbreaker</string>
+        <string>ai_stonethrow</string>
       </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>4</minDrops>
       <maxDrops>10</maxDrops>
     </AIUnitData>
@@ -187,8 +167,9 @@
         <string>gold</string>
       </randomDrops>
       <abilities>
-        <string>ai_meleebasicattack</string>
+        <string>ai_bolt</string>
       </abilities>
+      <basicattack>ai_fireball</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>1</maxDrops>
     </AIUnitData>
@@ -215,6 +196,7 @@
       <abilities>
         <string>ai_meleebasicattack</string>
       </abilities>
+      <basicattack />
       <minDrops>0</minDrops>
       <maxDrops>0</maxDrops>
     </AIUnitData>

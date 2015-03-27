@@ -41,7 +41,12 @@ public class AIUnit : Unit {
 
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
-        basicAttack = new Ability("bolt", this);
+        basicAttack = new Ability(data.basicattack, this);
+
+        foreach(string ability in data.abilities)
+        {
+            addAbility(ability);
+        }
 	}
 
 	public override void updateAI()
@@ -68,7 +73,15 @@ public class AIUnit : Unit {
         {
             if (hostile)
             {
-                GameMaster.getGameController().requestAttackCommandUnit(id, other.getID());
+                int randAb = Random.Range(0, abilities.Count);
+                if(abilities.Count > 0 && abilities[randAb].isCool())
+                {
+                    GameMaster.getGameController().requestAbilityCommandID(getID(), other.getID(), randAb);
+                }
+                else
+                {
+                    GameMaster.getGameController().requestAttackCommandUnit(id, other.getID());
+                }
                 justGotCommandTimer = 0.2f;
                 return true;
             }

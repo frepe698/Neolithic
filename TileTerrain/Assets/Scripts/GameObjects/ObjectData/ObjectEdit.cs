@@ -571,6 +571,8 @@ namespace Edit
 
         public string abilities;
 
+        public string basicattack;
+
         public int minDrops;
         public int maxDrops;
         
@@ -600,7 +602,7 @@ namespace Edit
                     abilities += s + "\n";
                 }
             }
-            
+            basicattack = data.basicattack;    
             minDrops = data.minDrops;
             maxDrops = data.maxDrops;
         }
@@ -615,7 +617,9 @@ namespace Edit
 
             safeDrops = data.safeDrops;
             randomDrops = data.randomDrops;
+
             abilities = data.abilities;
+            basicattack = data.basicattack;    
 
             minDrops = data.minDrops;
             maxDrops = data.maxDrops;
