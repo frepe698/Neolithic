@@ -567,7 +567,7 @@ public class World : MonoBehaviour {
             }
             GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
         }
-
+        
         
 
         for (int x = 0; x < getMainMapSize(); x++)

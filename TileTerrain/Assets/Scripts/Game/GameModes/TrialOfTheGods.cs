@@ -156,6 +156,7 @@ public class TrialOfTheGods : GameMode {
         public void grantFavour(int favour)
         {
             this.favour += favour;
+            Debug.Log("Favour " + this.favour);
         }
         public void damageBase(int damage)
         {
