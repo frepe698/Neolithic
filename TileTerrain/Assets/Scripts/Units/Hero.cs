@@ -82,6 +82,8 @@ public class Hero : Unit {
 
         this.team = team;
         respawnPosition = get2DPos();
+        tile = new Vector2i(get2DPos());
+        World.tileMap.getTile(tile).addUnit(this);
 		activate();
 	}
 
@@ -443,6 +445,7 @@ public class Hero : Unit {
         unitstats.resetVitals();
         unitstats.updateStats();
         waitingForRespawn = false;
+        command = null;
         warp(respawnPosition);
 
     }

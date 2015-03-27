@@ -41,7 +41,8 @@ public class AIUnit : Unit {
             favour = data.favouronkill;
 		}
         init();
-
+        tile = new Vector2i(get2DPos());
+        World.tileMap.getTile(tile).addUnit(this);
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
         basicAttack = new Ability(data.basicattack, this);
@@ -157,10 +158,24 @@ public class AIUnit : Unit {
 		Unit dealer = GameMaster.getUnit(dealerID);
 		if(command == null || command is MoveCommand)
 		{
-			if(hostile && dealer != null) 
+            if (dealer == null) return;
+			if(hostile) 
 			{
 				GameMaster.getGameController().requestAttackCommandUnit(id, dealerID);
 			}
+            else
+            {
+                int dx = tile.x - dealer.getTile().x;
+                if (dx != 0) dx = dx / Mathf.Abs(dx);
+                int dy = tile.y - dealer.getTile().y;
+                if (dy != 0) dy = dy / Mathf.Abs(dy);
+                if (!hostile)
+                {
+                    GameMaster.getGameController().requestMoveCommand(id, tile.x + dx * 5, tile.y + dy * 5);
+                    justGotCommandTimer = 0.2f;
+                    return;
+                }
+            }
 		}
 	}
 

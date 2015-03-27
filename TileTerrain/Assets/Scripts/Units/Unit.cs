@@ -57,7 +57,6 @@ public class Unit {
 		this.id = id;
 
         this.buffs = new List<Buff>();
-
         abilities = new List<Ability>();
 	}
 
@@ -70,9 +69,6 @@ public class Unit {
 		this.id = id;
 
         this.buffs = new List<Buff>();
-
-
-
         abilities = new List<Ability>();
 	}
 

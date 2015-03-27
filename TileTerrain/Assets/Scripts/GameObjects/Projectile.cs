@@ -83,6 +83,7 @@ public class Projectile {
                         hitTarget(target);
 						
 						removed = true;
+                        return;
 					}
 				}
 			}
