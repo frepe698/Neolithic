@@ -721,6 +721,11 @@ public class GameMaster : MonoBehaviour {
 		return playerUnitID;
 	}
 
+    public static List<Hero> getHeroes()
+    {
+        return heroes;
+    }
+
     void OnDestroy()
     {
         ObjectPoolingManager.removeInstance();

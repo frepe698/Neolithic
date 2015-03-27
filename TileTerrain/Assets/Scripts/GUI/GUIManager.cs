@@ -430,8 +430,33 @@ public class GUIManager : MonoBehaviour{
 
     public void update()
 	{
-        if (Input.GetKeyDown("o")) setGameOver(true);
-        if (Input.GetKeyDown("l")) setGameOver(false);
+        if (Input.GetKeyDown("o"))
+        {
+            int heroindex = 0;
+            foreach (Hero heroo in GameMaster.getHeroes())
+            {
+                if (heroo != GameMaster.getPlayerHero())
+                {
+                    addChatMessage("\nHero inventory " + heroindex);
+                    List<EquipmentItem> eitems = heroo.getInventory().getEquipmentItems();
+                    foreach (EquipmentItem e in eitems)
+                    {
+                        addChatMessage(e.getGameName());
+                    }
+                    List<MaterialItem> mitems = heroo.getInventory().getMaterialItems();
+                    foreach (MaterialItem e in mitems)
+                    {
+                        addChatMessage(e.getGameName() + " x"+e.getAmount());
+                    }
+                    List<ConsumableItem> citems = heroo.getInventory().getConsumableItems();
+                    foreach (ConsumableItem e in citems)
+                    {
+                        addChatMessage(e.getGameName() + " x" + e.getAmount());
+                    }
+                }
+                heroindex++;
+            }
+        }
         if (chatting)
         {
             if (justOpenedChat)
