@@ -6,6 +6,7 @@ public class TrialOfTheGods : GameMode {
     public const int TEAM_COUNT = 2;
     public Team[] teams;
 
+    private bool gameOver = false;
 
     private bool spawning = false;
     private float spawnTimer = 0;
@@ -26,15 +27,17 @@ public class TrialOfTheGods : GameMode {
 
     public override void update()
     {
-        for (int i = 0; i < TEAM_COUNT; i++)
+        if (!gameOver)
         {
-            Team team = teams[i];
-            if (team.baseHealth <= 0)
+            for (int i = 0; i < TEAM_COUNT; i++)
             {
-                team.defeated = true;
-                gameMaster.getGUIManager().setGameOver(NetworkMaster.getMe().getTeam() != i);
-                Debug.Log("Team " + i + " has lost!");
-                //game over
+                Team team = teams[i];
+                if (team.baseHealth <= 0)
+                {
+                    team.defeated = true;
+                    gameMaster.getGUIManager().setGameOver(NetworkMaster.getMe().getTeam() != i);
+                    gameOver = true;
+                }
             }
         }
         if(spawning)
@@ -99,7 +102,7 @@ public class TrialOfTheGods : GameMode {
 
         //base 
         public Vector2i basePosition;
-        public const int BASE_MAX_HEALTH = 1;
+        public const int BASE_MAX_HEALTH = 500;
         public int baseHealth;
 
         //summons
