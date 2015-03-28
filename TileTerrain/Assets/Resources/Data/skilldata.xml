@@ -27,7 +27,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>6</value>
+          <value>12</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
@@ -82,7 +82,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>5</value>
+          <value>10</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
@@ -443,7 +443,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>5</value>
+          <value>10</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>

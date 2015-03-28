@@ -453,7 +453,7 @@
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
-      <cooldown>4</cooldown>
+      <cooldown>0</cooldown>
       <range>5</range>
       <tags>16</tags>
     </AbilityData>

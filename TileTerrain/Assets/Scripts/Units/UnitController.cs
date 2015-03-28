@@ -15,6 +15,7 @@ public class UnitController : MonoBehaviour {
 	private Transform itemTransformR;
 	private Transform itemTransformL;
 
+    private const int ARMOR_TYPES = 3;
     private readonly string[] armorRendererNames = 
     {
         "headarmor",
@@ -142,6 +143,16 @@ public class UnitController : MonoBehaviour {
 		}
 	}
 
+    public void unequipAll()
+    {
+        if (itemTransformL != null) Destroy(itemTransformL.gameObject);
+        if (itemTransformR != null) Destroy(itemTransformR.gameObject);
+        for (int i = 0; i < ARMOR_TYPES; i++)
+        {
+            unequipArmor(i);
+        }
+    }
+
     public void unequipArmor(int armorType)
     {
         SkinnedMeshRenderer unitArmorRenderer = transform.FindChild(armorRendererNames[armorType]).GetComponent<SkinnedMeshRenderer>();
@@ -183,11 +194,51 @@ public class UnitController : MonoBehaviour {
     public GameObject addEffectObject(GameObject prefab, Vector3 position)
     {
         if (effectObjects == null) effectObjects = new List<GameObject>();
+        for (int i = 0; i < effectObjects.Count; i++)
+        {
+            GameObject g = effectObjects[i];
+            if (g == null)
+            {
+                effectObjects.RemoveAt(i);
+                i--;
+                continue;
+            }
+        }
         GameObject go = Instantiate(prefab);
         go.transform.SetParent(transform);
         go.transform.localPosition = position + new Vector3(0, GetComponentInChildren<SkinnedMeshRenderer>().bounds.size.y, 0);
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = new Vector3(1, 1, 1);
+
+        effectObjects.Add(go);
+        return go;
+    }
+
+    public GameObject addEffectObject(GameObject prefab, Vector3 position, float time)
+    {
+        if (effectObjects == null) effectObjects = new List<GameObject>();
+
+        for (int i = 0; i < effectObjects.Count; i++)
+        {
+            GameObject g = effectObjects[i];
+            if (g == null)
+            {
+                effectObjects.RemoveAt(i);
+                i--;
+                continue;
+            }
+            if (g.name.Equals(prefab.name))
+            {
+                g.GetComponent<EffectController>().lifeTime = time;
+                return g;
+            }
+        }
+        GameObject go = Instantiate(prefab);
+        go.transform.SetParent(transform);
+        go.transform.localPosition = position + new Vector3(0, GetComponentInChildren<SkinnedMeshRenderer>().bounds.size.y, 0);
+        go.transform.localRotation = Quaternion.identity;
+        go.transform.localScale = new Vector3(1, 1, 1);
+        go.GetComponent<EffectController>().lifeTime = time;
 
         effectObjects.Add(go);
         return go;

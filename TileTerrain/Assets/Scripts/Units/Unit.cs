@@ -107,12 +107,13 @@ public class Unit {
 
 
 
-	public void inactivate()
+	public virtual bool inactivate()
 	{
-		if(!isActive()) return; //Already inactive
+		if(!isActive()) return false; //Already inactive
 		ObjectPoolingManager.Instance.ReturnObject(modelName, unit);		
 		unit = null;
 		unitController = null;
+        return true;
 	}
 
 	public virtual void updateAI()
@@ -830,6 +831,14 @@ public class Unit {
         if (isActive())
         {
             return unitController.addEffectObject(prefab, position);
+        }
+        return null;
+    }
+    public GameObject addEffectObject(GameObject prefab, Vector3 position, float time)
+    {
+        if (isActive())
+        {
+            return unitController.addEffectObject(prefab, position, time);
         }
         return null;
     }

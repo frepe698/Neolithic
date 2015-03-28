@@ -104,6 +104,16 @@ public class Hero : Unit {
         unit.GetComponent<Collider>().enabled = colliderActive;
 	}
 
+    public override bool inactivate()
+    {
+        if (isActive())
+        {
+            unitController.unequipAll();
+            return base.inactivate();
+        }
+        return false;
+    }
+
 	public void updateStats()
 	{
 		hunger += getHungerGain()*Time.deltaTime;

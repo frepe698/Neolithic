@@ -42,7 +42,7 @@
       <description>Craft a Stone Axe</description>
       <skill>Crafting</skill>
       <expAmount>120</expAmount>
-      <requiredSkillLevel>1</requiredSkillLevel>
+      <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
       <product>stonePickaxe</product>
@@ -59,7 +59,7 @@
       <description>Craft a stone pickaxe</description>
       <skill>Crafting</skill>
       <expAmount>140</expAmount>
-      <requiredSkillLevel>1</requiredSkillLevel>
+      <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
       <product>shortbow</product>
@@ -97,7 +97,7 @@
       <description>Craft a flint axe</description>
       <skill>Crafting</skill>
       <expAmount>250</expAmount>
-      <requiredSkillLevel>3</requiredSkillLevel>
+      <requiredSkillLevel>7</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
       <product>flintPickaxe</product>
@@ -118,7 +118,7 @@
       <description>Craft a flint pickaxe</description>
       <skill>Crafting</skill>
       <expAmount>300</expAmount>
-      <requiredSkillLevel>3</requiredSkillLevel>
+      <requiredSkillLevel>7</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
       <product>torch</product>
@@ -156,7 +156,7 @@
       <description>Craft a very stronk bow</description>
       <skill>Crafting</skill>
       <expAmount>250</expAmount>
-      <requiredSkillLevel>5</requiredSkillLevel>
+      <requiredSkillLevel>8</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
       <product>ironAxe</product>
@@ -173,7 +173,7 @@
       <description>Craft a Iron Axe</description>
       <skill>Crafting</skill>
       <expAmount>500</expAmount>
-      <requiredSkillLevel>6</requiredSkillLevel>
+      <requiredSkillLevel>12</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
       <product>superAxe</product>
@@ -198,7 +198,7 @@
       <description>Craft a Super Axe</description>
       <skill>Crafting</skill>
       <expAmount>600</expAmount>
-      <requiredSkillLevel>10</requiredSkillLevel>
+      <requiredSkillLevel>15</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
       <product>ironPickaxe</product>
@@ -215,7 +215,7 @@
       <description>Craft a iron pickaxe</description>
       <skill>Crafting</skill>
       <expAmount>600</expAmount>
-      <requiredSkillLevel>6</requiredSkillLevel>
+      <requiredSkillLevel>12</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftGoldBow" gameName="Gold Bow" modelName="">
       <product>goldbow</product>
@@ -236,7 +236,7 @@
       <description>Craft a very fancy bow</description>
       <skill>Crafting</skill>
       <expAmount>600</expAmount>
-      <requiredSkillLevel>8</requiredSkillLevel>
+      <requiredSkillLevel>14</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod" modelName="">
       <product>fishingrod</product>

@@ -56,7 +56,7 @@
       <abilities>
         <string />
       </abilities>
-      <basicattack>ai_meleebasicattack</basicattack>
+      <basicattack>ai_rangedbasicattack</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
     </AIUnitData>
@@ -81,7 +81,7 @@
         <string>meat</string>
       </randomDrops>
       <abilities>
-        <string>ai_fireball</string>
+        <string />
       </abilities>
       <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>0</minDrops>
@@ -89,7 +89,7 @@
     </AIUnitData>
     <AIUnitData name="troll" gameName="Troll" modelName="troll">
       <health>300</health>
-      <healthperlevel>60</healthperlevel>
+      <healthperlevel>150</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
@@ -109,15 +109,95 @@
       </randomDrops>
       <abilities>
         <string>ai_earthbreaker</string>
-        <string>ai_stonethrow</string>
       </abilities>
       <basicattack>ai_meleebasicattack</basicattack>
-      <minDrops>2</minDrops>
-      <maxDrops>7</maxDrops>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="lanetroll" gameName="Troll" modelName="troll">
+      <health>300</health>
+      <healthperlevel>150</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>4</movespeed>
+      <size>1</size>
+      <favouronkill>0</favouronkill>
+      <damage>15</damage>
+      <attackSpeed>0.8</attackSpeed>
+      <attackSound>attackTroll01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>fur</string>
+      </safeDrops>
+      <randomDrops>
+        <string>iron</string>
+      </randomDrops>
+      <abilities>
+        <string>ai_earthbreaker</string>
+      </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="thundertroll" gameName="Thunder Troll" modelName="troll">
+      <health>200</health>
+      <healthperlevel>100</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>4</movespeed>
+      <size>1</size>
+      <favouronkill>0</favouronkill>
+      <damage>20</damage>
+      <attackSpeed>0.8</attackSpeed>
+      <attackSound>attackTroll01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>fur</string>
+      </safeDrops>
+      <randomDrops>
+        <string>iron</string>
+      </randomDrops>
+      <abilities>
+        <string>ai_bolt</string>
+      </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="stonetroll" gameName="Stone Troll" modelName="troll">
+      <health>250</health>
+      <healthperlevel>125</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>4.5</movespeed>
+      <size>1</size>
+      <favouronkill>0</favouronkill>
+      <damage>18</damage>
+      <attackSpeed>1</attackSpeed>
+      <attackSound>attackTroll01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string>fur</string>
+      </safeDrops>
+      <randomDrops>
+        <string>iron</string>
+      </randomDrops>
+      <abilities>
+        <string />
+      </abilities>
+      <basicattack>ai_stonethrow</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>2</maxDrops>
     </AIUnitData>
     <AIUnitData name="trollking" gameName="Troll King" modelName="troll">
       <health>650</health>
-      <healthperlevel>150</healthperlevel>
+      <healthperlevel>400</healthperlevel>
       <lifegen>0</lifegen>
       <energy>0</energy>
       <energygen>0</energygen>
@@ -137,7 +217,6 @@
       </randomDrops>
       <abilities>
         <string>ai_earthbreaker</string>
-        <string>ai_stonethrow</string>
       </abilities>
       <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>4</minDrops>
@@ -164,10 +243,10 @@
         <string>stick</string>
         <string>stick</string>
         <string>stick</string>
-        <string>gold</string>
+        <string>flint</string>
       </randomDrops>
       <abilities>
-        <string>ai_bolt</string>
+        <string />
       </abilities>
       <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>0</minDrops>
@@ -214,16 +293,17 @@
       <attackSound>attackSpear01</attackSound>
       <hostile>true</hostile>
       <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string />
+      </safeDrops>
       <randomDrops>
-        <string>stick</string>
-        <string>stick</string>
-        <string>stick</string>
+        <string>flint</string>
         <string>gold</string>
       </randomDrops>
       <abilities>
-        <string>ai_fireball</string>
+        <string>ai_bolt</string>
       </abilities>
-      <basicattack>ai_meleebasicattack</basicattack>
+      <basicattack>ai_fireball</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>1</maxDrops>
     </AIUnitData>

@@ -50,7 +50,8 @@ public class AIUnit : Unit {
         {
             foreach (string ability in data.abilities)
             {
-                addAbility(ability);
+                if(!ability.Trim().Equals(""))
+                    addAbility(ability);
             }
         }
         
