@@ -163,7 +163,7 @@
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>2</percent>
+          <percent>3</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -173,13 +173,13 @@
           <type>Stun</type>
           <stat>Health</stat>
           <amount>0</amount>
-          <duration>0.5</duration>
+          <duration>0.75</duration>
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
-      <radius>2</radius>
+      <radius>3</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>
@@ -249,7 +249,7 @@
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>2</percent>
+          <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -258,7 +258,7 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Armor</stat>
-          <amount>-4</amount>
+          <amount>-2</amount>
           <duration>5</duration>
           <percent>false</percent>
         </HitBuff>
@@ -293,11 +293,11 @@
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
-    <ProjectileEffectData name="aistonethrow" gameName="AI Stone Throw" modelName="">
+    <ProjectileEffectData name="ai_stonethrow" gameName="AI Stone Throw" modelName="">
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>2</percent>
+          <percent>1.2</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -307,7 +307,7 @@
           <type>StatBuff</type>
           <stat>Movespeed</stat>
           <amount>-0.5</amount>
-          <duration>4</duration>
+          <duration>2</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>

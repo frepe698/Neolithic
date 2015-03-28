@@ -169,7 +169,7 @@
       <abilities>
         <string>ai_bolt</string>
       </abilities>
-      <basicattack>ai_fireball</basicattack>
+      <basicattack>ai_meleebasicattack</basicattack>
       <minDrops>0</minDrops>
       <maxDrops>1</maxDrops>
     </AIUnitData>
@@ -199,6 +199,33 @@
       <basicattack />
       <minDrops>0</minDrops>
       <maxDrops>0</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="shaman" gameName="Shaman" modelName="goblin">
+      <health>50</health>
+      <healthperlevel>25</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>4</movespeed>
+      <size>0.5</size>
+      <favouronkill>0</favouronkill>
+      <damage>6</damage>
+      <attackSpeed>1</attackSpeed>
+      <attackSound>attackSpear01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <randomDrops>
+        <string>stick</string>
+        <string>stick</string>
+        <string>stick</string>
+        <string>gold</string>
+      </randomDrops>
+      <abilities>
+        <string>ai_fireball</string>
+      </abilities>
+      <basicattack>ai_meleebasicattack</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>1</maxDrops>
     </AIUnitData>
   </AIUnits>
 </UnitsRoot>

@@ -17,7 +17,11 @@ public class TimeSetting  {
     private Vector3 sunDirection;
     private Vector3 sunRotation;
 
+    private Color moonStartLightColor;
+    private Color moonEndLightColor;
     private Color moonLightColor;
+    private Color moonLightChange;
+
     private Vector3 moonStartRotation;
     private Vector3 moonEndRotation;
     private Vector3 moonDirection;
@@ -25,7 +29,8 @@ public class TimeSetting  {
 
     private bool alive = false;
 
-    public TimeSetting(float lifeSpan, Color sunStartLightColor, Color sunEndLightColor, Vector3 sunStartRotation, Vector3 sunEndRotation, Color moonLightColor, Vector3 moonStartRotation, Vector3 moonEndRotation)
+    public TimeSetting(float lifeSpan, Color sunStartLightColor, Color sunEndLightColor, Vector3 sunStartRotation, Vector3 sunEndRotation, 
+        Color moonStartLightColor, Color moonEndLightColor, Vector3 moonStartRotation, Vector3 moonEndRotation)
     {
         this.lifeSpan = lifeSpan;
 
@@ -37,7 +42,10 @@ public class TimeSetting  {
         this.sunEndRotation = sunEndRotation;
         this.sunDirection = (sunEndRotation - sunStartRotation) / lifeSpan;
 
-        this.moonLightColor = moonLightColor;
+        this.moonStartLightColor = moonStartLightColor;
+        this.moonEndLightColor = moonEndLightColor;
+        this.moonLightChange = (moonEndLightColor - moonStartLightColor) / lifeSpan;
+        
         this.moonStartRotation = moonStartRotation;
         this.moonEndRotation = moonEndRotation;
         this.moonDirection = (moonEndRotation - moonStartRotation) / lifeSpan;
@@ -55,6 +63,7 @@ public class TimeSetting  {
         this.sunRotation += sunDirection * deltaTime;
         this.moonRotation += moonDirection * deltaTime;
         this.sunLightColor += sunLightChange * deltaTime;
+        this.moonLightColor += moonLightChange * deltaTime;
     }
     public virtual void start()
     {
@@ -62,6 +71,7 @@ public class TimeSetting  {
         this.sunRotation = sunStartRotation;
         this.moonRotation = moonStartRotation;
         this.sunLightColor = sunStartLightColor;
+        this.moonLightColor = moonStartLightColor;
         this.alive = true;
     }
 
@@ -101,6 +111,16 @@ public class TimeSetting  {
     public Color getMoonLightColor()
     {
         return this.moonLightColor;
+    }
+
+    public Color getMoonStartColor()
+    {
+        return this.moonStartLightColor;
+    }
+
+    public Color getMoonEndColor()
+    {
+        return this.moonEndLightColor;
     }
 
     public Vector3 getMoonRotation()

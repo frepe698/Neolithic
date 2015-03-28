@@ -437,7 +437,7 @@
     <AbilityData name="ai_stonethrow" gameName="Stone Throw" modelName="stonethrow">
       <effects>
         <AbilityEffectAndTime>
-          <name>aistonethrow</name>
+          <name>ai_stonethrow</name>
           <time>0.583</time>
         </AbilityEffectAndTime>
       </effects>
@@ -449,12 +449,7 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
-      <speedIncreases>
-        <SpeedIncrease>
-          <stat>Attackspeed</stat>
-          <percent>1</percent>
-        </SpeedIncrease>
-      </speedIncreases>
+      <speedIncreases />
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
@@ -489,18 +484,18 @@
       <effects>
         <AbilityEffectAndTime>
           <name>ai_earthbreaker</name>
-          <time>1.166</time>
+          <time>1.749</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
           <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
-          <speed>0.5</speed>
+          <speed>0.33</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases />
-      <totalTime>2</totalTime>
+      <totalTime>3</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -511,18 +506,18 @@
       <effects>
         <AbilityEffectAndTime>
           <name>ai_bolt</name>
-          <time>0.583</time>
+          <time>0.8745</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
           <weaponAttackAnimation>true</weaponAttackAnimation>
           <time>0</time>
-          <speed>1</speed>
+          <speed>0.75</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases />
-      <totalTime>1</totalTime>
+      <totalTime>1.5</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
