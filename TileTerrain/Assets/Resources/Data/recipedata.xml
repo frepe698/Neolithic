@@ -175,6 +175,31 @@
       <expAmount>500</expAmount>
       <requiredSkillLevel>6</requiredSkillLevel>
     </EquipmentRecipeData>
+    <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
+      <product>superAxe</product>
+      <ingredients>
+        <Ingredient>
+          <name>finewood</name>
+          <amount>6</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>iron</name>
+          <amount>6</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>rope</name>
+          <amount>2</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>gold</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Craft a Super Axe</description>
+      <skill>Crafting</skill>
+      <expAmount>600</expAmount>
+      <requiredSkillLevel>10</requiredSkillLevel>
+    </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
       <product>ironPickaxe</product>
       <ingredients>

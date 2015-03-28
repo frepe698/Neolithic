@@ -10,7 +10,7 @@ public class TrialOfTheGods : GameMode {
 
     private bool spawning = false;
     private float spawnTimer = 0;
-    private const float spawnTime = 3;
+    private const float spawnTime = 5;
 
     public TrialOfTheGods(GameMaster gameMaster)
         : base(gameMaster)

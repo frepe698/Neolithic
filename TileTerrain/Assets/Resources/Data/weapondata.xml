@@ -10,7 +10,7 @@
       <attackSpeed>1.05</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>10</int>
+        <int>15</int>
         <int>13</int>
         <int>3</int>
       </damage>
@@ -34,7 +34,7 @@
       <attackSpeed>1.2</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>15</int>
+        <int>20</int>
         <int>15</int>
         <int>5</int>
       </damage>
@@ -58,7 +58,7 @@
       <attackSpeed>1.1</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>20</int>
+        <int>30</int>
         <int>18</int>
         <int>8</int>
       </damage>
@@ -73,18 +73,18 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
-    <MeleeWeaponData name="superAxe" gameName="Super Axe" modelName="flintaxe">
+    <MeleeWeaponData name="superAxe" gameName="Super Axe" modelName="ironaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>2.5</attackSpeed>
+      <attackSpeed>1.25</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>20</int>
-        <int>20</int>
-        <int>20</int>
+        <int>38</int>
+        <int>18</int>
+        <int>8</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -223,10 +223,10 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.5</attackSpeed>
+      <attackSpeed>1.4</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>7</int>
+        <int>13</int>
         <int>3</int>
         <int>1</int>
       </damage>
@@ -250,7 +250,7 @@
       <attackSpeed>1.1</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>13</int>
+        <int>20</int>
         <int>6</int>
         <int>4</int>
       </damage>

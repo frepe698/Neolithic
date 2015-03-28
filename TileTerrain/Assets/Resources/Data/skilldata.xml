@@ -27,12 +27,12 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>2</value>
+          <value>6</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>MeleeDamage</stat>
-          <value>0.1</value>
+          <value>0.2</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
@@ -51,16 +51,8 @@
           <reqLevel>4</reqLevel>
         </LearnableAbility>
         <LearnableAbility>
-          <name>cleave</name>
-          <reqLevel>9</reqLevel>
-        </LearnableAbility>
-        <LearnableAbility>
           <name>tripplestrike</name>
           <reqLevel>14</reqLevel>
-        </LearnableAbility>
-        <LearnableAbility>
-          <name>meleebasicattack</name>
-          <reqLevel>19</reqLevel>
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
@@ -90,7 +82,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>2</value>
+          <value>5</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
@@ -292,8 +284,13 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>Health</stat>
-          <value>0</value>
+          <stat>HealthRegen</stat>
+          <value>0.6</value>
+          <isMultiplier>false</isMultiplier>
+        </StatChange>
+        <StatChange>
+          <stat>EnergyRegen</stat>
+          <value>0.2</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -357,17 +354,17 @@
       <statsPerLevel>
         <StatChange>
           <stat>Attackspeed</stat>
-          <value>0.02</value>
+          <value>0.015</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>Movespeed</stat>
-          <value>0.02</value>
+          <value>0.015</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
         <StatChange>
           <stat>EnergyRegen</stat>
-          <value>0.5</value>
+          <value>0.3</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -409,7 +406,7 @@
         </StatChange>
         <StatChange>
           <stat>Attackspeed</stat>
-          <value>0.02</value>
+          <value>0.015</value>
           <isMultiplier>true</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -446,7 +443,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>Health</stat>
-          <value>2</value>
+          <value>5</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
