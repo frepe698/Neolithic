@@ -10,7 +10,7 @@ public class TrialOfTheGods : GameMode {
 
     private bool spawning = false;
     private float spawnTimer = 0;
-    private const float spawnTime = 5;
+    private const float spawnTime = 6;
 
     public TrialOfTheGods(GameMaster gameMaster)
         : base(gameMaster)
@@ -115,7 +115,7 @@ public class TrialOfTheGods : GameMode {
 
         public bool defeated = false;
 
-        private string[] spawns = new string[] { "goblin", "goblin", "goblin", "goblin", "wolf", "wolf", "troll" };
+        private string[] spawns = new string[] { "goblin", "goblin", "shaman", "goblin", "goblin", "shaman", "troll" };
         private int nextUnit = 0;
         private int maxUnit;
 

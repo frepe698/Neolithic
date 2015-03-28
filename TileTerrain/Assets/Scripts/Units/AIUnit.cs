@@ -46,10 +46,14 @@ public class AIUnit : Unit {
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
         basicAttack = new Ability(data.basicattack, this);
-        foreach(string ability in data.abilities)
+        if (data.abilities != null)
         {
-            addAbility(ability);
+            foreach (string ability in data.abilities)
+            {
+                addAbility(ability);
+            }
         }
+        
 	}
 
 	public override void updateAI()

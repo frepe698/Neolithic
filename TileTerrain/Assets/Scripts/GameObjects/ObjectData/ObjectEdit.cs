@@ -585,15 +585,23 @@ namespace Edit
             lineofsight = data.lineofsight;
 
             safeDrops = "";
-            foreach (string s in data.safeDrops)
+            if(data.safeDrops != null)
             {
-                safeDrops += s + "\n";
+                foreach (string s in data.safeDrops)
+                {
+                    safeDrops += s + "\n";
+                }
             }
+            
             randomDrops = "";
-            foreach (string s in data.randomDrops)
+            if(data.randomDrops != null)
             {
-                randomDrops += s + "\n";
+                foreach (string s in data.randomDrops)
+                {
+                    randomDrops += s + "\n";
+                }
             }
+            
             abilities = "";
             if(data.abilities != null)
             {
