@@ -93,21 +93,48 @@ public class AIUnit : Unit {
                 justGotCommandTimer = 0.2f;
                 return true;
             }
-            else if (other.isHostile())
+            else if (other.isHostile() && !hostile)
             {
-                int dx = tile.x - other.getTile().x;
-                if (dx != 0) dx = dx / Mathf.Abs(dx);
-                int dy = tile.y - other.getTile().y;
-                if (dy != 0) dy = dy / Mathf.Abs(dy);
-                if (!hostile)
-                {
-                    GameMaster.getGameController().requestMoveCommand(id, tile.x + dx * 5, tile.y + dy * 5);
-                    justGotCommandTimer = 0.2f;
-                    return true;
-                }
+
+                Vector2i path = findEscapePath(other.getTile());
+                GameMaster.getGameController().requestMoveCommand(id, path.x, path.y);
+                justGotCommandTimer = 0.2f;
+                return true;
+                
             }
         }
         return false;
+    }
+
+    protected Vector2i findEscapePath(Vector2i other)
+    {
+        int dx = tile.x - other.x;
+        if (dx != 0) dx = dx / Mathf.Abs(dx);
+        int dy = tile.y - other.y;
+        if (dy != 0) dy = dy / Mathf.Abs(dy);
+
+        Vector2i path = new Vector2i(tile.x + dx * 5, tile.y + dy * 5);
+        if(World.tileMap.isValidTile(path))
+        {
+            return path;
+        }
+        path = new Vector2i(tile.x, tile.y + dy * 5);
+        if (World.tileMap.isValidTile(path))
+        {
+            return path;
+        }
+        path = new Vector2i(tile.x + dx * 5, tile.y);
+        if (World.tileMap.isValidTile(path))
+        {
+            return path;
+        }
+        path = new Vector2i(tile.x - dx * 5, tile.y - dy * 5);
+        if (World.tileMap.isValidTile(path))
+        {
+            return path;
+        }
+        return new Vector2i(tile.x + dx * 5, tile.y + dy * 5);
+        
     }
 
     public override Ability getBasicAttack()
@@ -170,16 +197,11 @@ public class AIUnit : Unit {
 			}
             else
             {
-                int dx = tile.x - dealer.getTile().x;
-                if (dx != 0) dx = dx / Mathf.Abs(dx);
-                int dy = tile.y - dealer.getTile().y;
-                if (dy != 0) dy = dy / Mathf.Abs(dy);
-                if (!hostile)
-                {
-                    GameMaster.getGameController().requestMoveCommand(id, tile.x + dx * 5, tile.y + dy * 5);
-                    justGotCommandTimer = 0.2f;
-                    return;
-                }
+                Vector2i path = findEscapePath(dealer.getTile());
+                GameMaster.getGameController().requestMoveCommand(id, path.x, path.y);
+                justGotCommandTimer = 0.2f;
+                return;
+                
             }
 		}
 	}

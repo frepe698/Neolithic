@@ -64,6 +64,8 @@ public class TimeSetting  {
         this.moonRotation += moonDirection * deltaTime;
         this.sunLightColor += sunLightChange * deltaTime;
         this.moonLightColor += moonLightChange * deltaTime;
+
+        Debug.Log(moonLightColor);
     }
     public virtual void start()
     {
