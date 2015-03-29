@@ -195,7 +195,7 @@
       <minDrops>0</minDrops>
       <maxDrops>2</maxDrops>
     </AIUnitData>
-    <AIUnitData name="trollking" gameName="Troll King" modelName="troll">
+    <AIUnitData name="trollking" gameName="Troll King" modelName="trollking">
       <health>650</health>
       <healthperlevel>400</healthperlevel>
       <lifegen>0</lifegen>
@@ -279,7 +279,7 @@
       <minDrops>0</minDrops>
       <maxDrops>0</maxDrops>
     </AIUnitData>
-    <AIUnitData name="shaman" gameName="Shaman" modelName="goblin">
+    <AIUnitData name="shaman" gameName="Shaman" modelName="goblinshaman">
       <health>50</health>
       <healthperlevel>25</healthperlevel>
       <lifegen>0</lifegen>

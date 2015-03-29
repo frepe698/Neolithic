@@ -86,7 +86,7 @@ public class Unit {
 		ground();
 		unit.transform.position = position;
 		unit.transform.eulerAngles = rotation;
-		unit.transform.localScale = scale;
+		//unit.transform.localScale = scale;
 		this.unitController = unit.GetComponent<UnitController>();
 		unitController.setID(id);
 		//audio = unit.AddComponent<AudioSource>();
@@ -250,7 +250,7 @@ public class Unit {
         Quaternion newAngle = Quaternion.RotateTowards(current, target, 1080*Time.deltaTime);
         unit.transform.rotation = newAngle;
 
-		unit.transform.localScale = this.scale;
+		//unit.transform.localScale = this.scale;
 
 	}
 	

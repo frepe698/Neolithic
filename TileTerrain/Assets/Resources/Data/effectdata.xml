@@ -179,7 +179,7 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
-      <radius>3</radius>
+      <radius>2</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
   <ProjectileEffects>

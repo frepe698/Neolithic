@@ -484,18 +484,19 @@
       <effects>
         <AbilityEffectAndTime>
           <name>ai_earthbreaker</name>
-          <time>1.749</time>
+          <time>1.166</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
         <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>earthbreaker</name>
           <time>0</time>
-          <speed>0.33</speed>
+          <speed>0.5</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases />
-      <totalTime>3</totalTime>
+      <totalTime>2</totalTime>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -511,7 +512,8 @@
       </effects>
       <animations>
         <AbilityAnimation>
-          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>cast_sky</name>
           <time>0</time>
           <speed>0.75</speed>
         </AbilityAnimation>
