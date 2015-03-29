@@ -81,6 +81,8 @@ public class Hero : Unit {
         rangedBasicAttack = new Ability("rangedbasicattack", this);
 
         this.team = team;
+        this.lineOfSight = 999999; // LOL
+
         respawnPosition = get2DPos();
         tile = new Vector2i(get2DPos());
         World.tileMap.getTile(tile).addUnit(this);

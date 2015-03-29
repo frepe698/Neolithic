@@ -18,6 +18,7 @@ public abstract class GameMode {
         this.gameMaster = gameMaster;
     }
     public abstract void initWorld();
+    public abstract void spawnUnits();
     public abstract void update();
     public abstract void spawnHeroes();
     public abstract void initSpawning();

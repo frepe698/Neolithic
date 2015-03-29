@@ -94,7 +94,7 @@ public class GameMaster : MonoBehaviour {
 		
         setPlayerUnit(playerUnitID);
 
-        world.addSpawners();
+        mode.spawnUnits();
 		
 		playerCamera = Camera.main;
 		zoom = minzoom;

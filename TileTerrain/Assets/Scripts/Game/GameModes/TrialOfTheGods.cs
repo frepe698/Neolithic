@@ -12,6 +12,9 @@ public class TrialOfTheGods : GameMode {
     private float spawnTimer = 0;
     private const float spawnTime = 6;
 
+    private int day = -1;
+    private const int DAYS = 2;
+
     public TrialOfTheGods(GameMaster gameMaster)
         : base(gameMaster)
     {
@@ -25,6 +28,10 @@ public class TrialOfTheGods : GameMode {
         GameMaster.getWorld().initPvPWorld(this);
     }
 
+    public override void spawnUnits()
+    {
+        GameMaster.getWorld().addPvPSpawners(this);
+    }
     public override void update()
     {
         if (!gameOver)
@@ -46,7 +53,7 @@ public class TrialOfTheGods : GameMode {
             {
                 for (int i = 0; i < teams.Length; i++)
                 {
-                    spawning = teams[i].spawnNextUnit();
+                    spawning = teams[i].spawnNextUnit(day);
                 }
                 spawnTimer = spawnTime;
             }
@@ -57,6 +64,8 @@ public class TrialOfTheGods : GameMode {
 
     public override void initSpawning()
     {
+        day = Mathf.Clamp(day + 1, 0, DAYS);
+        Debug.Log(day);
         spawning = true;
     }
 
@@ -115,7 +124,10 @@ public class TrialOfTheGods : GameMode {
 
         public bool defeated = false;
 
-        private string[] spawns = new string[] { "goblin", "goblin", "shaman", "goblin", "goblin", "shaman", "troll" };
+        private List<string>[] spawns = new List<string>[] { new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman"},
+            new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman"},
+            new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman", "troll"},};
+                                                   
         private int nextUnit = 0;
         private int maxUnit;
 
@@ -126,16 +138,17 @@ public class TrialOfTheGods : GameMode {
 
             teamIndex = index + 2;
             baseHealth = BASE_MAX_HEALTH;
-            maxUnit = spawns.Length;
+            
         }
 
-        public bool spawnNextUnit()
+        public bool spawnNextUnit(int day)
         {
+            maxUnit = spawns[day].Count;
             for(int i = 0; i < summonPositions.Length; i++)
             {
                 Vector2 spawnPos = summonPositions[i].toVector2();
                 int unitID = GameMaster.getNextUnitID();
-                AIUnit unit = new PathAIUnit(spawns[nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel(), getEnemyTeam());
+                AIUnit unit = new PathAIUnit(spawns[day][nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel(), getEnemyTeam());
                 GameMaster.addAwakeUnit(unit);
             }
             nextUnit++;

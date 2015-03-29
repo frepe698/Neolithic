@@ -584,9 +584,60 @@ public class World : MonoBehaviour {
                     {
                         GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
                     }
-                    else if(Random.value < 0.1f)
+                    else if(Random.value < 0.2f)
                     {
-                        GameMaster.addNightSpawner("goblin", Random.Range(3,6), new Vector2i(x, y));
+                        
+                        GameMaster.addNightSpawner("goblin", Random.Range(3, 6), new Vector2i(x, y));
+                        GameMaster.addNightSpawner("shaman", Random.Range(0, 3), new Vector2i(x, y));
+                          
+                    }
+                }
+            }
+        }
+    }
+
+    public void addPvPSpawners(TrialOfTheGods mode)
+    {
+        //Random.seed = 10;
+        for (int i = 0; i < tileMap.getCaves().Count; i++)
+        {
+            Cave cave = tileMap.getCaves()[i];
+            if (i == 4)
+            {
+                GameMaster.addDaySpawner("trollking", 1, cave.bossPos);
+            }
+            else
+            {
+                GameMaster.addDaySpawner("troll", 1, cave.bossPos);
+            }
+            GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
+        }
+
+
+
+        for (int x = 0; x < getMainMapSize(); x++)
+        {
+            for (int y = 0; y < getMainMapSize(); y++)
+            {
+                if (tileMap.getTile(x, y).isWalkable(-1) && Random.value > 0.994f)
+                {
+                    if (Random.value < 0.7f)
+                    {
+                        GameMaster.addDaySpawner("hare", 1, new Vector2i(x, y));
+                    }
+                    else if (Random.value < 0.1f)
+                    {
+                        GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
+                    }
+                    else if (Random.value < 0.2f)
+                    {
+                        if (Vector2i.getDistance(new Vector2i(x, y), mode.teams[0].basePosition) > 20 && Vector2i.getDistance(new Vector2i(x, y), mode.teams[1].basePosition) > 20)
+                        {
+                            Debug.Log("Added goblin pack");
+                            GameMaster.addNightSpawner("goblin", Random.Range(3, 6), new Vector2i(x, y));
+                            GameMaster.addNightSpawner("shaman", Random.Range(0, 3), new Vector2i(x, y));
+
+                        }
                     }
                 }
             }

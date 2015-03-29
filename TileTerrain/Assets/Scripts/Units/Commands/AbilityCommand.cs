@@ -157,6 +157,11 @@ public class AbilityCommand : Command {
             //if it entered a new tile update path
             if (target.getTile() != targetTile)
             {
+                if(Vector2i.getDistance(target.getTile(), unit.getTile()) > unit.getLineOfSight())
+                {
+                    setCompleted();
+                    return;
+                }
                 destination = target.get2DPos();
                 unit.setPath(destination);
             }
