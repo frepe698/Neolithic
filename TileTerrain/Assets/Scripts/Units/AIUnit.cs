@@ -165,7 +165,7 @@ public class AIUnit : Unit {
     public override int getBaseDamage(int damageType)
     {
         int level = unitstats.getLevel();
-        return (int)((level + 1 + level * (level * 0.353f)) * damage);
+        return (int)((level + 1 + level) * /*(level * 0.353f)) **/ damage);
         //return damage + (int)( damage * (float)(unitstats.getLevel()/ 2) ) ;
     }
 

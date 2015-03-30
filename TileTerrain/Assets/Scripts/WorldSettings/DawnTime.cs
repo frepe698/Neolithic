@@ -21,5 +21,11 @@ public class DawnTime : TimeSetting {
     {
         base.start();
         GameMaster.getGameController().requestAILevelIncrease();
+        TimeManager.Instance.addDay();
+    }
+
+    public override float getTimeOfDay()
+    {
+        return base.getTimeOfDay()/6.0f;
     }
 }

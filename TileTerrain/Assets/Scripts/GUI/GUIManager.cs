@@ -177,8 +177,23 @@ public class GUIManager : MonoBehaviour{
     private int frames;
     #endregion //END FPS DISPLAY MEMBERS
 
+    #region GAME STATE MEMBERS
+
+    private RectTransform daymeterStick;
+    private Text dayCounter;
+    private Text gameTimer;
+
+    private RectTransform[] teamHealthBar;
+    private Text[] teamFavour;
+
+    private Text respawnText;
+
+    #endregion
+
     private bool mouseOverGUI = false;
     private GameObject waitingForPlayers;
+
+    private GameMaster gameMaster;
 
 	void Awake()
     {
@@ -409,6 +424,27 @@ public class GUIManager : MonoBehaviour{
         fpsDisplay = canvas.FindChild("FPSDisplay").GetComponent<Text>();
         #endregion
 
+        #region GAME STATE INIT
+
+        Transform topPanel = canvas.FindChild("TopPanel");
+        Transform daymeter = topPanel.FindChild("Daymeter");
+        daymeterStick = daymeter.FindChild("DaymeterStick").GetComponent<RectTransform>();
+        dayCounter = daymeter.FindChild("DayCounter").GetComponent<Text>();
+
+        gameTimer = topPanel.FindChild("Timer").GetComponent<Text>();
+
+        teamHealthBar = new RectTransform[2];
+        teamFavour = new Text[2];
+        for (int i = 0; i < 2; i++)
+        {
+            teamHealthBar[i] = topPanel.FindChild("HealthTeam" + (i + 1)).FindChild("Mask").GetComponent<RectTransform>();
+            teamFavour[i] = topPanel.FindChild("FavourTeam" + (i + 1)).GetComponent<Text>();
+        }
+
+        respawnText = canvas.FindChild("RespawnText").GetComponent<Text>();
+
+        #endregion
+
         activateInventory(false);
         activateCrafting(false);
         activateHeroStats(false);
@@ -546,12 +582,29 @@ public class GUIManager : MonoBehaviour{
         hoveredAbility = -1;
 
         //Hero stats update
-		Hero hero = GameMaster.getPlayerHero();
-		healthbarTransform.anchoredPosition = new Vector2(0, (hero.getHealth() / (hero.getMaxHealth()+float.Epsilon)) * 100);
-        energybarTransform.anchoredPosition = new Vector2(0, (hero.getEnergy() / (hero.getMaxEnergy() + float.Epsilon)) * 100);
-		hungerbarTransform.sizeDelta = new Vector2(100, (hero.getHunger()/hero.getMaxHunger())*100);
-
+        if (!playerHero.isWaitingRespawn())
+        {
+            healthbarTransform.anchoredPosition = new Vector2(0, (playerHero.getHealth() / (playerHero.getMaxHealth() + float.Epsilon)) * 100);
+            energybarTransform.anchoredPosition = new Vector2(0, (playerHero.getEnergy() / (playerHero.getMaxEnergy() + float.Epsilon)) * 100);
+            hungerbarTransform.sizeDelta = new Vector2(100, (playerHero.getHunger() / playerHero.getMaxHunger()) * 100);
+            respawnText.gameObject.SetActive(false);
+        }
+        else
+        {
+            respawnText.gameObject.SetActive(true);
+            respawnText.text = "Respawning in " + Mathf.CeilToInt(playerHero.getRespawnTime());
+        }
         updateAbilityCooldownDisplays();
+
+        //Game state update
+        int gameTime = (int)GameMaster.getGameTime();
+        int minutes = gameTime/60;
+        gameTimer.text = minutes + ":" + (gameTime - minutes * 60).ToString().PadLeft(2, '0');
+
+        daymeterStick.eulerAngles = new Vector3(0, 0, 1 - TimeManager.Instance.getTimeOfDay() * 360);
+
+        dayCounter.text = (TimeManager.Instance.getCurDay()+1).ToString();
+
 
         //Fps display
         nextUpdateTimer += Time.deltaTime;
@@ -1793,6 +1846,20 @@ public class GUIManager : MonoBehaviour{
 
     #endregion //CHAT
 
+    #region TRIAL OF THE GODS
+
+    public void setTeamBaseHealth(int team, float percent)
+    {
+        teamHealthBar[team].sizeDelta = new Vector2(percent * 128, 16);
+    }
+
+    public void setTeamFavour(int team, int favour)
+    {
+        teamFavour[team].text = favour.ToString();
+    }
+
+    #endregion
+
     public bool isMouseOverGUI()
     {
         return mouseOverGUI;
@@ -1801,6 +1868,11 @@ public class GUIManager : MonoBehaviour{
     public bool takeKeyboardInput()
     {
         return !chatting;
+    }
+
+    public void setGameMaster(GameMaster gameMaster)
+    {
+        this.gameMaster = gameMaster;
     }
 
     public void setPlayerHero(Hero hero)

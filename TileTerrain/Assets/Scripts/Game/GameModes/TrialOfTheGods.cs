@@ -53,7 +53,7 @@ public class TrialOfTheGods : GameMode {
             {
                 for (int i = 0; i < teams.Length; i++)
                 {
-                    spawning = teams[i].spawnNextUnit(day);
+                    spawning = teams[i].spawnNextUnit(day, teams[(i + 1) % 2]);
                 }
                 spawnTimer = spawnTime;
             }
@@ -72,6 +72,7 @@ public class TrialOfTheGods : GameMode {
     public override void damageBase(int team, int damage)
     {
         teams[team].damageBase(damage);
+        gameMaster.getGUIManager().setTeamBaseHealth(team, (float)teams[team].baseHealth / (float)Team.BASE_MAX_HEALTH);
     }
     public override void spawnHeroes()
     {
@@ -95,6 +96,7 @@ public class TrialOfTheGods : GameMode {
     public override void grantFavour(int team, int favour)
     {
         getTeam(team).grantFavour(favour);
+        gameMaster.getGUIManager().setTeamFavour(team-2, getTeam(team).favour);
     }
     public int getSummonLevel(int team)
     {
@@ -106,6 +108,21 @@ public class TrialOfTheGods : GameMode {
         return teams[team - 2];
     }
 
+    public override int getBaseCurHealth(int team)
+    {
+        return teams[team].baseHealth;
+    }
+
+    public override int getBaseMaxHealth()
+    {
+        return Team.BASE_MAX_HEALTH;
+    }
+
+    public override int getFavour(int team)
+    {
+        return teams[team].favour;
+    }
+
     public class Team
     {
         public int favour;
@@ -115,7 +132,7 @@ public class TrialOfTheGods : GameMode {
 
         //base 
         public Vector2i basePosition;
-        public const int BASE_MAX_HEALTH = 500;
+        public const int BASE_MAX_HEALTH = 150;
         public int baseHealth;
 
         //summons
@@ -141,14 +158,14 @@ public class TrialOfTheGods : GameMode {
             
         }
 
-        public bool spawnNextUnit(int day)
+        public bool spawnNextUnit(int day, Team enemyTeam)
         {
             maxUnit = spawns[day].Count;
             for(int i = 0; i < summonPositions.Length; i++)
             {
                 Vector2 spawnPos = summonPositions[i].toVector2();
                 int unitID = GameMaster.getNextUnitID();
-                AIUnit unit = new PathAIUnit(spawns[day][nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), getSpawningLevel(), getEnemyTeam());
+                AIUnit unit = new PathAIUnit(spawns[day][nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), enemyTeam.getSpawningLevel(), getThisTeam());
                 GameMaster.addAwakeUnit(unit);
             }
             nextUnit++;
@@ -175,6 +192,11 @@ public class TrialOfTheGods : GameMode {
         {
             baseHealth -= damage;
            // Debug.Log("Base " + teamIndex + " took " + damage + " damage!");
+        }
+
+        public int getThisTeam()
+        {
+            return teamIndex - 2;
         }
 
         public int getEnemyTeam()

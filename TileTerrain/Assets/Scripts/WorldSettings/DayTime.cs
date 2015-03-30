@@ -25,5 +25,10 @@ public class DayTime : TimeSetting {
         //GameMaster.requestLaneSpawningStart();
         
     }
+
+    public override float getTimeOfDay()
+    {
+        return base.getTimeOfDay() / 3.0f + 1.0f / 6.0f;
+    }
 	
 }

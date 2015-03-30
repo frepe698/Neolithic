@@ -25,4 +25,8 @@ public abstract class GameMode {
     public abstract void grantFavour(int team, int favour);
     public abstract void damageBase(int team, int damage);
 
+    public abstract int getFavour(int team);
+    public abstract int getBaseCurHealth(int team);
+    public abstract int getBaseMaxHealth();
+
 }

@@ -41,12 +41,14 @@ public class GameMaster : MonoBehaviour {
 
     private static GameMode mode;
 
-    private bool gameStarted = false;
+    private static float gameStartTime;
+    private static bool gameStarted = false;
 	
 	void Start () 
 	{
 		DataHolder.loadData();
 		guiManager = gameObject.AddComponent<GUIManager>();
+        guiManager.setGameMaster(this);
 		world = GameObject.Find("World").GetComponent<World>();
 		netView = GetComponent<NetworkView>();
         mode = new TrialOfTheGods(this);
@@ -114,7 +116,13 @@ public class GameMaster : MonoBehaviour {
     public void startGame()
     {
         gameStarted = true;
+        gameStartTime = Time.timeSinceLevelLoad;
         guiManager.startGame();
+    }
+
+    public static float getGameTime()
+    {
+        return Time.timeSinceLevelLoad - gameStartTime;
     }
 	
 	void Update () 

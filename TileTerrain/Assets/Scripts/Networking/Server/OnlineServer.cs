@@ -13,7 +13,7 @@ public class OnlineServer : NetworkConnection {
 
 	public override bool connect()
 	{
-		Network.InitializeServer(4, 25000, true);
+		Network.InitializeServer(7, 25000, true);
 		MasterServer.RegisterHost(NetworkMaster.gameTypeName, gameName);
 		Debug.Log ("starting server");
 		connected = true;

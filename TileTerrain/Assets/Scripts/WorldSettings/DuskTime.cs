@@ -16,5 +16,10 @@ public class DuskTime : TimeSetting {
     {
 
     }
+
+    public override float getTimeOfDay()
+    {
+        return base.getTimeOfDay() / 6.0f + 3.0f / 6.0f;
+    }
 	
 }

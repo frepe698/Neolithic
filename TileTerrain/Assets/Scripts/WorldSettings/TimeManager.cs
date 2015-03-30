@@ -8,12 +8,14 @@ public class TimeManager{
     private readonly static int NIGHT = 2;
     private readonly static int DAWN = 3;
 
-    private readonly static float TIMESPEED = 1;
+    private readonly static float TIMESPEED = 20;
 
     private static TimeSetting[] times = new TimeSetting[]{new DayTime(120), new DuskTime(60), new NightTime(120), new DawnTime(60)};
     private TimeSetting currentTime;
     private int currentTimeIndex = 0;
     private int nextTimeIndex = 1;
+
+    private int curDay = 0;
 
     private readonly float intermissionTime = 10;
     private float intermissionTimer;
@@ -168,6 +170,22 @@ public class TimeManager{
     public void toggleIndoors()
     {
         inDoors = !inDoors;
+    }
+
+    public void addDay()
+    {
+        curDay++;
+    }
+
+    public int getCurDay()
+    {
+        return curDay;
+    }
+
+    //From 0 to 1
+    public float getTimeOfDay()
+    {
+        return currentTime.getTimeOfDay();
     }
 	
 }

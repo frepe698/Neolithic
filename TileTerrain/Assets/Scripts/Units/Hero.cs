@@ -436,7 +436,7 @@ public class Hero : Unit {
     public void startRespawn()
     {
         waitingForRespawn = true;
-        respawnTimer = RESPAWN_TIME;
+        respawnTimer = RESPAWN_TIME + unitstats.getLevel();
     }
 
     public bool isWaitingRespawn()
@@ -460,6 +460,11 @@ public class Hero : Unit {
         command = null;
         warp(respawnPosition);
 
+    }
+
+    public float getRespawnTime()
+    {
+        return respawnTimer;
     }
 
     public override int getFavour()

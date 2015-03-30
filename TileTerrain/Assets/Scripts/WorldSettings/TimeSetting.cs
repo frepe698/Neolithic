@@ -142,4 +142,9 @@ public class TimeSetting  {
     {
         return this.alive;
     }
+
+    public virtual float getTimeOfDay()
+    {
+        return elapsedTime / lifeSpan;
+    }
 }
