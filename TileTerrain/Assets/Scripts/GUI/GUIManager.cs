@@ -195,6 +195,13 @@ public class GUIManager : MonoBehaviour{
     private Transform minimap;
     private RawImage[] minimapImages;
 
+    private List<Image> minimapBases = new List<Image>();
+    private List<Image> minimapPlayers = new List<Image>();
+    private List<Image> minimapCaves = new List<Image>();
+    private List<Image> minimapSummons = new List<Image>();
+
+    private float minimapScaleRatio;
+
     #endregion
 
     private bool mouseOverGUI = false;
@@ -476,6 +483,8 @@ public class GUIManager : MonoBehaviour{
         }
         minimap.Rotate(Vector3.forward, 45);
 
+        
+
         #endregion
 
         activateInventory(false);
@@ -638,6 +647,8 @@ public class GUIManager : MonoBehaviour{
 
         dayCounter.text = (TimeManager.Instance.getCurDay()+1).ToString();
 
+        //Minimap
+        updateMinimapHeroes();
 
         //Fps display
         nextUpdateTimer += Time.deltaTime;
@@ -1893,6 +1904,79 @@ public class GUIManager : MonoBehaviour{
 
     #endregion
 
+    #region MINIMAP
+
+    public void addMinimapBase(Vector2 position, Color color)
+    {
+        minimapScaleRatio = ((float)World.getMainMapSize() / 100.0f);
+        Image image = new GameObject("minimap_base").AddComponent<Image>();
+        image.transform.SetParent(minimap);
+        image.transform.localScale = new Vector3(1, 1, 1);
+        image.rectTransform.anchorMin = new Vector2(0, 0);
+        image.rectTransform.anchorMax = new Vector2(0, 0);
+
+        image.rectTransform.anchoredPosition = position / minimapScaleRatio;
+        image.rectTransform.sizeDelta = new Vector2(8, 8);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("GUI/minimap_icons");
+        image.sprite = sprites[0];
+        image.color = color;
+
+        minimapBases.Add(image);
+    }
+
+    public void addMinimapCave(Vector2 position)
+    {
+        Image image = new GameObject("minimap_cave").AddComponent<Image>();
+        image.transform.SetParent(minimap);
+        image.transform.localScale = new Vector3(1, 1, 1);
+        image.rectTransform.anchorMin = new Vector2(0, 0);
+        image.rectTransform.anchorMax = new Vector2(0, 0);
+
+        image.rectTransform.anchoredPosition = position / minimapScaleRatio;
+        image.rectTransform.sizeDelta = new Vector2(6, 6);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("GUI/minimap_icons");
+        image.sprite = sprites[1];
+
+        minimapCaves.Add(image);
+    }
+
+    public void addMinimapHeroes()
+    {
+        Sprite sprite = Resources.LoadAll<Sprite>("GUI/minimap_icons")[2];
+        foreach (Hero hero in GameMaster.getHeroes())
+        {
+            Image image = new GameObject("minimap_player").AddComponent<Image>();
+            image.transform.SetParent(minimap);
+            image.transform.localScale = new Vector3(1, 1, 1);
+            image.rectTransform.anchorMin = new Vector2(0, 0);
+            image.rectTransform.anchorMax = new Vector2(0, 0);
+
+            image.rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+            image.rectTransform.sizeDelta = new Vector2(6, 6);
+            image.sprite = sprite;
+
+            if (hero == GameMaster.getPlayerHero())
+            {
+                image.color = Color.yellow;
+            }
+            else
+            {
+                image.color = GameMode.teamColors[hero.getTeam() - 2];
+            }
+
+            minimapPlayers.Add(image);
+        }
+    }
+
+    public void updateMinimapHeroes()
+    {
+        for(int i = 0; i < minimapPlayers.Count; i++)
+        {
+            minimapPlayers[i].rectTransform.anchoredPosition = GameMaster.getHero(i).get2DPos() / minimapScaleRatio;
+        }
+    }
+
+    #endregion
     public bool isMouseOverGUI()
     {
         return mouseOverGUI;

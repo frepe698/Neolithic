@@ -26,6 +26,19 @@ public class TrialOfTheGods : GameMode {
     public override void initWorld()
     {
         GameMaster.getWorld().initPvPWorld(this);
+
+        for(int i = 0; i < TEAM_COUNT; i++)
+        {
+            GameMaster.getGUIManager().addMinimapBase(teams[i].basePosition.toVector2(), GameMode.teamColors[i]);
+        }
+        foreach (Vector2i caveOpening in World.tileMap.cavePos)
+        {
+            GameMaster.getGUIManager().addMinimapCave(caveOpening.toVector2());
+        }
+        foreach (Vector2 caveOpening in World.tileMap.theHallEntrance)
+        {
+            GameMaster.getGUIManager().addMinimapCave(caveOpening);
+        }
     }
 
     public override void spawnUnits()
@@ -89,8 +102,7 @@ public class TrialOfTheGods : GameMode {
 
                 unitID++;
             }
-        }
-        return;
+        }        
     }
 
     public override void grantFavour(int team, int favour)

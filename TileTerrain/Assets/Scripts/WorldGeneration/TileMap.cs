@@ -14,6 +14,7 @@ public class TileMap {
 	//public Vector2i basePos;
 	public Vector2i[] summonPos;
     public Vector2i[] cavePos;
+    public Vector2[] theHallEntrance;
 	Vector2i[] summonPosDirections = new Vector2i[]{new Vector2i(0, -1), new Vector2i(1, 0), new Vector2i(0, 1), new Vector2i(-1, 0)};
 	Road[] roads;
 	Line[] roadAreas;
@@ -178,10 +179,24 @@ public class TileMap {
 
         cavePos = new Vector2i[]{new Vector2i(end - halfSection, end/2 + halfSection), new Vector2i(end - halfSection, end/2 - halfSection),
                                 new Vector2i(end/2 + halfSection, end - halfSection), new Vector2i(end/2 - halfSection, end - halfSection)};
+
         for(int i = 0; i < cavePos.Length; i++)
         {
             Vector2i tile = cavePos[i];
             setAreaGround(GroundType.Type.Road, tile, 4);
+        }
+
+        Vector2[] baseOffset = new Vector2[]
+            {
+                new Vector2(0, WorldSection.SIZE/2),
+                new Vector2(0, -WorldSection.SIZE/2),
+                new Vector2(WorldSection.SIZE/2, 0),
+                new Vector2(-WorldSection.SIZE/2, 0),
+            };
+        theHallEntrance = new Vector2[4];
+        for (int i = 0; i < 4; i++)
+        {
+            theHallEntrance[i] = new Vector2(World.getMainMapSize() / 2, World.getMainMapSize() / 2) + baseOffset[i];
         }
     }
 	

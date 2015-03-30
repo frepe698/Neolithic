@@ -95,6 +95,7 @@ public class GameMaster : MonoBehaviour {
 		}
 		
         setPlayerUnit(playerUnitID);
+        GameMaster.getGUIManager().addMinimapHeroes();
 
         mode.spawnUnits();
 		

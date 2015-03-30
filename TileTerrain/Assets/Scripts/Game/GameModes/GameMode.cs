@@ -3,10 +3,16 @@ using System.Collections;
 
 public abstract class GameMode {
 
-    public static readonly string[] teamColors = new string[]
+    public static readonly string[] teamColorsHex = new string[]
     {
         "858FFFFF",
         "FF763BFF",
+    };
+
+    public static readonly Color[] teamColors = new Color[]
+    {
+       new Color(0.4f, 0.4f, 1),
+       new Color(1, 0, 0),
     };
 
     

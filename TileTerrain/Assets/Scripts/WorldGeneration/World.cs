@@ -491,19 +491,13 @@ public class World : MonoBehaviour {
         //Add the hall entrance
         {
             Cave cave = tileMap.getCave(4);
-            Vector2[] baseOffset = new Vector2[]
-            {
-                new Vector2(0, baseSize*4),
-                new Vector2(0, -baseSize*4),
-                new Vector2(baseSize*4, 0),
-                new Vector2(-baseSize*4, 0),
-            };
+            
 
             List<Vector2i> entrances = cave.entrancePoses;
             List<Vector2> doormats = cave.doorMatPositions;
             for (int i = 0; i < entrances.Count; i++)
             {
-                Vector2 pos1 = new Vector2(tileMap.getMainMapSize()/2,tileMap.getMainMapSize()/2)  + baseOffset[i];
+                Vector2 pos1 = tileMap.theHallEntrance[i];
                 Vector2 pos2 = entrances[i].toVector2();
                 Tile tile1 = tileMap.getTile(new Vector2i(pos1));
                 Tile tile2 = tileMap.getTile(new Vector2i(pos2));
