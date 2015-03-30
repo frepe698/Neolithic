@@ -242,6 +242,9 @@ public class World : MonoBehaviour {
         Texture2D[] groundTextures;
         Texture2D[] mapTextures;
         WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount * WorldSection.SIZE, out groundTextures, out mapTextures);
+
+        GameMaster.getGUIManager().setMiniMapTextures(mapTextures);
+
 		Material material = (Material)Resources.Load("terrain");
 		
 		

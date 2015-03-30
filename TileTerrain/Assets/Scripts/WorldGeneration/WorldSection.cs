@@ -229,14 +229,14 @@ public class WorldSection {
 
         Color[] mapColors = new Color[]
 		{
-			new Color(0,1,0,0),
-			new Color(1,1,1,0),
-			new Color(0,0,1,0),
-			new Color(0.7f,0.7f,0.6f,0),
-			new Color(0.5f,0.5f,0.4f,0),
-			new Color(0.6f,0.6f,0,0),
-			new Color(0,0,1,0),
-			new Color(0,0,0,1),
+			new Color(0,1,0),
+			new Color(1,1,1),
+			new Color(0,0,1),
+			new Color(0.7f,0.7f,0.6f),
+			new Color(0.5f,0.5f,0.4f),
+			new Color(0.6f,0.6f,0),
+			new Color(0,0,1),
+			new Color(0,0,0),
 		};
 
 		Texture2D[] groundtextures = new Texture2D[SplatMapColor.colorCount];

@@ -190,6 +190,13 @@ public class GUIManager : MonoBehaviour{
 
     #endregion
 
+    #region MINIMAP
+
+    private Transform minimap;
+    private RawImage[] minimapImages;
+
+    #endregion
+
     private bool mouseOverGUI = false;
     private GameObject waitingForPlayers;
 
@@ -442,6 +449,31 @@ public class GUIManager : MonoBehaviour{
         }
 
         respawnText = canvas.FindChild("RespawnText").GetComponent<Text>();
+
+        #endregion
+
+        #region MINIMAP INIT
+
+        minimap = canvas.FindChild("Minimap");
+
+        int sections = 4;
+        minimapImages = new RawImage[sections*sections];
+        for (int x = 0; x < sections; x++)
+        {
+            for (int y = 0; y < sections; y++)
+            {
+                RawImage image = new GameObject("minimapimage").AddComponent<RawImage>();
+                image.transform.SetParent(minimap);
+                image.rectTransform.anchorMin = new Vector2(0, 1);
+                image.rectTransform.anchorMax = new Vector2(0, 1);
+                image.rectTransform.pivot = new Vector2(0, 1);
+                image.rectTransform.localScale = new Vector3(1, 1, 1);
+                image.rectTransform.sizeDelta = new Vector2(25, 25);
+                image.rectTransform.anchoredPosition = new Vector2(25 * x, -25 * y);
+
+                minimapImages[x + y * sections] = image;
+            }
+        }
 
         #endregion
 
@@ -1888,6 +1920,21 @@ public class GUIManager : MonoBehaviour{
         hero.onAbilityUpdatedListener += new System.EventHandler(onAbilityUpdated);
 
         updateAbilityIcons();
+    }
+
+    public void setMiniMapTextures(Texture2D[] textures)
+    {
+        if (minimapImages == null) Debug.LogError("no images");
+        Debug.Log(textures.Length + ", " + minimapImages.Length);
+        for (int x = 0; x < 4; x++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                Texture2D tex = textures[x + y * 4];
+                if (tex == null) Debug.Log("Tex is null");
+                minimapImages[x + y * 4].texture = textures[x + y * 5];
+            }
+        }
     }
 
     public void startGame()

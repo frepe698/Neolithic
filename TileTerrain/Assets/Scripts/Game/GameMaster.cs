@@ -29,7 +29,7 @@ public class GameMaster : MonoBehaviour {
 	
 	private NetworkView netView;
 	private static GameController gameController;
-	private GUIManager guiManager;
+	private static GUIManager guiManager;
 	
 	private static World world;
 	
@@ -611,7 +611,7 @@ public class GameMaster : MonoBehaviour {
 		return gameController;
 	}
 
-	public GUIManager getGUIManager()
+	public static GUIManager getGUIManager()
 	{
 		return guiManager;
 	}

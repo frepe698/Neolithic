@@ -42,7 +42,7 @@ public class TrialOfTheGods : GameMode {
                 if (team.baseHealth <= 0)
                 {
                     team.defeated = true;
-                    gameMaster.getGUIManager().setGameOver(NetworkMaster.getMe().getTeam() != i);
+                    GameMaster.getGUIManager().setGameOver(NetworkMaster.getMe().getTeam() != i);
                     gameOver = true;
                 }
             }
@@ -72,7 +72,7 @@ public class TrialOfTheGods : GameMode {
     public override void damageBase(int team, int damage)
     {
         teams[team].damageBase(damage);
-        gameMaster.getGUIManager().setTeamBaseHealth(team, (float)teams[team].baseHealth / (float)Team.BASE_MAX_HEALTH);
+        GameMaster.getGUIManager().setTeamBaseHealth(team, (float)teams[team].baseHealth / (float)Team.BASE_MAX_HEALTH);
     }
     public override void spawnHeroes()
     {
@@ -96,7 +96,7 @@ public class TrialOfTheGods : GameMode {
     public override void grantFavour(int team, int favour)
     {
         getTeam(team).grantFavour(favour);
-        gameMaster.getGUIManager().setTeamFavour(team-2, getTeam(team).favour);
+        GameMaster.getGUIManager().setTeamFavour(team - 2, getTeam(team).favour);
     }
     public int getSummonLevel(int team)
     {

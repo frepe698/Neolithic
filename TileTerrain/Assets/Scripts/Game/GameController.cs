@@ -336,30 +336,30 @@ public abstract class GameController : MonoBehaviour{
 
         if (Input.GetKeyDown("return"))
         {
-            gameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
+            GameMaster.getGUIManager().toggleChatInput(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
         }
-        if (gameMaster.getGUIManager().takeKeyboardInput())
+        if (GameMaster.getGUIManager().takeKeyboardInput())
         {
             if (Input.GetKeyDown("i"))
             {
-                gameMaster.getGUIManager().toggleInventory();
+                GameMaster.getGUIManager().toggleInventory();
             }
             
             if (Input.GetKeyDown("c"))
             {
-                gameMaster.getGUIManager().toggleHeroStats();
+                GameMaster.getGUIManager().toggleHeroStats();
             }
             if (Input.GetKeyDown("p"))
             {
-                gameMaster.getGUIManager().toggleAbilityWindow();
+                GameMaster.getGUIManager().toggleAbilityWindow();
             }
             if(Input.GetKeyDown("space"))
             {
-                gameMaster.getGUIManager().closeAllWindows();
+                GameMaster.getGUIManager().closeAllWindows();
             }
             if (Input.GetKeyDown("escape"))
             {
-                gameMaster.getGUIManager().toggleIngameMenu();
+                GameMaster.getGUIManager().toggleIngameMenu();
             }
             if (Input.GetKeyDown("g"))
             {
@@ -375,7 +375,7 @@ public abstract class GameController : MonoBehaviour{
             }
             if (Input.GetKeyDown("d"))
             {
-                gameMaster.getGUIManager().dropSelectedItem();
+                GameMaster.getGUIManager().dropSelectedItem();
             }
 
             //item quick use
@@ -385,17 +385,17 @@ public abstract class GameController : MonoBehaviour{
                 {
                     if (Input.GetKey("left shift"))
                     {
-                        gameMaster.getGUIManager().setQuickUseItem(i);
+                        GameMaster.getGUIManager().setQuickUseItem(i);
                     }
                     else
                     {
-                        gameMaster.getGUIManager().quickUseItem(i);
+                        GameMaster.getGUIManager().quickUseItem(i);
                     }
                 }
             }
         }
-		
-		if(!gameMaster.getGUIManager().isMouseOverGUI())
+
+        if (!GameMaster.getGUIManager().isMouseOverGUI())
 		{
             Hero hero = GameMaster.getPlayerHero();
             bool playerIsMelee = hero.isMelee();
@@ -481,7 +481,7 @@ public abstract class GameController : MonoBehaviour{
                 Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
             }
 
-            if (gameMaster.getGUIManager().takeKeyboardInput())
+            if (GameMaster.getGUIManager().takeKeyboardInput())
             {
                 
                 for (int i = 0; i < ABILITY_INPUT.Length; i++)
@@ -1320,7 +1320,7 @@ public abstract class GameController : MonoBehaviour{
     public void recieveChatMessage(int playerID, string msg)
     {
         OnlinePlayer player = NetworkMaster.findPlayer(playerID);
-        gameMaster.getGUIManager().addChatMessage("<color=#"+GameMode.teamColors[player.getTeam()]+">"+player.getName() + ": " + msg + "</color>");
+        GameMaster.getGUIManager().addChatMessage("<color=#" + GameMode.teamColors[player.getTeam()] + ">" + player.getName() + ": " + msg + "</color>");
     }
 
     #endregion
