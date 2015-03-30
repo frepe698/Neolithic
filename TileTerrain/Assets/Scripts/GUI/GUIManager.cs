@@ -1963,16 +1963,27 @@ public class GUIManager : MonoBehaviour{
             {
                 image.color = GameMode.teamColors[hero.getTeam() - 2];
             }
-
             minimapPlayers.Add(image);
+            
         }
     }
 
     public void updateMinimapHeroes()
     {
+        int team = GameMaster.getPlayerHero().getTeam();
+        
         for(int i = 0; i < minimapPlayers.Count; i++)
         {
-            minimapPlayers[i].rectTransform.anchoredPosition = GameMaster.getHero(i).get2DPos() / minimapScaleRatio;
+            Hero hero = GameMaster.getHero(i);
+            minimapPlayers[i].gameObject.SetActive(false);
+            if (hero.getTeam() == team || hero.isActive())
+            {
+                minimapPlayers[i].gameObject.SetActive(true);
+                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+            }
+          
+                
+
         }
     }
 

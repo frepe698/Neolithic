@@ -99,6 +99,7 @@ public class TrialOfTheGods : GameMode {
                 Hero hero = new Hero(GameMaster.heroNames[player.getHero()], new Vector3(teams[i].basePosition.x + j * 2, 0, teams[i].basePosition.y), new Vector3(0, 0, 0), unitID, teams[i].teamIndex);
                 GameMaster.playerToUnitID.Add(player.getID(), unitID);
                 GameMaster.addHero(hero);
+                hero.inactivate();
 
                 unitID++;
             }
