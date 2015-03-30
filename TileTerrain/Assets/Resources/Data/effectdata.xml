@@ -75,7 +75,7 @@
         </HitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>1</percent>
+          <percent>1.2</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -84,20 +84,20 @@
         <HitBuff>
           <type>StatBuff</type>
           <stat>Movespeed</stat>
-          <amount>-0.5</amount>
+          <amount>-0.75</amount>
           <duration>1.5</duration>
           <percent>true</percent>
         </HitBuff>
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
-      <radius>2</radius>
+      <radius>2.5</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="leap_land" gameName="" modelName="leap_land">
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>2</percent>
+          <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -198,29 +198,6 @@
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
-    <ProjectileEffectData name="splitarrow" gameName="Splitarrow" modelName="splitarrow">
-      <hitDamage>
-        <HitDamage>
-          <stat>RangedDamage</stat>
-          <percent>0.8</percent>
-          <yourStat>true</yourStat>
-          <damageSelf>false</damageSelf>
-        </HitDamage>
-      </hitDamage>
-      <hitBuffs>
-        <HitBuff>
-          <type>StatBuff</type>
-          <stat>Movespeed</stat>
-          <amount>-0.3</amount>
-          <duration>3</duration>
-          <percent>true</percent>
-        </HitBuff>
-      </hitBuffs>
-      <expSkill>9</expSkill>
-      <expMultiplier>1</expMultiplier>
-      <weaponProjectile>true</weaponProjectile>
-      <angle>0</angle>
-    </ProjectileEffectData>
     <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball">
       <hitDamage>
         <HitDamage>
@@ -232,10 +209,10 @@
       </hitDamage>
       <hitBuffs>
         <HitBuff>
-          <type>Stun</type>
-          <stat>Health</stat>
-          <amount>0</amount>
-          <duration>1</duration>
+          <type>StatBuff</type>
+          <stat>Armor</stat>
+          <amount>-2</amount>
+          <duration>5</duration>
           <percent>false</percent>
         </HitBuff>
       </hitBuffs>
@@ -273,7 +250,7 @@
       <hitDamage>
         <HitDamage>
           <stat>StoneDamage</stat>
-          <percent>5</percent>
+          <percent>10</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -317,11 +294,34 @@
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
+    <ProjectileEffectData name="splitarrow" gameName="Splitarrow" modelName="splitarrow">
+      <hitDamage>
+        <HitDamage>
+          <stat>RangedDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.3</amount>
+          <duration>3</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <weaponProjectile>true</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
     <ProjectileEffectData name="splitarrowleft" gameName="Split Arrow" modelName="splitarrow">
       <hitDamage>
         <HitDamage>
           <stat>RangedDamage</stat>
-          <percent>0.8</percent>
+          <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -344,7 +344,7 @@
       <hitDamage>
         <HitDamage>
           <stat>RangedDamage</stat>
-          <percent>0.8</percent>
+          <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -400,7 +400,7 @@
       <hitDamage>
         <HitDamage>
           <stat>IncreasedMagicDamage</stat>
-          <percent>-50</percent>
+          <percent>-40</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
