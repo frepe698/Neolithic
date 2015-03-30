@@ -602,7 +602,8 @@ public class GameMaster : MonoBehaviour {
 		{
 			zoom = Mathf.Clamp(zoom + Input.GetAxis("Mouse ScrollWheel"), minzoom, maxzoom);
 		}
-		playerCamera.transform.position = hero.getPosition() + new Vector3(0.55f-zoom*0.35f, 2-zoom*1f, -0.55f+zoom*0.35f);
+		playerCamera.transform.position = hero.getPosition() + new Vector3(-3, 2-zoom*1f, -3);
+        playerCamera.transform.LookAt(hero.getPosition(), Vector3.up);
 
 	}
 	

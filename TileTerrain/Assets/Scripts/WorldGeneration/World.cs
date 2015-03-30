@@ -41,7 +41,7 @@ public class World : MonoBehaviour {
 	public static int minHeight = -2;
 	
 	Vector2i lastPlayerPos = new Vector2i(-1, -1);
-	private readonly Vector2i cameraOffset = new Vector2i(-3,3);
+	private readonly Vector2i cameraOffset = new Vector2i(3,3);
 	private readonly static int resourceTileActivationRange = 30;
 	private readonly static int resourceTileInactivationRange = 32;
 	private readonly static int eyecandyTileActivationRange = 16;

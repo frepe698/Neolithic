@@ -229,14 +229,14 @@ public class WorldSection {
 
         Color[] mapColors = new Color[]
 		{
-			new Color(0,1,0),
+			new Color(0.1f,0.8f,0.05f),
 			new Color(1,1,1),
 			new Color(0,0,1),
 			new Color(0.7f,0.7f,0.6f),
 			new Color(0.5f,0.5f,0.4f),
 			new Color(0.6f,0.6f,0),
 			new Color(0,0,1),
-			new Color(0,0,0),
+			new Color(0.4f,0.4f,0.2f),
 		};
 
 		Texture2D[] groundtextures = new Texture2D[SplatMapColor.colorCount];
@@ -283,6 +283,7 @@ public class WorldSection {
 			}
 		}
 
+        Color heightColor = new Color(0.1f, 0.1f, 0.1f);
         for (int y = 0; y < World.tileMap.sectionCount; y++ )
         {
             for (int x = 0; x < World.tileMap.sectionCount; x++)
@@ -292,11 +293,11 @@ public class WorldSection {
 
                 Texture2D sectionTexture = maptextures[y * World.tileMap.sectionCount + x] = new Texture2D(SIZE, SIZE);
 
-                for(int xx = 0; xx < WorldSection.SIZE; xx++)
+                for(int yy = 0; yy < WorldSection.SIZE; yy++)
                 {
-                    for (int yy = 0; yy < WorldSection.SIZE; yy++)
+                    for (int xx = 0; xx < WorldSection.SIZE; xx++)
                     {
-                        sectionTexture.SetPixel(xx, yy, mapColors[tileMapColor[xmap + xx, ymap + yy]]);
+                        sectionTexture.SetPixel(xx, yy, mapColors[tileMapColor[xmap + xx, ymap + yy]] * ((1 + World.tileMap.getTile(xmap + xx, ymap + yy).height)*0.06f + 0.5f));
                     }
                 }
                 sectionTexture.wrapMode = TextureWrapMode.Clamp;
