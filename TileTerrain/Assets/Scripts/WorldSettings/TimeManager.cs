@@ -119,7 +119,6 @@ public class TimeManager{
         {
             sun.color = sunColor;
             moon.color = moonColor;
-            Debug.Log("moon " + moonColor + " : " + moonRotation);
         }
         else 
         {
