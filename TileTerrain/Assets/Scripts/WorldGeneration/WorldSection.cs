@@ -211,9 +211,11 @@ public class WorldSection {
 		return mesh;
 	}
 
-	public static Texture2D[] getWorldSplatTexture(int[,] tileMapColor, int texSize)
+    
+
+	public static void getWorldSplatTexture(int[,] tileMapColor, int texSize, out Texture2D[] groundTexture, out Texture2D[] mapTexture)
 	{
-		SplatMapColor[] colors = new SplatMapColor[]
+		SplatMapColor[] groundColors = new SplatMapColor[]
 		{
 			new SplatMapColor(new Color(1,0,0,0), new Color(0,0,0,0)),
 			new SplatMapColor(new Color(0,1,0,0), new Color(0,0,0,0)),
@@ -224,10 +226,25 @@ public class WorldSection {
 			new SplatMapColor(new Color(0,0,0,0), new Color(0,0,1,0)),
 			new SplatMapColor(new Color(0,0,0,0), new Color(0,0,0,1)),
 		};
-		Texture2D[] textures = new Texture2D[SplatMapColor.colorCount];
+
+        Color[] mapColors = new Color[]
+		{
+			new Color(0,1,0,0),
+			new Color(1,1,1,0),
+			new Color(0,0,1,0),
+			new Color(0.7f,0.7f,0.6f,0),
+			new Color(0.5f,0.5f,0.4f,0),
+			new Color(0.6f,0.6f,0,0),
+			new Color(0,0,1,0),
+			new Color(0,0,0,1),
+		};
+
+		Texture2D[] groundtextures = new Texture2D[SplatMapColor.colorCount];
+        Texture2D[] maptextures = new Texture2D[World.tileMap.sectionCount * World.tileMap.sectionCount];
+
 		for(int i = 0; i< SplatMapColor.colorCount; i++)
 		{
-			textures[i] = new Texture2D(texSize, texSize);
+			groundtextures[i] = new Texture2D(texSize, texSize);
 		}
 
 		for(int x = 0; x < texSize; x++)
@@ -239,36 +256,61 @@ public class WorldSection {
 				int yplus = y;
 				int yminus = y-1;
 				
-				SplatMapColor color = colors[tileMapColor[xplus, yplus]];
+				SplatMapColor color = groundColors[tileMapColor[xplus, yplus]];
 				int colorCount = 1;
 				if(xminus >= 0 && yminus >= 0) 
 				{
-					color += colors[tileMapColor[xminus, yminus]];
+					color += groundColors[tileMapColor[xminus, yminus]];
 					colorCount++;
 				}
 				if(xminus >= 0)
 				{
-					color+= colors[tileMapColor[xminus, yplus]];
+					color+= groundColors[tileMapColor[xminus, yplus]];
 					colorCount++;
 				}
 				if(yminus >= 0)
 				{
-					color+= colors[tileMapColor[xplus, yminus]];
+					color+= groundColors[tileMapColor[xplus, yminus]];
 					colorCount++;
 				}
 				color/=colorCount;
 				for(int i = 0; i < SplatMapColor.colorCount; i++)
 				{
-					textures[i].SetPixel(x, y, color.colors[i]);
+					groundtextures[i].SetPixel(x, y, color.colors[i]);
 				}
+
+                
 			}
 		}
-		for(int i = 0; i < SplatMapColor.colorCount; i++)
-		{
-			textures[i].wrapMode = TextureWrapMode.Clamp;
-			textures[i].Apply();
-		}
-		return textures;
+
+        for (int y = 0; y < World.tileMap.sectionCount; y++ )
+        {
+            for (int x = 0; x < World.tileMap.sectionCount; x++)
+            {
+                int xmap = WorldSection.SIZE * x;
+                int ymap = WorldSection.SIZE * y;
+
+                Texture2D sectionTexture = maptextures[y * World.tileMap.sectionCount + x] = new Texture2D(SIZE, SIZE);
+
+                for(int xx = 0; xx < WorldSection.SIZE; xx++)
+                {
+                    for (int yy = 0; yy < WorldSection.SIZE; yy++)
+                    {
+                        sectionTexture.SetPixel(xx, yy, mapColors[tileMapColor[xmap + xx, ymap + yy]]);
+                    }
+                }
+                sectionTexture.wrapMode = TextureWrapMode.Clamp;
+                sectionTexture.Apply();
+            }    
+        }
+
+        for (int i = 0; i < SplatMapColor.colorCount; i++)
+        {
+            groundtextures[i].wrapMode = TextureWrapMode.Clamp;
+            groundtextures[i].Apply();
+        }
+		groundTexture = groundtextures;
+        mapTexture = maptextures;
 	}
 
 	public static Texture2D[] getNoiseWorldSplatTexture(int texSize)

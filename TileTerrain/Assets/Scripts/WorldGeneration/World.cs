@@ -239,7 +239,9 @@ public class World : MonoBehaviour {
 			}
 		}
 		//Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, (tileMap.sectionCount*WorldSection.SIZE*2) + 1);
-		Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount*WorldSection.SIZE);
+        Texture2D[] groundTextures;
+        Texture2D[] mapTextures;
+        WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount * WorldSection.SIZE, out groundTextures, out mapTextures);
 		Material material = (Material)Resources.Load("terrain");
 		
 		
@@ -312,7 +314,7 @@ public class World : MonoBehaviour {
 		{
 			for(int i = 0; i < SplatMapColor.colorCount; i++)
 			{
-				groundRenderer.material.SetTexture("_Splat"+i, textures[i]);
+				groundRenderer.material.SetTexture("_Splat"+i, groundTextures[i]);
 			}
 			
 			int scale = (tileMap.sectionCount*WorldSection.SIZE) / 16;
@@ -1138,7 +1140,9 @@ public class World : MonoBehaviour {
             }
         }
         //Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, (tileMap.sectionCount*WorldSection.SIZE*2) + 1);
-        Texture2D[] textures = WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount * WorldSection.SIZE);
+        Texture2D[] groundTextures;
+        Texture2D[] mapTextures;
+        WorldSection.getWorldSplatTexture(tileMapColor, tileMap.sectionCount * WorldSection.SIZE, out groundTextures, out mapTextures);
         Material material = (Material)Resources.Load("terrain");
 
 
@@ -1204,7 +1208,7 @@ public class World : MonoBehaviour {
         {
             for (int i = 0; i < SplatMapColor.colorCount; i++)
             {
-                groundRenderer.material.SetTexture("_Splat" + i, textures[i]);
+                groundRenderer.material.SetTexture("_Splat" + i, groundTextures[i]);
             }
 
             int scale = (tileMap.sectionCount * WorldSection.SIZE) / 16;
