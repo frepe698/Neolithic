@@ -1971,16 +1971,44 @@ public class GUIManager : MonoBehaviour{
     public void updateMinimapHeroes()
     {
         int team = GameMaster.getPlayerHero().getTeam();
-        
+        //int mapEdge = World.tileMap.mainMapSectionCount*WorldSection.SIZE;
         for(int i = 0; i < minimapPlayers.Count; i++)
         {
             Hero hero = GameMaster.getHero(i);
-            minimapPlayers[i].gameObject.SetActive(false);
+
+            if (hero.get2DPos().x > World.tileMap.mainMapSize || hero.get2DPos().y > World.tileMap.mainMapSize)
+            {
+                minimapPlayers[i].gameObject.SetActive(false);
+                continue;
+            }
+
             if (hero.getTeam() == team || hero.isActive())
             {
                 minimapPlayers[i].gameObject.SetActive(true);
                 minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+                continue;
             }
+            
+            bool visible = false;
+            for (int j = 0; j < minimapPlayers.Count; j++)
+            {
+                Hero other = GameMaster.getHero(j);
+                if (j == i || hero.getTeam() == other.getTeam()) continue;
+                if(Vector2i.getDistance(hero.getTile(), other.getTile()) < 20)
+                {
+                    visible = true;
+                }
+
+            }
+            if(visible)
+            {
+                minimapPlayers[i].gameObject.SetActive(true);
+                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+                continue;
+            }
+            
+            minimapPlayers[i].gameObject.SetActive(false);
+
           
                 
 

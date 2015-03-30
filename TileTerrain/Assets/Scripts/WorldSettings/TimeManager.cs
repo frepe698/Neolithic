@@ -8,7 +8,7 @@ public class TimeManager{
     private readonly static int NIGHT = 2;
     private readonly static int DAWN = 3;
 
-    private readonly static float TIMESPEED = 20;
+    private readonly static float TIMESPEED = 1;
 
     private static TimeSetting[] times = new TimeSetting[]{new DayTime(120), new DuskTime(60), new NightTime(120), new DawnTime(60)};
     private TimeSetting currentTime;
@@ -52,6 +52,7 @@ public class TimeManager{
         sun.shadows = LightShadows.Hard;
         sun.shadowStrength = 0.4f;
         sun.intensity = 1.5f;
+        sun.renderMode = LightRenderMode.ForcePixel;
         
         moon = new GameObject("moon").AddComponent<Light>();
         moonRotation = currentTime.getMoonRotation();
@@ -61,6 +62,8 @@ public class TimeManager{
         moon.shadows = LightShadows.Hard;
         moon.shadowStrength = 0.4f;
         moon.intensity = 1.5f;
+        moon.renderMode = LightRenderMode.ForcePixel;
+
         updateIntermissionValues();
     }
     
@@ -116,6 +119,7 @@ public class TimeManager{
         {
             sun.color = sunColor;
             moon.color = moonColor;
+            Debug.Log("moon " + moonColor + " : " + moonRotation);
         }
         else 
         {

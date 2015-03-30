@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TileMap {
 
     private int mapSize;
-	private int mainMapSize;
+	public int mainMapSize;
     public readonly int sectionCount;
     public readonly int mainMapSectionCount;
 	private Tile[,] tiles;
