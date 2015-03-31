@@ -297,7 +297,7 @@ public class Unit {
 		//			Debug.Log ("Already chopping that tree");
 		//			return;
 		//		}
-        this.lastCommand = command.getName();
+        this.lastCommand = newCommand.getName();
         command = newCommand;
 		command.start();
 	}
@@ -352,7 +352,7 @@ public class Unit {
 			return;
 		}
 		command = newCommand;
-        this.lastCommand = command.getName();
+        this.lastCommand = newCommand.getName();
         command.start();
 	}
 
