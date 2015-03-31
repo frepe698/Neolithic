@@ -116,7 +116,7 @@ public class AbilityCommand : Command {
                     while (effect != null)
                     {
                         //TODO: get effect sound
-                        unit.playSound(unit.getAttackSound(0));
+                        //unit.playSound(unit.getAttackSound(0));
                         effect.action(this);
                         //unit.attack(target);
 

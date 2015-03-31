@@ -12,12 +12,13 @@ public class AreaOfEffect : AbilityEffect {
     }
     public override void action(AbilityCommand ability)
     {
-        GameObject prefab = Resources.Load<GameObject>("Effects/"+data.modelName);
+        //Load some kind of visual effect
+        /*GameObject prefab = Resources.Load<GameObject>("Effects/"+data.modelName);
         if (prefab != null)
         {
             GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
-        }
-        //Load some kind of visual effect
+        }*/
+        AbilityEffect.modelAndSound(data, unit, targetPosition);
         float radius = data.radius;
         Vector2i targetTile = new Vector2i(targetPosition);
         Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.z);

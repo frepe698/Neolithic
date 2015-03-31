@@ -94,6 +94,7 @@ public class UnitController : MonoBehaviour {
         if (sound == null) return;
         //AudioClip[] clips = Resources.LoadAll("Audio/" + sound, typeof(AudioClip)) as AudioClip[];
 		AudioClip clip = (AudioClip)Resources.Load ("Audio/" + sound);
+        if (clip == null) return;
 		audioSource.PlayOneShot(clip);
 	}
 

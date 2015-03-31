@@ -516,6 +516,8 @@ public class EffectEditor : ObjectEditor
         data.name = EditorGUILayout.TextField("Name: ", data.name);
         data.gameName = EditorGUILayout.TextField("Game Name: ", data.gameName);
         data.modelName = EditorGUILayout.TextField("Model Name: ", data.modelName);
+        data.weaponSound = EditorGUILayout.Toggle("Weapon Sound", data.weaponSound);
+        data.modelIsSound = EditorGUILayout.Toggle("Model is Sound", data.modelIsSound);
         GUILayout.Space(10);
         EditorGUILayout.LabelField("Experience gain:", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();

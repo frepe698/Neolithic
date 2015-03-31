@@ -15,6 +15,9 @@ public class SingleTargetEffect  : AbilityEffect {
     public override void action(AbilityCommand ability)
     {
         //Load some kind of visual effect
+        AbilityEffect.modelAndSound(data, unit, unit.getPosition());
+
+
         Vector2i targetTile = new Vector2i(targetPosition);
 
         Unit closestTarget = null;

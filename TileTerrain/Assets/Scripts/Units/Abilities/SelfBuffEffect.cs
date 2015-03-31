@@ -11,6 +11,8 @@ public class SelfBuffEffect : AbilityEffect{
 
     public override void action(AbilityCommand ability)
     {
+        AbilityEffect.modelAndSound(data, unit, unit.getPosition());
+
         applyDamage(data.hitDamage, unit, unit, data.expSkill);
         GameMaster.getGameController().requestApplyEffect(unit.getID(), unit.getID(), data.name);
     }
