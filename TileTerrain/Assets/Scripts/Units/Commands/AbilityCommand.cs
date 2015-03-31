@@ -226,4 +226,9 @@ public class AbilityCommand : Command {
             && (unit.getWeaponTags() & ability.data.tags) > 0
             && !this.Equals(command);
     }
+
+    public override string getName()
+    {
+        return ability.data.name;
+    }
 }

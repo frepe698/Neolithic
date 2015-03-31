@@ -56,4 +56,9 @@ public class StunnedCommand : Command {
 
         return false;
     }
+
+    public override string getName()
+    {
+        return "stunned";
+    }
 }

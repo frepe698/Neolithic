@@ -54,4 +54,9 @@ public abstract class Command {
         return !this.Equals(command);
     }
 
+    public virtual string getName()
+    {
+        return "command";
+    }
+
 }

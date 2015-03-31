@@ -93,5 +93,8 @@ public class GatherCommand : Command {
 		return base.GetHashCode ();
 	}
 
-
+    public override string getName()
+    {
+        return "gather";
+    }
 }
