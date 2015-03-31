@@ -297,6 +297,11 @@ public class GameMaster : MonoBehaviour {
 	void LateUpdate()
 	{
 		updateCamera();
+
+        foreach (Hero hero in heroes)
+        {
+            hero.updateHealthbar();
+        }
 	}
 	
     public static void respawnAllSpawners()

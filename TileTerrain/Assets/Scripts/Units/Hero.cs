@@ -31,6 +31,8 @@ public class Hero : Unit {
     private bool waitingForRespawn = false;
     private Vector2 respawnPosition;
 
+    private HealthbarController healthBar;
+
 	public Hero(string unit, Vector3 position, Vector3 rotation, int id, int team) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
 	{
@@ -116,6 +118,29 @@ public class Hero : Unit {
         return false;
     }
 
+    public void updateHealthbar()
+    {
+        if (!awake) return;
+        if (healthBar == null)
+        {
+            GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("GUI/hero_healthbar"));
+            go.transform.SetParent(GameMaster.getGUIManager().getCanvas().FindChild("WorldUI"));
+            healthBar = go.GetComponent<HealthbarController>();
+            if(this == GameMaster.getPlayerHero())
+                healthBar.setColor(Color.yellow);
+            else
+                healthBar.setColor(GameMode.teamColors[getTeam() - 2]);
+
+        }
+
+        if (!alive) healthBar.setActive(false);
+        else
+        {
+            healthBar.update(this);
+            healthBar.setActive(true);
+        }
+    }
+
 	public void updateStats()
 	{
 		hunger += getHungerGain()*Time.deltaTime;
@@ -125,7 +150,6 @@ public class Hero : Unit {
         //unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
 		unitstats.getHealth().addCurValue(getHealthGain()*Time.deltaTime);
 		//health = Mathf.Clamp(health, 0, maxHealth);
-
 	}
 
 	public Inventory getInventory()

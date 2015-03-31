@@ -10,6 +10,7 @@ public class GUIManager : MonoBehaviour{
 	EventSystem eventSystem;
 
 	private Transform canvas;
+    private Canvas canvasCanvas;
 
     private Hero playerHero;
 
@@ -212,6 +213,7 @@ public class GUIManager : MonoBehaviour{
 	void Awake()
     {
         canvas = GameObject.Find("GameCanvas").transform;
+        canvasCanvas = canvas.GetComponent<Canvas>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 
         healthbarTransform = canvas.FindChild("healthbar").FindChild("healthbar_mask").FindChild("healthbar_drink").GetComponent<RectTransform>();
@@ -508,6 +510,7 @@ public class GUIManager : MonoBehaviour{
 
     public void update()
 	{
+#if false //PRINT HERO INVENTORY
         if (Input.GetKeyDown("o"))
         {
             int heroindex = 0;
@@ -535,6 +538,7 @@ public class GUIManager : MonoBehaviour{
                 heroindex++;
             }
         }
+#endif
         if (chatting)
         {
             if (justOpenedChat)
@@ -609,7 +613,7 @@ public class GUIManager : MonoBehaviour{
         }
         if (movingAbility != -1)
         {
-            float scaleFactor = canvas.GetComponent<Canvas>().scaleFactor;
+            float scaleFactor = canvasCanvas.scaleFactor;
             movingAbilityImage.rectTransform.anchoredPosition = Input.mousePosition / scaleFactor;
 
             if (Input.GetMouseButtonUp(0))
@@ -856,7 +860,7 @@ public class GUIManager : MonoBehaviour{
             abilityTooltipStats.text = stats;
             Vector2 size = abilityTooltipStats.rectTransform.sizeDelta = new Vector2(95, abilityTooltipStats.preferredHeight);
             abilityTooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(100, -pos.y + size.y);
-            float scaleFactor = canvas.GetComponent<Canvas>().scaleFactor;
+            float scaleFactor = canvasCanvas.scaleFactor;
             float ypos = (Input.mousePosition.y - Screen.height) / scaleFactor;
             if (Input.mousePosition.y < Screen.height * 0.5f) ypos += (-pos.y + size.y);
             abilityTooltip.GetComponent<RectTransform>().anchoredPosition = new Vector2(Input.mousePosition.x / scaleFactor, ypos);
@@ -2073,5 +2077,15 @@ public class GUIManager : MonoBehaviour{
         obj.gameObject.SetActive(true);
         obj.FindChild("Victory").gameObject.SetActive(victory);
         obj.FindChild("Defeat").gameObject.SetActive(!victory);
+    }
+
+    public Transform getCanvas()
+    {
+        return canvas;
+    }
+
+    public Canvas getCanvasCanvas()
+    {
+        return canvasCanvas;
     }
 }
