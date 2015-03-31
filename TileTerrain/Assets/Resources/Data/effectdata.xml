@@ -74,14 +74,14 @@
     <AreaOfEffectData name="earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
       <hitDamage>
         <HitDamage>
-          <stat>Health</stat>
-          <percent>0.2</percent>
-          <yourStat>false</yourStat>
+          <stat>StoneDamage</stat>
+          <percent>0.5</percent>
+          <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
-          <percent>1.2</percent>
+          <percent>1</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>

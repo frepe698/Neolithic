@@ -174,7 +174,10 @@ MonoBehaviour:
     spawnTime: 0
     lifeTime: .5
     spawned: 0
-  sounds: []
+  sounds:
+  - clip: {fileID: 8300000, guid: a1a6968fbcb890446baea5fa41516833, type: 3}
+    time: 0
+    played: 0
 --- !u!119 &11996120
 Projector:
   m_ObjectHideFlags: 1

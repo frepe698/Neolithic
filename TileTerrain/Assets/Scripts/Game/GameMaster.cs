@@ -224,7 +224,7 @@ public class GameMaster : MonoBehaviour {
     
     public static void increaseAILevel()
     {
-        aiSpawnLevel++;
+        aiSpawnLevel+=2;
     }
     public static int getAISpawnLevel()
     {
