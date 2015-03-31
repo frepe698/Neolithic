@@ -45,6 +45,9 @@ namespace Edit
         public Skills expSkill;
         public float expMultiplier = 1;
 
+        public bool weaponSound;
+        public bool modelIsSound;
+
         //On hit effects go here too
         public AbilityEffectEdit() 
         {
@@ -69,6 +72,9 @@ namespace Edit
 
             expSkill = (Skills)data.expSkill;
             expMultiplier = data.expMultiplier;
+
+            weaponSound = data.weaponSound;
+            modelIsSound = data.modelIsSound;
             
         }
         public AbilityEffectEdit(AbilityEffectEdit edit) : base(edit)
@@ -84,6 +90,9 @@ namespace Edit
 
             expSkill = edit.expSkill;
             expMultiplier = edit.expMultiplier;
+
+            weaponSound = edit.weaponSound;
+            modelIsSound = edit.modelIsSound;
         }
     }
 

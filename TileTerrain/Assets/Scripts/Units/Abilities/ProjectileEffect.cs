@@ -13,7 +13,8 @@ public class ProjectileEffect : AbilityEffect {
 
     public override void action(AbilityCommand ability)
     {
-        
+        //Load some kind of visual effect
+        AbilityEffect.modelAndSound(data, unit, unit.getPosition());
         int angle = (int)data.angle;
         string name = data.modelName;
         

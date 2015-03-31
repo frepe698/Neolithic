@@ -81,6 +81,30 @@ public abstract class AbilityEffect {
         }
     }
 
+    public static void modelAndSound(AbilityEffectData data, Unit unit, Vector3 targetPosition)
+    {
+
+        //AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);
+
+        if(data.weaponSound)
+        {
+            unit.playSound(unit.getAttackSound(0));
+        }
+        else if(data.modelIsSound)
+        {
+            unit.playSound(data.modelName);
+        }
+        else
+        {
+            GameObject prefab = Resources.Load<GameObject>("Effects/" + data.modelName);
+            if (prefab != null)
+            {
+                GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
+            }
+        }
+        
+    }
+
 }
 
 public enum AbilityEffects

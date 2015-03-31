@@ -21,6 +21,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
     </SingleTargetEffectData>
     <SingleTargetEffectData name="skullcrush" gameName="Skull Crush" modelName="skullcrush">
       <hitDamage>
@@ -42,6 +44,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
     </SingleTargetEffectData>
   </SingleTargets>
   <AreaOfEffects>
@@ -63,6 +67,8 @@
       <hitBuffs />
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>2</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
@@ -91,6 +97,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>2.5</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="leap_land" gameName="" modelName="leap_land">
@@ -113,6 +121,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>2</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="bolt" gameName="Bolt" modelName="bolt">
@@ -135,6 +145,8 @@
       </hitBuffs>
       <expSkill>4</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>1.5</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="ai_bolt" gameName="Bolt" modelName="bolt">
@@ -157,6 +169,8 @@
       </hitBuffs>
       <expSkill>4</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>1</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="ai_earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
@@ -179,6 +193,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <radius>2</radius>
     </AreaOfEffectData>
   </AreaOfEffects>
@@ -195,10 +211,12 @@
       <hitBuffs />
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
-    <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball">
+    <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball01">
       <hitDamage>
         <HitDamage>
           <stat>IncreasedMagicDamage</stat>
@@ -218,11 +236,13 @@
       </hitBuffs>
       <expSkill>4</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
       <projectileName>fireball</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
-    <ProjectileEffectData name="ai_fireball" gameName="Fireball" modelName="fireball">
+    <ProjectileEffectData name="ai_fireball" gameName="Fireball" modelName="fireball01">
       <hitDamage>
         <HitDamage>
           <stat>MeleeDamage</stat>
@@ -242,6 +262,8 @@
       </hitBuffs>
       <expSkill>4</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
       <projectileName>fireball</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -266,6 +288,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
       <projectileName>rock</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -290,6 +314,8 @@
       </hitBuffs>
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
       <projectileName>rock</projectileName>
       <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
@@ -314,6 +340,8 @@
       </hitBuffs>
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
@@ -337,6 +365,8 @@
       </hitBuffs>
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <weaponProjectile>true</weaponProjectile>
       <angle>15</angle>
     </ProjectileEffectData>
@@ -360,16 +390,20 @@
       </hitBuffs>
       <expSkill>9</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>true</weaponSound>
+      <modelIsSound>false</modelIsSound>
       <weaponProjectile>true</weaponProjectile>
       <angle>-15</angle>
     </ProjectileEffectData>
   </ProjectileEffects>
   <MovementEffects>
-    <MovementEffectData name="leap_move" gameName="Leap" modelName="leap">
+    <MovementEffectData name="leap_move" gameName="Leap" modelName="">
       <hitDamage />
       <hitBuffs />
       <expSkill>0</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
       <range>8</range>
       <travelTime>0.4166</travelTime>
     </MovementEffectData>
@@ -395,6 +429,8 @@
       </hitBuffs>
       <expSkill>8</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
     </SelfBuffEffectData>
     <SelfBuffEffectData name="heal" gameName="Heal" modelName="">
       <hitDamage>
@@ -408,6 +444,8 @@
       <hitBuffs />
       <expSkill>5</expSkill>
       <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
     </SelfBuffEffectData>
   </SelfBuffEffects>
 </EffectsRoot>

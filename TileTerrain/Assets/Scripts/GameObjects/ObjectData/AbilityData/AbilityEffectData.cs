@@ -14,6 +14,9 @@ public abstract class AbilityEffectData : ObjectData {
     public readonly int expSkill = 0;
     public readonly float expMultiplier = 1;
 
+    public readonly bool weaponSound;
+    public readonly bool modelIsSound;
+
     public AbilityEffectData() { }
     public AbilityEffectData(AbilityEffectEdit edit) : base(edit)
     {
@@ -30,6 +33,8 @@ public abstract class AbilityEffectData : ObjectData {
 
         expSkill = (int)edit.expSkill;
         expMultiplier = edit.expMultiplier;
+        weaponSound = edit.weaponSound;
+        modelIsSound = edit.modelIsSound;
     }
 
     public abstract AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition);
