@@ -15,7 +15,7 @@ public class EffectController : MonoBehaviour {
 
     private AudioSource audioSource;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         audioSource = GetComponent<AudioSource>();
         startTime = Time.time;
         Destroy(gameObject, lifeTime);
