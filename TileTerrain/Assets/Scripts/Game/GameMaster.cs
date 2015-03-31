@@ -134,7 +134,7 @@ public class GameMaster : MonoBehaviour {
             return;
         }
         TimeManager.Instance.update();
-		checkIfUnitsAwake();
+		timedUpdates();
 		gameController.update();
         mode.update();
         
@@ -198,14 +198,20 @@ public class GameMaster : MonoBehaviour {
 		guiManager.update ();
 	}
 
-	public void checkIfUnitsAwake()
+	public void timedUpdates()
 	{
 		if(Time.time >= updateTime)
 		{ 
 			updateAwakeUnits();
+            syncStats();
 			updateTime += 1;
 		}
 	}
+
+    public void syncStats()
+    {
+        gameController.syncVitals();
+    }
 
     public static void requestLaneSpawningStart()
     {

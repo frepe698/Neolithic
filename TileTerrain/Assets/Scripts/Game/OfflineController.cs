@@ -369,6 +369,11 @@ public class OfflineController : GameController {
         changeHealth(targetID, health);
     }
 
+    public override void syncVitals()
+    {
+        //do nada
+    }
+
     [RPC]
     public override void requestLearnAbility(string ability, int unitID, int index)
     {

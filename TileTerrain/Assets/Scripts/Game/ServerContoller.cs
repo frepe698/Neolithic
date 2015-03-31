@@ -387,6 +387,16 @@ public class ServerController : GameController {
          gameMaster.getNetView().RPC("changeHealth", RPCMode.All, targetID, health);
     }
 
+    public override void syncVitals()
+    {
+        foreach(Hero hero in GameMaster.getHeroes())
+        {
+            gameMaster.getNetView().RPC("syncHeroVitals", RPCMode.Others, hero.getID(), 
+                (int)hero.getHeroStats().getHealth().getCurValue(), 
+                (int)hero.getHeroStats().getEnergy().getCurValue());
+        }
+    }
+
     [RPC]
     public override void requestLearnAbility(string ability, int unitID, int index)
     {

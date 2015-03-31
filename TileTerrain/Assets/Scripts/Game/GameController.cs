@@ -1145,6 +1145,17 @@ public abstract class GameController : MonoBehaviour{
     #region CHANGE UNIT STATS
     //REGION CHANGE UNIT STATS
 
+    
+    public abstract void syncVitals();
+    
+    [RPC]
+    public void syncHeroVitals(int unitID, int health, int energy)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        hero.getUnitStats().getHealth().setCurValue(health);
+        hero.getUnitStats().getEnergy().setCurValue(energy);
+    }
+
     [RPC]
     protected void giveExperience(int targetID, int skill, int experience)
     {
