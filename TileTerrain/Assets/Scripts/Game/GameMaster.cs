@@ -59,8 +59,7 @@ public class GameMaster : MonoBehaviour {
 		{
 			NetworkMaster.initializeOfflineServer();
 			NetworkMaster.connect();
-            OnlinePlayer player = new OnlinePlayer(Network.player, "player", 0);
-            player.setHero(0);
+            OnlinePlayer player = new OnlinePlayer(Network.player, "player", 0, 0);
             NetworkMaster.addPlayer(player);
 		}
 

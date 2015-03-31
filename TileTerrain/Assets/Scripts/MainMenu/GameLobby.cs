@@ -68,7 +68,7 @@ public class GameLobby : MonoBehaviour {
         }
         else
         {
-            addPlayer(Network.player, GlobalMenu.playerName, 0);
+            addPlayer(Network.player, GlobalMenu.playerName, 0, -1);
         }
 		//NetworkMaster.connect();
 		activateTime = Time.time + 1;
@@ -306,23 +306,23 @@ public class GameLobby : MonoBehaviour {
                 List<OnlinePlayer> players = NetworkMaster.getAllPlayers();
                 foreach (OnlinePlayer op in players)
                 {
-                    netView.RPC("addPlayer", player, op.getNetworkPlayer(), op.getName(), op.getTeam());
+                    netView.RPC("addPlayer", player, op.getNetworkPlayer(), op.getName(), op.getTeam(), op.getHero());
                 }
 
                 //Everyone adds the new player
-                netView.RPC("addPlayer", RPCMode.All, player, name, team);
+                netView.RPC("addPlayer", RPCMode.All, player, name, team, -1);
             }
             else
             {
                 //Servers adds itself
-                addPlayer(player, name, team);
+                addPlayer(player, name, team, -1);
             }
         }
     }
     [RPC]
-    void addPlayer(NetworkPlayer player, string name, int team)
+    void addPlayer(NetworkPlayer player, string name, int team, int hero)
     {
-        NetworkMaster.addPlayer(player, name, team);
+        NetworkMaster.addPlayer(player, name, team, hero);
         updateTeamDisplay();
         if (NetworkMaster.getMe() != null && player == NetworkMaster.getMe().getNetworkPlayer())
         {

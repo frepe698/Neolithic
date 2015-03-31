@@ -89,9 +89,9 @@ public class NetworkMaster{
         return Network.player;
     }
 
-    public static void addPlayer(NetworkPlayer player, string name, int team)
+    public static void addPlayer(NetworkPlayer player, string name, int team, int hero)
     {
-        OnlinePlayer p = new OnlinePlayer(player, name, team);
+        OnlinePlayer p = new OnlinePlayer(player, name, team, hero);
         players.Add(p);
 
         if (player == getMyPlayer())

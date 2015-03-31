@@ -12,14 +12,14 @@ public class OnlinePlayer {
 
     private bool inGame = false;
 
-	public OnlinePlayer(NetworkPlayer player, string name, int team)
+	public OnlinePlayer(NetworkPlayer player, string name, int team, int hero)
 	{
 		this.networkPlayer = player;
 		this.name = name;
         this.team = team;
         id = Mathf.Max(int.Parse(player.ToString()), 0);
 
-        hero = -1;
+        this.hero = hero;
 	}
 
 

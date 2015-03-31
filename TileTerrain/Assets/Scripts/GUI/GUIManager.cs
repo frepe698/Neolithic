@@ -478,7 +478,7 @@ public class GUIManager : MonoBehaviour{
                 image.rectTransform.pivot = new Vector2(0, 1);
                 image.rectTransform.localScale = new Vector3(1, 1, 1);
                 image.rectTransform.sizeDelta = new Vector2(25, 25);
-                image.rectTransform.anchoredPosition = new Vector2(25 * x, - 75 + 25 * y);
+                image.rectTransform.anchoredPosition = new Vector2(5 + 25 * x, - 80 + 25 * y);
                 //image.rectTransform.localEulerAngles = new Vector3(0, 180, 0);
                 minimapImages[x + y * sections] = image;
             }
