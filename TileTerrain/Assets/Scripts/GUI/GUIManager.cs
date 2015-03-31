@@ -202,6 +202,7 @@ public class GUIManager : MonoBehaviour{
     private List<Image> minimapSummons = new List<Image>();
 
     private float minimapScaleRatio;
+    private static readonly Vector2 MINIMAPOFFSET = new Vector2(0, 0);
 
     #endregion
 
@@ -478,7 +479,7 @@ public class GUIManager : MonoBehaviour{
                 image.rectTransform.pivot = new Vector2(0, 1);
                 image.rectTransform.localScale = new Vector3(1, 1, 1);
                 image.rectTransform.sizeDelta = new Vector2(25, 25);
-                image.rectTransform.anchoredPosition = new Vector2(5 + 25 * x, - 80 + 25 * y);
+                image.rectTransform.anchoredPosition = new Vector2(25 * x, -75 + 25 * y) + MINIMAPOFFSET;
                 //image.rectTransform.localEulerAngles = new Vector3(0, 180, 0);
                 minimapImages[x + y * sections] = image;
             }
@@ -1289,9 +1290,10 @@ public class GUIManager : MonoBehaviour{
     {
         for (int i = 0; i < ABILITY_COUNT; i++)
         {
-            if (playerHero.hasAbility(i))
+            int abilityIndex = GameController.playerAbilityMapping[i];
+            if (playerHero.hasAbility(abilityIndex))
             {
-                Ability a = playerHero.getAbility(i);
+                Ability a = playerHero.getAbility(abilityIndex);
                 float curCooldown = a.getCurCoolDown();
                 if (curCooldown > 0)
                     abilityCooldown[i].localScale = new Vector3(1, curCooldown / a.getCoolDown(), 1);
@@ -1936,7 +1938,7 @@ public class GUIManager : MonoBehaviour{
         image.rectTransform.anchorMin = new Vector2(0, 0);
         image.rectTransform.anchorMax = new Vector2(0, 0);
 
-        image.rectTransform.anchoredPosition = position / minimapScaleRatio;
+        image.rectTransform.anchoredPosition = position / minimapScaleRatio + MINIMAPOFFSET;
         image.rectTransform.sizeDelta = new Vector2(6, 6);
         Sprite[] sprites = Resources.LoadAll<Sprite>("GUI/minimap_icons");
         image.sprite = sprites[1];
@@ -1955,7 +1957,7 @@ public class GUIManager : MonoBehaviour{
             image.rectTransform.anchorMin = new Vector2(0, 0);
             image.rectTransform.anchorMax = new Vector2(0, 0);
 
-            image.rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+            image.rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio + MINIMAPOFFSET;
             image.rectTransform.sizeDelta = new Vector2(6, 6);
             image.sprite = sprite;
 
@@ -1989,7 +1991,7 @@ public class GUIManager : MonoBehaviour{
             if (hero.getTeam() == team || hero.isActive())
             {
                 minimapPlayers[i].gameObject.SetActive(true);
-                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio + MINIMAPOFFSET;
                 continue;
             }
             
@@ -2007,7 +2009,7 @@ public class GUIManager : MonoBehaviour{
             if(visible)
             {
                 minimapPlayers[i].gameObject.SetActive(true);
-                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio;
+                minimapPlayers[i].rectTransform.anchoredPosition = hero.get2DPos() / minimapScaleRatio + MINIMAPOFFSET;
                 continue;
             }
             

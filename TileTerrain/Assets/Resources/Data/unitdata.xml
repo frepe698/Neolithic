@@ -9,7 +9,7 @@
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
-      <favouronkill>100</favouronkill>
+      <favouronkill>25</favouronkill>
     </HeroData>
     <HeroData name="halftroll" gameName="Half Troll" modelName="halftroll">
       <health>120</health>
@@ -19,7 +19,7 @@
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
-      <favouronkill>100</favouronkill>
+      <favouronkill>25</favouronkill>
     </HeroData>
     <HeroData name="caveman" gameName="Caveman" modelName="caveman">
       <health>100</health>
@@ -29,7 +29,7 @@
       <energygen>10</energygen>
       <movespeed>4</movespeed>
       <size>0.5</size>
-      <favouronkill>101</favouronkill>
+      <favouronkill>25</favouronkill>
     </HeroData>
   </Heroes>
   <AIUnits>
@@ -95,7 +95,7 @@
       <energygen>0</energygen>
       <movespeed>4</movespeed>
       <size>1</size>
-      <favouronkill>50</favouronkill>
+      <favouronkill>25</favouronkill>
       <damage>15</damage>
       <attackSpeed>0.8</attackSpeed>
       <attackSound>attackTroll01</attackSound>

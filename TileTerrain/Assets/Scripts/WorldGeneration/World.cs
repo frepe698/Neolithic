@@ -138,6 +138,7 @@ public class World : MonoBehaviour {
 
         ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveEntrance", 2, true);
         ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveExit", 2, true);
+        ObjectPoolingManager.Instance.CreatePool("ActionObjects/theHallExit", 4, true);
 
 
         ObjectPoolingManager.Instance.CreatePool(("Loot/log"), 50, true);
@@ -504,7 +505,7 @@ public class World : MonoBehaviour {
 
                 float rot = cave.getExitRotation(i) * Mathf.Rad2Deg;
                 tile1.setTileObject(new WarpObject(new Vector3(pos1.x, getHeight(pos1), pos1.y), 0, "caveEntrance", cave.doorMatPositions[i], rot + 180));
-                tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "caveExit", pos1 + new Vector2(0, 1), 180));
+                tile2.setTileObject(new WarpObject(new Vector3(pos2.x, getHeight(pos2), pos2.y), rot, "theHallExit", pos1 + new Vector2(0, 1), 180));
             }
 
             foreach (Vector2 v in cave.torchPositions)
@@ -559,6 +560,7 @@ public class World : MonoBehaviour {
             if(i == 4)
             {
                 GameMaster.addDaySpawner("trollking", 1, cave.bossPos);
+                
             }
             else
             {
@@ -604,6 +606,8 @@ public class World : MonoBehaviour {
             if (i == 4)
             {
                 GameMaster.addDaySpawner("trollking", 1, cave.bossPos);
+                GameMaster.addDaySpawner("thundertroll", 1, cave.bossPos + new Vector2i(1, 0));
+                GameMaster.addDaySpawner("stonetroll", 1, cave.bossPos + new Vector2i(-1, 0));
             }
             else
             {
