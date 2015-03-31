@@ -37,4 +37,9 @@ public class ActionCommand : Command {
 
         }
     }
+
+    public override string getName()
+    {
+        return "action";
+    }
 }

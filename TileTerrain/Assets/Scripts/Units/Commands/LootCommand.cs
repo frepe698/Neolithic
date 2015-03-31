@@ -87,6 +87,10 @@ public class LootCommand : Command {
 	public override int GetHashCode ()
 	{
 		return base.GetHashCode ();
-	}	
-	
+	}
+
+    public override string getName()
+    {
+        return "loot";
+    }
 }

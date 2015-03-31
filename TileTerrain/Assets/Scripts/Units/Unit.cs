@@ -34,6 +34,7 @@ public class Unit {
 	protected float moveSensitivity = 0.1f;
 	
 	protected Command command;
+    protected string lastCommand = "nothing";
     protected float commandEndTime;
 	protected bool alive = true;
 
@@ -272,6 +273,7 @@ public class Unit {
 	public void giveCommand(Command command)
 	{
 		this.command = command;
+        this.lastCommand = command.getName();
 		this.command.start ();
 	}
 	
@@ -281,6 +283,7 @@ public class Unit {
 		Command newCommand = new MoveCommand(this, point);
 		if(commandEquals(command, newCommand)) return;
 		command = newCommand;
+        this.lastCommand = command.getName();
 		command.start();
 	}
 	
@@ -294,7 +297,8 @@ public class Unit {
 		//			Debug.Log ("Already chopping that tree");
 		//			return;
 		//		}
-		command = newCommand;
+        this.lastCommand = command.getName();
+        command = newCommand;
 		command.start();
 	}
 
@@ -309,13 +313,15 @@ public class Unit {
 	{
 		if(target == null) return;
 		command = new AbilityCommand(this, target, getBasicAttack());
-		command.start ();
+        this.lastCommand = command.getName();
+        command.start();
 	}
 
     public void giveAttackCommand(Vector3 target)
     {
         if (target == null) return;
         command = new AbilityCommand(this, target, getBasicAttack());
+        this.lastCommand = command.getName();
         command.start();
     }
 
@@ -324,12 +330,14 @@ public class Unit {
     {
         if (target == null) return;
         command = new AbilityCommand(this, target, abilities[ability]);
+        this.lastCommand = command.getName();
         command.start();
     }
 
     public void giveAbilityCommand(Vector3 target, int ability)
     {
         command = new AbilityCommand(this, target, abilities[ability]);
+        this.lastCommand = command.getName();
         command.start();
     }
 
@@ -344,15 +352,19 @@ public class Unit {
 			return;
 		}
 		command = newCommand;
-		command.start();
+        this.lastCommand = command.getName();
+        command.start();
 	}
 
     public bool canStartCommand(Command command)
     {
+        
         if (this.command != null && !this.command.canBeOverridden()) return false;
         if (command.canAlwaysStart()) return true;
         if (!command.canStartOverride(this.command)) { return false; Debug.Log("cant override"); }
-        return Time.time >= commandEndTime;
+        if(this.lastCommand.Equals(command.getName()))
+            return Time.time >= commandEndTime;
+        return true;
     }
 
     public bool canOverrideCurrentCommand()

@@ -27,5 +27,8 @@ public class MoveCommand : Command {
         return true;
     }
 
-
+    public override string getName()
+    {
+        return "move";
+    }
 }

@@ -106,6 +106,9 @@ public class AttackCommand : Command {
 	{
 		return base.GetHashCode ();
 	}
-	
-	
+
+    public override string getName()
+    {
+        return "attack";
+    }
 }

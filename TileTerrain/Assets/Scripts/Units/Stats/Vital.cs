@@ -40,12 +40,13 @@ public class Vital : BaseStat {
 	
 	public void setCurValue(float value){
 		curValue = value;
-		if(curValue > value) curValue = value;
+        curValue = Mathf.Clamp(curValue, 0, this.value);
+		
 	}
 	
 	public void addCurValue(float add){
 		curValue += add;
-		if(curValue > value) curValue = value;
+        curValue = Mathf.Clamp(curValue, 0, this.value);
 	}
 	
 	public int getBase(){

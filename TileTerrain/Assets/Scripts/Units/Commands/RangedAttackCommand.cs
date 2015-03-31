@@ -65,5 +65,8 @@ public class RangedAttackCommand : Command {
 		return base.GetHashCode ();
 	}
 
-
+    public override string getName()
+    {
+        return "ranged";
+    }
 }

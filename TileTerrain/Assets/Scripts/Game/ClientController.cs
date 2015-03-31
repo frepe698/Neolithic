@@ -208,6 +208,11 @@ public class ClientController : GameController {
         //do nada
     }
 
+    public override void syncVitals()
+    {
+        //do nada
+    }
+
     [RPC]
     public override void requestCheatCommand(int unitID, int commandID, string parameters)
     {
