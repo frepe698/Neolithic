@@ -222,11 +222,11 @@
       <effects>
         <AbilityEffectAndTime>
           <name>leap_move</name>
-          <time>0.583</time>
+          <time>0.2915</time>
         </AbilityEffectAndTime>
         <AbilityEffectAndTime>
           <name>leap_land</name>
-          <time>1</time>
+          <time>0.5</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
@@ -234,13 +234,13 @@
           <weaponAttackAnimation>false</weaponAttackAnimation>
           <name>leap</name>
           <time>0</time>
-          <speed>1</speed>
+          <speed>2</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases>
         <SpeedIncrease>
           <stat>Attackspeed</stat>
-          <percent>0.5</percent>
+          <percent>0.25</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.375</totalTime>
@@ -356,7 +356,7 @@
       <effects>
         <AbilityEffectAndTime>
           <name>earthbreaker</name>
-          <time>0.8745</time>
+          <time>0.583</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
@@ -364,7 +364,7 @@
           <weaponAttackAnimation>false</weaponAttackAnimation>
           <name>mine_axe</name>
           <time>0</time>
-          <speed>0.75</speed>
+          <speed>1</speed>
         </AbilityAnimation>
       </animations>
       <speedIncreases>
@@ -377,7 +377,7 @@
       <energyCost>40</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
-      <range>1</range>
+      <range>2</range>
       <tags>1</tags>
     </AbilityData>
     <AbilityData name="ai_meleebasicattack" gameName="Basic Attack" modelName="meleebasicattack">

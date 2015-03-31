@@ -405,7 +405,7 @@
       <weaponSound>false</weaponSound>
       <modelIsSound>true</modelIsSound>
       <range>8</range>
-      <travelTime>0.4166</travelTime>
+      <travelTime>0.2083</travelTime>
     </MovementEffectData>
   </MovementEffects>
   <SelfBuffEffects>
