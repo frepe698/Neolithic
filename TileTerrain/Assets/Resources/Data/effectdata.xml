@@ -13,7 +13,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.1</amount>
           <duration>2</duration>
           <percent>true</percent>
@@ -89,7 +89,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.75</amount>
           <duration>1.5</duration>
           <percent>true</percent>
@@ -129,7 +129,7 @@
       <hitDamage>
         <HitDamage>
           <stat>IncreasedMagicDamage</stat>
-          <percent>25</percent>
+          <percent>50</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -147,7 +147,7 @@
       <expMultiplier>1</expMultiplier>
       <weaponSound>false</weaponSound>
       <modelIsSound>false</modelIsSound>
-      <radius>1.5</radius>
+      <radius>2</radius>
     </AreaOfEffectData>
     <AreaOfEffectData name="ai_bolt" gameName="Bolt" modelName="bolt">
       <hitDamage>
@@ -216,11 +216,37 @@
       <weaponProjectile>true</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
+    <ProjectileEffectData name="schnipe" gameName="Schnipe" modelName="levelup">
+      <hitDamage>
+        <HitDamage>
+          <stat>RangedDamage</stat>
+          <percent>3</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>-0.99</amount>
+          <duration>0.5</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
+      <projectileName>sniperarrow</projectileName>
+      <weaponProjectile>false</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
     <ProjectileEffectData name="fireball" gameName="Fireball" modelName="fireball01">
       <hitDamage>
         <HitDamage>
           <stat>IncreasedMagicDamage</stat>
-          <percent>10</percent>
+          <percent>25</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
         </HitDamage>
@@ -280,7 +306,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.25</amount>
           <duration>4</duration>
           <percent>true</percent>
@@ -306,7 +332,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.5</amount>
           <duration>2</duration>
           <percent>true</percent>
@@ -332,7 +358,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.3</amount>
           <duration>3</duration>
           <percent>true</percent>
@@ -357,7 +383,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.3</amount>
           <duration>3</duration>
           <percent>true</percent>
@@ -382,7 +408,7 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>-0.3</amount>
           <duration>3</duration>
           <percent>true</percent>
@@ -414,14 +440,14 @@
       <hitBuffs>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Movespeed</stat>
+          <stat>StoneDropRarity</stat>
           <amount>0.3</amount>
           <duration>5</duration>
           <percent>true</percent>
         </HitBuff>
         <HitBuff>
           <type>StatBuff</type>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <amount>0.3</amount>
           <duration>5</duration>
           <percent>false</percent>
@@ -432,10 +458,10 @@
       <weaponSound>false</weaponSound>
       <modelIsSound>true</modelIsSound>
     </SelfBuffEffectData>
-    <SelfBuffEffectData name="heal" gameName="Heal" modelName="">
+    <SelfBuffEffectData name="heal" gameName="Heal" modelName="heal">
       <hitDamage>
         <HitDamage>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>IncreasedLightPower</stat>
           <percent>-40</percent>
           <yourStat>true</yourStat>
           <damageSelf>false</damageSelf>
@@ -445,7 +471,7 @@
       <expSkill>5</expSkill>
       <expMultiplier>1</expMultiplier>
       <weaponSound>false</weaponSound>
-      <modelIsSound>true</modelIsSound>
+      <modelIsSound>false</modelIsSound>
     </SelfBuffEffectData>
   </SelfBuffEffects>
 </EffectsRoot>

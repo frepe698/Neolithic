@@ -19,12 +19,6 @@
     <MaterialData name="gold" gameName="Gold" modelName="gold">
       <description>Can be sacrificed to the gods</description>
     </MaterialData>
-    <MaterialData name="cep" gameName="Cep" modelName="cep">
-      <description>An edible shroom</description>
-    </MaterialData>
-    <MaterialData name="deathcap" gameName="Deathcap" modelName="deathcap">
-      <description>AKA the berzerker shroom</description>
-    </MaterialData>
     <MaterialData name="puffball" gameName="Puffball" modelName="puffball">
       <description>Can make smoke</description>
     </MaterialData>
@@ -47,15 +41,104 @@
   <ConsumableItems>
     <ConsumableItemData name="meat" gameName="Meat" modelName="meat">
       <description>Can be eaten</description>
+      <hitBuffs />
       <hungerChange>40</hungerChange>
     </ConsumableItemData>
-    <ConsumableItemData name="trolldryck" gameName="Trolldryck" modelName="gold">
+    <ConsumableItemData name="trolldryck" gameName="Trolldryck" modelName="darkpotion">
       <description>A magical potion</description>
-      <hungerChange>-100</hungerChange>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Movespeed</stat>
+          <amount>0.4</amount>
+          <duration>4</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <hungerChange>0</hungerChange>
     </ConsumableItemData>
     <ConsumableItemData name="blueberry" gameName="Blueberry" modelName="blueberry">
       <description>A blue berry, hence the name.</description>
+      <hitBuffs />
       <hungerChange>25</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="smallhealthpotion" gameName="Small Health Potion" modelName="healthpotion">
+      <description>Restores 50 health over 5 seconds</description>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>HealthRegen</stat>
+          <amount>10</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <hungerChange>0</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="smallenergypotion" gameName="Small Energy Potion" modelName="energypotion">
+      <description>Restores 50 energy over 5 seconds</description>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>EnergyRegen</stat>
+          <amount>10</amount>
+          <duration>5</duration>
+          <percent>false</percent>
+        </HitBuff>
+      </hitBuffs>
+      <hungerChange>0</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="berzerkerbrew" gameName="Berzerker Brew" modelName="darkpotion">
+      <description>Increases melee damage by 100%, damages per second and gives increased energy regen for 10 seconds</description>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>EnergyRegen</stat>
+          <amount>10</amount>
+          <duration>10</duration>
+          <percent>false</percent>
+        </HitBuff>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>HealthRegen</stat>
+          <amount>-10</amount>
+          <duration>10</duration>
+          <percent>false</percent>
+        </HitBuff>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>MeleeDamage</stat>
+          <amount>1</amount>
+          <duration>10</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <hungerChange>0</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="cep" gameName="Cep" modelName="cep">
+      <description>An edible shroom</description>
+      <hitBuffs />
+      <hungerChange>15</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="deathcap" gameName="Deathcap" modelName="deathcap">
+      <description>AKA the berzerker shroom</description>
+      <hitBuffs>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>HealthRegen</stat>
+          <amount>-5</amount>
+          <duration>10</duration>
+          <percent>false</percent>
+        </HitBuff>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>MeleeDamage</stat>
+          <amount>0.3</amount>
+          <duration>10</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <hungerChange>0</hungerChange>
     </ConsumableItemData>
   </ConsumableItems>
 </ItemRoot>

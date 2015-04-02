@@ -34,6 +34,7 @@ public class UnitStats {
                 new BaseStat("Tree Damage", 0),
                 new BaseStat("Stone Damage", 0),
                 new BaseStat("Ranged Damage", 0),
+                new BaseStat("Increased Light Power", 1),
                 new BaseStat("Increased Magic Damage", 1),
                 new BaseStat("Attackspeed", 0),
 

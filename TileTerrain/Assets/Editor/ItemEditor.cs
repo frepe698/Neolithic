@@ -258,6 +258,39 @@ public class ItemEditor : ObjectEditor
         EditorGUILayout.LabelField("Effects: ", EditorStyles.boldLabel);
         data.hungerChange = IntField("Hunger: ", data.hungerChange);
 
+        GUILayout.Space(20);
+        EditorGUILayout.LabelField("Hit Buff:", EditorStyles.boldLabel);
+        foreach (HitBuffEdit edit in data.hitBuffs)
+        {
+            EditorGUIUtility.labelWidth = 100;
+            edit.type = (BuffType)EditorGUILayout.EnumPopup("Buff Type: ", edit.type);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.fieldWidth = 40;
+            edit.stat = (Stat)EditorGUILayout.EnumPopup(edit.stat);
+            EditorGUIUtility.fieldWidth = 10;
+
+            edit.percent = EditorGUILayout.Toggle("Percent: ", edit.percent);
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUIUtility.fieldWidth = 10;
+            EditorGUIUtility.labelWidth = 70;
+            edit.amount = EditorGUILayout.FloatField("Amount: ", edit.amount);
+            EditorGUIUtility.fieldWidth = 10;
+            edit.duration = EditorGUILayout.FloatField("Duration: ", edit.duration);
+
+
+            if (GUILayout.Button("-"))
+            {
+                data.hitBuffs.Remove(edit);
+                break;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        if (GUILayout.Button("+Buff"))
+        {
+            data.hitBuffs.Add(new HitBuffEdit());
+        }
+
         GUILayout.EndScrollView();
         GUI.DragWindow();
     }

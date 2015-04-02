@@ -17,7 +17,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -44,7 +44,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -72,7 +72,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>0.75</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -117,7 +117,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1.5</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -144,7 +144,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -172,7 +172,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -207,7 +207,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -217,6 +217,28 @@
       <cooldown>3</cooldown>
       <range>99999</range>
       <tags>14</tags>
+    </AbilityData>
+    <AbilityData name="schnipe" gameName="Schniiipe" modelName="rangedbasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>schnipe</name>
+          <time>0.75</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>true</weaponAttackAnimation>
+          <time>0</time>
+          <speed>0.5</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases />
+      <totalTime>2</totalTime>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>9999</range>
+      <tags>4</tags>
     </AbilityData>
     <AbilityData name="leap" gameName="Leap" modelName="leap">
       <effects>
@@ -239,7 +261,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>0.25</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -291,13 +313,13 @@
       <speedIncreases>
         <SpeedIncrease>
           <stat>IncreasedMagicDamage</stat>
-          <percent>1</percent>
+          <percent>0.2</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
-      <healthCost>10</healthCost>
-      <cooldown>2</cooldown>
+      <healthCost>15</healthCost>
+      <cooldown>0</cooldown>
       <range>9999</range>
       <tags>-1</tags>
     </AbilityData>
@@ -305,7 +327,7 @@
       <effects>
         <AbilityEffectAndTime>
           <name>heal</name>
-          <time>0.75</time>
+          <time>0.7</time>
         </AbilityEffectAndTime>
       </effects>
       <animations>
@@ -318,8 +340,8 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
-          <percent>1</percent>
+          <stat>IncreasedLightPower</stat>
+          <percent>0.4</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
@@ -344,11 +366,16 @@
           <speed>1</speed>
         </AbilityAnimation>
       </animations>
-      <speedIncreases />
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>IncreasedMagicDamage</stat>
+          <percent>0.2</percent>
+        </SpeedIncrease>
+      </speedIncreases>
       <totalTime>1</totalTime>
       <energyCost>0</energyCost>
-      <healthCost>25</healthCost>
-      <cooldown>4</cooldown>
+      <healthCost>70</healthCost>
+      <cooldown>0</cooldown>
       <range>1000</range>
       <tags>-1</tags>
     </AbilityData>
@@ -369,7 +396,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -396,7 +423,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
@@ -423,7 +450,7 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>Attackspeed</stat>
+          <stat>IncreasedMagicDamage</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>

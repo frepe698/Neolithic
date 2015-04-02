@@ -37,7 +37,7 @@
         </StatChange>
         <StatChange>
           <stat>HealthRegen</stat>
-          <value>0.2</value>
+          <value>0.3</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -202,7 +202,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>IncreasedMagicDamage</stat>
-          <value>0.2</value>
+          <value>0.1</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -213,7 +213,7 @@
         </LearnableAbility>
         <LearnableAbility>
           <name>bolt</name>
-          <reqLevel>0</reqLevel>
+          <reqLevel>3</reqLevel>
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>
@@ -242,13 +242,8 @@
       </requiredExp>
       <statsPerLevel>
         <StatChange>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>IncreasedLightPower</stat>
           <value>0.1</value>
-          <isMultiplier>false</isMultiplier>
-        </StatChange>
-        <StatChange>
-          <stat>HealthRegen</stat>
-          <value>0.4</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
@@ -285,7 +280,7 @@
       <statsPerLevel>
         <StatChange>
           <stat>HealthRegen</stat>
-          <value>0.6</value>
+          <value>0.3</value>
           <isMultiplier>false</isMultiplier>
         </StatChange>
         <StatChange>
@@ -414,6 +409,10 @@
         <LearnableAbility>
           <name>volley</name>
           <reqLevel>0</reqLevel>
+        </LearnableAbility>
+        <LearnableAbility>
+          <name>schnipe</name>
+          <reqLevel>3</reqLevel>
         </LearnableAbility>
       </learnableAbilities>
     </SkillData>

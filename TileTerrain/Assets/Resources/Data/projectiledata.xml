@@ -13,6 +13,12 @@
 			<range>15</range>
 		</ProjectileData>
 
+    <ProjectileData name = "sniperarrow" gameName = "Sniper Arrow" modelName = "sniperarrow">
+      <damage>7</damage>
+      <speed>60</speed>
+      <range>25</range>
+    </ProjectileData>
+
     <ProjectileData name = "fireball" gameName = "Fireball" modelName = "fireball">
       <damage>7</damage>
       <speed>20</speed>

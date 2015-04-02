@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5712a24dbd6579c4db1ad96c546f58a7
-timeCreated: 1427375028
+timeCreated: 1427908982
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -36,6 +36,11 @@ TextureImporter:
     21300058: fuzzyboots
     21300060: harehat
     21300062: stronkbow
+    21300064: healthpotion
+    21300066: energypotion
+    21300068: finewood
+    21300070: blueberry
+    21300072: darkpotion
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -368,6 +373,56 @@ TextureImporter:
         y: 832
         width: 64
         height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: healthpotion
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 896
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: energypotion
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 895
+        width: 61
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: finewood
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 897
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blueberry
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 896
+        width: 63
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: darkpotion
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 833
+        width: 62
+        height: 63
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

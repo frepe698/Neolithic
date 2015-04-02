@@ -15,6 +15,7 @@ public enum Stat {
     TreeDamage,
     StoneDamage,
     RangedDamage,
+    IncreasedLightPower,
     IncreasedMagicDamage,
     Attackspeed,
 

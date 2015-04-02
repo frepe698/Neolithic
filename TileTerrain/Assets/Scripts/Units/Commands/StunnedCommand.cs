@@ -17,7 +17,11 @@ public class StunnedCommand : Command {
         unit.setMoving(false);
         unit.setAnimationRestart(unit.getIdleAnim(), 20);
         GameObject prefab = Resources.Load<GameObject>("Particles/stunned");
-        if (prefab != null) particle = unit.addEffectObject(prefab, new Vector3(0, 0.0f, 0), duration);
+        if (prefab != null)
+        {
+            particle = unit.addEffectObject(prefab, new Vector3(0, 0.0f, 0), duration);
+            Debug.Log("add stun effect");
+        }
     }
 
     public override void update()

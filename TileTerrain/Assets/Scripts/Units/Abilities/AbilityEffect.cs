@@ -81,7 +81,7 @@ public abstract class AbilityEffect {
         }
     }
 
-    public static void modelAndSound(AbilityEffectData data, Unit unit, Vector3 targetPosition)
+    public static void modelAndSound(AbilityEffectData data, Unit unit, Vector3 targetPosition, bool followUnit = false)
     {
 
         //AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);
@@ -99,7 +99,10 @@ public abstract class AbilityEffect {
             GameObject prefab = Resources.Load<GameObject>("Effects/" + data.modelName);
             if (prefab != null)
             {
-                GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
+                if(followUnit) 
+                    unit.addEffectObject(prefab, targetPosition);
+                else
+                    GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
             }
         }
         

@@ -1234,6 +1234,9 @@ public abstract class GameController : MonoBehaviour{
 		ConsumableItem item = hero.getInventory().getConsumableItems()[itemIndex];
 
 		hero.changeHunger(item.getHungerChange());
+
+        item.applyBuffs(hero);
+
 		hero.getInventory().consumeItem(itemIndex);
 	}
 

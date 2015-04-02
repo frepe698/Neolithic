@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Edit;
+using System.Xml.Serialization;
 
 public class ConsumableItemData : ItemData {
+
+    [XmlArray("hitBuffs"), XmlArrayItem("HitBuff")]
+    public readonly HitBuff[] hitBuffs;
 
 	public readonly int hungerChange;
 
@@ -14,6 +18,12 @@ public class ConsumableItemData : ItemData {
         : base(edit)
     {
         hungerChange = edit.hungerChange;
+
+        hitBuffs = new HitBuff[edit.hitBuffs.Count];
+        for (int i = 0; i < edit.hitBuffs.Count; i++)
+        {
+            hitBuffs[i] = new HitBuff(edit.hitBuffs[i]);
+        }
     }
 
 	public override LootableObject getLootableObject(Vector3 position, Quaternion rotation)

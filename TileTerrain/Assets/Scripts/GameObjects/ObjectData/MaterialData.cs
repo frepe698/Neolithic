@@ -16,7 +16,7 @@ public class MaterialData : ItemData{
 
     public override string getTooltipStatsString()
     {
-        return description;
+        return "";
     }
 
     public override Item getItem()

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
 
 public class ConsumableItem : Item {
 
@@ -49,5 +50,28 @@ public class ConsumableItem : Item {
     public override ItemData getData()
     {
         return data;
+    }
+
+    public HitBuff[] getBuffs()
+    {
+        return data.hitBuffs;
+    }
+
+    public void applyBuffs(Unit unit)
+    {
+        if (data != null)
+        {
+            HitBuff[] buffs = data.hitBuffs;
+            for (int i = 0; i < buffs.Length; i++)
+            {
+                HitBuff hbuff = buffs[i];
+                object[] parameters = new object[] { hbuff.stat, hbuff.duration, hbuff.amount, hbuff.percent };
+                string name = "get" + hbuff.type.ToString();
+
+                MethodInfo info = typeof(BuffGetter).GetMethod(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+                Buff buff = (Buff)info.Invoke(null, new object[] { parameters });
+                buff.apply(unit);
+            }
+        }
     }
 }

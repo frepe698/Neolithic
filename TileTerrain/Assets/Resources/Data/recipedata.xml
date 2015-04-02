@@ -339,6 +339,19 @@
       <expAmount>200</expAmount>
       <requiredSkillLevel>2</requiredSkillLevel>
     </MaterialRecipeData>
+    <MaterialRecipeData name="craftFinewood" gameName="Fining wood treatment">
+      <product>finewood</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>10</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Make fine wood from logs</description>
+      <skill>Crafting</skill>
+      <expAmount>150</expAmount>
+      <requiredSkillLevel>8</requiredSkillLevel>
+    </MaterialRecipeData>
   </MaterialRecipes>
   <ConsumableRecipes>
     <ConsumableRecipeData name="craftTrolldryck" gameName="Trolldryck" modelName="">
@@ -357,6 +370,53 @@
       <skill>Alchemy</skill>
       <expAmount>150</expAmount>
       <requiredSkillLevel>5</requiredSkillLevel>
+    </ConsumableRecipeData>
+    <ConsumableRecipeData name="craftHealthPotion" gameName="Small Health Potion">
+      <product>smallhealthpotion</product>
+      <ingredients>
+        <Ingredient>
+          <name>cep</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Mix mix remix</description>
+      <skill>Alchemy</skill>
+      <expAmount>150</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </ConsumableRecipeData>
+    <ConsumableRecipeData name="craftSmallEnergyPotion" gameName="Small Energy Potion">
+      <product>smallenergypotion</product>
+      <ingredients>
+        <Ingredient>
+          <name>nettle</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Mixelemix</description>
+      <skill>Alchemy</skill>
+      <expAmount>150</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </ConsumableRecipeData>
+    <ConsumableRecipeData name="craftBerzerkerBrew" gameName="Berzerker Brew">
+      <product>berzerkerbrew</product>
+      <ingredients>
+        <Ingredient>
+          <name>deathcap</name>
+          <amount>4</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>fur</name>
+          <amount>1</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>rope</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Its almost magic</description>
+      <skill>Alchemy</skill>
+      <expAmount>400</expAmount>
+      <requiredSkillLevel>4</requiredSkillLevel>
     </ConsumableRecipeData>
   </ConsumableRecipes>
 </RecipesRoot>

@@ -971,8 +971,12 @@ public class GUIManager : MonoBehaviour{
             itemTooltip.SetActive(true);
             itemTooltipName.text = data.gameName;
 
-            itemTooltipStats.text = data.getTooltipStatsString();
-            itemTooltipDescription.text = data.description;
+            Vector2 pos = itemTooltipDescription.rectTransform.anchoredPosition = new Vector2(0, itemTooltipName.rectTransform.anchoredPosition.y - itemTooltipName.preferredHeight);
+            itemTooltipDescription.text = data.getTooltipStatsString();
+            itemTooltipDescription.text += "\n<i>"+data.description+"</i>";
+            Vector2 size = itemTooltipDescription.rectTransform.sizeDelta = new Vector2(95, itemTooltipDescription.preferredHeight);
+            itemTooltip.GetComponent<RectTransform>().sizeDelta = new Vector2(100, -pos.y + size.y); 
+
             itemTooltipIsRecipe = false;
         }
     }
@@ -1107,7 +1111,7 @@ public class GUIManager : MonoBehaviour{
             return;
         }
 
-        skillManager.getSkill(learningAbilitySkillIndex).unlockAbility(learningAbilityLevel, true, index);
+        skillManager.getSkill(learningAbilitySkillIndex).unlockAbility(learningAbilityLevel, true, GameController.playerAbilityMapping[index]);
         closeAbilityOverrideWindow();
     }
 

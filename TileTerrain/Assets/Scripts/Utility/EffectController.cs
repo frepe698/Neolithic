@@ -4,7 +4,7 @@ using System;
 
 public class EffectController : MonoBehaviour {
 
-    public float lifeTime;
+    public float lifeTime = 1;
 
     public GameObjectSpawn[] gameObjectSpawns;
     public SoundPlayer[] sounds;
@@ -15,7 +15,7 @@ public class EffectController : MonoBehaviour {
 
     private AudioSource audioSource;
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         audioSource = GetComponent<AudioSource>();
         startTime = Time.time;
         Destroy(gameObject, lifeTime);

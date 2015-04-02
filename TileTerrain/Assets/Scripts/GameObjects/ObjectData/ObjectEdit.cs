@@ -725,22 +725,37 @@ namespace Edit
     {
         public int hungerChange;
 
+        public List<HitBuffEdit> hitBuffs;
+
         public ConsumableEdit()
         {
             name = "new consumable";
             gameName = "new consumable";
+            hitBuffs = new List<HitBuffEdit>();
         }
 
         public ConsumableEdit(ConsumableItemData data)
             : base(data)
         {
             hungerChange = data.hungerChange;
+            hitBuffs = new List<HitBuffEdit>();
+            if (data.hitBuffs != null)
+            {
+                foreach (HitBuff buff in data.hitBuffs)
+                    hitBuffs.Add(new HitBuffEdit(buff));
+            }
         }
 
         public ConsumableEdit(ConsumableEdit data)
             : base(data)
         {
             hungerChange = data.hungerChange;
+            hitBuffs = new List<HitBuffEdit>();
+            if (data.hitBuffs != null)
+            {
+                foreach (HitBuffEdit buff in data.hitBuffs)
+                    hitBuffs.Add(new HitBuffEdit(buff));
+            }
         }
     }
 
