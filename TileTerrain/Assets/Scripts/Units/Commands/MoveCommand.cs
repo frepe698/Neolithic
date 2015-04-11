@@ -22,9 +22,14 @@ public class MoveCommand : Command {
 		}
 	}
 
-    public override bool canAlwaysStart()
+    public override bool canAlmostAlwaysStart()
     {
         return true;
+    }
+
+    public override bool canStartOverride(Command command)
+    {
+        return command == null || command.canBeOverridden();
     }
 
     public override string getName()

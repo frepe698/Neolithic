@@ -54,7 +54,7 @@ public abstract class AbilityEffect {
         }
         if (damage != 0)
         {
-            Debug.Log("Take Damage " + damage);
+            //Debug.Log("Take Damage " + damage);
             GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID(), expSkill);
         }
 

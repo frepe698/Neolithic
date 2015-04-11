@@ -105,7 +105,13 @@ public class Hero : Unit {
 		unitController.setID(id);
 		unitController.setWeapon(heldItem);
 
-        unit.GetComponent<Collider>().enabled = colliderActive;
+        foreach (ArmorData armor in equipedArmor)
+        {
+            if(armor != null) 
+                unitController.equipArmor(unitName, armor);
+        }
+        unit.gameObject.tag = colliderActive ? "Unit" : "Player";
+        //unit.GetComponent<Collider>().enabled = colliderActive;
 	}
 
     public override bool inactivate()
@@ -395,7 +401,8 @@ public class Hero : Unit {
         colliderActive = activate;
         if (isActive())
         {
-            unit.GetComponent<Collider>().enabled = colliderActive;
+            //unit.GetComponent<Collider>().enabled = colliderActive;
+            unit.gameObject.tag = activate ? "Unit" : "Player";
         }
     }
 

@@ -36,12 +36,12 @@ public class Skill {
         if (level > MAXLEVEL) return false;
         bool leveledup = false;
         this.experience += experience;
-        Debug.Log(data.gameName + " experience is now " + this.experience);
+        //Debug.Log(data.gameName + " experience is now " + this.experience);
         while (level+1 < MAXLEVEL && this.experience >= data.requiredExp[level])
         {
             level++;
             manager.increaseLevel();
-            Debug.Log("Skill leveled up! " + data.gameName + " is now level " + level);
+            //Debug.Log("Skill leveled up! " + data.gameName + " is now level " + level);
             leveledup = true;
 
         }

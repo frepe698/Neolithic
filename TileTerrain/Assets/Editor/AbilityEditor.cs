@@ -175,6 +175,7 @@ public class AbilityEditor : ObjectEditor
         data.cooldown = EditorGUILayout.FloatField("Cooldown: ", data.cooldown);
 
         GUILayout.Space(20);
+        data.canAlwaysStart = EditorGUILayout.Toggle("Can always start: ", data.canAlwaysStart);
         data.totalTime = EditorGUILayout.FloatField("Total Time: ", data.totalTime);
         data.range = EditorGUILayout.FloatField("Range: ", data.range);
 

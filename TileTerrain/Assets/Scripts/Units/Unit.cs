@@ -329,16 +329,27 @@ public class Unit {
     public void giveAbilityCommand(Unit target, int ability)
     {
         if (target == null) return;
-        command = new AbilityCommand(this, target, abilities[ability]);
-        this.lastCommand = command.getName();
-        command.start();
+        
+        Ability ab = abilities[ability];
+        AbilityCommand newCommand = new AbilityCommand(this, target, ab);
+        if (ab.data.totalTime > float.Epsilon)
+        {
+            command = newCommand;
+            this.lastCommand = command.getName();
+        }
+        newCommand.start();
     }
 
     public void giveAbilityCommand(Vector3 target, int ability)
     {
-        command = new AbilityCommand(this, target, abilities[ability]);
-        this.lastCommand = command.getName();
-        command.start();
+        Ability ab = abilities[ability];
+        AbilityCommand newCommand = new AbilityCommand(this, target, ab);
+        if (ab.data.totalTime > float.Epsilon)
+        {
+            command = newCommand;
+            this.lastCommand = command.getName();
+        }
+        newCommand.start();
     }
 
 	public void giveLootCommand(Vector2i targetTile, int lootID)
@@ -358,9 +369,9 @@ public class Unit {
 
     public bool canStartCommand(Command command)
     {
-        
-        if (this.command != null && !this.command.canBeOverridden()) return false;
-        if (command.canAlwaysStart()) return true;
+        //if (command.canAlwaysStart()) return true;
+        //if (this.command != null && !this.command.canBeOverridden()) return false;
+        //if (command.canAlmostAlwaysStart()) return true;
         if (!command.canStartOverride(this.command)) { return false; Debug.Log("cant override"); }
         if(this.lastCommand.Equals(command.getName()))
             return Time.time >= commandEndTime;
@@ -382,6 +393,11 @@ public class Unit {
 	{
 		this.command = command;
 	}
+
+    public Command getCommand()
+    {
+        return command;
+    }
 	
 	protected void ground()
 	{

@@ -19,6 +19,7 @@ public enum BuffType
 {
     StatBuff,
     Stun,
+    Cleanse,
 }
 
 public class StatBuff : Buff
@@ -105,6 +106,58 @@ public class Stun : Buff
     }
 }
 
+public class Cleanse : Buff
+{
+    private float duration;
+    private Unit unit;
+    private bool finished = false;
+
+    public Cleanse(object[] parameters)
+    {
+        this.duration = (float)parameters[DURATION_PARAM];
+    }
+
+    public override void apply(Unit unit)
+    {
+        this.unit = unit;
+        Command unitCommand = unit.getCommand();
+        if (unitCommand != null && unitCommand is StunnedCommand)
+        {
+           unitCommand.cancel();
+        }
+
+        if(duration > 0.1f)
+        {
+            unit.addBuff(this);
+        }
+    }
+
+    public override void remove()
+    {
+        unit.removeBuff(this);	
+    }
+
+    public override void update()
+    {
+        duration -= Time.deltaTime;
+        if (duration <= 0)
+        {
+            finished = true;
+            return;
+        }
+        Command unitCommand = unit.getCommand();
+        if (unitCommand != null && unitCommand is StunnedCommand)
+        {
+            unitCommand.cancel();
+        }
+    }
+
+    public override bool isFinished()
+    {
+        return finished;
+    }
+}
+
 public class BuffGetter
 {
 
@@ -117,5 +170,10 @@ public class BuffGetter
     public static Buff getStun(params object[] parameters)
     {
         return new Stun(parameters);
+    }
+
+    public static Buff getCleanse(params object[] parameters)
+    {
+        return new Cleanse(parameters);
     }
 }

@@ -145,7 +145,7 @@
         <string>mine01</string>
       </attackSounds>
     </MeleeWeaponData>
-    <MeleeWeaponData name="ironPickaxe" gameName="Iron Pickaxe" modelName="flintpickaxe">
+    <MeleeWeaponData name="ironPickaxe" gameName="Iron Pickaxe" modelName="ironpickaxe">
       <durability>100</durability>
       <rightHand>true</rightHand>
       <idleAnim>idle_axe</idleAnim>

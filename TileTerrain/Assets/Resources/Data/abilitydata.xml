@@ -22,6 +22,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -49,6 +50,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -77,6 +79,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -122,6 +125,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>25</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -149,6 +153,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.2</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -177,6 +182,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -212,6 +218,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>10</energyCost>
       <healthCost>0</healthCost>
       <cooldown>3</cooldown>
@@ -231,9 +238,15 @@
           <time>0</time>
           <speed>0.5</speed>
         </AbilityAnimation>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
       </animations>
       <speedIncreases />
       <totalTime>2</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -266,6 +279,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.375</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -289,6 +303,7 @@
       </animations>
       <speedIncreases />
       <totalTime>0</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>30</energyCost>
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
@@ -317,6 +332,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>15</healthCost>
       <cooldown>0</cooldown>
@@ -345,6 +361,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -373,6 +390,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>70</healthCost>
       <cooldown>0</cooldown>
@@ -401,6 +419,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>40</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -428,6 +447,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -455,6 +475,7 @@
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -478,6 +499,7 @@
       </animations>
       <speedIncreases />
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -501,6 +523,7 @@
       </animations>
       <speedIncreases />
       <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -524,6 +547,7 @@
       </animations>
       <speedIncreases />
       <totalTime>2</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -547,10 +571,28 @@
       </animations>
       <speedIncreases />
       <totalTime>1.5</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
       <range>5</range>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="stonehead" gameName="Stone Head" modelName="meleebasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>stonehead</name>
+          <time>0</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations />
+      <speedIncreases />
+      <totalTime>0</totalTime>
+      <canAlwaysStart>true</canAlwaysStart>
+      <energyCost>10</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>2</cooldown>
+      <range>9000</range>
       <tags>-1</tags>
     </AbilityData>
   </Abilities>

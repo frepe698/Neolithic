@@ -461,7 +461,12 @@
           <isMultiplier>false</isMultiplier>
         </StatChange>
       </statsPerLevel>
-      <learnableAbilities />
+      <learnableAbilities>
+        <LearnableAbility>
+          <name>stonehead</name>
+          <reqLevel>0</reqLevel>
+        </LearnableAbility>
+      </learnableAbilities>
     </SkillData>
   </Skills>
 </SkillsRoot>

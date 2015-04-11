@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5712a24dbd6579c4db1ad96c546f58a7
-timeCreated: 1427908982
+timeCreated: 1428407331
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -41,6 +41,7 @@ TextureImporter:
     21300068: finewood
     21300070: blueberry
     21300072: darkpotion
+    21300074: ironpickaxe
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -99,10 +100,10 @@ TextureImporter:
     - name: flintaxe
       rect:
         serializedVersion: 2
-        x: 68
-        y: 964
-        width: 58
-        height: 57
+        x: 64
+        y: 962
+        width: 62
+        height: 62
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,10 +200,10 @@ TextureImporter:
     - name: flintpickaxe
       rect:
         serializedVersion: 2
-        x: 3
-        y: 900
-        width: 61
-        height: 58
+        x: 0
+        y: 898
+        width: 64
+        height: 60
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,9 +290,9 @@ TextureImporter:
     - name: stonepickaxe
       rect:
         serializedVersion: 2
-        x: 449
+        x: 448
         y: 897
-        width: 58
+        width: 61
         height: 59
       alignment: 0
       pivot: {x: .5, y: .5}
@@ -423,6 +424,16 @@ TextureImporter:
         y: 833
         width: 62
         height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ironpickaxe
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 833
+        width: 62
+        height: 62
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

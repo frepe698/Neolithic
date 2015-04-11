@@ -639,7 +639,7 @@ public class World : MonoBehaviour {
                     {
                         if (Vector2i.getDistance(new Vector2i(x, y), mode.teams[0].basePosition) > 20 && Vector2i.getDistance(new Vector2i(x, y), mode.teams[1].basePosition) > 20)
                         {
-                            Debug.Log("Added goblin pack");
+                            //Debug.Log("Added goblin pack");
                             GameMaster.addNightSpawner("goblin", Random.Range(3, 6), new Vector2i(x, y));
                             GameMaster.addNightSpawner("shaman", Random.Range(0, 3), new Vector2i(x, y));
 

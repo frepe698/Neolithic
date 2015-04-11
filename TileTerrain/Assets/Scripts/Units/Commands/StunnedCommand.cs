@@ -20,7 +20,6 @@ public class StunnedCommand : Command {
         if (prefab != null)
         {
             particle = unit.addEffectObject(prefab, new Vector3(0, 0.0f, 0), duration);
-            Debug.Log("add stun effect");
         }
     }
 
@@ -35,6 +34,10 @@ public class StunnedCommand : Command {
         }
     }
 
+    public override void cancel()
+    {
+        duration = 0;
+    }
 
     public override bool Equals(object obj)
     {
@@ -43,7 +46,7 @@ public class StunnedCommand : Command {
         return unit == other.unit;
     }
 
-    public override bool canAlwaysStart()
+    public override bool canAlmostAlwaysStart()
     {
         return true;
     }

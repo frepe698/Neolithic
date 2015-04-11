@@ -784,7 +784,7 @@ public class TileMap {
             mode.teams[i].roads = new Road[] {
                 generateRoad(basePosition, mode.teams[i].summonPositions[0]), 
                 generateRoad(basePosition, mode.teams[i].summonPositions[1])};
-            Debug.Log(mode.teams[i].roads[0].getWaypoints()[0].get2D().x);
+            //Debug.Log(mode.teams[i].roads[0].getWaypoints()[0].get2D().x);
         }
         
             

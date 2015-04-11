@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//#define NEWCRAFTING;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
@@ -103,7 +104,8 @@ public class GUIManager : MonoBehaviour{
     
     #endregion //END INVENTORY MEMBERS
 
-    #region CRAFTING MEMBERS
+    #region OLD CRAFTING MEMBERS
+#if !NEWCRAFTING
     private GameObject craftingObject;
 
     private RectTransform[] recipeParents;
@@ -121,6 +123,26 @@ public class GUIManager : MonoBehaviour{
 
     private int selectedCraftingTab = 0;
     private bool craftingActive;
+#endif
+    #endregion //END OLD CRAFTING MEMBERS
+
+    #region CRAFTING MEMBERS
+#if NEWCRAFTING
+    private GameObject craftingObject;
+
+    private ScrollRect craftingScrollRect;
+    private RectTransform craftingMask;
+
+    private List<Button> craftingButtons;
+    private List<RecipeData>[] recipes;
+    private RectTransform recipeHolder;
+    private const string CRAFTING_BUTTON_NAME = "CraftingButton";
+
+    private const int RECIPE_TYPE_COUNT = 3;
+
+    private int selectedCraftingTab = 0;
+    private bool craftingActive;
+#endif
     #endregion //END CRAFTING MEMBERS
 
     #region TOOLTIP MEMBERS
@@ -294,7 +316,6 @@ public class GUIManager : MonoBehaviour{
                     {
                         int levelIndex = b;
                         button.onClick.AddListener(() => abilityButtonClick(skillIndex, levelIndex));
-                        button.GetComponentInChildren<Text>().text = data.abilities[b].reqLevel.ToString();
 
                         AbilityData aData = DataHolder.Instance.getAbilityData(data.abilities[b].name);
                         button.image.sprite = aData.getIcon();
@@ -357,7 +378,8 @@ public class GUIManager : MonoBehaviour{
         }
         #endregion
 
-        #region CRAFTING INIT
+        #region OLD CRAFTING INIT
+#if !NEWCRAFTING
         //Crafting init
         craftingObject = canvas.FindChild("Crafting").gameObject;
         Transform cscrollMask = craftingObject.transform.FindChild("ScrollMask");
@@ -383,6 +405,23 @@ public class GUIManager : MonoBehaviour{
             recipeFoldOpen[i] = true;
         }
         initCrafting();
+#endif
+        #endregion
+
+        #region CRAFTING INIT
+#if NEWCRAFTING
+        //Crafting init
+        craftingObject = canvas.FindChild("NewCrafting").gameObject;
+        Transform cscrollMask = craftingObject.transform.FindChild("ScrollMask");
+        craftingScrollRect = cscrollMask.GetComponent<ScrollRect>();
+        craftingMask = cscrollMask.GetComponent<RectTransform>();
+
+
+        craftingButtons = new List<Button>();
+
+        recipeHolder = cscrollMask.FindChild("Recipes").GetComponent<RectTransform>();
+        initCrafting();
+#endif
         #endregion
 
         #region TOOLTIPS INIT
@@ -1559,8 +1598,8 @@ public class GUIManager : MonoBehaviour{
 
     #endregion //INVENTORY
 
-    #region CRAFTING
-
+    #region OLD CRAFTING
+#if !NEWCRAFTING
     private void initCrafting()
 	{
         Debug.Log("init crafting");
@@ -1688,7 +1727,7 @@ public class GUIManager : MonoBehaviour{
 
     private void updateCrafting()
     {
-        Debug.Log("update crafting");
+        //Debug.Log("update crafting");
         for(int i = 0; i < RECIPE_TYPE_COUNT; i++)
         {
             for(int j = 0; j < craftingButtons[i].Count; j++)
@@ -1799,7 +1838,249 @@ public class GUIManager : MonoBehaviour{
 		}
 
 	}
+#endif
+    #endregion //CRAFTING
 
+    #region CRAFTING
+#if NEWCRAFTIGN
+    private void initCrafting()
+    {
+        Debug.Log("init crafting");
+        recipes = new List<RecipeData>[RECIPE_TYPE_COUNT];
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            recipes[i] = new List<RecipeData>();
+        }
+        recipes[TAB_CRAFTED].AddRange(DataHolder.Instance.getEquipmentRecipeData().Cast<RecipeData>());
+        recipes[TAB_MATERIAL].AddRange(DataHolder.Instance.getMaterialRecipeData().Cast<RecipeData>());
+        recipes[TAB_CONSUMABLE].AddRange(DataHolder.Instance.getConsumableRecipeData().Cast<RecipeData>());
+
+        GameObject prefab = (GameObject)Resources.Load("GUI/CraftingButton");
+
+        int addedIndex = 0;
+
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            List<Button> buttons = craftingButtons[i];
+
+            while (buttons.Count < recipes[i].Count)
+            {
+                int index = buttons.Count;
+                int buttonIndex = (index + addedIndex);
+                GameObject bo = (GameObject)Instantiate(prefab);
+                bo.name = CRAFTING_BUTTON_NAME + (buttonIndex);
+                bo.transform.SetParent(recipeParents[i]);
+
+                RectTransform rect = bo.GetComponent<RectTransform>();
+                rect.localPosition = new Vector3(8, 0 - index * ITEM_LINE_HEIGHT, 0);
+                rect.transform.localScale = Vector3.one;
+
+                RecipeData recipe = recipes[i][index];
+                Text text = bo.transform.FindChild("Text").GetComponent<Text>();
+                text.text = recipe.gameName;
+                text.color = itemTextColor;
+
+                ItemData item = DataHolder.Instance.getItemData(recipe.product);
+                if (item != null)
+                {
+                    Sprite sprite = item.getIcon();
+                    if (sprite != null)
+                    {
+                        Image image = bo.transform.FindChild("Icon").GetComponent<Image>();
+                        image.enabled = true;
+                        image.sprite = sprite;
+                    }
+                    else
+                    {
+                        bo.transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                    }
+                }
+                else
+                {
+                    bo.transform.FindChild("Icon").GetComponent<Image>().enabled = false;
+                }
+
+
+                Button button = bo.GetComponent<Button>();
+                button.onClick.AddListener(() => craftItemButtonClick(recipe.name));
+
+                buttons.Add(button);
+            }
+            addedIndex += buttons.Count;
+        }
+
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            float height = craftingButtons[i].Count * ITEM_LINE_HEIGHT;
+            recipeParents[i].sizeDelta = new Vector2(recipeParents[i].sizeDelta.x, height);
+        }
+
+        updateRecipeFolds();
+#if false
+        Debug.Log("Update Crafting");
+		ItemRecipeData[] itemRecipes = DataHolder.Instance.getItemRecipeData();
+		GameObject prefab = (GameObject)Resources.Load ("GUI/CraftingButton");
+
+        int lineHeight = 32;
+
+		while(itemCraftingButtons.Count < itemRecipes.Length)
+		{
+			int index = itemCraftingButtons.Count;
+			string gameName = itemRecipes[index].gameName;
+			string name = itemRecipes[index].name;
+			GameObject button = (GameObject)Instantiate(prefab);
+            button.name = CRAFTING_BUTTON_NAME + itemCraftingButtons.Count;
+			button.transform.SetParent(itemRecipeParent);
+            button.transform.localPosition = new Vector3(0, -20 - index * lineHeight, 0);
+			button.transform.localScale = new Vector3(1, 1, 1);
+			Button b = button.GetComponent<Button>();
+			b.onClick.AddListener(() =>  craftItemButtonClick(name) );
+			button.transform.FindChild("Text").GetComponent<Text>().text = gameName;
+			itemCraftingButtons.Add(b);
+		}
+
+		MaterialRecipeData[] materialRecipes = DataHolder.Instance.getMaterialRecipeData();
+		while(materialCraftingButtons.Count < materialRecipes.Length)
+		{
+			int index = materialCraftingButtons.Count;
+			string gameName = materialRecipes[index].gameName;
+			string name = materialRecipes[index].name;
+			GameObject button = (GameObject)Instantiate(prefab);
+            button.name = CRAFTING_BUTTON_NAME + itemCraftingButtons.Count;
+			button.transform.SetParent(materialRecipeParent);
+            button.transform.localPosition = new Vector3(0, -20 - index * lineHeight, 0);
+			button.transform.localScale = new Vector3(1,1,1);
+			Button b = button.GetComponent<Button>();
+			b.onClick.AddListener( () => craftMaterialButtonClick(name) );
+			button.transform.FindChild ("Text").GetComponent<Text>().text = gameName;
+			materialCraftingButtons.Add(b);
+			
+		}
+
+        float cheight = itemCraftingButtons.Count * lineHeight + 12;
+        float mheight = materialCraftingButtons.Count * lineHeight + 12;
+        float fheight = consumableCraftingButtons.Count * lineHeight + 12;
+
+        itemRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, cheight);
+        materialRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, mheight);
+        consumableRecipeParent.GetComponent<RectTransform>().sizeDelta = new Vector2(190, fheight);
+#endif
+    }
+
+    private void updateCrafting()
+    {
+        //Debug.Log("update crafting");
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            for (int j = 0; j < craftingButtons[i].Count; j++)
+            {
+                RecipeData recipe = recipes[i][j];
+                Text text = craftingButtons[i][j].transform.FindChild("Text").GetComponent<Text>();
+                if (skillManager.getSkill((int)recipe.skill).getLevel() < recipe.requiredSkillLevel)
+                {
+                    text.text = recipe.gameName + "<color=red> [" + recipe.skill + " " + (recipe.requiredSkillLevel + 1) + "]</color>";
+                    //text.color = redTextColor;
+                }
+                else if (!inventory.hasIngredients(recipe.ingredients))
+                {
+                    text.text = recipe.gameName + "<color=red> [Need Ingredients]</color>";
+                    //text.color = redTextColor;
+                }
+                else
+                {
+                    text.text = recipe.gameName;
+                    //text.color = itemTextColor;
+                }
+            }
+        }
+
+    }
+
+    public void craftingTabButtonClick(int index)
+    {
+        Debug.Log("clicked tab " + index);
+        selectedCraftingTab = index;
+        onSelectCraftingTab();
+    }
+
+
+    public void updateRecipeFolds()
+    {
+        float ypos = 0;
+        for (int i = 0; i < RECIPE_TYPE_COUNT; i++)
+        {
+            recipeFolds[i].anchoredPosition = new Vector2(0, -ypos);
+            ypos += recipeFolds[i].sizeDelta.y;
+            if (recipeFoldOpen[i])
+            {
+                recipeParents[i].gameObject.SetActive(true);
+                recipeParents[i].anchoredPosition = new Vector2(0, -ypos);
+                ypos += recipeParents[i].GetComponent<RectTransform>().sizeDelta.y;
+
+                recipeFoldArrows[i].localEulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                recipeParents[i].gameObject.SetActive(false);
+                recipeFoldArrows[i].localEulerAngles = new Vector3(0, 0, 90);
+            }
+
+        }
+        recipeHolder.sizeDelta = new Vector2(recipeHolder.sizeDelta.x, ypos);
+        craftingScrollRect.vertical = craftingMask.sizeDelta.y < ypos;
+    }
+
+    public void recipeFoldButtonClick(int index)
+    {
+        recipeFoldOpen[index] = !recipeFoldOpen[index];
+        updateRecipeFolds();
+    }
+
+    public void onSelectCraftingTab()
+    {
+#if false
+        itemRecipeParent.gameObject.SetActive(false);
+        materialRecipeParent.gameObject.SetActive(false);
+        consumableRecipeParent.gameObject.SetActive(false);
+        craftingTabs[TAB_CRAFTED].interactable = true;
+        craftingTabs[TAB_MATERIAL].interactable = true;
+        craftingTabs[TAB_CONSUMABLE].interactable = true;
+
+        if (selectedCraftingTab == TAB_CRAFTED)
+        {
+            craftingScrollRect.vertical = craftingMask.sizeDelta.y < itemCraftingButtons.Count * 32 + 12;
+            itemRecipeParent.gameObject.SetActive(true);
+            craftingTabs[TAB_CRAFTED].interactable = false;
+        }
+        else if (selectedCraftingTab == TAB_MATERIAL)
+        {
+            craftingScrollRect.vertical = craftingMask.sizeDelta.y < materialCraftingButtons.Count * 32 + 12;
+            materialRecipeParent.gameObject.SetActive(true);
+            craftingTabs[TAB_MATERIAL].interactable = false;
+        }
+        else if (selectedCraftingTab == TAB_CONSUMABLE)
+        {
+            craftingScrollRect.vertical = craftingMask.sizeDelta.y < consumableCraftingButtons.Count * 32 + 12;
+            consumableRecipeParent.gameObject.SetActive(true);
+            craftingTabs[TAB_CONSUMABLE].interactable = false;
+        }
+#endif
+    }
+
+    public void craftItemButtonClick(string name)
+    {
+        if (inventory.hasIngredients(DataHolder.Instance.getRecipeData(name).ingredients))
+        {
+            Debug.Log("can craft");
+            GameMaster.getGameController().requestItemCraft(GameMaster.getPlayerUnitID(), name);
+        }
+        else
+        {
+            Debug.Log("cant afford this");
+        }
+
+    }
+#endif
     #endregion //CRAFTING
 
     #region TOGGLE WINDOWS

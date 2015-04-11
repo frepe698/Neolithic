@@ -44,6 +44,11 @@ public abstract class Command {
         return true;
     }
 
+    public virtual bool canAlmostAlwaysStart()
+    {
+        return false;
+    }
+
     public virtual bool canAlwaysStart()
     {
         return false;
@@ -57,6 +62,12 @@ public abstract class Command {
     public virtual string getName()
     {
         return "command";
+    }
+
+
+    public virtual void cancel()
+    {
+        completed = true;
     }
 
 }

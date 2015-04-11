@@ -53,7 +53,21 @@ public class AbilityCommand : Command {
 	
 	public override void start ()
 	{
-		unit.setPath(destination);
+        if (ability.data.totalTime <= float.Epsilon)
+        {
+            foreach (AbilityEffectAndTime effect in ability.data.effects)
+            {
+                DataHolder.Instance.getEffectData(effect.name).getAbilityEffect(unit, attackPosition).action(this);
+            }
+            ability.setCooldown();
+            GameMaster.getGameController().requestChangeEnergy(unit.getID(), -ability.getEnergyCost());
+            GameMaster.getGameController().requestChangeHealth(unit.getID(), -ability.getHealthCost());
+            unit.setCommandEndTime(Time.time + (ability.data.totalTime / unit.getAttackSpeed() - attackTime));
+        }
+        else
+        {
+            unit.setPath(destination);
+        }
 	}
 	
 	public override void update()
@@ -224,7 +238,13 @@ public class AbilityCommand : Command {
             && unit.getUnitStats().getCurHealth() > ability.data.healthCost 
             && unit.getUnitStats().getCurEnergy() >= ability.data.energyCost
             && (unit.getWeaponTags() & ability.data.tags) > 0
-            && !this.Equals(command);
+            && !this.Equals(command)
+            && ((command == null || command.canBeOverridden()) || canAlwaysStart());
+    }
+
+    public override bool canAlwaysStart()
+    {
+        return ability.data.canAlwaysStart;
     }
 
     public override string getName()

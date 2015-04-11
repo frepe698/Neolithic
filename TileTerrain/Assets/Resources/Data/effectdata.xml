@@ -473,5 +473,28 @@
       <weaponSound>false</weaponSound>
       <modelIsSound>false</modelIsSound>
     </SelfBuffEffectData>
+    <SelfBuffEffectData name="stonehead" gameName="Stone Head">
+      <hitDamage />
+      <hitBuffs>
+        <HitBuff>
+          <type>Cleanse</type>
+          <stat>Health</stat>
+          <amount>0</amount>
+          <duration>2</duration>
+          <percent>false</percent>
+        </HitBuff>
+        <HitBuff>
+          <type>StatBuff</type>
+          <stat>Armor</stat>
+          <amount>1</amount>
+          <duration>2</duration>
+          <percent>true</percent>
+        </HitBuff>
+      </hitBuffs>
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
+    </SelfBuffEffectData>
   </SelfBuffEffects>
 </EffectsRoot>

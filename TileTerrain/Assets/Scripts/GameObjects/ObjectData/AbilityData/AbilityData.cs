@@ -16,6 +16,7 @@ public class AbilityData : ObjectData {
     public readonly SpeedIncrease[] speedIncreases;
 
     public readonly float totalTime;
+    public readonly bool canAlwaysStart;
 
     public readonly int energyCost;
     public readonly int healthCost;
@@ -54,6 +55,7 @@ public class AbilityData : ObjectData {
         healthCost = edit.healthCost;
         cooldown = edit.cooldown;
         totalTime = edit.totalTime;
+        canAlwaysStart = edit.canAlwaysStart;
         range = edit.range;
     }
 

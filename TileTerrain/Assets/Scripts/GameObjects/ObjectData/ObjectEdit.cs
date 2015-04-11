@@ -279,6 +279,7 @@ namespace Edit
                 "Unarmed"
         };
         public float totalTime;
+        public bool canAlwaysStart = false;
 
         public int energyCost;
         public int healthCost;
@@ -326,6 +327,7 @@ namespace Edit
             healthCost = data.healthCost;
             cooldown = data.cooldown;
             totalTime = data.totalTime;
+            canAlwaysStart = data.canAlwaysStart;
             range = data.range;
         }
 
@@ -358,6 +360,7 @@ namespace Edit
             healthCost = data.healthCost;
             cooldown = data.cooldown;
             totalTime = data.totalTime;
+            canAlwaysStart = data.canAlwaysStart;
             range = data.range;
             tags = data.tags;
         }
