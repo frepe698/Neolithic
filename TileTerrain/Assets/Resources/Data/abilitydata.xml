@@ -240,6 +240,7 @@
         </AbilityAnimation>
         <AbilityAnimation>
           <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name />
           <time>0</time>
           <speed>1</speed>
         </AbilityAnimation>
@@ -481,6 +482,64 @@
       <cooldown>0</cooldown>
       <range>99999</range>
       <tags>18</tags>
+    </AbilityData>
+    <AbilityData name="spearspinnerattack" gameName="Spearspinner Attack" modelName="rangedbasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>spearspinnerattack</name>
+          <time>0.5</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>99999</range>
+      <tags>-1</tags>
+    </AbilityData>
+    <AbilityData name="spinningdeathattack" gameName="Spinning Death Attack" modelName="meleebasicattack">
+      <effects>
+        <AbilityEffectAndTime>
+          <name>spinningdeath</name>
+          <time>0.5</time>
+        </AbilityEffectAndTime>
+      </effects>
+      <animations>
+        <AbilityAnimation>
+          <weaponAttackAnimation>false</weaponAttackAnimation>
+          <name>chop_unarmed</name>
+          <time>0</time>
+          <speed>1</speed>
+        </AbilityAnimation>
+      </animations>
+      <speedIncreases>
+        <SpeedIncrease>
+          <stat>Attackspeed</stat>
+          <percent>1</percent>
+        </SpeedIncrease>
+      </speedIncreases>
+      <totalTime>1</totalTime>
+      <canAlwaysStart>false</canAlwaysStart>
+      <energyCost>0</energyCost>
+      <healthCost>0</healthCost>
+      <cooldown>0</cooldown>
+      <range>2</range>
+      <tags>-1</tags>
     </AbilityData>
     <AbilityData name="ai_stonethrow" gameName="Stone Throw" modelName="stonethrow">
       <effects>

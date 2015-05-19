@@ -71,6 +71,22 @@
       <modelIsSound>false</modelIsSound>
       <radius>2</radius>
     </AreaOfEffectData>
+    <AreaOfEffectData name="spinningdeath" gameName="Spinning Death" modelName="leap_land">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs />
+      <expSkill>0</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>false</modelIsSound>
+      <radius>2</radius>
+    </AreaOfEffectData>
     <AreaOfEffectData name="earthbreaker" gameName="Earth Breaker" modelName="earthbreaker">
       <hitDamage>
         <HitDamage>
@@ -214,6 +230,24 @@
       <weaponSound>true</weaponSound>
       <modelIsSound>false</modelIsSound>
       <weaponProjectile>true</weaponProjectile>
+      <angle>0</angle>
+    </ProjectileEffectData>
+    <ProjectileEffectData name="spearspinnerattack" gameName="Spearspinner Attack" modelName="levelup">
+      <hitDamage>
+        <HitDamage>
+          <stat>MeleeDamage</stat>
+          <percent>1</percent>
+          <yourStat>true</yourStat>
+          <damageSelf>false</damageSelf>
+        </HitDamage>
+      </hitDamage>
+      <hitBuffs />
+      <expSkill>9</expSkill>
+      <expMultiplier>1</expMultiplier>
+      <weaponSound>false</weaponSound>
+      <modelIsSound>true</modelIsSound>
+      <projectileName>spearspinner_spear</projectileName>
+      <weaponProjectile>false</weaponProjectile>
       <angle>0</angle>
     </ProjectileEffectData>
     <ProjectileEffectData name="schnipe" gameName="Schnipe" modelName="levelup">
@@ -473,7 +507,7 @@
       <weaponSound>false</weaponSound>
       <modelIsSound>false</modelIsSound>
     </SelfBuffEffectData>
-    <SelfBuffEffectData name="stonehead" gameName="Stone Head">
+    <SelfBuffEffectData name="stonehead" gameName="Stone Head" modelName="">
       <hitDamage />
       <hitBuffs>
         <HitBuff>

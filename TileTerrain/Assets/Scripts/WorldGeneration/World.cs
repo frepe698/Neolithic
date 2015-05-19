@@ -215,11 +215,14 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/trollking"), 1, true);
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/goblin"), 10, true);
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/goblinshaman"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/spearspinner"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/spinningdeath"), 5, true);
         
 		ObjectPoolingManager.Instance.CreatePool( ("Projectiles/rock"),20, true);
         ObjectPoolingManager.Instance.CreatePool(("Projectiles/arrow"), 20, true);
         ObjectPoolingManager.Instance.CreatePool(("Projectiles/sniperarrow"), 5, true);
         ObjectPoolingManager.Instance.CreatePool(("Projectiles/fireball"), 10, true);
+        ObjectPoolingManager.Instance.CreatePool(("Projectiles/spearspinner_spear"), 10, true);
 
 
         //PARTICLES

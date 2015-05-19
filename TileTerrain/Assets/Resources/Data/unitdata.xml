@@ -307,5 +307,59 @@
       <minDrops>0</minDrops>
       <maxDrops>1</maxDrops>
     </AIUnitData>
+    <AIUnitData name="spearspinner" gameName="SpearSpinner" modelName="spearspinner">
+      <health>200</health>
+      <healthperlevel>0</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>0</movespeed>
+      <size>0.5</size>
+      <favouronkill>0</favouronkill>
+      <damage>10</damage>
+      <attackSpeed>1</attackSpeed>
+      <attackSound>attackSpear01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>8</lineofsight>
+      <safeDrops>
+        <string />
+      </safeDrops>
+      <randomDrops>
+        <string />
+      </randomDrops>
+      <abilities>
+        <string />
+      </abilities>
+      <basicattack>spearspinnerattack</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>0</maxDrops>
+    </AIUnitData>
+    <AIUnitData name="spinningdeath" gameName="Spinning Death" modelName="spinningdeath">
+      <health>200</health>
+      <healthperlevel>0</healthperlevel>
+      <lifegen>0</lifegen>
+      <energy>0</energy>
+      <energygen>0</energygen>
+      <movespeed>0</movespeed>
+      <size>0.5</size>
+      <favouronkill>0</favouronkill>
+      <damage>1</damage>
+      <attackSpeed>1</attackSpeed>
+      <attackSound>attackSpear01</attackSound>
+      <hostile>true</hostile>
+      <lineofsight>2</lineofsight>
+      <safeDrops>
+        <string />
+      </safeDrops>
+      <randomDrops>
+        <string />
+      </randomDrops>
+      <abilities>
+        <string />
+      </abilities>
+      <basicattack>spinningdeathattack</basicattack>
+      <minDrops>0</minDrops>
+      <maxDrops>0</maxDrops>
+    </AIUnitData>
   </AIUnits>
 </UnitsRoot>

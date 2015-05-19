@@ -53,26 +53,29 @@ public class UnitController : MonoBehaviour {
 	{
 		if(animation != null)
 		{
+            
 			if(rightHand)
 			{
 				if(itemTransformR == null) return;
-				AnimationState anim = itemTransformR.GetComponent<Animation>()[animation];
+                Animation animator = itemTransformR.GetComponent<Animation>();
+                AnimationState anim = animator[animation];
 				if(anim != null)
 				{
 					anim.speed = speed;
-					itemTransformR.GetComponent<Animation>().Stop();
-					itemTransformR.GetComponent<Animation>().Play(animation);
+                    animator.Stop();
+                    animator.Play(animation);
 				}
 			}
 			else
 			{
 				if(itemTransformL == null) return;
-				AnimationState anim = itemTransformL.GetComponent<Animation>()[animation];
+                Animation animator = itemTransformL.GetComponent<Animation>();
+				AnimationState anim = animator[animation];
 				if(anim != null)
 				{
 					anim.speed = speed;
-					itemTransformL.GetComponent<Animation>().Stop();
-					itemTransformL.GetComponent<Animation>().Play(animation);
+                    animator.Stop();
+                    animator.Play(animation);
 				}
 			}
 		}
@@ -80,16 +83,18 @@ public class UnitController : MonoBehaviour {
 
 	public void setAnimationRestart(string animation, float speed = 1)
 	{
-		this.GetComponent<Animation>().Stop(animation);
-		this.GetComponent<Animation>()[animation].speed = speed;
-		this.GetComponent<Animation>().CrossFade(animation, 0.2f);
+        Animation animator = this.GetComponent<Animation>();
+		animator.Stop(animation);
+		animator[animation].speed = speed;
+		animator.CrossFade(animation, 0.2f);
 	}
 
 	
 	public void setAnimation(string animation, float speed = 1)
 	{
-		this.GetComponent<Animation>()[animation].speed = speed;
-		this.GetComponent<Animation>().CrossFade(animation, 0.2f);
+        Animation animator = this.GetComponent<Animation>();
+        animator[animation].speed = speed;
+        animator.CrossFade(animation, 0.2f);
 	}
 
 	public void playSound(string sound)

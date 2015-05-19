@@ -19,6 +19,12 @@
       <range>25</range>
     </ProjectileData>
 
+    <ProjectileData name = "spearspinner_spear" gameName = "Spearspinner Spear" modelName = "spearspinner_spear">
+      <damage>7</damage>
+      <speed>20</speed>
+      <range>10</range>
+    </ProjectileData>
+
     <ProjectileData name = "fireball" gameName = "Fireball" modelName = "fireball">
       <damage>7</damage>
       <speed>20</speed>
