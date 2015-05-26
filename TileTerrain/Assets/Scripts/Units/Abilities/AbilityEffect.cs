@@ -5,14 +5,14 @@ using System;
 
 public abstract class AbilityEffect {
 
-    protected Unit unit;
+    protected Actor actor;
     protected Vector3 targetPosition;
     protected float time;
 
-    public AbilityEffect(string name, Unit unit, Vector3 targetPosition)
+    public AbilityEffect(string name, Actor actor, Vector3 targetPosition)
     {
         //Fetch data with name
-        this.unit = unit;
+        this.actor = actor;
         this.targetPosition = targetPosition;
     }
 
@@ -34,7 +34,7 @@ public abstract class AbilityEffect {
     }
 #endif
 
-    public static void applyDamage(HitDamage[] hitDamage, Unit unit, Unit target, int expSkill)
+    public static void applyDamage(HitDamage[] hitDamage, Actor actor, Actor target, int expSkill)
     {
         int selfDamage = 0;
         int damage = 0;
@@ -43,7 +43,7 @@ public abstract class AbilityEffect {
             int tempDamage;
             if (hit.yourStat)
             {
-                tempDamage = (int)(unit.getUnitStats().getStatV(hit.stat) * hit.percent);
+                tempDamage = (int)(actor.getUnitStats().getStatV(hit.stat) * hit.percent);
             }
             else
             {
@@ -55,14 +55,14 @@ public abstract class AbilityEffect {
         if (damage != 0)
         {
             //Debug.Log("Take Damage " + damage);
-            GameMaster.getGameController().requestHit(damage, unit.getID(), target.getID(), expSkill);
+            GameMaster.getGameController().requestHit(damage, actor.getID(), target.getID(), expSkill);
         }
 
         //Should you get xp for hitting yourself?
-        if (selfDamage != 0) GameMaster.getGameController().requestHit(selfDamage, unit.getID(), unit.getID());
+        if (selfDamage != 0) GameMaster.getGameController().requestHit(selfDamage, actor.getID(), actor.getID());
     }
 
-    public static void applyBuffs(string dataName, Unit unit, Unit target)
+    public static void applyBuffs(string dataName, Actor actor, Actor target)
     {
         AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);
         if (data != null)
@@ -81,18 +81,18 @@ public abstract class AbilityEffect {
         }
     }
 
-    public static void modelAndSound(AbilityEffectData data, Unit unit, Vector3 targetPosition, bool followUnit = false)
+    public static void modelAndSound(AbilityEffectData data, Actor actor, Vector3 targetPosition, bool followUnit = false)
     {
 
         //AbilityEffectData data = DataHolder.Instance.getEffectData(dataName);
 
         if(data.weaponSound)
         {
-            unit.playSound(unit.getAttackSound(0));
+            actor.playSound(actor.getAttackSound(0));
         }
         else if(data.modelIsSound)
         {
-            unit.playSound(data.modelName);
+            actor.playSound(data.modelName);
         }
         else
         {
@@ -100,7 +100,7 @@ public abstract class AbilityEffect {
             if (prefab != null)
             {
                 if(followUnit) 
-                    unit.addEffectObject(prefab, targetPosition);
+                    actor.addEffectObject(prefab, targetPosition);
                 else
                     GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
             }

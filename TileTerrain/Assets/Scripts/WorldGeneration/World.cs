@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class World : MonoBehaviour {
 	
 	private Material waterMaterial;
-	private Material groundMaterial;
 	private float waterOffset;
 	private Transform water;
 	private MeshRenderer waterRenderer;
@@ -56,7 +55,7 @@ public class World : MonoBehaviour {
 	
 	void Awake () {
 		waterMaterial = (Material)Resources.Load ("water");
-		groundMaterial = (Material)Resources.Load ("terrain");
+		//groundMaterial = (Material)Resources.Load ("terrain");
 
 	}
 
@@ -215,8 +214,10 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/trollking"), 1, true);
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/goblin"), 10, true);
         ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/goblinshaman"), 5, true);
-        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/spearspinner"), 5, true);
-        ObjectPoolingManager.Instance.CreatePool(("Units/Monsters/spinningdeath"), 5, true);
+
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/spearspinner"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/spinningdeath"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/campfire"), 5, true);
         
 		ObjectPoolingManager.Instance.CreatePool( ("Projectiles/rock"),20, true);
         ObjectPoolingManager.Instance.CreatePool(("Projectiles/arrow"), 20, true);
@@ -501,7 +502,6 @@ public class World : MonoBehaviour {
             
 
             List<Vector2i> entrances = cave.entrancePoses;
-            List<Vector2> doormats = cave.doorMatPositions;
             for (int i = 0; i < entrances.Count; i++)
             {
                 Vector2 pos1 = tileMap.theHallEntrance[i];

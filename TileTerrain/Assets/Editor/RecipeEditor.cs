@@ -14,15 +14,18 @@ public class RecipeEditor : ObjectEditor
     private const int EQUIPMENT = 0;
     private const int MATERIAL = 1;
     private const int CONSUMABLE = 2;
+    private const int BUILDING = 3;
     private List<EquipmentRecipeEdit> equipment = new List<EquipmentRecipeEdit>();
     private List<MaterialRecipeEdit> materials = new List<MaterialRecipeEdit>();
     private List<ConsumableRecipeEdit> consumable = new List<ConsumableRecipeEdit>();
+    private List<BuildingRecipeEdit> buildings = new List<BuildingRecipeEdit>();
 
     private Vector2 scroll;
 
     private int selectedequipment = -1;
     private int selectedmaterial = -1;
     private int selectedconsumable = -1;
+    private int selectedbuilding = -1;
 
     protected static RecipeEditor window;
 
@@ -57,6 +60,7 @@ public class RecipeEditor : ObjectEditor
             equipment = new List<EquipmentRecipeEdit>();
             materials = new List<MaterialRecipeEdit>();
             consumable = new List<ConsumableRecipeEdit>();
+            buildings = new List<BuildingRecipeEdit>();
             foreach (EquipmentRecipeData mdata in recipeDataHolder.equipmentRecipeData)
             {
                 equipment.Add(new EquipmentRecipeEdit(mdata));
@@ -69,6 +73,10 @@ public class RecipeEditor : ObjectEditor
             {
                 consumable.Add(new ConsumableRecipeEdit(cdata));
             }
+            foreach (BuildingRecipeData bdata in recipeDataHolder.buildingRecipeData)
+            {
+                buildings.Add(new BuildingRecipeEdit(bdata));
+            }
 
             this.filePath = filePath;
         }
@@ -77,7 +85,7 @@ public class RecipeEditor : ObjectEditor
 
     protected override void saveFile()
     {
-        if (filePath == null && !filePath.Equals(""))
+        if (filePath == null || filePath.Equals(""))
         {
             saveAsFile();
             return;
@@ -86,6 +94,7 @@ public class RecipeEditor : ObjectEditor
         EquipmentRecipeData[] equipmentData = new EquipmentRecipeData[equipment.Count];
         MaterialRecipeData[] materialData = new MaterialRecipeData[materials.Count];
         ConsumableRecipeData[] consumableData = new ConsumableRecipeData[consumable.Count];
+        BuildingRecipeData[] buildingData = new BuildingRecipeData[buildings.Count];
 
         int i = 0;
         foreach (EquipmentRecipeEdit medit in equipment)
@@ -105,12 +114,18 @@ public class RecipeEditor : ObjectEditor
             consumableData[i] = new ConsumableRecipeData(redit);
             i++;
         }
-        DataHolder.RecipeDataHolder weaponDataHolder = new DataHolder.RecipeDataHolder(equipmentData, materialData, consumableData);
+        i = 0;
+        foreach (BuildingRecipeEdit bedit in buildings)
+        {
+            buildingData[i] = new BuildingRecipeData(bedit);
+            i++;
+        }
+        DataHolder.RecipeDataHolder recipeDataHolder = new DataHolder.RecipeDataHolder(equipmentData, materialData, consumableData, buildingData);
 
         using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
             XmlSerializer serializer = new XmlSerializer(typeof(DataHolder.RecipeDataHolder));
-            serializer.Serialize(file, weaponDataHolder);
+            serializer.Serialize(file, recipeDataHolder);
             AssetDatabase.Refresh();
         }
 
@@ -129,6 +144,7 @@ public class RecipeEditor : ObjectEditor
         {
             selectedmaterial = -1;
             selectedconsumable = -1;
+            selectedbuilding = -1;
             if (!openWindow(EQUIPMENT, selectedequipment))
             {
                 WindowSettings window = new WindowSettings();
@@ -146,6 +162,7 @@ public class RecipeEditor : ObjectEditor
         {
             selectedequipment = -1;
             selectedconsumable = -1;
+            selectedbuilding = -1;
             if (!openWindow(MATERIAL, selectedmaterial))
             {
                 WindowSettings window = new WindowSettings();
@@ -163,12 +180,31 @@ public class RecipeEditor : ObjectEditor
         {
             selectedequipment = -1;
             selectedmaterial = -1;
+            selectedbuilding = -1;
             if (!openWindow(CONSUMABLE, selectedconsumable))
             {
                 WindowSettings window = new WindowSettings();
                 window.objectListIndex = CONSUMABLE;
                 window.objectIndex = selectedconsumable;
                 window.windowFunc = editConsumableRecipe;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
+            }
+        }
+        GUILayout.Label("Building Recipes", EditorStyles.boldLabel);
+        selectedbuilding = GUILayout.SelectionGrid(selectedbuilding, getBuildingStrings(), 1);
+        if (selectedbuilding >= 0)
+        {
+            selectedequipment = -1;
+            selectedmaterial = -1;
+            selectedconsumable = -1;
+            if (!openWindow(BUILDING, selectedbuilding))
+            {
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = BUILDING;
+                window.objectIndex = selectedbuilding;
+                window.windowFunc = editBuildingRecipe;
                 window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
                 window.windowScroll = Vector2.zero;
                 windows.Add(window);
@@ -201,6 +237,10 @@ public class RecipeEditor : ObjectEditor
         if (GUILayout.Button("+Consumable Recipe"))
         {
             consumable.Add(new ConsumableRecipeEdit());
+        }
+        if (GUILayout.Button("+Building Recipe"))
+        {
+            buildings.Add(new BuildingRecipeEdit());
         }
         if (GUILayout.Button("Remove"))
         {
@@ -239,6 +279,18 @@ public class RecipeEditor : ObjectEditor
         string[] result = new string[consumable.Count];
         int i = 0;
         foreach (ConsumableRecipeEdit edit in consumable)
+        {
+            result[i] = edit.name;
+            i++;
+        }
+        return result;
+    }
+
+    private string[] getBuildingStrings()
+    {
+        string[] result = new string[buildings.Count];
+        int i = 0;
+        foreach (BuildingRecipeEdit edit in buildings)
         {
             result[i] = edit.name;
             i++;
@@ -321,6 +373,31 @@ public class RecipeEditor : ObjectEditor
         GUI.DragWindow();
     }
 
+    protected void editBuildingRecipe(int windowID)
+    {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            if (selectedbuilding == windows[windowID].objectIndex) selectedbuilding = -1;
+            windows.RemoveAt(windowID);
+            return;
+        }
+        WindowSettings window = windows[windowID];
+        BuildingRecipeEdit data = buildings[window.objectIndex];
+        if (data == null)
+        {
+            windows.RemoveAt(windowID);
+        }
+
+        EditorGUIUtility.labelWidth = 120;
+
+        window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
+
+        editRecipe(data);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+    }
+
     protected void editRecipe(RecipeEdit data)
     {
         data.name = TextField("Name: ", data.name);
@@ -363,6 +440,7 @@ public class RecipeEditor : ObjectEditor
         if (window.objectListIndex == EQUIPMENT) return editEquipmentRecipe;
         if (window.objectListIndex == MATERIAL) return editMaterialRecipe;
         if (window.objectListIndex == CONSUMABLE) return editConsumableRecipe;
+        if (window.objectListIndex == BUILDING) return editBuildingRecipe;
         return null;
     }
 
@@ -376,6 +454,8 @@ public class RecipeEditor : ObjectEditor
                 return materials[index];
             case(CONSUMABLE):
                 return consumable[index];
+            case(BUILDING):
+                return buildings[index];
             default:
                 return null;
         }
@@ -391,6 +471,8 @@ public class RecipeEditor : ObjectEditor
                 return index >= materials.Count;
             case(CONSUMABLE):
                 return index >= consumable.Count;
+            case(BUILDING):
+                return index >= buildings.Count;
             default:
                 return true;
         }
@@ -416,6 +498,12 @@ public class RecipeEditor : ObjectEditor
             deleteWindowListIndex = CONSUMABLE;
             GUI.BringWindowToFront(DELETEWINDOWID);
         }
+        else if(selectedbuilding >= 0)
+        {
+            deleteWindowIndex = selectedbuilding;
+            deleteWindowListIndex = BUILDING;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
     }
 
     protected override void delete(int listIndex, int index)
@@ -438,6 +526,11 @@ public class RecipeEditor : ObjectEditor
                     closeWindow(CONSUMABLE, index);
                     consumable.RemoveAt(index);
                     if (selectedconsumable > 0) selectedconsumable--;
+                    break;
+                case(BUILDING):
+                    closeWindow(BUILDING, index);
+                    buildings.RemoveAt(index);
+                    if (selectedbuilding > 0) selectedbuilding--;
                     break;
             }
         }
@@ -469,6 +562,14 @@ public class RecipeEditor : ObjectEditor
             consumable.Insert(selectedconsumable + 1, temp);
             selectedconsumable++;
         }
+        else if (selectedbuilding >= 0)
+        {
+            BuildingRecipeEdit temp = new BuildingRecipeEdit(buildings[selectedbuilding]);
+            temp.name += "(Copy)";
+            temp.gameName += "(Copy)";
+            buildings.Insert(selectedbuilding + 1, temp);
+            selectedbuilding++;
+        }
     }
 
     private void moveUp()
@@ -495,6 +596,13 @@ public class RecipeEditor : ObjectEditor
             consumable.Insert(selectedconsumable - 1, temp);
             selectedconsumable -= 1;
         }
+        else if (selectedbuilding > 0)
+        {
+            BuildingRecipeEdit temp = buildings[selectedbuilding];
+            buildings.RemoveAt(selectedbuilding);
+            buildings.Insert(selectedbuilding- 1, temp);
+            selectedbuilding -= 1;
+        }
     }
 
     private void moveDown()
@@ -519,6 +627,13 @@ public class RecipeEditor : ObjectEditor
             consumable.RemoveAt(selectedconsumable);
             consumable.Insert(selectedconsumable + 1, temp);
             selectedconsumable += 1;
+        }
+        else if (selectedbuilding >= 0 && selectedbuilding < buildings.Count -1)
+        {
+            BuildingRecipeEdit temp = buildings[selectedbuilding];
+            buildings.RemoveAt(selectedbuilding);
+            buildings.Insert(selectedbuilding + 1, temp);
+            selectedbuilding += 1;
         }
     }
 }

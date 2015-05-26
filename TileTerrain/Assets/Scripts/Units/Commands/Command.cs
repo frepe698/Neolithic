@@ -7,12 +7,12 @@ public abstract class Command {
 	protected static readonly float moveSensitivity = 0.1f;  
 	protected Vector2 destination;
 
-	protected Unit unit;
+	protected Actor actor;
 
 
-	public Command (Unit unit)
+	public Command (Actor actor)
 	{
-		this.unit = unit;
+		this.actor = actor;
 	}
 
 	public abstract void start();

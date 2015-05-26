@@ -15,7 +15,7 @@ using System.Collections.Generic;
 public class Pathfinder {
 
 	private static readonly int NOT_WORTH_IT = 300;
-    private static readonly int RESOLUTION = 15; //number of spline-samples between every pair of checkpoints.
+    //private static readonly int RESOLUTION = 15; //number of spline-samples between every pair of checkpoints.
 
 	private static readonly Vector2i[] neighborCoordinates = new Vector2i[]
 	{
@@ -135,6 +135,7 @@ public class Pathfinder {
         //If path only contains 2 or less points we dont have to spline.
         path = smoothPath(map, path, unitID);
         return path;
+#if false
         if (path.getCheckPointCount() <= 2)
             return path;
 
@@ -165,7 +166,7 @@ public class Pathfinder {
 
         //path = trimPath(path, unitID);
         return path;
-        
+#endif
 	}
 
 	private static Path smoothPath(TileMap map, Path path, int unitID)
@@ -322,11 +323,11 @@ public class Pathfinder {
         
         int yAdd = 0;
         if (dx * dy < 0) yAdd = -1;
- 
+#if false
         int xdir =(int)( dx / (xintersections + 0.0000001f));
         int ydir = (int)(dy / (yintersections + 0.0000001f));
 
-#if false
+
         int firstX = Mathf.RoundToInt(start.x + 0.5f * xdir);
         for (int x = 0; x < xintersections; x++ )
         {
@@ -404,7 +405,7 @@ public class Pathfinder {
 #endif
 
 #if true
-            int firstX = Mathf.CeilToInt(xmin);
+        int firstX = Mathf.CeilToInt(xmin);
             for (int x = 0; x < xintersections; x++)
             {
                 Vector2 intersection = Line.LineIntersectionPoint(

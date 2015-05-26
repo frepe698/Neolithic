@@ -8,16 +8,19 @@ public class LootCommand : Command {
 	private bool hasLooted;
 	private float lootTime;
 	private float animationTime;
+
+    private Unit unit;
 	
 	public LootCommand(Unit unit, LootableObject lootableObject) : base(unit)
 	{
+        this.unit = unit;
 		this.lootableObject = lootableObject;
 		this.destination = lootableObject.get2DPos();
 	}
 	
 	public override void start ()
 	{
-		unit.setPath(destination);
+		actor.setPath(destination);
 	}
 	
 	public override void update()
@@ -43,9 +46,9 @@ public class LootCommand : Command {
 			}
 			
 		}
-		else if( Vector2.Distance(unit.get2DPos(), destination) < lootableObject.getGatherRadius() )
+		else if( Vector2.Distance(actor.get2DPos(), destination) < lootableObject.getGatherRadius() )
 		{
-			unit.setMoving(false);
+			actor.setMoving(false);
 			if(World.tileMap.getTile(new Vector2i(lootableObject.get2DPos())).getLootableObject(lootableObject.getID()) != null)
 			{
 				looting = true;
@@ -53,7 +56,7 @@ public class LootCommand : Command {
 				hasLooted = false;
 				animationTime = lootTime * 0.3f;
 				calculateRotation();
-				unit.setAnimationRestart(unit.getLootAnim());
+				actor.setAnimationRestart(unit.getLootAnim());
 			}
 			else
 			{
@@ -67,8 +70,8 @@ public class LootCommand : Command {
 	
 	private void calculateRotation()
 	{
-		Vector2 dir = (unit.get2DPos()-destination).normalized;
-		unit.setRotation (new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0));
+		Vector2 dir = (actor.get2DPos()-destination).normalized;
+		actor.setRotation (new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0));
 		
 	}
 	

@@ -11,8 +11,8 @@ public class SelfBuffEffectData : AbilityEffectData{
 
     }
 
-    public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
+    public override AbilityEffect getAbilityEffect(Actor actor, Vector3 targetPosition)
     {
-        return new SelfBuffEffect(name, unit, this);
+        return new SelfBuffEffect(name, actor, this);
     }
 }

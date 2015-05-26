@@ -5,7 +5,8 @@ public class AreaOfEffect : AbilityEffect {
 
     private AreaOfEffectData data;
 
-    public AreaOfEffect(string name, Unit unit, Vector3 targetPosition, AreaOfEffectData data) : base(name,unit,targetPosition)
+    public AreaOfEffect(string name, Actor actor, Vector3 targetPosition, AreaOfEffectData data)
+        : base(name, actor, targetPosition)
     {
         //Fetch data with name
         this.data = data;
@@ -18,7 +19,7 @@ public class AreaOfEffect : AbilityEffect {
         {
             GameObject.Instantiate(prefab, targetPosition - Vector3.up, Quaternion.identity);
         }*/
-        AbilityEffect.modelAndSound(data, unit, targetPosition);
+        AbilityEffect.modelAndSound(data, actor, targetPosition);
         float radius = data.radius;
         Vector2i targetTile = new Vector2i(targetPosition);
         Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.z);
@@ -28,18 +29,18 @@ public class AreaOfEffect : AbilityEffect {
             {
                 if (!World.tileMap.isValidTile(x, y)) continue;
                 Vector2i tile = new Vector2i(x, y);
-                foreach(Unit target in World.tileMap.getTile(tile).getUnits())
+                foreach(Actor target in World.tileMap.getTile(tile).getActors())
                 {
-                    if (target.getID() == unit.getID() 
-                        || target.getTeam() == unit.getTeam()
+                    if (target.getID() == actor.getID() 
+                        || target.getTeam() == actor.getTeam()
                         || Vector2.Distance(target.get2DPos(), targetPosition2D) > radius) continue;
 
                     //Target is officially hit here, calculate damage
-                    applyDamage(data.hitDamage, unit, target, data.expSkill);
+                    applyDamage(data.hitDamage, actor, target, data.expSkill);
                     
                     //Apply buffs if there are buffs
                     if(data.hitBuffs.Length > 0)
-                        GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), data.name);
+                        GameMaster.getGameController().requestApplyEffect(actor.getID(), target.getID(), data.name);
                 }
             }
         }

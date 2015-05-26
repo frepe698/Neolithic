@@ -6,20 +6,20 @@ public class StunnedCommand : Command {
     private float duration;
     private GameObject particle;
 
-    public StunnedCommand(Unit unit, float duration)
-        : base(unit)
+    public StunnedCommand(Actor actor, float duration)
+        : base(actor)
     {
         this.duration = duration;
     }
 
     public override void start()
     {
-        unit.setMoving(false);
-        unit.setAnimationRestart(unit.getIdleAnim(), 20);
+        actor.setMoving(false);
+        actor.setAnimationRestart(actor.getIdleAnim(), 20);
         GameObject prefab = Resources.Load<GameObject>("Particles/stunned");
         if (prefab != null)
         {
-            particle = unit.addEffectObject(prefab, new Vector3(0, 0.0f, 0), duration);
+            particle = actor.addEffectObject(prefab, new Vector3(0, 0.0f, 0), duration);
         }
     }
 
@@ -43,7 +43,12 @@ public class StunnedCommand : Command {
     {
         StunnedCommand other = obj as StunnedCommand;
         if (other == null) return false;
-        return unit == other.unit;
+        return actor == other.actor;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 
     public override bool canAlmostAlwaysStart()

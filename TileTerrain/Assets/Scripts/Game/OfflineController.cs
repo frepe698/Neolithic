@@ -76,7 +76,7 @@ public class OfflineController : GameController {
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
+		Unit unit = GameMaster.getActor(unitID) as Unit;
 		if(unit != null && unit.canOverrideCurrentCommand()) approveMoveCommand(unitID, x, y, unit.getPosition());
 	}
 
@@ -105,44 +105,42 @@ public class OfflineController : GameController {
 	[RPC]
 	public override void requestAttackCommandUnit(int unitID, int targetID)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
-		Unit target = GameMaster.getUnit (targetID);
-        if (target != null && unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
+		Actor actor = GameMaster.getActor(unitID);
+		Actor target = GameMaster.getActor (targetID);
+        if (target != null && actor != null && actor.canStartCommand(new AbilityCommand(actor, target, actor.getBasicAttack())))
 		{
-			approveAttackCommandUnit(unitID, targetID, GameMaster.getUnit(unitID).getPosition());
+			approveAttackCommandUnit(unitID, targetID, GameMaster.getActor(unitID).getPosition());
 		}
 	}
 
 	[RPC]
 	public override void requestAttackCommandPos(int unitID, Vector3 target)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
+		Actor actor = GameMaster.getActor(unitID);
+        if (actor != null && actor.canStartCommand(new AbilityCommand(actor, target, actor.getBasicAttack())))
 		{
-			approveAttackCommandPos(unitID, target, GameMaster.getUnit(unitID).getPosition());
+			approveAttackCommandPos(unitID, target, GameMaster.getActor(unitID).getPosition());
 		}
 	}
 
     [RPC]
     public override void requestAbilityCommandID(int unitID, int targetID, int ability)
     {
-        Unit unit = GameMaster.getUnit(unitID);
-        Unit target = GameMaster.getUnit(targetID);
-        if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        Actor actor = GameMaster.getActor(unitID);
+        Actor target = GameMaster.getActor(targetID);
+        if (actor != null && target != null && actor.hasAbility(ability) && actor.canStartCommand(new AbilityCommand(actor, target, actor.getAbility(ability))))
         {
-            approveAbilityCommandID(unitID, targetID, unit.getPosition(), ability);
+            approveAbilityCommandID(unitID, targetID, actor.getPosition(), ability);
         }
     }
 
     [RPC]
     public override void requestAbilityCommandVec(int unitID, Vector3 target, int ability)
     {
-
-
-        Unit unit = GameMaster.getUnit(unitID);
-        if(unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit,target, unit.getAbility(ability))))
+        Actor actor = GameMaster.getActor(unitID);
+        if(actor != null && actor.hasAbility(ability) && actor.canStartCommand(new AbilityCommand(actor,target, actor.getAbility(ability))))
         {
-            approveAbilityCommandVec(unitID, target, unit.getPosition(), ability);
+            approveAbilityCommandVec(unitID, target, actor.getPosition(), ability);
         }
     }
 
@@ -207,7 +205,7 @@ public class OfflineController : GameController {
         WarpObject warpObject = World.tileMap.getTile(tile).getTileObject() as WarpObject;
         if (warpObject != null)
         {
-            Unit unit = GameMaster.getUnit(unitID);
+            Unit unit = GameMaster.getActor(unitID) as Unit;
             if(unit != null)
             {
                 unit.warp(warpObject.getDestination());
@@ -218,19 +216,19 @@ public class OfflineController : GameController {
 
 	public override void requestAttack(int unitID, int targetID)
 	{
-		Unit target = GameMaster.getUnit(targetID);
+		Actor target = GameMaster.getActor(targetID);
 		if(target != null)
 		{
-			int damage = GameMaster.getUnit(unitID).getDamage(0);
+			int damage = GameMaster.getActor(unitID).getDamage(0);
 			if(target.getHealth() <= damage)
 			{
-				killUnit(targetID, unitID);
+				killActor(targetID, unitID);
 				changeEnergy(unitID, -5);
                 giveExperience(unitID, Skill.Melee, damage);
 			}
 			else
 			{
-				hitUnit(targetID, unitID, damage);
+				hitActor(targetID, unitID, damage);
 				changeEnergy(unitID, -5);
                 giveExperience(unitID, Skill.Melee, damage);
 			}
@@ -252,8 +250,8 @@ public class OfflineController : GameController {
     */
     public override void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName)
     {
-        Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null)
+        Actor actor = GameMaster.getActor(unitID);
+        if (actor != null)
         {
             approveFireProjectile(unitID, target, dataName, projectileName);
         }
@@ -313,24 +311,24 @@ public class OfflineController : GameController {
 
 	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
-		Unit target = GameMaster.getUnit(targetID);
+		Actor target = GameMaster.getActor(targetID);
 		if(target == null) return;
 		target.playSound("hitBow01");
 		if(target.getHealth() <= damage)
 		{
-			killUnit(targetID, unitID);
+			killActor(targetID, unitID);
 			//changeEnergy(unitID, -5);
 		}
 		else
 		{
-			hitUnit(targetID, unitID, damage);
+			hitActor(targetID, unitID, damage);
 			//changeEnergy(unitID, -5);
 		}
 	}
 
     public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
-        Unit target = GameMaster.getUnit(targetID);
+        Actor target = GameMaster.getActor(targetID);
         if (target == null) return;
         if (damage < 0)
         {
@@ -342,11 +340,11 @@ public class OfflineController : GameController {
             target.playSound("hitBow01");
             if (target.getHealth() <= damage)
             {
-                killUnit(targetID, unitID);
+                killActor(targetID, unitID);
             }
             else
             {
-                hitUnit(targetID, unitID, damage);
+                hitActor(targetID, unitID, damage);
             }
             if (target.isHostile())
             {
@@ -401,9 +399,9 @@ public class OfflineController : GameController {
         recieveChatMessage(GameMaster.getPlayerUnitID(), msg);
     }
 
-    public override void requestRemoveUnit(int unitID)
+    public override void requestRemoveActor(int unitID)
     {
-        approveRemoveUnit(unitID);
+        approveRemoveActor(unitID);
     }
 	
 

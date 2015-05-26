@@ -12,21 +12,21 @@ public class DefStat : BaseStat{
 		this.maxAmount = maxAmount;
 	}
 	
-	public void addValue(float add){
+	public override void addValue(float add){
 		value += add;
 	}
 	
-	public void multiply(){
+	public override void multiply(){
 		value = value*multiplier;
 		if(value > maxAmount) value = maxAmount;
 	}
 	
-	public void reset(int level){
+	public override void reset(int level){
 		value = 0;
 		multiplier = 1;
 	}
 	
-	public string getWindowString(){
+	public override string getWindowString(){
 		return name+": "+(int)(value*100)+"%";
 	}
 }

@@ -179,7 +179,7 @@ public class TrialOfTheGods : GameMode {
                 Vector2 spawnPos = summonPositions[i].toVector2();
                 int unitID = GameMaster.getNextUnitID();
                 AIUnit unit = new PathAIUnit(spawns[day][nextUnit], new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, roads[i].getWaypoints(), enemyTeam.getSpawningLevel(), getThisTeam());
-                GameMaster.addAwakeUnit(unit);
+                GameMaster.addAwakeActor(unit);
             }
             nextUnit++;
             if(nextUnit == maxUnit)

@@ -42,7 +42,7 @@ public class AIUnit : Unit {
 		}
         init();
         tile = new Vector2i(get2DPos());
-        World.tileMap.getTile(tile).addUnit(this);
+        World.tileMap.getTile(tile).addActor(this);
         this.unitstats = new UnitStats(this, level, data);
         unitstats.updateStats();
         basicAttack = new Ability(data.basicattack, this);
@@ -62,7 +62,7 @@ public class AIUnit : Unit {
         justGotCommandTimer -= Time.deltaTime;
         if ((command == null || command is MoveCommand) && justGotCommandTimer < 0)
 		{
-            Unit closestUnit = findClosestEnemy(lineOfSight);
+            Unit closestUnit = findClosestEnemyUnit(lineOfSight);
             if (fleeOrFight(closestUnit)) return;
 
 			commandTimer-=Time.deltaTime;
@@ -187,7 +187,7 @@ public class AIUnit : Unit {
 	public override void takeDamage(int damage, int dealerID)
 	{
         base.takeDamage(damage, dealerID);
-		Unit dealer = GameMaster.getUnit(dealerID);
+		Actor dealer = GameMaster.getActor(dealerID);
 		if(command == null || command is MoveCommand)
 		{
             if (dealer == null) return;

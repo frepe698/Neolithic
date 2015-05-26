@@ -35,6 +35,22 @@ public class DataHolder {
 		public readonly AIUnitData[] aiUnitData;
 	}
 
+    [XmlRoot("BuildingsRoot")]
+    public class BuildingDataHolder
+    {
+        public BuildingDataHolder() { }
+        public BuildingDataHolder(BuildingData[] buildingData, TowerData[] towerData)
+        {
+            this.buildingData = buildingData;
+            this.towerData = towerData;
+        }
+        [XmlArray("CraftingBuildings"), XmlArrayItem("BuildingData")]
+        public readonly BuildingData[] buildingData;
+
+        [XmlArray("Towers"), XmlArrayItem("TowerData")]
+        public readonly TowerData[] towerData;
+    }
+
 	[XmlRoot("WeaponsRoot")]
 	public class WeaponDataHolder
 	{
@@ -90,11 +106,12 @@ public class DataHolder {
 	public class RecipeDataHolder
 	{
         public RecipeDataHolder() { }
-        public RecipeDataHolder(EquipmentRecipeData[] equipment, MaterialRecipeData[] material, ConsumableRecipeData[] consumable)
+        public RecipeDataHolder(EquipmentRecipeData[] equipment, MaterialRecipeData[] material, ConsumableRecipeData[] consumable, BuildingRecipeData[] building)
         {
             this.equipmentRecipeData = equipment;
             this.materialRecipeData = material;
             this.consumableRecipeData = consumable;
+            this.buildingRecipeData = building;
         }
 		[XmlArray("EquipmentRecipes"), XmlArrayItem("EquipmentRecipeData")]
 		public readonly EquipmentRecipeData[] equipmentRecipeData;
@@ -104,6 +121,9 @@ public class DataHolder {
 
         [XmlArray("ConsumableRecipes"), XmlArrayItem("ConsumableRecipeData")]
         public readonly ConsumableRecipeData[] consumableRecipeData;
+
+        [XmlArray("BuildingRecipes"), XmlArrayItem("BuildingRecipeData")]
+        public readonly BuildingRecipeData[] buildingRecipeData;
 	}
 
     [XmlRoot("EffectsRoot")]
@@ -174,6 +194,8 @@ public class DataHolder {
 
 	private UnitDataHolder unitDataHolder;
 
+    private BuildingDataHolder buildingDataHolder;
+
 	private WeaponDataHolder weaponDataHolder;
 
     private ArmorDataHolder armorDataHolder;
@@ -220,6 +242,8 @@ public class DataHolder {
 		{
 			instance.unitDataHolder = serializer.Deserialize(reader) as UnitDataHolder;
 		}
+
+       
 
         data = (TextAsset)Resources.Load("Data/abilitydata");
         serializer = new XmlSerializer(typeof(AbilityDataHolder));
@@ -284,10 +308,26 @@ public class DataHolder {
             instance.skillDataHolder = serializer.Deserialize(reader) as SkillDataHolder;
         }
 
+        data = (TextAsset)Resources.Load("Data/buildingdata");
+        serializer = new XmlSerializer(typeof(BuildingDataHolder));
+        using (StringReader reader = new System.IO.StringReader(data.text))
+        {
+            instance.buildingDataHolder = serializer.Deserialize(reader) as BuildingDataHolder;
+        }
+
         instance.initItemIcons();
         instance.initAbilityIcons();
+        instance.initCraftingBuildingRecipes();
 
 	}
+
+    private void initCraftingBuildingRecipes()
+    {
+        foreach (BuildingData data in buildingDataHolder.buildingData)
+        {
+            data.initRecipes();
+        }
+    }
 
     private void initItemIcons()
     {
@@ -464,6 +504,22 @@ public class DataHolder {
 		return null;
 	}
 
+    public RecipeData getItemRecipeData(string name)
+    {
+        foreach (EquipmentRecipeData data in recipeDataHolder.equipmentRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (MaterialRecipeData data in recipeDataHolder.materialRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (ConsumableRecipeData data in recipeDataHolder.consumableRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 
     public RecipeData getRecipeData(string name)
     {
@@ -476,6 +532,10 @@ public class DataHolder {
             if (data.name.Equals(name)) return data;
         }
         foreach (ConsumableRecipeData data in recipeDataHolder.consumableRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (BuildingRecipeData data in recipeDataHolder.buildingRecipeData)
         {
             if (data.name.Equals(name)) return data;
         }
@@ -501,7 +561,12 @@ public class DataHolder {
         {
             return recipeDataHolder.consumableRecipeData[recipeIndex];
         }
+        recipeIndex -= recipeDataHolder.consumableRecipeData.Length;
 
+        if (recipeIndex < recipeDataHolder.buildingRecipeData.Length)
+        {
+            return recipeDataHolder.buildingRecipeData[recipeIndex];
+        }
         return null;
     }
 
@@ -547,6 +612,20 @@ public class DataHolder {
     {
         return recipeDataHolder.consumableRecipeData;
     }
+
+    public BuildingRecipeData getBuildingRecipeData(string name)
+    {
+        foreach (BuildingRecipeData data in recipeDataHolder.buildingRecipeData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public BuildingRecipeData[] getBuildingRecipeData()
+    {
+        return recipeDataHolder.buildingRecipeData;
+    }
 	
 	
 	public ProjectileData getProjectileData(string name)
@@ -583,6 +662,37 @@ public class DataHolder {
     public AIUnitData getAIUnitData(string name)
     {
         foreach (AIUnitData data in unitDataHolder.aiUnitData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public BuildingData getBuildingData(string name)
+    {
+        foreach (BuildingData data in buildingDataHolder.buildingData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (TowerData data in buildingDataHolder.towerData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public BuildingData getJustBuildingData(string name)
+    {
+        foreach (BuildingData data in buildingDataHolder.buildingData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public TowerData getTowerData(string name)
+    {
+        foreach (TowerData data in buildingDataHolder.towerData)
         {
             if (data.name.Equals(name)) return data;
         }

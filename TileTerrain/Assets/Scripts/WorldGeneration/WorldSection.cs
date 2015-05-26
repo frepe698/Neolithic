@@ -283,7 +283,6 @@ public class WorldSection {
 			}
 		}
 
-        Color heightColor = new Color(0.1f, 0.1f, 0.1f);
         for (int y = 0; y < World.tileMap.sectionCount; y++ )
         {
             for (int x = 0; x < World.tileMap.sectionCount; x++)

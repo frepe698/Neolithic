@@ -37,7 +37,7 @@ public abstract class AbilityEffectData : ObjectData {
         modelIsSound = edit.modelIsSound;
     }
 
-    public abstract AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition);
+    public abstract AbilityEffect getAbilityEffect(Actor actor, Vector3 targetPosition);
 }
 
 public class HitDamage

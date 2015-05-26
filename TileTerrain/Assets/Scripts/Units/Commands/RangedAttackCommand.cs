@@ -19,12 +19,12 @@ public class RangedAttackCommand : Command {
 	public override void start ()
 	{
 
-		unit.setMoving(false);
-		attackTime = TRIGGER_TIME / unit.getAttackSpeed();
+		actor.setMoving(false);
+		attackTime = TRIGGER_TIME / actor.getAttackSpeed();
 		hasAttacked = false;
 		calculateRotation();
-		unit.playWeaponAttackAnimation(unit.getAttackSpeed());
-		unit.setAnimationRestart(unit.getAttackAnim(0), unit.getAttackSpeed());
+		actor.playWeaponAttackAnimation(actor.getAttackSpeed());
+		actor.setAnimationRestart(actor.getAttackAnim(0), actor.getAttackSpeed());
 	
 	}
 
@@ -36,11 +36,11 @@ public class RangedAttackCommand : Command {
 			attackTime -= Time.deltaTime;
 			if(attackTime <= 0) 
 			{
-				unit.playSound(unit.getAttackSound(0));
+				actor.playSound(actor.getAttackSound(0));
 				//unit.fireProjectile(target);
 				hasAttacked = true;
 
-                unit.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME)/unit.getAttackSpeed());
+                actor.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME)/actor.getAttackSpeed());
                 setCompleted();
 			}
 		}
@@ -48,8 +48,8 @@ public class RangedAttackCommand : Command {
 
 	private void calculateRotation()
 	{
-		Vector2 dir = (unit.get2DPos()-new Vector2(target.x, target.z)).normalized;
-		unit.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
+		Vector2 dir = (actor.get2DPos()-new Vector2(target.x, target.z)).normalized;
+		actor.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 		
 	}
 

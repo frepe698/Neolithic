@@ -236,7 +236,7 @@ public class ClientController : GameController {
         }
     }
 
-    public override void requestRemoveUnit(int unitID)
+    public override void requestRemoveActor(int unitID)
     {
         //do nada
     }

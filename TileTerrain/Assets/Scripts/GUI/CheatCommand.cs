@@ -3,14 +3,15 @@ using System.Collections;
 using System;
 
 public class CheatCommand {
-    private const string helpString = "Commands:\n!spawn (string aiUnitName)\n!give (string itemName, int amount = 1)\n!warp (float xpos, float ypos)"; 
+    private const string helpString = "Commands:\n!spawn (string aiUnitName)\n!give (string itemName, int amount = 1)\n!warp (float xpos, float ypos)\n!build (string buildingName)"; 
     private static readonly string[] commands = 
     {
         "spawn",
         "give",
         "warp",
         "help",
-        "addxp"
+        "addxp",
+        "build",
     };
 
     public const int SPAWN = 0;
@@ -18,6 +19,7 @@ public class CheatCommand {
     public const int WARP = 2;
     public const int HELP = 3;
     public const int ADDXP = 4;
+    public const int BUILD = 5;
 
     public static void sendCommandFromString(string str)
     {
@@ -60,6 +62,11 @@ public class CheatCommand {
             case (SPAWN):
                 {
                     if (substrings.Length > 1)  return new object[] { substrings[1]};
+                }
+                break;
+            case (BUILD):
+                {
+                    if (substrings.Length > 1) return new object[] { substrings[1] };
                 }
                 break;
             case (GIVE):
@@ -119,6 +126,20 @@ public class CheatCommand {
                     else
                     {
                         GameMaster.getGameController().recieveChatMessage(-1, "Couldn't find unitdata for " + (string)parameters[0]);
+                        return false;
+                    }
+                }
+            case (BUILD):
+                {
+                    if (parameters.Length != 1)
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Invalid parameters: string buildingName");
+                        return false;
+                    }
+                    if (DataHolder.Instance.getBuildingData((string)parameters[0]) != null) return true;
+                    else
+                    {
+                        GameMaster.getGameController().recieveChatMessage(-1, "Couldn't find buildingdata for " + (string)parameters[0]);
                         return false;
                     }
                 }

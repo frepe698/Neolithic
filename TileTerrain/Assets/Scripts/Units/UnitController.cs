@@ -6,8 +6,6 @@ public class UnitController : MonoBehaviour {
 
 	private int unitID;
 
-	private float animationEndTime;
-
     private List<GameObject> effectObjects;
 	
 	private Transform holdParentR;
@@ -24,7 +22,7 @@ public class UnitController : MonoBehaviour {
     };
 
 	private AudioSource audioSource;
-    private Collider collider;
+    private Collider myCollider;
     
 		
 	void Start () {
@@ -34,7 +32,7 @@ public class UnitController : MonoBehaviour {
 		audioSource.dopplerLevel = 0;
 		holdParentR = transform.FindChild("rig/hold.R");
 		holdParentL = transform.FindChild("rig/hold.L");
-        collider = GetComponent<Collider>();
+        myCollider = GetComponent<Collider>();
         
 	}
 
@@ -215,7 +213,7 @@ public class UnitController : MonoBehaviour {
         }
         GameObject go = Instantiate(prefab);
         go.transform.SetParent(transform);
-        go.transform.localPosition = position + new Vector3(0, collider.bounds.size.y, 0);
+        go.transform.localPosition = position + new Vector3(0, myCollider.bounds.size.y, 0);
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = new Vector3(1, 1, 1);
 
@@ -245,7 +243,7 @@ public class UnitController : MonoBehaviour {
         GameObject go = Instantiate(prefab);
         go.name = prefab.name;
         go.transform.SetParent(transform);
-        go.transform.localPosition = position + new Vector3(0, collider.bounds.size.y, 0);
+        go.transform.localPosition = position + new Vector3(0, myCollider.bounds.size.y, 0);
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = new Vector3(1, 1, 1);
         go.GetComponent<EffectController>().lifeTime = time;

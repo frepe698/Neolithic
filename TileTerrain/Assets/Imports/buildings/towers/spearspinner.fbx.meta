@@ -59,7 +59,7 @@ ModelImporter:
       name: chop_unarmed
       takeName: rig|attack
       firstFrame: 0
-      lastFrame: 26
+      lastFrame: 24
       wrapMode: 2
       orientationOffsetY: 0
       level: 0

@@ -18,11 +18,6 @@ public class DeadForestGround : GroundType {
 		"stick",
 		"stick",
 	};
-
-	private static readonly string[] eyecandyTypes = new string[]
-	{
-
-	};
 	
 	public override ResourceObject getRandomResource(Vector3 position)
 	{
@@ -70,11 +65,6 @@ public class DeadForestGround : GroundType {
 	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		return null;
-		int lootType = Random.Range(0, eyecandyTypes.Length);
-		
-		return new Eyecandy(position,
-		                          Quaternion.Euler(0, Random.value*360, 0),
-		                          eyecandyTypes[lootType]);
 	}
 	
 	public override int getTexture()

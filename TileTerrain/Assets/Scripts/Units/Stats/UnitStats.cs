@@ -5,23 +5,20 @@ using System;
 
 public class UnitStats {
 	
-	protected Unit unit;
+	protected Actor actor;
 	
 	private const int MAX_LEVEL = 100;
 	protected int level;
     private int skillLevel;
-	private int exp;
 	private readonly int skillsToLevel = 3;  //multiplied by level
 	
 	protected BaseStat[] stats;
 
 	
-	public UnitStats(Unit unit, int level, UnitData data){
+	public UnitStats(Actor actor, int level, UnitData data){
 		this.level = level;
-		this.unit = unit;
+		this.actor = actor;
         
-		exp = (int)getSkillsToLevel(level);
-		
 		stats = new BaseStat[] {
 				new Vital("Health", data.health, data.healthperlevel),
 				new Vital("Energy", (int)data.energy, 0),
@@ -51,11 +48,43 @@ public class UnitStats {
 				new BaseStat("Movespeed", (int)data.movespeed),
 				
 		};
-		
-		//updateStats();
-		//setVitals();	
-		
 	}
+
+    public UnitStats(Actor actor, int level, BuildingData data)
+    {
+        this.level = level;
+        this.actor = actor;
+
+        stats = new BaseStat[] {
+				new Vital("Health", data.health, data.healthperlevel),
+				new Vital("Energy", 0, 0),
+				new BaseStat("Armor", 0),
+				new BaseStat("Health regen", (int)data.lifegen),
+				new BaseStat("Energy regen", 0),
+                //Increased damage
+				new BaseStat("Increased Damage", 1),
+                new BaseStat("Melee Damage", 0),
+                new BaseStat("Tree Damage", 0),
+                new BaseStat("Stone Damage", 0),
+                new BaseStat("Ranged Damage", 0),
+                new BaseStat("Increased Light Power", 1),
+                new BaseStat("Increased Magic Damage", 1),
+                new BaseStat("Attackspeed", 0),
+
+                //Damage conversion
+                new BaseStat("TreeToAttack", 0),
+                new BaseStat("StoneToAttack", 0),
+
+                //Loot drop rate
+                new BaseStat("TreeDropAmount", 1),
+                new BaseStat("TreeDropRarity", 0),
+                new BaseStat("StoneDropAmount", 1),
+                new BaseStat("StoneDropRarity", 0),
+
+				new BaseStat("Movespeed", 0),
+				
+		};
+    }
 
 	public virtual void updateStats()
     {
@@ -65,17 +94,17 @@ public class UnitStats {
 		}
 
         //get damage from equiped weapon
-        if (unit.isMelee())
+        if (actor.isMelee())
         {
-            addToStat(Stat.MeleeDamage, unit.getBaseDamage(DamageType.COMBAT));
+            addToStat(Stat.MeleeDamage, actor.getBaseDamage(DamageType.COMBAT));
         }
         else
         {
-            addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
+            addToStat(Stat.RangedDamage, actor.getBaseDamage(DamageType.COMBAT));
         }
-        addToStat(Stat.Attackspeed, unit.getBaseAttackSpeed());
+        addToStat(Stat.Attackspeed, actor.getBaseAttackSpeed());
 
-        foreach (Buff buff in unit.getBuffs())
+        foreach (Buff buff in actor.getBuffs())
         {
             buff.applyStats(this);
         }
@@ -145,8 +174,8 @@ public class UnitStats {
         getHealth().setCurValue(getHealth().getValue());
         getEnergy().setCurValue(getEnergy().getValue());
         Debug.Log("You are now level " + level + "!");
-        unit.grantAbilityPoint();
-        unit.onLevelUp();
+        actor.grantAbilityPoint();
+        actor.onLevelUp();
     }
 
     public void resetVitals()

@@ -5,7 +5,7 @@ using Edit;
 
 public class AbilityCommand : Command {
 
-	private Unit target;
+	private Actor target;
 	private bool attacking;
 	private bool doneAllEffects;
 	private float attackTime;
@@ -21,15 +21,15 @@ public class AbilityCommand : Command {
 
     private List<DurationEffect> activeDurationEffects;
 	
-	public AbilityCommand(Unit unit, Unit target, Ability ability)
-        : base(unit)
+	public AbilityCommand(Actor actor, Actor target, Ability ability)
+        : base(actor)
 	{
 		this.target = target;
         init(target.getPosition(), ability);
 	}
 
-    public AbilityCommand(Unit unit, Vector3 attackPosition, Ability ability)
-        : base(unit)
+    public AbilityCommand(Actor actor, Vector3 attackPosition, Ability ability)
+        : base(actor)
     {
         this.target = null;
         init(attackPosition, ability);
@@ -47,26 +47,26 @@ public class AbilityCommand : Command {
         speedIncrease = 1;
         foreach (SpeedIncrease s in ability.data.speedIncreases)
         {
-            speedIncrease *= 1 + s.percent * (unit.getUnitStats().getStatV(s.stat)-1);
+            speedIncrease *= 1 + s.percent * (actor.getUnitStats().getStatV(s.stat)-1);
         }
     }
 	
 	public override void start ()
 	{
-        if (ability.data.totalTime <= float.Epsilon)
+        if (ability.data.totalTime <= float.Epsilon) //if total time is 0 do all effects and dont override command
         {
             foreach (AbilityEffectAndTime effect in ability.data.effects)
             {
-                DataHolder.Instance.getEffectData(effect.name).getAbilityEffect(unit, attackPosition).action(this);
+                DataHolder.Instance.getEffectData(effect.name).getAbilityEffect(actor, attackPosition).action(this);
             }
             ability.setCooldown();
-            GameMaster.getGameController().requestChangeEnergy(unit.getID(), -ability.getEnergyCost());
-            GameMaster.getGameController().requestChangeHealth(unit.getID(), -ability.getHealthCost());
-            unit.setCommandEndTime(Time.time + (ability.data.totalTime / unit.getAttackSpeed() - attackTime));
+            GameMaster.getGameController().requestChangeEnergy(actor.getID(), -ability.getEnergyCost());
+            GameMaster.getGameController().requestChangeHealth(actor.getID(), -ability.getHealthCost());
+            actor.setCommandEndTime(Time.time + (ability.data.totalTime / actor.getAttackSpeed() - attackTime));
         }
         else
         {
-            unit.setPath(destination);
+            actor.setPath(destination);
         }
 	}
 	
@@ -99,13 +99,13 @@ public class AbilityCommand : Command {
                         if (animation.weaponAttackAnimation)
                         {
                             float speed = speedIncrease * animation.speed;
-                            unit.playWeaponAttackAnimation(speed);
-                            unit.setAnimationRestart(unit.getAttackAnim(0), speed);
+                            actor.playWeaponAttackAnimation(speed);
+                            actor.setAnimationRestart(actor.getAttackAnim(0), speed);
                         }
                         else
                         {
                             float speed = speedIncrease * animation.speed;
-                            unit.setAnimationRestart(animation.name, speed);
+                            actor.setAnimationRestart(animation.name, speed);
                         }
                         lastPlayedAnimation++;
                     }
@@ -122,9 +122,9 @@ public class AbilityCommand : Command {
                         ability.setCooldown();
                         //unit.getUnitStats().getHealth().addCurValue(-ability.getHealthCost());
                         //unit.getUnitStats().getEnergy().addCurValue(-ability.getEnergyCost());
-                        GameMaster.getGameController().requestChangeEnergy(unit.getID(), -ability.getEnergyCost());
-                        GameMaster.getGameController().requestChangeHealth(unit.getID(), -ability.getHealthCost());
-                        unit.setCommandEndTime(Time.time + (ability.data.totalTime / unit.getAttackSpeed() - attackTime));
+                        GameMaster.getGameController().requestChangeEnergy(actor.getID(), -ability.getEnergyCost());
+                        GameMaster.getGameController().requestChangeHealth(actor.getID(), -ability.getHealthCost());
+                        actor.setCommandEndTime(Time.time + (ability.data.totalTime / actor.getAttackSpeed() - attackTime));
                     }
 
                     while (effect != null)
@@ -154,9 +154,9 @@ public class AbilityCommand : Command {
                 setCompleted();
             }
 		}
-		else if( Vector2.Distance(unit.get2DPos(), attackPosition) < ability.data.range) //TODO weapon range here
+		else if( Vector2.Distance(actor.get2DPos(), attackPosition) < ability.data.range)
 		{
-			unit.setMoving(false);
+			actor.setMoving(false);
 
 			attacking = true;
             attackTime = 0;
@@ -164,31 +164,35 @@ public class AbilityCommand : Command {
 			doneAllEffects = false;
 			calculateRotation();
 		}
-        else if(target != null)
+        else if (!actor.canMove())
+        {
+            setCompleted();
+        }
+        else if (target != null)
         {
             //Update target position to the targeted units position
             attackPosition = target.get2DPos();
             //if it entered a new tile update path
             if (target.getTile() != targetTile)
             {
-                if(Vector2i.getDistance(target.getTile(), unit.getTile()) > unit.getLineOfSight())
+                if (Vector2i.getDistance(target.getTile(), actor.getTile()) > actor.getLineOfSight())
                 {
                     setCompleted();
                     return;
                 }
                 destination = target.get2DPos();
-                unit.setPath(destination);
+                actor.setPath(destination);
             }
         }
 	}
 	
 	private void calculateRotation()
 	{
-		Vector2 dir = (unit.get2DPos()-attackPosition).normalized;
-		unit.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
+		Vector2 dir = (actor.get2DPos()-attackPosition).normalized;
+		actor.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 	}
 	
-	public Unit getTarget()
+	public Actor getTarget()
 	{
 		return target;
 	}
@@ -206,7 +210,7 @@ public class AbilityCommand : Command {
         if (data == null) return null;
 
         if (target != null) attackHeight = target.getPosition().y + 1;
-        return data.getAbilityEffect(unit, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
+        return data.getAbilityEffect(actor, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }
 
     public void addDurationEffect(DurationEffect effect)
@@ -234,10 +238,11 @@ public class AbilityCommand : Command {
     public override bool canStartOverride(Command command)
     {
         //Debug.Log("HP " + unit.getUnitStats().getCurHealth() + "EN " + unit.getUnitStats().getCurEnergy());
+
         return ability.isCool() 
-            && unit.getUnitStats().getCurHealth() > ability.data.healthCost 
-            && unit.getUnitStats().getCurEnergy() >= ability.data.energyCost
-            && (unit.getWeaponTags() & ability.data.tags) > 0
+            && actor.getUnitStats().getCurHealth() > ability.data.healthCost 
+            && actor.getUnitStats().getCurEnergy() >= ability.data.energyCost
+            && (actor.getWeaponTags() & ability.data.tags) > 0
             && !this.Equals(command)
             && ((command == null || command.canBeOverridden()) || canAlwaysStart());
     }

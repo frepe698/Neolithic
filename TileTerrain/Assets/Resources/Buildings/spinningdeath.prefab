@@ -59,7 +59,7 @@ GameObject:
   - 114: {fileID: 11410600}
   m_Layer: 0
   m_Name: spinningdeath
-  m_TagString: Unit
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

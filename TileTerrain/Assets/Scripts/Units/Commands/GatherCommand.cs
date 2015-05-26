@@ -12,8 +12,11 @@ public class GatherCommand : Command {
 	private float gatherTime;
 	private Vector2 resourcePosition;
 
+    private Unit unit;
+
 	public GatherCommand(Unit unit, ResourceObject resourceObject) : base(unit)
 	{
+        this.unit = unit;
 		this.resourceObject = resourceObject;
 		this.destination = resourceObject.get2DPos();
 		this.resourcePosition = this.destination;
@@ -21,7 +24,7 @@ public class GatherCommand : Command {
 
 	public override void start ()
 	{
-		unit.setPath(destination);
+		actor.setPath(destination);
 	}
 
 	public override void update()
@@ -36,43 +39,39 @@ public class GatherCommand : Command {
 					ResourceObject resource = World.tileMap.getTile(new Vector2i(resourceObject.get2DPos())).getResourceObject();
 					if(resource != null)
 					{
-						unit.playSound(unit.getAttackSound(resource.getDamageType()));
+						actor.playSound(actor.getAttackSound(resource.getDamageType()));
 					}
-					unit.gather(resourceObject);
+                    unit.gather(resourceObject);
 					hasGathered = true;
 
-                    unit.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME) / unit.getAttackSpeed());
+                    actor.setCommandEndTime(Time.time + (BASE_TIME - TRIGGER_TIME) / actor.getAttackSpeed());
                     setCompleted();
 				}
 			}
 		}
-		else if( Vector2.Distance(unit.get2DPos(), destination) < resourceObject.getActionRadius() )
+		else if( Vector2.Distance(actor.get2DPos(), destination) < resourceObject.getActionRadius() )
 		{
-
-			unit.setMoving(false);
+			actor.setMoving(false);
 			ResourceObject resObject = World.tileMap.getTile(new Vector2i(resourceObject.get2DPos())).getResourceObject();
 			if(resObject != null)
 			{
 				gathering = true;
-				gatherTime = TRIGGER_TIME / unit.getAttackSpeed();
+				gatherTime = TRIGGER_TIME / actor.getAttackSpeed();
 				hasGathered = false;
 				calculateRotation();
-				unit.setAnimationRestart(unit.getAttackAnim(resObject.getDamageType()), unit.getAttackSpeed());
+				actor.setAnimationRestart(actor.getAttackAnim(resObject.getDamageType()), actor.getAttackSpeed());
 			}
 			else
 			{
 				setCompleted();
 			}
-
-
-
 		}
 	}
 
 	private void calculateRotation()
 	{
-		Vector2 dir = (unit.get2DPos()-resourcePosition).normalized;
-		unit.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
+		Vector2 dir = (actor.get2DPos()-resourcePosition).normalized;
+		actor.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 
 	}
 

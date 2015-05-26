@@ -42,7 +42,7 @@ public class UnitSpawner {
                 if(World.tileMap.isValidTile(spawnPos) && World.tileMap.getTile(spawnPos).isWalkable(unitID))
                 {
                     AIUnit unit = new AIUnit(unitName, new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f), Vector3.zero, unitID, GameMaster.getAISpawnLevel());
-                    GameMaster.addUnit(unit);
+                    GameMaster.addActor(unit);
                     units.Add(unit);
                     unitsSpawned++;
                     unitID = GameMaster.getNextUnitID();
@@ -63,7 +63,7 @@ public class UnitSpawner {
     {
         foreach(Unit unit in units)
         {
-            GameMaster.removeUnit(unit);
+            GameMaster.removeActor(unit);
         }
         units = new List<Unit>();
     }
@@ -75,7 +75,7 @@ public class UnitSpawner {
         {
             if(!unit.isActive())
             {
-                GameMaster.removeUnit(unit);
+                GameMaster.removeActor(unit);
             }
             else
             {

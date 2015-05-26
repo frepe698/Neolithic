@@ -339,7 +339,7 @@
       <expAmount>200</expAmount>
       <requiredSkillLevel>2</requiredSkillLevel>
     </MaterialRecipeData>
-    <MaterialRecipeData name="craftFinewood" gameName="Fining wood treatment">
+    <MaterialRecipeData name="craftFinewood" gameName="Fining wood treatment" modelName="">
       <product>finewood</product>
       <ingredients>
         <Ingredient>
@@ -371,7 +371,7 @@
       <expAmount>150</expAmount>
       <requiredSkillLevel>5</requiredSkillLevel>
     </ConsumableRecipeData>
-    <ConsumableRecipeData name="craftHealthPotion" gameName="Small Health Potion">
+    <ConsumableRecipeData name="craftHealthPotion" gameName="Small Health Potion" modelName="">
       <product>smallhealthpotion</product>
       <ingredients>
         <Ingredient>
@@ -384,7 +384,7 @@
       <expAmount>150</expAmount>
       <requiredSkillLevel>0</requiredSkillLevel>
     </ConsumableRecipeData>
-    <ConsumableRecipeData name="craftSmallEnergyPotion" gameName="Small Energy Potion">
+    <ConsumableRecipeData name="craftSmallEnergyPotion" gameName="Small Energy Potion" modelName="">
       <product>smallenergypotion</product>
       <ingredients>
         <Ingredient>
@@ -397,7 +397,7 @@
       <expAmount>150</expAmount>
       <requiredSkillLevel>0</requiredSkillLevel>
     </ConsumableRecipeData>
-    <ConsumableRecipeData name="craftBerzerkerBrew" gameName="Berzerker Brew">
+    <ConsumableRecipeData name="craftBerzerkerBrew" gameName="Berzerker Brew" modelName="">
       <product>berzerkerbrew</product>
       <ingredients>
         <Ingredient>
@@ -419,4 +419,61 @@
       <requiredSkillLevel>4</requiredSkillLevel>
     </ConsumableRecipeData>
   </ConsumableRecipes>
+  <BuildingRecipes>
+    <BuildingRecipeData name="buildSpearspinner" gameName="Spear Spinner" modelName="">
+      <product>spearspinner</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stick</name>
+          <amount>4</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>flint</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>A wheel that fires piercing spears</description>
+      <skill>Building</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>4</requiredSkillLevel>
+    </BuildingRecipeData>
+    <BuildingRecipeData name="buildSpinningdeath" gameName="Spinning Death" modelName="">
+      <product>spinningdeath</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>4</amount>
+        </Ingredient>
+      </ingredients>
+      <description>A deadly spinning machine</description>
+      <skill>Building</skill>
+      <expAmount>200</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </BuildingRecipeData>
+    <BuildingRecipeData name="buildCampfire" gameName="Camp Fire" modelName="">
+      <product>campfire</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>5</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Burning logs surrounded by stones</description>
+      <skill>Building</skill>
+      <expAmount>100</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </BuildingRecipeData>
+  </BuildingRecipes>
 </RecipesRoot>

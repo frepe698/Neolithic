@@ -2,127 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Unit {
-
-	protected GameObject unit;
-	protected string unitName;
-    protected string modelName;
-	protected UnitController unitController;
-
-	protected Vector3 position;
-	protected Vector3 rotation;
-	protected Vector3 scale;
-
-	protected bool awake;
-	protected int lineOfSight;
-	protected bool hostile;
-
+public class Unit : Actor{
+	
 	//protected float maxHealth;
 	//protected float health;
 	protected float size;
 
-	protected int id;
+	
 	protected Vector2i destinationTile = new Vector2i();
 	protected Vector2 destination;
 	protected bool moving;
 	protected Path path;
-	protected Vector2i tile;
 
     protected const float BASE_MOVESPEED = 4;
 	//protected float movespeed = 4;
 	protected float speedMult = 1;
 	protected float moveSensitivity = 0.1f;
 	
-	protected Command command;
-    protected string lastCommand = "nothing";
-    protected float commandEndTime;
-	protected bool alive = true;
+	protected const float LOOT_TIME = 0.25f;
 
-	protected float gatherTime = 0.8f;
-	protected float lootTime = 0.25f;
-
-
-    protected UnitStats unitstats;
-    protected List<Buff> buffs;
-
-    protected List<Ability> abilities;
-	
-	private AudioSource audio;
-	
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id) 
+        : base(unit, position, rotation, id)
 	{
-		this.unitName = unit;
-		this.position = position;
-		this.rotation = rotation;
-		this.scale = new Vector3(1,1,1);
-		this.id = id;
-
-        this.buffs = new List<Buff>();
-        abilities = new List<Ability>();
 	}
 
-	public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale) 
-	{
-		this.unitName = unit;
-		this.position = position;
-		this.rotation = rotation;
-		this.scale = scale;
-		this.id = id;
-
-        this.buffs = new List<Buff>();
-        abilities = new List<Ability>();
-	}
-
-    public void init()
+    public Unit(string unit, Vector3 position, Vector3 rotation, int id, Vector3 scale)
+        : base(unit, position, rotation, id, scale)
     {
-        tile = new Vector2i(get2DPos());
-        World.tileMap.getTile(tile).addUnit(this);
     }
-	public virtual void activate()
-	{
-		if(isActive()) return; // already active
-		this.unit = ObjectPoolingManager.Instance.GetObject(modelName);
-		if(unit == null) return; //Object pool was full and no more objects are available
 
-		ground();
-		unit.transform.position = position;
-		unit.transform.eulerAngles = rotation;
-		//unit.transform.localScale = scale;
-		this.unitController = unit.GetComponent<UnitController>();
-		unitController.setID(id);
-		//audio = unit.AddComponent<AudioSource>();
-		//audio.minDistance = 4;
-		//audio.maxDistance = 15;
-		//audio.dopplerLevel = 0;
-	}
-
-	public virtual void setAwake(bool awake)
-	{
-		this.awake = awake;
-	}
-
-	public bool isAwake()
-	{
-		return this.awake;
-	}
-
-
-
-	public virtual bool inactivate()
-	{
-		if(!isActive()) return false; //Already inactive
-		ObjectPoolingManager.Instance.ReturnObject(modelName, unit);		
-		unit = null;
-		unitController = null;
-        return true;
-	}
-
-	public virtual void updateAI()
-	{
-
-	}
-	
-	public void update ()
+	public override void update ()
 	{
 		if(awake == false) 
 		{
@@ -199,8 +108,8 @@ public class Unit {
 					}
 					else
 					{
-						World.tileMap.getTile(tile).removeUnit(this);
-						World.tileMap.getTile(newTile).addUnit(this);
+						World.tileMap.getTile(tile).removeActor(this);
+						World.tileMap.getTile(newTile).addActor(this);
 						
 						
 					}
@@ -225,57 +134,21 @@ public class Unit {
         updateBuffs();
 	}
 
-    public void move(Vector2 amount)
-    {
-        Vector3 newPos = position + new Vector3(amount.x, 0, amount.y);
-        Vector2i newTile = new Vector2i(newPos);
-        if (newTile != tile)
-        {
 
-            World.tileMap.getTile(tile).removeUnit(this);
-            World.tileMap.getTile(newTile).addUnit(this);
-        }
-        tile = newTile;
-        position = newPos;
-        ground();
-    }
 
 	protected virtual void updateTransform()
 	{
 		if(!isActive()) return;
 
-		unit.transform.position = this.position;
+        gameObject.transform.position = this.position;
         
         Quaternion target = Quaternion.Euler(this.rotation);
-        Quaternion current = unit.transform.rotation;
+        Quaternion current = gameObject.transform.rotation;
         Quaternion newAngle = Quaternion.RotateTowards(current, target, 1080*Time.deltaTime);
-        unit.transform.rotation = newAngle;
-
-		//unit.transform.localScale = this.scale;
-
+        gameObject.transform.rotation = newAngle;
 	}
 	
-	public int getID()
-	{
-		return id;
-	}
-
-	public void setID(int id)
-	{
-		this.id = id;
-	}
-
-    public void setCommandEndTime(float time)
-    {
-        commandEndTime = time;
-    }
-
-	public void giveCommand(Command command)
-	{
-		this.command = command;
-        this.lastCommand = command.getName();
-		this.command.start ();
-	}
+    
 	
 	public void giveMoveCommand(Vector2 point)
 	{
@@ -302,55 +175,7 @@ public class Unit {
 		command.start();
 	}
 
-   
-
-    public virtual Ability getBasicAttack()
-    {
-        return null;
-    }
-
-	public void giveAttackCommand(Unit target)
-	{
-		if(target == null) return;
-		command = new AbilityCommand(this, target, getBasicAttack());
-        this.lastCommand = command.getName();
-        command.start();
-	}
-
-    public void giveAttackCommand(Vector3 target)
-    {
-        if (target == null) return;
-        command = new AbilityCommand(this, target, getBasicAttack());
-        this.lastCommand = command.getName();
-        command.start();
-    }
-
-
-    public void giveAbilityCommand(Unit target, int ability)
-    {
-        if (target == null) return;
-        
-        Ability ab = abilities[ability];
-        AbilityCommand newCommand = new AbilityCommand(this, target, ab);
-        if (ab.data.totalTime > float.Epsilon)
-        {
-            command = newCommand;
-            this.lastCommand = command.getName();
-        }
-        newCommand.start();
-    }
-
-    public void giveAbilityCommand(Vector3 target, int ability)
-    {
-        Ability ab = abilities[ability];
-        AbilityCommand newCommand = new AbilityCommand(this, target, ab);
-        if (ab.data.totalTime > float.Epsilon)
-        {
-            command = newCommand;
-            this.lastCommand = command.getName();
-        }
-        newCommand.start();
-    }
+    
 
 	public void giveLootCommand(Vector2i targetTile, int lootID)
 	{
@@ -367,39 +192,9 @@ public class Unit {
         command.start();
 	}
 
-    public bool canStartCommand(Command command)
-    {
-        //if (command.canAlwaysStart()) return true;
-        //if (this.command != null && !this.command.canBeOverridden()) return false;
-        //if (command.canAlmostAlwaysStart()) return true;
-        if (!command.canStartOverride(this.command)) { return false; Debug.Log("cant override"); }
-        if(this.lastCommand.Equals(command.getName()))
-            return Time.time >= commandEndTime;
-        return true;
-    }
 
-    public bool canOverrideCurrentCommand()
-    {
-        if (this.command == null) return true;
-        else return this.command.canBeOverridden();
-    }
 	
-	public bool currentCommandEquals(Command command)
-	{
-		return commandEquals(command, this.command);
-	}
-	
-	private void setCommand(Command command)
-	{
-		this.command = command;
-	}
-
-    public Command getCommand()
-    {
-        return command;
-    }
-	
-	protected void ground()
+	protected override void ground()
 	{
 		RaycastHit hit;
 		if(Physics.Raycast(position + Vector3.up*50, Vector3.down, out hit, Mathf.Infinity , 1 << 8))
@@ -409,15 +204,15 @@ public class Unit {
 		}
 	}
 	
-	public void setPath(Vector2 point)
+	public override bool setPath(Vector2 point)
 	{
         float deltaMove = Time.deltaTime * getAdjustedMovespeed();
 		
-		if(Vector2.Distance(point, get2DPos()) < deltaMove)
+		if(Vector2.Distance(point, get2DPos()) < deltaMove) //distance to target pos is to small
 		{
 			Vector2 dir = (point-get2DPos()).normalized;
             setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
-			return;
+			return false;
 		}
 
         if (Pathfinder.getClosestWalkablePoint(World.tileMap, point, get2DPos(), out point, id))
@@ -468,24 +263,12 @@ public class Unit {
             moving = false;
             command = null;
         }
+        return true;
 	}
 	
-	public Vector2 get2DPos()
-	{
-		return new Vector2(position.x, position.z);
-	}
 	
-	public Vector2i getTile()
-	{
-        return tile;
-	}
-
-	public void setPosition(Vector3 position)
-	{
-		this.position = position;
-	}
 	
-	public void setMoving(bool moving)
+	public override void setMoving(bool moving)
 	{
 		this.moving = moving;
 	}
@@ -495,10 +278,6 @@ public class Unit {
 		GameMaster.getGameController().requestGather(id, new Vector2i(resourceObject.getPosition()));
 	}
 
-	public void attack(Unit target)
-	{
-		GameMaster.getGameController().requestAttack(id, target.getID());
-	}
 
 	/*public void fireProjectile(Vector3 target)
 	{
@@ -510,92 +289,11 @@ public class Unit {
 		GameMaster.getGameController().requestLoot(id, new Vector2i(lootableObject.get2DPos().x, lootableObject.get2DPos().y), lootableObject.getID());
 	}
 
-    public void warp(WarpObject warpObject)
-    {
-        GameMaster.getGameController().requestWarp(id, new Vector2i(warpObject.get2DPos()));
-    }
+   
 
-	public Vector3 getPosition()
-	{
-		return position;
-	}
-
-	public void warp(Vector2 position)
-	{
-        World.tileMap.getTile(tile).removeUnit(this);
-		this.position = new Vector3(position.x, World.getHeight(new Vector2(position.x, position.y)), position.y);
-        
-        Vector2i newTile = new Vector2i(this.position.x, this.position.z);
-        World.tileMap.getTile(newTile).addUnit(this);
-        tile = newTile;
-        //ground();
-	}
-
-	public Vector3 getRotation()
-	{
-		return rotation;
-	}
-
-	public void setRotation(Vector3 rotation)
-	{
-		this.rotation = rotation;
-	}
-
-	public virtual void playWeaponAttackAnimation(float speed = 1)
-	{
-		return;
-	}
-
-	public void setAnimation(string animation, float speed = 1)
-	{
-		if(isActive()) unitController.setAnimation(animation, speed);
-	}
-	
-	public void setAnimationRestart(string animation, float speed = 1)
-	{
-		if(isActive()) unitController.setAnimationRestart(animation, speed);
-	}
-	
-	public void playSound(string sound)
-	{
-		if(!isActive()) return;
-		unitController.playSound(sound);
-	}
-	
-	private bool commandEquals(Command c1, Command c2)
-	{
-		if(c1 == null || c2 == null) return false;
-		return c1.Equals(c2);
-	}
-
-    public virtual float getBaseAttackSpeed()
-    {
-        return gatherTime;
-    }
-	
-	public virtual float getAttackSpeed()
-	{
-		return gatherTime;
-	}
-	
 	public virtual float getLootTime()
 	{
-		return lootTime;
-	}
-	
-	public virtual int getDamage(int damageType)
-	{
-		return 0;
-	}
-
-    public virtual int getBaseDamage(int damageType)
-    {
-        return 0;
-    }
-	
-	public virtual string getIdleAnim()
-	{
-		return null;
+		return LOOT_TIME;
 	}
 	
 	public virtual string getRunAnim()
@@ -607,63 +305,8 @@ public class Unit {
 	{
 		return null;
 	}
-	
-	public virtual string getAttackAnim(int damageType)
-	{
-		return null;
-	}
-	
-	public virtual string getAttackSound(int damageType)
-	{
-		return "punch01";
-	}
 
-	public bool isActive()
-	{
-		return (unit != null && unit.activeSelf == true);
-		
-	}
-
-	public bool isHostile()
-	{
-		return hostile;
-	}
-
-	public void setHostile(bool hostile)
-	{
-		this.hostile = hostile;
-	}
-
-	public override bool Equals(object other)
-	{
-		Unit otherUnit = other as Unit;
-		if(otherUnit == null) return false;
-		return otherUnit.getID() == id;
-	}
-
-	public override int GetHashCode()
-	{
-		return id;
-	}
-
-	public virtual void takeDamage(int damage, int dealerID)
-	{
-        //TODO:(kanske) move damage reduction to server side
-        float reducedDamage = Mathf.Max(1, damage - unitstats.getStatV(Stat.Armor));
-        unitstats.getHealth().addCurValue(-reducedDamage);
-
-        if (isActive())
-        {
-            ParticleSystem particles = ParticlePoolingManager.Instance.GetObject("bloodParticles");
-            if (particles != null)
-            {
-                particles.transform.position = new Vector3(position.x, position.y + 1, position.z);
-                particles.Play();
-            }
-        }
-	}
-
-	public void heal(int heal)
+	public override void heal(int heal)
 	{
 		//this.health += heal;
         unitstats.getHealth().addCurValue(heal);
@@ -680,65 +323,10 @@ public class Unit {
         return getMovespeed() * speedMult;
     }
 
-	public float getHealth()
-	{
-		//return this.health;
-        return unitstats.getHealth().getCurValue();
-	}
-
-	public float getMaxHealth()
-	{
-		//return this.maxHealth;
-        return unitstats.getHealth().getValue();
-	}
-
-	public void setAlive(bool alive)
-	{
-		this.alive = alive;
-	}
-
-	public bool isAlive()
-	{
-		return alive;
-	}
-
-
-
-
-	public string getName()
-	{
-		return unitName;
-	}
-
-	public int getLineOfSight()
-	{
-		return lineOfSight;
-	}
-
-	public virtual string getProjectileName()
-	{
-		return "woodenArrow"; // TODO ingen läser de här men fixa skiten
-	}
-
-	public virtual bool isMelee()
-	{
-		return false;
-	}
-
-	public float getSize()
+	public override float getSize()
 	{
 		return size;
 	}
-
-    public virtual int getTeam()
-    {
-        return 0;
-    }
-
-    public UnitStats getUnitStats()
-    {
-        return unitstats;
-    }
 
     public virtual ArmorData[] getEquipedArmor()
     {
@@ -755,150 +343,10 @@ public class Unit {
 
     }
 
-    public void onLevelUp()
-    {
-        if (isActive())
-        {
-            ParticleSystem particles = ParticlePoolingManager.Instance.GetObject("levelupParticles");
-            if (particles != null)
-            {
-                particles.transform.position = new Vector3(position.x, position.y, position.z);
-                particles.Play();
-            }
-
-            unitController.playSound("levelup");
-        }
-    }
-
-    public virtual void grantAbilityPoint()
-    {
-        //do nada
-    }
 
     
-    public virtual void addAbility(string ability)
+    public override bool canMove()
     {
-        abilities.Add(new Ability(ability, this));
+        return true;
     }
-
-
-    public Ability getAbility(int ability)
-    {
-        return abilities[ability];
-    }
-
-    public bool hasAbility(int ability)
-    {
-        return ability < abilities.Count;
-    }
-
-    private void updateAbilities()
-    {
-        foreach(Ability a in abilities)
-        {
-            a.update();
-        }
-    }
-
-    public virtual int getWeaponTags()
-    {
-        return int.MaxValue;
-    }
-
-    public virtual int getFavour()
-    {
-        return 0;
-    }
-
-    public void addToStat(Stat stat, float value)
-    {
-        //Debug.Log("add to stat " + stat.ToString());
-        unitstats.addToStat(stat, value);
-    }
-
-    public void addMultiplierToStat(Stat stat, float value)
-    {
-        //Debug.Log("add to stat " + stat.ToString());
-        unitstats.addMultiplierToStat(stat, value);
-    }
-
-    public void addBuff(Buff buff)
-    {
-        buffs.Add(buff);
-        unitstats.updateStats();
-    }
-
-    public void removeBuff(Buff buff)
-    {
-        buffs.Remove(buff);
-        unitstats.updateStats();
-
-    }
-
-    public void updateBuffs()
-    {
-        for (int i = 0; i < buffs.Count; i++)
-        {
-            Buff buff = buffs[i];
-            buff.update();
-            if (buff.isFinished())
-            {
-                buff.remove();
-                i--;
-            }
-        }
-    }
-
-    public List<Buff> getBuffs()
-    {
-        return buffs;
-    }
-
-    public GameObject addEffectObject(GameObject prefab, Vector3 position)
-    {
-        if (isActive())
-        {
-            return unitController.addEffectObject(prefab, position);
-        }
-        return null;
-    }
-    public GameObject addEffectObject(GameObject prefab, Vector3 position, float time)
-    {
-        if (isActive())
-        {
-            return unitController.addEffectObject(prefab, position, time);
-        }
-        return null;
-    }
-
-    public Unit findClosestEnemy(int radius)
-    {
-        float dist = 99999;
-        Unit closestUnit = null;
-        for (int x = tile.x - lineOfSight; x < tile.x + lineOfSight + 1; x++)
-        {
-            for (int y = tile.y - lineOfSight; y < tile.y + lineOfSight + 1; y++)
-            {
-                if (!World.getMap().isValidTile(x, y)) continue;
-                Tile checkTile = World.getMap().getTile(x, y);
-                if (checkTile.containsUnits() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
-                {
-
-                    foreach (Unit unit in checkTile.getUnits())
-                    {
-                        if (unit.getID() == id || unit.getTeam() == getTeam()) continue;
-
-                        float newDist = Vector2.Distance(get2DPos(), unit.get2DPos());
-                        if (newDist < dist)
-                        {
-                            closestUnit = unit;
-                            dist = newDist;
-                        }
-                    }
-                }
-            }
-        }
-        return closestUnit;
-    }
-
 }

@@ -12,8 +12,8 @@ public class GameMaster : MonoBehaviour {
 	
 	public static Dictionary<int, int> playerToUnitID = new Dictionary<int, int>();
 	static List<Hero> heroes = new List<Hero>();
-	static List<Unit> units = new List<Unit>();
-	static List<Unit> awakeUnits = new List<Unit>();
+	static List<Actor> actors = new List<Actor>();
+	static List<Actor> awakeActors = new List<Actor>();
     static List<UnitSpawner> daySpawners = new List<UnitSpawner>();
     static List<UnitSpawner> nightSpawners = new List<UnitSpawner>();
 
@@ -137,18 +137,18 @@ public class GameMaster : MonoBehaviour {
 		gameController.update();
         mode.update();
         
-		for(int i = 0; i < units.Count; i++)
+		for(int i = 0; i < actors.Count; i++)
 		{
-			Unit unit = units[i];
-			if(!unit.isAlive())
+			Actor actor = actors[i];
+			if(!actor.isAlive())
 			{
-                removeUnit(unit);
+                removeActor(actor);
                 i--;
                 
 			}
 			else
 			{
-				unit.update();
+				actor.update();
 			}
 		}
         for (int i = 0; i < heroes.Count; i++ )
@@ -249,31 +249,31 @@ public class GameMaster : MonoBehaviour {
 	public void updateAI()
 	{
         
-		foreach(Unit unit in awakeUnits)
+		foreach(Actor actor in awakeActors)
 		{
-			unit.updateAI();
+			actor.updateAI();
 		}
 	}
 
 	private void updateAwakeUnits()
 	{
         
-		for(int i = 0; i < awakeUnits.Count; i++)
+		for(int i = 0; i < awakeActors.Count; i++)
 		{
-			Unit unit = awakeUnits[i];
+			Actor actor = awakeActors[i];
 			bool awake = false;
 			foreach(Unit hero in heroes)
 			{
-				if(Vector2i.getLongestAxis(unit.getTile(), hero.getTile()) < AWAKE_RADIUS)
+                if (Vector2i.getLongestAxis(actor.getTile(), hero.getTile()) < AWAKE_RADIUS)
 				{
 					awake = true;
 				}
 			}
-			unit.setAwake(awake);
-			if(unit.isAwake() == false)
+            actor.setAwake(awake);
+            if (actor.isAwake() == false)
 			{
-				awakeUnits.Remove (unit);
-				unit.inactivate();
+                awakeActors.Remove(actor);
+                actor.inactivate();
 				i--;
 			}
 
@@ -289,10 +289,10 @@ public class GameMaster : MonoBehaviour {
 					if(!World.getMap().isValidTile(x,y)) continue;
 
 					Tile curTile = World.getMap().getTile(x,y);
-					foreach(Unit unit in curTile.getUnits ())
+					foreach(Actor actor in curTile.getActors ())
 					{
-						unit.setAwake(true);
-						if(!awakeUnits.Contains(unit)) awakeUnits.Add(unit);
+						actor.setAwake(true);
+						if(!awakeActors.Contains(actor)) awakeActors.Add(actor);
 					}
 				}
 			}
@@ -485,12 +485,6 @@ public class GameMaster : MonoBehaviour {
         if (nightSpawners == null || nightSpawners.Count == 0) return 0;
         return nightSpawners[nightSpawners.Count - 1].getID() + 1;
     }
-    
-
-	private void spawnHeroesNew()
-	{
-
-	}
 	
 	public static Hero getHero(int id)
 	{
@@ -509,58 +503,58 @@ public class GameMaster : MonoBehaviour {
 		return hero;
 	}
 
-	public static Unit getUnit(int id)
+	public static Actor getActor(int id)
 	{
-		foreach(Unit u in units)
+		foreach(Actor a in actors)
 		{
-			if(u.getID () == id)
+			if(a.getID () == id)
 			{
-				return u;
+				return a;
 			}
 		}
 		return null;
 	}
 
-	public List<Unit> getUnits()
+	public List<Actor> getActors()
 	{
-		return units;
+		return actors;
 	}
 
-	public static void addUnit(Unit unit)
+	public static void addActor(Actor actor)
 	{
-		units.Add(unit);
+		actors.Add(actor);
 	}
 
-    public static void addAwakeUnit(Unit unit)
+    public static void addAwakeActor(Actor actor)
     {
-        units.Add(unit);
-        unit.setAwake(true);
-        awakeUnits.Add(unit);
+        actors.Add(actor);
+        actor.setAwake(true);
+        awakeActors.Add(actor);
     }
 
     public static void addHero(Hero hero)
     {
         heroes.Add(hero);
-        units.Add(hero);
+        actors.Add(hero);
         hero.activate();
     }
 
-	public static void removeUnit(Unit unit)
+	public static void removeActor(Actor actor)
 	{
-        if (unit == null) return;
+        if (actor == null) return;
         //Fix: if a unit is "afk" and you shoot it with an arrow, this function checks a tile outside of the map
-        if (!World.getMap().getTile(unit.getTile()).removeUnit(unit)) Debug.LogError("Did not remove unit from tile");
-        unit.setAlive(false);
-		unit.setAwake(false);
-		unit.inactivate();
+        if (!World.getMap().getTile(actor.getTile()).removeActor(actor)) Debug.LogError("Did not remove unit from tile");
+        actor.setAlive(false);
+		actor.setAwake(false);
+		actor.inactivate();
 
-        Hero hero = unit as Hero;
+        Hero hero = actor as Hero;
         if (hero != null && !hero.isWaitingRespawn())
         {
             gameController.requestHeroStartRespawn(hero.getID());
         }
-        bool removedFromUnits = units.Remove(unit);
-		bool removedFromAwake = awakeUnits.Remove(unit);
+        bool removedFromUnits = actors.Remove(actor);
+		bool removedFromAwake = awakeActors.Remove(actor);
         if (removedFromAwake && !removedFromUnits) Debug.LogError("only removed unit from awake list");
 
         /*Hero hero = unit as Hero;
@@ -588,8 +582,8 @@ public class GameMaster : MonoBehaviour {
                 hero.setAwake(true);
                 hero.activate();
                 hero.respawn();
-                units.Insert(hero.getID(),hero);
-                awakeUnits.Add(hero);
+                actors.Insert(hero.getID(),hero);
+                awakeActors.Add(hero);
             }
         }
         
@@ -598,8 +592,8 @@ public class GameMaster : MonoBehaviour {
 
 	public static int getNextUnitID()
 	{
-		if(units == null || units.Count == 0) return 0;
-		return units[units.Count-1].getID()+1;
+		if(actors == null || actors.Count == 0) return 0;
+		return actors[actors.Count-1].getID()+1;
 	}
 	
 	public NetworkView getNetView()
@@ -726,7 +720,7 @@ public class GameMaster : MonoBehaviour {
 
 	public static void addProjectile(int unitID, Vector3 goal, string projectileName, string dataName)
 	{
-		Vector3 start = getUnit(unitID).getPosition() + Vector3.up;
+		Vector3 start = getActor(unitID).getPosition() + Vector3.up;
 		ProjectileData data = DataHolder.Instance.getProjectileData(projectileName);
         if (data == null) return;
 		float speed = data.speed;
@@ -758,8 +752,8 @@ public class GameMaster : MonoBehaviour {
         TimeManager.removeInstance();
 
         heroes.Clear();
-	    units.Clear();
-	    awakeUnits.Clear();
+	    actors.Clear();
+	    awakeActors.Clear();
 
 	    projectiles.Clear();
         hero = null;

@@ -37,8 +37,6 @@ public class SkillManager {
         new Skill("woodchopping", this)};
     }
 
-    private int totalLevels = 0;
-
     private void onSkillsUpdated()
     {
         if (onSkillsUpdatedListener != null)

@@ -35,7 +35,7 @@ public class HeroStats : UnitStats {
         }
 
         //get stats from equiped armor
-        ArmorData[] armor = unit.getEquipedArmor();
+        ArmorData[] armor = hero.getEquipedArmor();
         foreach (ArmorData a in armor)
         {
             if (a == null) continue;
@@ -44,19 +44,19 @@ public class HeroStats : UnitStats {
         }
 
         //get damage from equiped weapon
-        if (unit.isMelee())
+        if (actor.isMelee())
         {
-            addToStat(Stat.MeleeDamage, unit.getBaseDamage(DamageType.COMBAT));
-            addToStat(Stat.TreeDamage, unit.getBaseDamage(DamageType.TREE));
-            addToStat(Stat.StoneDamage, unit.getBaseDamage(DamageType.STONE));
+            addToStat(Stat.MeleeDamage, actor.getBaseDamage(DamageType.COMBAT));
+            addToStat(Stat.TreeDamage, actor.getBaseDamage(DamageType.TREE));
+            addToStat(Stat.StoneDamage, actor.getBaseDamage(DamageType.STONE));
         }
         else
         {
-            addToStat(Stat.RangedDamage, unit.getBaseDamage(DamageType.COMBAT));
+            addToStat(Stat.RangedDamage, actor.getBaseDamage(DamageType.COMBAT));
         }
-        addToStat(Stat.Attackspeed, unit.getBaseAttackSpeed());
+        addToStat(Stat.Attackspeed, actor.getBaseAttackSpeed());
 
-        foreach (Buff buff in unit.getBuffs())
+        foreach (Buff buff in actor.getBuffs())
         {
             StatBuff statBuff = buff as StatBuff;
             if (statBuff == null)

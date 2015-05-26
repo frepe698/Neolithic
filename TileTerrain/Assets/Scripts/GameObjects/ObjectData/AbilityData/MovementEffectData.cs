@@ -16,8 +16,8 @@ public class MovementEffectData : AbilityEffectData {
         travelTime = edit.travelTime;
     }
 
-    public override AbilityEffect getAbilityEffect(Unit unit, Vector3 targetPosition)
+    public override AbilityEffect getAbilityEffect(Actor actor, Vector3 targetPosition)
     {
-        return new MovementEffect(name, unit, targetPosition, this);
+        return new MovementEffect(name, actor, targetPosition, this);
     }
 }

@@ -87,30 +87,30 @@ public class Hero : Unit {
 
         respawnPosition = get2DPos();
         tile = new Vector2i(get2DPos());
-        World.tileMap.getTile(tile).addUnit(this);
+        World.tileMap.getTile(tile).addActor(this);
 		activate();
 	}
 
 	public override void activate()
 	{
 		if(isActive()) return; // already active
-		this.unit = ObjectPoolingManager.Instance.GetObject(unitName);
-		if(unit == null) return; //Object pool was full and no more objects are available
+		this.gameObject = ObjectPoolingManager.Instance.GetObject(name);
+        if (gameObject == null) return; //Object pool was full and no more objects are available
 		
 		ground();
-		unit.transform.position = position;
-		unit.transform.eulerAngles = rotation;
-		unit.transform.localScale = scale;
-		this.unitController = unit.GetComponent<UnitController>();
+        gameObject.transform.position = position;
+        gameObject.transform.eulerAngles = rotation;
+        gameObject.transform.localScale = scale;
+        this.unitController = gameObject.GetComponent<UnitController>();
 		unitController.setID(id);
 		unitController.setWeapon(heldItem);
 
         foreach (ArmorData armor in equipedArmor)
         {
             if(armor != null) 
-                unitController.equipArmor(unitName, armor);
+                unitController.equipArmor(name, armor);
         }
-        unit.gameObject.tag = colliderActive ? "Unit" : "Player";
+        gameObject.tag = colliderActive ? "Unit" : "Player";
         //unit.GetComponent<Collider>().enabled = colliderActive;
 	}
 
@@ -171,7 +171,7 @@ public class Hero : Unit {
         if (newItemData is WeaponData)
         {
             heldItem = (WeaponData)newItemData;
-            if (isActive()) unit.GetComponent<UnitController>().setWeapon(heldItem);
+            if (isActive()) gameObject.GetComponent<UnitController>().setWeapon(heldItem);
         }
         else if (newItemData is ArmorData)
         {
@@ -179,12 +179,12 @@ public class Hero : Unit {
             if (equip)
             {
                 equipedArmor[data.armorType] = data;
-                if (isActive()) unit.GetComponent<UnitController>().equipArmor(unitName, data);
+                if (isActive()) gameObject.GetComponent<UnitController>().equipArmor(name, data);
             }
             else //unequip
             {
                 equipedArmor[data.armorType] = null;
-                if (isActive()) unit.GetComponent<UnitController>().unequipArmor(data.armorType);
+                if (isActive()) gameObject.GetComponent<UnitController>().unequipArmor(data.armorType);
             }
         }
         //Update stats
@@ -196,13 +196,13 @@ public class Hero : Unit {
         if (itemData is WeaponData)
         {
             heldItem = (WeaponData)itemData;
-            if (isActive()) unit.GetComponent<UnitController>().setWeapon(heldItem);
+            if (isActive()) gameObject.GetComponent<UnitController>().setWeapon(heldItem);
         }
         else if (itemData is ArmorData)
         {
             ArmorData data = (ArmorData)itemData;
             equipedArmor[data.armorType] = data;
-            if (isActive()) unit.GetComponent<UnitController>().equipArmor(unitName, data);
+            if (isActive()) gameObject.GetComponent<UnitController>().equipArmor(name, data);
         }
         //Update stats
         unitstats.updateStats();
@@ -402,7 +402,7 @@ public class Hero : Unit {
         if (isActive())
         {
             //unit.GetComponent<Collider>().enabled = colliderActive;
-            unit.gameObject.tag = activate ? "Unit" : "Player";
+            gameObject.tag = activate ? "Unit" : "Player";
         }
     }
 
@@ -457,6 +457,21 @@ public class Hero : Unit {
     public SkillManager getSkillManager()
     {
         return skillManager;
+    }
+
+    public override void onLevelUp()
+    {
+        if (isActive())
+        {
+            ParticleSystem particles = ParticlePoolingManager.Instance.GetObject("levelupParticles");
+            if (particles != null)
+            {
+                particles.transform.position = new Vector3(position.x, position.y, position.z);
+                particles.Play();
+            }
+
+            unitController.playSound("levelup");
+        }
     }
 
     public override void grantAbilityPoint()

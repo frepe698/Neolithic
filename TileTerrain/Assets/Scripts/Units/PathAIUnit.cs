@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PathAIUnit : AIUnit
 {
     private List<WorldPoint> waypoints;
-    private Vector2 destination;
+    private Vector2 wpDestination;
     private int enemyBase;
 
     private Vector2i roadPos;
@@ -22,8 +22,8 @@ public class PathAIUnit : AIUnit
         this.waypoints = new List<WorldPoint>(waypoints);
         if (this.waypoints.Count > 0) popLastWaypoint();
         
-        destination = popLastWaypoint();
-        GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+        wpDestination = popLastWaypoint();
+        GameMaster.getGameController().requestMoveCommand(getID(), wpDestination.x, wpDestination.y);
         justGotCommandTimer = 0.2f;
         followingRoad = false;
         roadPos = getTile();
@@ -39,13 +39,13 @@ public class PathAIUnit : AIUnit
             followingRoad = true;
             returnCounter = 0;
             findNextWaypoint();
-            GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+            GameMaster.getGameController().requestMoveCommand(getID(), wpDestination.x, wpDestination.y);
             justGotCommandTimer = 0.2f;
         }
         
         if (returnCounter > RETURN_NOW && (command == null || command is MoveCommand) && justGotCommandTimer < 0)
         {
-            Unit closestUnit = findClosestEnemy(lineOfSight);
+            Unit closestUnit = findClosestEnemyUnit(lineOfSight);
             if (fleeOrFight(closestUnit))
             {
                 roadPos = getTile();
@@ -55,11 +55,11 @@ public class PathAIUnit : AIUnit
             {
                 followingRoad = true;
                 returnCounter = 0;
-                GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+                GameMaster.getGameController().requestMoveCommand(getID(), wpDestination.x, wpDestination.y);
                 justGotCommandTimer = 0.2f;
             }
         }
-        float distance = Vector2.Distance(get2DPos(), destination);
+        float distance = Vector2.Distance(get2DPos(), wpDestination);
         if (followingRoad && distance < 2)
         {
             
@@ -69,16 +69,16 @@ public class PathAIUnit : AIUnit
             }
             if (distance < 1)
             {
-                destination = popLastWaypoint();
+                wpDestination = popLastWaypoint();
 
-                GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+                GameMaster.getGameController().requestMoveCommand(getID(), wpDestination.x, wpDestination.y);
                 justGotCommandTimer = 0.2f;
             }
             
         }
         else if(followingRoad && command == null)
         {
-            GameMaster.getGameController().requestMoveCommand(getID(), destination.x, destination.y);
+            GameMaster.getGameController().requestMoveCommand(getID(), wpDestination.x, wpDestination.y);
             justGotCommandTimer = 0.2f;
         }
     }
@@ -99,14 +99,14 @@ public class PathAIUnit : AIUnit
             Vector2i deltaPoint = tempPoints[i].get2D() - getTile();
             if(deltaGoal.x * deltaPoint.x < 0 || deltaGoal.y * deltaPoint.y < 0) //point is in wrong direction from goal
             {
-                destination = popLastWaypoint();
+                wpDestination = popLastWaypoint();
             }
             else //If not we have a point in right direction and can return
             {
                 return;
             }
         }
-        destination = tempPoints[0].get2D().toVector2();
+        wpDestination = tempPoints[0].get2D().toVector2();
         Debug.Log("Removed all");
 
     }

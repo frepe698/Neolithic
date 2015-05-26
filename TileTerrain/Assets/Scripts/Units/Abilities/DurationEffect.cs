@@ -5,8 +5,8 @@ public abstract class DurationEffect : AbilityEffect {
 
     protected float duration;
 
-    public DurationEffect(string name, Unit unit, Vector3 targetPosition, float duration)
-        : base(name, unit, targetPosition)
+    public DurationEffect(string name, Actor actor, Vector3 targetPosition, float duration)
+        : base(name, actor, targetPosition)
     {
         this.duration = duration;
     }

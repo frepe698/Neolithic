@@ -18,7 +18,7 @@ public class Projectile {
 	private bool removed = false;
 
 	private int unitID;
-    private Unit unit;
+    private Actor actor;
 
 	/*public Projectile(Vector3 start, Vector3 goal, float range, float speed, string name, int damage, int unitID)
 	{
@@ -46,7 +46,7 @@ public class Projectile {
         this.projectileName = projectileName;
         this.effectData = DataHolder.Instance.getEffectData(dataName);
         this.unitID = unitID;
-        this.unit = GameMaster.getUnit(unitID);
+        this.actor = GameMaster.getActor(unitID);
 
     }
 
@@ -75,9 +75,9 @@ public class Projectile {
 			{
 				if(!World.getMap().isValidTile(x, y)) continue;
 				Tile tile = World.getMap().getTile(x,y);
-				foreach(Unit target in tile.getUnits())
+				foreach(Actor target in tile.getActors())
 				{
-					if(target.getID() == unitID || target.getTeam() == unit.getTeam()) continue;
+					if(target.getID() == unitID || target.getTeam() == actor.getTeam()) continue;
 					if(line.distanceFromPoint(target.get2DPos()) < target.getSize())
 					{
                         hitTarget(target);
@@ -136,16 +136,16 @@ public class Projectile {
 		return get2DPos();
 	}
 
-    private void hitTarget(Unit target)
+    private void hitTarget(Actor target)
     {
-        AbilityEffect.applyDamage(effectData.hitDamage, unit, target, effectData.expSkill);
+        AbilityEffect.applyDamage(effectData.hitDamage, actor, target, effectData.expSkill);
      
         //If there are buffs apply them
         if(effectData.hitBuffs.Length > 0)
-            GameMaster.getGameController().requestApplyEffect(unit.getID(), target.getID(), effectData.name);
+            GameMaster.getGameController().requestApplyEffect(actor.getID(), target.getID(), effectData.name);
     }
 
-    protected void applyBuffs(HitBuff[] buffs, Unit target)
+    protected void applyBuffs(HitBuff[] buffs, Actor target)
     {
         for (int i = 0; i < buffs.Length; i++)
         {

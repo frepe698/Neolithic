@@ -15,19 +15,19 @@ public class ActionCommand : Command {
 
     public override void start()
     {
-        unit.setPath(destination);
+        actor.setPath(destination);
     }
 
     public override void update()
     {
-        if (Vector2.Distance(unit.get2DPos(), destination) < warpObject.getActionRadius())
+        if (Vector2.Distance(actor.get2DPos(), destination) < warpObject.getActionRadius())
         {
 
-            unit.setMoving(false);
+            actor.setMoving(false);
             WarpObject wObject = World.tileMap.getTile(new Vector2i(warpObject.get2DPos())).getTileObject() as WarpObject;
             if (wObject != null)
             {
-                unit.warp(warpObject);
+                actor.warp(warpObject);
 
                 //unit.setAnimationRestart(unit.getAttackAnim(resObject.getDamageType()), unit.getAttackSpeed());
             }

@@ -15,7 +15,7 @@ public class TileMap {
 	public Vector2i[] summonPos;
     public Vector2i[] cavePos;
     public Vector2[] theHallEntrance;
-	Vector2i[] summonPosDirections = new Vector2i[]{new Vector2i(0, -1), new Vector2i(1, 0), new Vector2i(0, 1), new Vector2i(-1, 0)};
+	//Vector2i[] summonPosDirections = new Vector2i[]{new Vector2i(0, -1), new Vector2i(1, 0), new Vector2i(0, 1), new Vector2i(-1, 0)};
 	Road[] roads;
 	Line[] roadAreas;
 

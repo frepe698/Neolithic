@@ -19,11 +19,6 @@ public class MountainGround : GroundType {
 		"stick",
 	};
 	
-	private static readonly string[] eyecandyTypes = new string[]
-	{
-		
-	};
-	
 	public override ResourceObject getRandomResource(Vector3 position)
 	{
 		return new ResourceObject(position,Random.value*360, resObjects[Random.Range(0, resObjects.Length)]);
@@ -66,11 +61,6 @@ public class MountainGround : GroundType {
 	public override Eyecandy getRandomEyecandy(Vector3 position)
 	{
 		return null;
-		int lootType = Random.Range(0, eyecandyTypes.Length);
-		
-		return new Eyecandy(position,
-		                          Quaternion.Euler(0, Random.value*360, 0),
-		                          eyecandyTypes[lootType]);
 	}
 	
 	public override int getTexture()

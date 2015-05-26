@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<BuildingsRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CraftingBuildings>
+    <BuildingData name="campfire" gameName="Camp Fire" modelName="campfire">
+      <health>100</health>
+      <healthperlevel>20</healthperlevel>
+      <lifegen>0</lifegen>
+      <size>1</size>
+      <buildTime>0</buildTime>
+      <craftingRecipeNames>
+        <string>craftFlintPickaxe</string>
+        <string>craftFlintAxe</string>
+        <string>craftIronPickaxe</string>
+        <string>craftIronAxe</string>
+      </craftingRecipeNames>
+    </BuildingData>
+  </CraftingBuildings>
+  <Towers>
+    <TowerData name="spearspinner" gameName="Spear Spinner" modelName="spearspinner">
+      <health>200</health>
+      <healthperlevel>50</healthperlevel>
+      <lifegen>0</lifegen>
+      <size>1</size>
+      <buildTime>0</buildTime>
+      <craftingRecipeNames>
+        <string />
+      </craftingRecipeNames>
+      <damage>15</damage>
+      <attackspeed>1</attackspeed>
+      <attackSound>levelup</attackSound>
+      <lineofsight>10</lineofsight>
+      <abilities>
+        <string />
+      </abilities>
+      <basicattack>spearspinnerattack</basicattack>
+    </TowerData>
+    <TowerData name="spinningdeath" gameName="Spinning Death" modelName="spinningdeath">
+      <health>300</health>
+      <healthperlevel>100</healthperlevel>
+      <lifegen>0</lifegen>
+      <size>1</size>
+      <buildTime>0</buildTime>
+      <craftingRecipeNames>
+        <string />
+      </craftingRecipeNames>
+      <damage>20</damage>
+      <attackspeed>2</attackspeed>
+      <lineofsight>2</lineofsight>
+      <abilities>
+        <string />
+      </abilities>
+      <basicattack>spinningdeathattack</basicattack>
+    </TowerData>
+  </Towers>
+</BuildingsRoot>

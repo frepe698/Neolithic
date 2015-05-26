@@ -16,7 +16,7 @@ public class Tile {
 	private TileObject tileObject;
 	private List<LootableObject> lootableObjects = new List<LootableObject>();
 	private List<Eyecandy> eyecandyObjects = new List<Eyecandy>();
-	private List<Unit> units = new List<Unit>();
+	private List<Actor> actors = new List<Actor>();
 	private bool active = false;
 
 	private static GroundType[] groundTypes = new GroundType[]{
@@ -94,9 +94,9 @@ public class Tile {
 	public bool isWalkable(int id)
 	{
         if (cliff) return false;
-		if((units.Count == 0 && tileObject == null) || (units.Count == 1 && containsUnit(id))) return true;
+		if((actors.Count == 0 && tileObject == null) || (actors.Count == 1 && containsActor(id))) return true;
 
-		if(tileObject != null || units.Count > 0) return false;
+		if(tileObject != null || actors.Count > 0) return false;
 		return true;
 
 	}
@@ -144,9 +144,9 @@ public class Tile {
 		{
 			loot.Activate();
 		}
-		foreach(Unit unit in units)
+		foreach(Actor actor in actors)
 		{
-			unit.activate();
+			actor.activate();
 		}
 	}
 
@@ -169,9 +169,9 @@ public class Tile {
 		{
 			loot.Inactivate();
 		}
-		foreach(Unit unit in units)
+		foreach(Actor actor in actors)
 		{
-			unit.inactivate();
+			actor.inactivate();
 		}
 	}
 
@@ -260,43 +260,43 @@ public class Tile {
 	}
 	
 
-	public void addUnit(Unit unit)
+	public void addActor(Actor actor)
 	{
-		if(containsUnit(unit.getID())) return;
-		units.Add(unit);
+		if(containsActor(actor.getID())) return;
+		actors.Add(actor);
 		if(active)
 		{
-			unit.activate();
+			actor.activate();
 		}
 		else
 		{
-			unit.inactivate();
+			actor.inactivate();
 		}
 	}
 
 
-	public bool containsUnit(int id)
+	public bool containsActor(int id)
 	{
-		foreach(Unit unit in units)
+		foreach(Actor actor in actors)
 		{
-			if(unit.getID() == id) return true;
+			if(actor.getID() == id) return true;
 		}
 		return false;
 	}
 
-	public bool containsUnits()
+	public bool containsActors()
 	{
-		return units.Count > 0;
+		return actors.Count > 0;
 	}
 
-	public bool removeUnit(Unit unit)
+	public bool removeActor(Actor actor)
 	{
-		return units.Remove(unit);
+		return actors.Remove(actor);
 	}
 
-	public List<Unit> getUnits()
+	public List<Actor> getActors()
 	{
-		return units;
+		return actors;
 	}
 
 	public bool blocksProjectile()

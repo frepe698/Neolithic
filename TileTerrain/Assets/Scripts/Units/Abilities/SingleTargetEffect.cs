@@ -6,7 +6,8 @@ public class SingleTargetEffect  : AbilityEffect {
     private readonly static float radius = 1;
     private SingleTargetEffectData data;
 
-    public SingleTargetEffect(string name, Unit unit, Vector3 targetPosition, SingleTargetEffectData data) : base(name,unit,targetPosition)
+    public SingleTargetEffect(string name, Actor actor, Vector3 targetPosition, SingleTargetEffectData data)
+        : base(name, actor, targetPosition)
     {
         //Fetch data with name
         this.data = data;
@@ -15,12 +16,12 @@ public class SingleTargetEffect  : AbilityEffect {
     public override void action(AbilityCommand ability)
     {
         //Load some kind of visual effect
-        AbilityEffect.modelAndSound(data, unit, unit.getPosition());
+        AbilityEffect.modelAndSound(data, actor, actor.getPosition());
 
 
         Vector2i targetTile = new Vector2i(targetPosition);
 
-        Unit closestTarget = null;
+        Actor closestTarget = null;
         float closestDistance = radius + 1;
         Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.z);
 
@@ -30,10 +31,10 @@ public class SingleTargetEffect  : AbilityEffect {
             {
                 if (!World.tileMap.isValidTile(x, y)) continue;
                 Vector2i tile = new Vector2i(x, y);
-                foreach (Unit target in World.tileMap.getTile(tile).getUnits())
+                foreach (Actor target in World.tileMap.getTile(tile).getActors())
                 {
-                    if (target.getID() == unit.getID()
-                        || target.getTeam() == unit.getTeam()) continue;
+                    if (target.getID() == actor.getID()
+                        || target.getTeam() == actor.getTeam()) continue;
 
                     float distance = Vector2.Distance(target.get2DPos(), targetPosition2D);
                     if (distance > radius) continue;
@@ -46,10 +47,10 @@ public class SingleTargetEffect  : AbilityEffect {
         if (closestTarget == null) return;
 
         //Target is officially hit here, calculate damage
-        applyDamage(data.hitDamage, unit, closestTarget, data.expSkill);
+        applyDamage(data.hitDamage, actor, closestTarget, data.expSkill);
 
         //Apply buffs if there are buffs
         if (data.hitBuffs.Length > 0)
-            GameMaster.getGameController().requestApplyEffect(unit.getID(), closestTarget.getID(), data.name);
+            GameMaster.getGameController().requestApplyEffect(actor.getID(), closestTarget.getID(), data.name);
     }
 }

@@ -8,15 +8,12 @@ public class Ability {
     
     public readonly AbilityData data;
 
-    private Unit unit;
-
-    public Ability(string name, Unit unit)
+    public Ability(string name, Actor actor)
     {
         //Fetch data
         //save data
         //cooldown = data.cooldown
         data = DataHolder.Instance.getAbilityData(name);
-        this.unit = unit;
     }
 
     

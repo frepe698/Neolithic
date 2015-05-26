@@ -7,7 +7,7 @@ public abstract class Buff {
     public static readonly int AMOUNT_PARAM = 2;
     public static readonly int PERCENT_PARAM = 3;
 
-    public abstract void apply(Unit unit);
+    public abstract void apply(Actor actor);
     public abstract void remove();
     public abstract void update();
     public abstract bool isFinished();
@@ -28,7 +28,7 @@ public class StatBuff : Buff
     private float duration;
     private float amount;
     private bool percent;
-    private Unit unit;
+    private Actor actor;
 
     private bool finished = false;
     public StatBuff(object[] parameters)
@@ -39,10 +39,10 @@ public class StatBuff : Buff
         this.percent = (bool)parameters[PERCENT_PARAM];
     }
 
-    public override void apply(Unit unit)
+    public override void apply(Actor actor)
     {
-        this.unit = unit;
-        unit.addBuff(this);
+        this.actor = actor;
+        actor.addBuff(this);
     }
 
 
@@ -56,7 +56,7 @@ public class StatBuff : Buff
 
     public override void remove()
     {
-        unit.removeBuff(this);
+        actor.removeBuff(this);
     }
 
     public override void update()
@@ -74,7 +74,7 @@ public class StatBuff : Buff
 public class Stun : Buff
 {
     private float duration;
-    private Unit unit;
+    private Actor actor;
 
     private bool finished = false;
     public Stun(object[] parameters)
@@ -82,16 +82,16 @@ public class Stun : Buff
         this.duration = (float)parameters[DURATION_PARAM];
     }
 
-    public override void apply(Unit unit)
+    public override void apply(Actor actor)
     {
-        this.unit = unit;
-        unit.giveCommand(new StunnedCommand(unit, duration));
-        unit.addBuff(this);
+        this.actor = actor;
+        actor.giveCommand(new StunnedCommand(actor, duration));
+        actor.addBuff(this);
     }
 
     public override void remove()
     {
-        unit.removeBuff(this);
+        actor.removeBuff(this);
     }
 
     public override void update()
@@ -109,7 +109,7 @@ public class Stun : Buff
 public class Cleanse : Buff
 {
     private float duration;
-    private Unit unit;
+    private Actor actor;
     private bool finished = false;
 
     public Cleanse(object[] parameters)
@@ -117,10 +117,10 @@ public class Cleanse : Buff
         this.duration = (float)parameters[DURATION_PARAM];
     }
 
-    public override void apply(Unit unit)
+    public override void apply(Actor actor)
     {
-        this.unit = unit;
-        Command unitCommand = unit.getCommand();
+        this.actor = actor;
+        Command unitCommand = actor.getCommand();
         if (unitCommand != null && unitCommand is StunnedCommand)
         {
            unitCommand.cancel();
@@ -128,13 +128,13 @@ public class Cleanse : Buff
 
         if(duration > 0.1f)
         {
-            unit.addBuff(this);
+            actor.addBuff(this);
         }
     }
 
     public override void remove()
     {
-        unit.removeBuff(this);	
+        actor.removeBuff(this);	
     }
 
     public override void update()
@@ -145,7 +145,7 @@ public class Cleanse : Buff
             finished = true;
             return;
         }
-        Command unitCommand = unit.getCommand();
+        Command unitCommand = actor.getCommand();
         if (unitCommand != null && unitCommand is StunnedCommand)
         {
             unitCommand.cancel();

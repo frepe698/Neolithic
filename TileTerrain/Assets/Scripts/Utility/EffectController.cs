@@ -8,8 +8,6 @@ public class EffectController : MonoBehaviour {
 
     public GameObjectSpawn[] gameObjectSpawns;
     public SoundPlayer[] sounds;
-    private int nextGameObject = 0;
-    private int nextSound = 0;
 
     private float startTime;
 

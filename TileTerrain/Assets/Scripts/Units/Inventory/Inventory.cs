@@ -136,6 +136,33 @@ public class Inventory {
         return true;
 	}
 
+    public bool removeRecipeIngredients(RecipeData recipe)
+    {
+        if (hasIngredients(recipe.ingredients))
+        {
+            foreach (Ingredient i in recipe.ingredients)
+            {
+                MaterialItem mi = findMaterialItem(i.name);
+                if (mi != null && mi.getAmount() >= i.amount)
+                {
+                    removeMaterialItem(materialItems.IndexOf(mi), i.amount);
+                    continue;
+                }
+
+                ConsumableItem ci = findConsumableItem(i.name);
+                if (ci != null && ci.getAmount() >= i.amount)
+                {
+                    removeConsumableItem(consumableItems.IndexOf(ci), i.amount);
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public bool setEquipedItem(int index, out EquipmentData data)
     {
         if (index < 0 || equipmentItems.Count <= index)

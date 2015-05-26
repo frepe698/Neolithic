@@ -12,6 +12,7 @@ TagManager:
   - UIRaycastHit
   - UIRaycastBlock
   - UIRaycast
+  - Building
   layers:
   - Default
   - TransparentFX

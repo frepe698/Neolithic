@@ -11,12 +11,12 @@ public class MoveCommand : Command {
 
 	public override void start ()
 	{
-		unit.setPath(destination);
+		actor.setPath(destination);
 	}
 
 	public override void update()
 	{
-		if(Vector2.Distance(unit.get2DPos(), destination) < Command.moveSensitivity)
+		if(Vector2.Distance(actor.get2DPos(), destination) < Command.moveSensitivity)
 		{
 			setCompleted();
 		}

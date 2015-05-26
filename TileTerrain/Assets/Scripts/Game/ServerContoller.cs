@@ -89,7 +89,7 @@ public class ServerController : GameController {
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
+		Unit unit = GameMaster.getActor(unitID) as Unit;
 		if(unit != null && unit.canOverrideCurrentCommand()) gameMaster.getNetView().RPC("approveMoveCommand", RPCMode.All, unitID, x, y, unit.getPosition());
 	}
 
@@ -118,51 +118,49 @@ public class ServerController : GameController {
 	[RPC]
 	public override void requestAttackCommandUnit(int unitID, int targetID)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
-		Unit target = GameMaster.getUnit (targetID);
-		if(target != null && unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
+		Actor actor = GameMaster.getActor(unitID);
+		Actor target = GameMaster.getActor (targetID);
+		if(target != null && actor != null && actor.canStartCommand(new AbilityCommand(actor, target, actor.getBasicAttack())))
 		{
-			gameMaster.getNetView().RPC ("approveAttackCommandUnit", RPCMode.All, unitID, targetID, GameMaster.getUnit(unitID).getPosition());
+			gameMaster.getNetView().RPC ("approveAttackCommandUnit", RPCMode.All, unitID, targetID, GameMaster.getActor(unitID).getPosition());
 		}
 	}
 
 	[RPC]
 	public override void requestAttackCommandPos(int unitID, Vector3 target)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null && unit.canStartCommand(new AbilityCommand(unit, target, unit.getBasicAttack())))
+		Actor actor = GameMaster.getActor(unitID);
+        if (actor != null && actor.canStartCommand(new AbilityCommand(actor, target, actor.getBasicAttack())))
 		{
-			gameMaster.getNetView().RPC ("approveAttackCommandPos", RPCMode.All, unitID, target, GameMaster.getUnit(unitID).getPosition());
+			gameMaster.getNetView().RPC ("approveAttackCommandPos", RPCMode.All, unitID, target, GameMaster.getActor(unitID).getPosition());
 		}
 	}
 
     [RPC]
     public override void requestAbilityCommandID(int unitID, int targetID, int ability)
     {
-        Unit unit = GameMaster.getUnit(unitID);
-        Unit target = GameMaster.getUnit(targetID);
-        if (unit != null && target != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        Actor actor = GameMaster.getActor(unitID);
+        Actor target = GameMaster.getActor(targetID);
+        if (actor != null && target != null && actor.hasAbility(ability) && actor.canStartCommand(new AbilityCommand(actor, target, actor.getAbility(ability))))
         {
-            gameMaster.getNetView().RPC("approveAbilityCommandID", RPCMode.All, unitID, targetID, unit.getPosition(), ability);
+            gameMaster.getNetView().RPC("approveAbilityCommandID", RPCMode.All, unitID, targetID, actor.getPosition(), ability);
         }
     }
 
     [RPC]
     public override void requestAbilityCommandVec(int unitID, Vector3 target, int ability)
     {
-
-
-        Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null && unit.hasAbility(ability) && unit.canStartCommand(new AbilityCommand(unit, target, unit.getAbility(ability))))
+        Actor actor = GameMaster.getActor(unitID);
+        if (actor != null && actor.hasAbility(ability) && actor.canStartCommand(new AbilityCommand(actor, target, actor.getAbility(ability))))
         {
-            gameMaster.getNetView().RPC("approveAbilityCommandVec", RPCMode.All, unitID, target, unit.getPosition(), ability);
+            gameMaster.getNetView().RPC("approveAbilityCommandVec", RPCMode.All, unitID, target, actor.getPosition(), ability);
         }
     }
 
 	[RPC]
 	public override void requestLootCommand(int unitID, int tileX, int tileY, int lootID)
 	{
-		Unit unit = GameMaster.getUnit(unitID);
+		Unit unit = GameMaster.getActor(unitID) as Unit;
 		if(unit != null) gameMaster.getNetView ().RPC ("approveLootCommand", RPCMode.All, unitID, tileX, tileY, lootID, unit.getPosition());
 	}
 	
@@ -220,26 +218,26 @@ public class ServerController : GameController {
         WarpObject warpObject = World.tileMap.getTile(tile).getTileObject() as WarpObject;
         if (warpObject != null)
         {
-            Unit unit = GameMaster.getUnit(unitID);
+            Unit unit = GameMaster.getActor(unitID) as Unit;
             if (unit != null) gameMaster.getNetView().RPC("warpUnit", RPCMode.All, unitID, warpObject.getDestination().x, warpObject.getDestination().y, warpObject.getDestRotation());
         }
     }
 
 	public override void requestAttack(int unitID, int targetID)
 	{
-		Unit target = GameMaster.getUnit(targetID);
+		Actor target = GameMaster.getActor(targetID);
 		if(target != null)
 		{
-			int damage = GameMaster.getUnit(unitID).getDamage(0);
+			int damage = GameMaster.getActor(unitID).getDamage(0);
 			if(target.getHealth() <= damage)
 			{
-				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
+				gameMaster.getNetView().RPC ("killActor", RPCMode.All, targetID, unitID);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Melee, damage);
 			}
 			else
 			{
-				gameMaster.getNetView().RPC ("hitUnit", RPCMode.All, targetID, unitID, damage);
+				gameMaster.getNetView().RPC ("hitActor", RPCMode.All, targetID, unitID, damage);
 				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Melee, damage);
 			}
@@ -259,8 +257,8 @@ public class ServerController : GameController {
 
     public override void requestFireProjectile(int unitID, Vector3 target, string dataName, string projectileName)
     {
-        Unit unit = GameMaster.getUnit(unitID);
-        if (unit != null)
+        Actor actor = GameMaster.getActor(unitID);
+        if (actor != null)
         {
             
             gameMaster.getNetView().RPC("approveFireProjectile", RPCMode.All, unitID, target, dataName, projectileName );
@@ -326,18 +324,18 @@ public class ServerController : GameController {
 
 	public override void requestProjectileHit(int damage, int unitID, int targetID)
 	{
-		Unit target = GameMaster.getUnit(targetID);
+		Actor target = GameMaster.getActor(targetID);
 		if(target != null)
 		{
 			if(target.getHealth() <= damage)
 			{
-				gameMaster.getNetView().RPC ("killUnit", RPCMode.All, targetID, unitID);
+				gameMaster.getNetView().RPC ("killActor", RPCMode.All, targetID, unitID);
 				//gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
 			else
 			{
-				gameMaster.getNetView().RPC ("hitUnit", RPCMode.All, targetID, unitID, damage);
+				gameMaster.getNetView().RPC ("hitActor", RPCMode.All, targetID, unitID, damage);
 				//gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
                 gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Ranged, damage);
 			}
@@ -347,7 +345,7 @@ public class ServerController : GameController {
 
     public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
-        Unit target = GameMaster.getUnit(targetID);
+        Actor target = GameMaster.getActor(targetID);
         if (target != null)
         {
             if (damage < 0)
@@ -359,11 +357,11 @@ public class ServerController : GameController {
             {
                 if (target.getHealth() <= damage)
                 {
-                    gameMaster.getNetView().RPC("killUnit", RPCMode.All, targetID, unitID);
+                    gameMaster.getNetView().RPC("killActor", RPCMode.All, targetID, unitID);
                 }
                 else
                 {
-                    gameMaster.getNetView().RPC("hitUnit", RPCMode.All, targetID, unitID, damage);
+                    gameMaster.getNetView().RPC("hitActor", RPCMode.All, targetID, unitID, damage);
                 }
                 if (target.isHostile())
                 {
@@ -435,9 +433,9 @@ public class ServerController : GameController {
             }
         }
     }
-    public override void requestRemoveUnit(int unitID)
+    public override void requestRemoveActor(int unitID)
     {
-        gameMaster.getNetView().RPC("approveRemoveUnit", RPCMode.All, unitID);
+        gameMaster.getNetView().RPC("approveRemoveActor", RPCMode.All, unitID);
     }
 
 }

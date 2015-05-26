@@ -36,6 +36,7 @@ namespace Edit
         }
     }
 
+    #region Ability Edits
     [Serializable]
     public class AbilityEffectEdit : ObjectEdit
     {
@@ -438,7 +439,9 @@ namespace Edit
         }
     }
 
-    #region Skills and Abilities Edits
+    #endregion
+
+    #region Skills Edits
 
     [Serializable]
     public class SkillEdit : ObjectEdit
@@ -520,6 +523,106 @@ namespace Edit
         public int reqLevel;
     }
     
+
+    #endregion
+
+    #region Building Edits
+
+    [Serializable]
+    public class BuildingEdit : ObjectEdit
+    {
+        public int health;
+        public int healthperlevel;
+        public float lifegen;
+        public float size;
+        public float buildTime;
+
+        public string craftingRecipeNames;
+
+        public BuildingEdit()
+        {
+            name = "new building";
+            gameName = "New Building"; 
+        }
+
+        public BuildingEdit(BuildingEdit data)
+            : base(data)
+        {
+            this.health = data.health;
+            this.healthperlevel = data.healthperlevel;
+            this.lifegen = data.lifegen;
+            this.size = data.size;
+            this.buildTime = data.buildTime;
+            this.craftingRecipeNames = data.craftingRecipeNames;
+        }
+
+        public BuildingEdit(BuildingData data)
+            : base(data)
+        {
+            this.health = data.health;
+            this.healthperlevel = data.healthperlevel;
+            this.lifegen = data.lifegen;
+            this.size = data.size;
+            this.buildTime = data.buildTime;
+
+            craftingRecipeNames = "";
+            if (data.craftingRecipeNames != null)
+            {
+                foreach (string s in data.craftingRecipeNames)
+                {
+                    craftingRecipeNames += s + "\n";
+                }
+            }
+        }
+    }
+
+    [Serializable]
+    public class TowerEdit : BuildingEdit
+    {
+        public int damage;
+        public float attackspeed;
+        public string attackSound;
+        public int lineofsight;
+
+        public string abilities;
+
+        public string basicattack;
+
+        public TowerEdit()
+        {
+            name = "new tower";
+            gameName = "New Tower";
+        }
+
+        public TowerEdit(TowerEdit data)
+            : base(data)
+        {
+            damage = data.damage;
+            attackspeed = data.attackspeed;
+            attackSound = data.attackSound;
+            lineofsight = data.lineofsight;
+            abilities = data.abilities;
+            basicattack = data.basicattack;
+        }
+
+        public TowerEdit(TowerData data)
+            : base(data)
+        {
+            damage = data.damage;
+            attackspeed = data.attackspeed;
+            attackSound = data.attackSound;
+            lineofsight = data.lineofsight;
+            abilities = "";
+            if (data.abilities != null)
+            {
+                foreach(string s in data.abilities)
+                {
+                    abilities += s + "\n";
+                }
+            }
+            basicattack = data.basicattack;
+        }
+    }
 
     #endregion
 
@@ -1098,6 +1201,25 @@ namespace Edit
             }
 
             return result;
+        }
+    }
+
+    [Serializable]
+    public class BuildingRecipeEdit : RecipeEdit
+    {
+        public BuildingRecipeEdit()
+        {
+            skill = Skills.Building;
+        }
+
+        public BuildingRecipeEdit(BuildingRecipeEdit data)
+            : base(data)
+        { 
+        }
+
+        public BuildingRecipeEdit(BuildingRecipeData data)
+            : base(data)
+        {
         }
     }
 
