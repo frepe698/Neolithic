@@ -501,7 +501,8 @@ public abstract class GameController : MonoBehaviour{
 
             if (isPlacingBuilding)
             {
-                buildingGhost.transform.position = groundPosition;
+                Vector2 gridPos = new Vector2((int)groundPosition.x + 0.5f, (int)groundPosition.z + 0.5f);
+                buildingGhost.transform.position = new Vector3(gridPos.x, World.getHeight(gridPos), gridPos.y);
 
                 if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
                 {
@@ -892,7 +893,7 @@ public abstract class GameController : MonoBehaviour{
         BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
         if (data != null && GameMaster.getPlayerHero().getInventory().removeRecipeIngredients(recipe))
         {
-            GameMaster.addActor(data.getBuilding(position, 0, GameMaster.getNextUnitID()));
+            GameMaster.addActor(data.getBuilding(position, 0, GameMaster.getNextUnitID(), GameMaster.getPlayerHero().getTeam()));
         }
         buildingGhost.SetActive(false);
         isPlacingBuilding = false;
@@ -999,7 +1000,7 @@ public abstract class GameController : MonoBehaviour{
                 BuildingData data = DataHolder.Instance.getBuildingData((string)parameters[0]);
                 if (data != null)
                 {
-                    GameMaster.addActor(data.getBuilding(new Vector2i(commander.getTile().x + 1, commander.getTile().y), 0, GameMaster.getNextUnitID()));
+                    GameMaster.addActor(data.getBuilding(new Vector2i(commander.getTile().x + 1, commander.getTile().y), 0, GameMaster.getNextUnitID(), commander.getTeam()));
                 }
             }
             break;

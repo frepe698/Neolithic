@@ -43,8 +43,9 @@
       <craftingRecipeNames>
         <string />
       </craftingRecipeNames>
-      <damage>20</damage>
+      <damage>8</damage>
       <attackspeed>2</attackspeed>
+      <attackSound />
       <lineofsight>2</lineofsight>
       <abilities>
         <string />

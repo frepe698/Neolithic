@@ -154,7 +154,7 @@ public class TrialOfTheGods : GameMode {
 
         public bool defeated = false;
 
-        private List<string>[] spawns = new List<string>[] { new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman"},
+        private List<string>[] spawns = new List<string>[] { new List<string>(){"goblin", "goblin", "goblin", "goblin", "shaman","goblin", "goblin", "goblin", "goblin", "shaman"},
             new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman"},
             new List<string>(){"goblin", "goblin", "shaman", "goblin", "goblin", "shaman", "troll"},};
                                                    

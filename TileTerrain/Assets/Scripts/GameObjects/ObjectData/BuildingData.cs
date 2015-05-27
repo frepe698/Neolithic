@@ -58,8 +58,8 @@ public class BuildingData : ObjectData {
         return craftingRecipes;
     }
 
-    public virtual Building getBuilding(Vector2i position, float yRotation, int id)
+    public virtual Building getBuilding(Vector2i position, float yRotation, int id, int team)
     {
-        return new Building(this, position, yRotation, id);
+        return new Building(this, position, yRotation, id, team);
     }
 }

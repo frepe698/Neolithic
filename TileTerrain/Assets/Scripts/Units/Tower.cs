@@ -13,8 +13,8 @@ public class Tower : Building {
 
     private Ability basicAttack;
 
-    public Tower(string name, Vector2i position, float yRotation, int id)
-        : base(name, position, yRotation, id)
+    public Tower(string name, Vector2i position, float yRotation, int id, int team)
+        : base(name, position, yRotation, id, team)
     {
         modelName = name;
         TowerData data = DataHolder.Instance.getTowerData(name);
@@ -35,13 +35,19 @@ public class Tower : Building {
         basicAttack = new Ability(data.basicattack, this);
     }
 
-    public Tower(TowerData data, Vector2i position, float yRotation, int id)
-        : base(data, position, yRotation, id)
+    public Tower(TowerData data, Vector2i position, float yRotation, int id, int team)
+        : base(data.name, position, yRotation, id, team)
     {
         damage = data.damage;
         attackSpeed = data.attackspeed;
         attackSound = data.attackSound;
         lineOfSight = data.lineofsight;
+        modelName = data.modelName;
+        unitstats = new UnitStats(this, 0, data);
+        init();
+        tile = new Vector2i(get2DPos());
+        World.tileMap.getTile(tile).addActor(this);
+        unitstats.updateStats();
         
         basicAttack = new Ability(data.basicattack, this);
     }
@@ -154,10 +160,5 @@ public class Tower : Building {
     public override bool isMelee()
     {
         return true;
-    }
-
-    public override int getTeam()
-    {
-        return 2;
     }
 }

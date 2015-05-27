@@ -425,32 +425,32 @@
       <ingredients>
         <Ingredient>
           <name>log</name>
-          <amount>5</amount>
+          <amount>4</amount>
         </Ingredient>
         <Ingredient>
           <name>stone</name>
-          <amount>5</amount>
-        </Ingredient>
-        <Ingredient>
-          <name>stick</name>
           <amount>4</amount>
         </Ingredient>
         <Ingredient>
           <name>flint</name>
           <amount>2</amount>
         </Ingredient>
+        <Ingredient>
+          <name>stick</name>
+          <amount>2</amount>
+        </Ingredient>
       </ingredients>
       <description>A wheel that fires piercing spears</description>
       <skill>Building</skill>
       <expAmount>200</expAmount>
-      <requiredSkillLevel>4</requiredSkillLevel>
+      <requiredSkillLevel>0</requiredSkillLevel>
     </BuildingRecipeData>
     <BuildingRecipeData name="buildSpinningdeath" gameName="Spinning Death" modelName="">
       <product>spinningdeath</product>
       <ingredients>
         <Ingredient>
           <name>log</name>
-          <amount>4</amount>
+          <amount>5</amount>
         </Ingredient>
       </ingredients>
       <description>A deadly spinning machine</description>

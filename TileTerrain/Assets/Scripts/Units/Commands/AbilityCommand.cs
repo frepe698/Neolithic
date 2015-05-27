@@ -47,6 +47,7 @@ public class AbilityCommand : Command {
         speedIncrease = 1;
         foreach (SpeedIncrease s in ability.data.speedIncreases)
         {
+            Debug.Log(s.stat + " " + s.percent + ", " + actor.getUnitStats().getStatV(s.stat));
             speedIncrease *= 1 + s.percent * (actor.getUnitStats().getStatV(s.stat)-1);
         }
     }
@@ -89,6 +90,15 @@ public class AbilityCommand : Command {
 
 			if(!doneAllEffects)
 			{
+                //Aimbot if you have a target == op
+                if (target != null)
+                {
+                    //Update target position to the targeted units position
+                    attackPosition = target.get2DPos();
+                    calculateRotation();
+                }
+
+
                 attackTime += Time.deltaTime * speedIncrease;
 
                 if (lastPlayedAnimation < ability.data.animations.Length)
@@ -132,6 +142,7 @@ public class AbilityCommand : Command {
                         //TODO: get effect sound
                         //unit.playSound(unit.getAttackSound(0));
                         effect.action(this);
+                        
                         //unit.attack(target);
 
                         lastUsedEffect++;
@@ -208,7 +219,6 @@ public class AbilityCommand : Command {
         if (aeat == null) return null;
         AbilityEffectData data = DataHolder.Instance.getEffectData(aeat.name);
         if (data == null) return null;
-
         if (target != null) attackHeight = target.getPosition().y + 1;
         return data.getAbilityEffect(actor, new Vector3(attackPosition.x, attackHeight, attackPosition.y));
     }

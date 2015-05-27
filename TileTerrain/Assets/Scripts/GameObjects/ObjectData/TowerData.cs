@@ -34,8 +34,8 @@ public class TowerData : BuildingData {
         basicattack = edit.basicattack;
     }
 
-    public override Building getBuilding(Vector2i position, float yRotation, int id)
+    public override Building getBuilding(Vector2i position, float yRotation, int id, int team)
     {
-        return new Tower(this, position, yRotation, id);
+        return new Tower(this, position, yRotation, id, team);
     }
 }
