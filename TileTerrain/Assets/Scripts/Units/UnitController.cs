@@ -82,6 +82,7 @@ public class UnitController : MonoBehaviour {
 	public void setAnimationRestart(string animation, float speed = 1)
 	{
         Animation animator = this.GetComponent<Animation>();
+        if (animator == null) return;
 		animator.Stop(animation);
 		animator[animation].speed = speed;
 		animator.CrossFade(animation, 0.2f);
@@ -91,6 +92,7 @@ public class UnitController : MonoBehaviour {
 	public void setAnimation(string animation, float speed = 1)
 	{
         Animation animator = this.GetComponent<Animation>();
+        if (animator == null) return;
         animator[animation].speed = speed;
         animator.CrossFade(animation, 0.2f);
 	}

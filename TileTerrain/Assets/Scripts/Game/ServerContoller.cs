@@ -297,6 +297,31 @@ public class ServerController : GameController {
 		gameMaster.getNetView().RPC ("approveItemConsume", RPCMode.All, unitID, itemIndex);
 	}
 
+    [RPC]
+    public override void requestBuildBuilding(int unitID, string recipeName, int x, int y)
+    {
+        if (!World.tileMap.getTile(x, y).isBuildable()) return;
+        Hero hero = GameMaster.getHero(unitID);
+        BuildingRecipeData recipe = DataHolder.Instance.getBuildingRecipeData(recipeName);
+
+        //Check if the hero's skill level is high enough and it has all the ingredients
+        if (hero.getSkillManager().getSkill((int)recipe.skill).getLevel() >= recipe.requiredSkillLevel &&
+            hero.getInventory().hasIngredients(recipe.ingredients))
+        {
+            gameMaster.getNetView().RPC("approveBuildBuilding", RPCMode.All, unitID, recipeName, x, y);
+        }
+    }
+
+    [RPC]
+    public override void requestBuildingCommand(int unitID, int buildingID)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        Building building = GameMaster.getActor(buildingID) as Building;
+
+        if(hero != null && building != null)
+            gameMaster.getNetView().RPC("approveBuildingCommand", RPCMode.All, unitID, buildingID);
+    }
+
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{

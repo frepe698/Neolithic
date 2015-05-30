@@ -19,7 +19,7 @@ public class World : MonoBehaviour {
 	public static readonly int ROAD = 1;
 	
 	public static TileMap tileMap;
-	private static List<Tile> activeTiles = new List<Tile>();
+    //private static LinkedList<Tile> activeTiles = new LinkedList<Tile>();
 	
 	public static int summonDistanceFromBase = 4;
 	public static int baseBounds = 0;
@@ -63,7 +63,7 @@ public class World : MonoBehaviour {
     void OnDestroy()
     {
         tileMap = null;
-        activeTiles.Clear();
+        //activeTiles.Clear();
     }
 
     /*
@@ -576,7 +576,7 @@ public class World : MonoBehaviour {
         }
         
         
-
+#if false
         for (int x = 0; x < getMainMapSize(); x++)
         {
             for (int y = 0; y < getMainMapSize(); y++)
@@ -601,6 +601,7 @@ public class World : MonoBehaviour {
                 }
             }
         }
+#endif
     }
 
     public void addPvPSpawners(TrialOfTheGods mode)
@@ -623,7 +624,7 @@ public class World : MonoBehaviour {
         }
 
 
-
+#if true
         for (int x = 0; x < getMainMapSize(); x++)
         {
             for (int y = 0; y < getMainMapSize(); y++)
@@ -651,6 +652,7 @@ public class World : MonoBehaviour {
                 }
             }
         }
+#endif
     }
 
     public void addRoadSpawners(TrialOfTheGods mode)
@@ -826,12 +828,12 @@ public class World : MonoBehaviour {
             TimeManager.Instance.setIndoors(newPos.x > tileMap.getMainMapSize() || newPos.y > tileMap.getMainMapSize());
 			lastPlayerPos = newPos;
 		}
-
+#if false
 		foreach(Tile tile in activeTiles)
 		{
 			tile.renderEyecandy();
 		}
-
+#endif
         for (int i = 0; i < normalsstart.Count; i++)
         {
             if (i % 4 == 0) Debug.DrawLine(normalsstart[i], normalsend[i], Color.white);
@@ -848,12 +850,13 @@ public class World : MonoBehaviour {
 
 	public static void addActiveTile(Tile tile)
 	{
-		activeTiles.Add(tile);
+		//activeTiles.Add(tile);
+        //activeTiles.AddLast(tile);
 	}
 
 	public static void removeActiveTile(Tile tile)
 	{
-		activeTiles.Remove(tile);
+		//activeTiles.Remove(tile);
 	}
 	
 	public bool activateTileIfInActivationRangeOfControlledUnit(int tileX, int tileY)

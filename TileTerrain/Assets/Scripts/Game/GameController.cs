@@ -22,6 +22,10 @@ public abstract class GameController : MonoBehaviour{
     private BuildingRecipeData currentBuildingData;
     private bool isPlacingBuilding;
     private GameObject buildingGhost;
+    private Renderer[] ghostRenderers;
+    private Material ghostMaterial;
+    private readonly Color GHOST_COLOR_CAN_PLACE = new Color(0, 1, 0, 0.5f);
+    private readonly Color GHOST_COLOR_CAN_NOT_PLACE = new Color(1, 0, 0, 0.5f);
 
 	private static readonly int RIGHT_MOUSE_BUTTON = 1;
 	private static readonly int LEFT_MOUSE_BUTTON = 0;
@@ -47,6 +51,8 @@ public abstract class GameController : MonoBehaviour{
 		this.unitID = unitID;
 
         buildingGhost = GameObject.Find("buildingGhost");
+        ghostMaterial = Resources.Load<Material>("building_ghost");
+        
         if (buildingGhost == null) Debug.LogError("No building ghost found");
         else buildingGhost.SetActive(false);
 
@@ -423,6 +429,7 @@ public abstract class GameController : MonoBehaviour{
             //Loop through all and find the first of each kind
             Transform firstUnit = null;
             Transform firstLoot = null;
+            Transform firstBuilding = null;
             Transform firstAction = null;
             Transform firstResource = null;
             Vector3 groundPosition = Vector3.zero;
@@ -442,6 +449,13 @@ public abstract class GameController : MonoBehaviour{
                     if (firstLoot == null)
                     {
                         firstLoot = hit.transform;
+                    }
+                }
+                else if (tag == "Building")
+                {
+                    if (firstBuilding == null)
+                    {
+                        firstBuilding = hit.transform;
                     }
                 }
                 else if (tag == "Action")
@@ -481,6 +495,12 @@ public abstract class GameController : MonoBehaviour{
                 targetRenderers = firstLoot.GetComponentsInChildren<Renderer>();
                 setHighlightOnTarget(1);
             }
+            else if (firstBuilding != null)
+            {
+                Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
+                targetRenderers = firstBuilding.GetComponentsInChildren<Renderer>();
+                setHighlightOnTarget(1);
+            }
             else if (firstAction != null)
             {
                 Cursor.SetCursor(lootCursor, Vector2.zero, CursorMode.Auto);
@@ -501,12 +521,26 @@ public abstract class GameController : MonoBehaviour{
 
             if (isPlacingBuilding)
             {
-                Vector2 gridPos = new Vector2((int)groundPosition.x + 0.5f, (int)groundPosition.z + 0.5f);
+                Vector2i placeTile = new Vector2i(groundPosition);
+                
+
+                Vector2 gridPos = new Vector2(placeTile.x + 0.5f, placeTile.y + 0.5f);
                 buildingGhost.transform.position = new Vector3(gridPos.x, World.getHeight(gridPos), gridPos.y);
 
-                if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+                bool canPlace = false;
+                if (World.tileMap.getTile(placeTile).isBuildable())
                 {
-                    placeBuilding(currentBuildingData, new Vector2i((int)groundPosition.x, (int)groundPosition.z));
+                    ghostMaterial.color = GHOST_COLOR_CAN_PLACE;
+                    canPlace = true;
+                }
+                else
+                {
+                    ghostMaterial.color = GHOST_COLOR_CAN_NOT_PLACE;
+                }
+
+                if (canPlace && Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+                {
+                    requestBuildBuilding(unitID, currentBuildingData.name, (int)groundPosition.x, (int)groundPosition.z);
                 }
                 else if (Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON))
                 {
@@ -577,6 +611,7 @@ public abstract class GameController : MonoBehaviour{
                             targetSelected = false;
                             UnitController target = firstUnit.GetComponent<UnitController>();
                             targetUnitID = target.getID();
+                            targetTag = "Unit";
                             if (targetUnitID != unitID)
                             {
                                 requestAttackCommandUnit(unitID, targetUnitID);
@@ -594,6 +629,14 @@ public abstract class GameController : MonoBehaviour{
                             targetPosition = firstLoot.position;
                             int lootID = firstLoot.GetComponent<LootId>().getId();
                             requestLootCommand(unitID, Mathf.FloorToInt(targetPosition.x), Mathf.FloorToInt(targetPosition.z), lootID);
+                        }
+                        else if (firstBuilding != null)
+                        {
+                            targetSelected = false;
+                            UnitController target = firstBuilding.GetComponent<UnitController>();
+                            targetUnitID = target.getID();
+                            targetTag = "Building";
+                            requestBuildingCommand(unitID, targetUnitID); 
                         }
                         else if (firstAction != null)
                         {
@@ -653,7 +696,10 @@ public abstract class GameController : MonoBehaviour{
                     }
                     else if (targetUnitID >= 0)
                     {
-                        requestAttackCommandUnit(unitID, targetUnitID);
+                        if (targetTag == "Unit")
+                            requestAttackCommandUnit(unitID, targetUnitID);
+                        else if (targetTag == "Building")
+                            requestBuildingCommand(unitID, targetUnitID);
                     }
                     else if (attackingGround && hitGround)
                     {
@@ -872,11 +918,28 @@ public abstract class GameController : MonoBehaviour{
     }
     #endregion
 
-    #region INVENTORY AND CRAFTING
-    //REGION INVENTORY AND CRAFTING
+    #region INVENTORY, CRAFTING AND BUILDING
+    //REGION INVENTORY, CRAFTING AND BUILDING
 
     public void startPlacingBuilding(BuildingRecipeData recipe)
     {
+        BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
+        GameObject go = ObjectPoolingManager.Instance.GetObject(data.modelName);
+
+        ghostRenderers = go.GetComponentsInChildren<Renderer>();
+
+        
+        foreach (Renderer renderer in ghostRenderers)
+        {
+            renderer.material = ghostMaterial;
+        }
+
+        if (buildingGhost != null)
+        {
+            Destroy(buildingGhost);
+        }
+
+        buildingGhost = go;
         buildingGhost.SetActive(true);
         isPlacingBuilding = true;
         currentBuildingData = recipe;
@@ -888,15 +951,35 @@ public abstract class GameController : MonoBehaviour{
         isPlacingBuilding = false;
     }
 
-    public void placeBuilding(BuildingRecipeData recipe, Vector2i position)
+    [RPC]
+    public void approveBuildBuilding(int unitID, string recipeName, int x, int y)
     {
+        BuildingRecipeData recipe = DataHolder.Instance.getBuildingRecipeData(recipeName);
         BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
         if (data != null && GameMaster.getPlayerHero().getInventory().removeRecipeIngredients(recipe))
         {
-            GameMaster.addActor(data.getBuilding(position, 0, GameMaster.getNextUnitID(), GameMaster.getPlayerHero().getTeam()));
+            GameMaster.addActor(data.getBuilding(new Vector2i(x, y), 0, GameMaster.getNextUnitID(), GameMaster.getPlayerHero().getTeam()));
         }
         buildingGhost.SetActive(false);
         isPlacingBuilding = false;
+    }
+
+    [RPC]
+    public abstract void requestBuildBuilding(int unitID, string recipeName, int x, int y);
+
+    [RPC]
+    public abstract void requestBuildingCommand(int unitID, int buildingID);
+
+    [RPC]
+    public void approveBuildingCommand(int unitID, int buildingID)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        Building building = GameMaster.getActor(buildingID) as Building;
+
+        if (hero == null || building == null)
+            return;
+
+        hero.giveCommand(new BuildingCommand(hero, building));
     }
 
     [RPC]

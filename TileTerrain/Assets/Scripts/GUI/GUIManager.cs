@@ -1952,7 +1952,15 @@ public class GUIManager : MonoBehaviour{
 
         float height = Mathf.CeilToInt((float)craftingButtons.Count/3.0f) * Mathf.Abs(CRAFTING_BUTTON_YOFFSET);
         recipeHolder.sizeDelta = new Vector2(recipeHolder.sizeDelta.x, height);
-        craftingScrollRect.vertical = craftingMask.sizeDelta.y < height;
+
+        if (craftingMask.sizeDelta.y < height)
+        {
+            craftingScrollRect.vertical = true;
+        }
+        else
+        {
+            recipeHolder.anchoredPosition = new Vector2(recipeHolder.anchoredPosition.x, 0);
+        }
 
         updateCrafting();
     }
@@ -2053,6 +2061,22 @@ public class GUIManager : MonoBehaviour{
 
         activateInventory(activate);
         activateCrafting(activate);
+    }
+
+    public void selectedBuilding(Building building)
+    {
+        BuildingData data = DataHolder.Instance.getBuildingData(building.getName());
+
+        if (data.getCraftingRecipes() != null)
+        {
+            craftingMode = CraftingWindowMode.Tools;
+            craftingTitelText.text = data.gameName;
+            recipes = new List<RecipeData>();
+            recipes.AddRange(data.getCraftingRecipes());
+            initCrafting();
+            activateInventory(true);
+            activateCrafting(true);
+        }
     }
 
     public void toggleHeroStats()

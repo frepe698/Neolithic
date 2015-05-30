@@ -6,7 +6,9 @@ using System.Linq;
 public class ObjectPool
 {
 	//the stack of objects.
-	private Stack<GameObject> pooledObjects;
+	//private Stack<GameObject> pooledObjects;
+    private GameObject[] pooledObjects;
+    private int objectCount;
 	
 	//sample of the actual object to store.
 	//used if we need to grow the list.
@@ -26,7 +28,8 @@ public class ObjectPool
 	public ObjectPool(GameObject obj, int targetPoolSize, bool shouldShrink)
 	{
 		//instantiate a new list of game objects to store our pooled objects in.
-		pooledObjects = new Stack<GameObject>();
+		//pooledObjects = new Stack<GameObject>();
+        pooledObjects = new GameObject[targetPoolSize];
 		
 		//create and add an object based on initial size.
 		for (int i = 0; i < targetPoolSize; i++)
@@ -39,7 +42,8 @@ public class ObjectPool
 			nObj.SetActive(false);
 			
 			//add the object too our list.
-			pooledObjects.Push(nObj);
+			//pooledObjects.Push(nObj);
+            pooledObjects[i] = nObj;
 			
 			//Don't destroy on load, so
 			//we can manage centrally.
@@ -47,6 +51,7 @@ public class ObjectPool
 		
 		//store our other variables that are useful.
 		this.targetPoolSize = targetPoolSize;
+        objectCount = targetPoolSize - 1;
 		this.pooledObj = obj;
 		
 		//are we supposed to shrink?
@@ -74,9 +79,11 @@ public class ObjectPool
 		}*/
 
 		GameObject nObj;
-		if(pooledObjects.Count > 0)
+		if(objectCount >= 0/*pooledObjects.Count > 0*/)
 		{
-			nObj = pooledObjects.Pop();
+			//nObj = pooledObjects.Pop();
+            nObj = pooledObjects[objectCount];
+            objectCount--;
 			nObj.SetActive(true);
 			return nObj;
 		}
@@ -95,8 +102,15 @@ public class ObjectPool
 
 	public void ReturnObject(GameObject nObj)
 	{
+        if (objectCount >= targetPoolSize - 1)
+        {
+            GameObject.Destroy(nObj);
+            return;
+        }
 		nObj.SetActive(false);
-		pooledObjects.Push(nObj);
+		//pooledObjects.Push(nObj);
+        objectCount++;
+        pooledObjects[objectCount] = nObj;
 	}
 	
 	/// <summary>
@@ -142,13 +156,14 @@ public class ObjectPool
 				}
 			}
 		}*/
-
+#if false
 		while(pooledObjects.Count > targetPoolSize)
 		{
 			GameObject nObj = pooledObjects.Pop ();
 			GameObject.Destroy(nObj);
 
 		}
+#endif
 	}
 	
 }

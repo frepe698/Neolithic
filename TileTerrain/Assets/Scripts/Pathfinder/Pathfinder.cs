@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 /* Every tile can have at most one static object. If there is an object on a tile it is 
  * not possible to walk there. 
  * 
@@ -47,8 +48,8 @@ public class Pathfinder {
 	public static Path aStarPathFinding(TileMap map, Vector2 start, Vector2 end, int unitID)
 	{
 		Vector2i endTile = new Vector2i(end);
-		List<PathNode> closedSet = new List<PathNode>();
-		List<PathNode> openSet = new List<PathNode>();
+        HashSet<PathNode> closedSet = new HashSet<PathNode>();
+        List<PathNode> openSet = new List<PathNode>();
 
 		PathNode startNode = new PathNode(start);
 		int worthCounter = 0;
@@ -623,6 +624,7 @@ public class Pathfinder {
 
 	private static List<PathNode> removeItem(List<PathNode> list, PathNode item)
 	{
+        //list.Remove(item);
 		for(int i = 0; i < list.Count; i++)
 		{
 			if(list[i].tile == item.tile)
@@ -636,6 +638,7 @@ public class Pathfinder {
 
 	private static int getNodeIndex(List<PathNode> list, PathNode item)
 	{
+        //return list.IndexOf(item);
 		for(int i = 0; i < list.Count; i++)
 		{
 			if(list[i].tile == item.tile) return i;
@@ -643,8 +646,9 @@ public class Pathfinder {
 		return -1;
 	}
 
-	private static bool containsNode(List<PathNode> list, PathNode item)
+	private static bool containsNode(HashSet<PathNode> list, PathNode item)
 	{
+        return list.Contains(item);
 		foreach(PathNode node in list)
 		{
 			if(node.tile == item.tile) return true;

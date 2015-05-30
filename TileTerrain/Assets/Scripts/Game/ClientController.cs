@@ -254,6 +254,17 @@ public class ClientController : GameController {
 		gameMaster.getNetView().RPC ("requestItemConsume", RPCMode.Server, unitID, itemIndex);
 	}
 
+    [RPC]
+    public override void requestBuildBuilding(int unitID, string recipeName, int x, int y)
+    {
+        gameMaster.getNetView().RPC("requestBuildBuilding", RPCMode.Server, unitID, recipeName, x, y);
+    }
+
+    [RPC]
+    public override void requestBuildingCommand(int unitID, int buildingID)
+    {
+        gameMaster.getNetView().RPC("requestBuildingCommand", RPCMode.Server, unitID, buildingID);
+    }
 
     [RPC]
     public override void requestItemCraft(int unitID, string name)

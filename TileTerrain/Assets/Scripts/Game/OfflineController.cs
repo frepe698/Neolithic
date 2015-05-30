@@ -284,6 +284,27 @@ public class OfflineController : GameController {
 		approveItemConsume(unitID, itemIndex);
 	}
 
+    [RPC]
+    public override void requestBuildBuilding(int unitID, string recipeName, int x, int y)
+    {
+        if (!World.tileMap.getTile(x, y).isBuildable()) return;
+        Hero hero = GameMaster.getHero(unitID);
+        BuildingRecipeData recipe = DataHolder.Instance.getBuildingRecipeData(recipeName);
+
+        //Check if the hero's skill level is high enough and it has all the ingredients
+        if (hero.getSkillManager().getSkill((int)recipe.skill).getLevel() >= recipe.requiredSkillLevel &&
+            hero.getInventory().hasIngredients(recipe.ingredients))
+        {
+            approveBuildBuilding(unitID, recipeName, x, y);
+        }
+    }
+
+    [RPC]
+    public override void requestBuildingCommand(int unitID, int buildingID)
+    {
+        approveBuildingCommand(unitID, buildingID);
+    }
+
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{

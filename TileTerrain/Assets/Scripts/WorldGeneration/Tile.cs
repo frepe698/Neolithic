@@ -111,6 +111,12 @@ public class Tile {
 		return tileObject != null;
 	}
 
+    public bool isBuildable()
+    {
+        if (cliff) return false;
+        return ((actors.Count == 0 && tileObject == null));
+    }
+
 	public void renderEyecandy()
 	{
 		foreach(Eyecandy eo in eyecandyObjects)

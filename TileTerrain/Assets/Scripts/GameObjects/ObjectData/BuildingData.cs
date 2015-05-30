@@ -37,6 +37,9 @@ public class BuildingData : ObjectData {
 
     public void initRecipes()
     {
+        if(craftingRecipeNames == null || craftingRecipeNames.Length == 0) 
+            return;
+
         craftingRecipes = new RecipeData[craftingRecipeNames.Length];
 
         for (int i = 0; i < craftingRecipes.Length; i++)
