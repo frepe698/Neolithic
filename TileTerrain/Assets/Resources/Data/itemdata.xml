@@ -42,6 +42,11 @@
     <ConsumableItemData name="meat" gameName="Meat" modelName="meat">
       <description>Can be eaten</description>
       <hitBuffs />
+      <hungerChange>15</hungerChange>
+    </ConsumableItemData>
+    <ConsumableItemData name="steak" gameName="Steak" modelName="meat">
+      <description>Can be eaten</description>
+      <hitBuffs />
       <hungerChange>40</hungerChange>
     </ConsumableItemData>
     <ConsumableItemData name="trolldryck" gameName="Trolldryck" modelName="darkpotion">

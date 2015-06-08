@@ -27,10 +27,12 @@ public class TimeSetting  {
     private Vector3 moonDirection;
     private Vector3 moonRotation;
 
+    private float averageTemperature;
+
     private bool alive = false;
 
     public TimeSetting(float lifeSpan, Color sunStartLightColor, Color sunEndLightColor, Vector3 sunStartRotation, Vector3 sunEndRotation, 
-        Color moonStartLightColor, Color moonEndLightColor, Vector3 moonStartRotation, Vector3 moonEndRotation)
+        Color moonStartLightColor, Color moonEndLightColor, Vector3 moonStartRotation, Vector3 moonEndRotation, float averageTemperature)
     {
         this.lifeSpan = lifeSpan;
 
@@ -49,6 +51,8 @@ public class TimeSetting  {
         this.moonStartRotation = moonStartRotation;
         this.moonEndRotation = moonEndRotation;
         this.moonDirection = (moonEndRotation - moonStartRotation) / lifeSpan;
+
+        this.averageTemperature = averageTemperature;
     }
 
     public void update(float deltaTime)
@@ -146,5 +150,10 @@ public class TimeSetting  {
     public virtual float getTimeOfDay()
     {
         return elapsedTime / lifeSpan;
+    }
+
+    public float getTemperatureChange(float curTemperature)
+    {
+        return (averageTemperature * Random.Range(0.8f, 1.2f) - curTemperature);
     }
 }

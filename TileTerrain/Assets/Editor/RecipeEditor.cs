@@ -405,6 +405,8 @@ public class RecipeEditor : ObjectEditor
         EditorGUILayout.PrefixLabel("Description:");
         data.description = EditorGUILayout.TextField(data.description);
 
+        data.isBasicRecipe = EditorGUILayout.Toggle("Is Basic Recipe", data.isBasicRecipe);
+
         GUILayout.Space(10);
         EditorGUILayout.LabelField("Skill:", EditorStyles.boldLabel);
         data.skill = (Skills)EditorGUILayout.EnumPopup("Skill: ", data.skill);

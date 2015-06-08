@@ -17,6 +17,7 @@ public class AbilityData : ObjectData {
 
     public readonly float totalTime;
     public readonly bool canAlwaysStart;
+    public readonly bool canRetarget = true;
 
     public readonly int energyCost;
     public readonly int healthCost;
@@ -56,6 +57,7 @@ public class AbilityData : ObjectData {
         cooldown = edit.cooldown;
         totalTime = edit.totalTime;
         canAlwaysStart = edit.canAlwaysStart;
+        canRetarget = edit.canRetarget;
         range = edit.range;
     }
 

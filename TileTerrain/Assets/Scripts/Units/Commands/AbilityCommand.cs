@@ -47,7 +47,7 @@ public class AbilityCommand : Command {
         speedIncrease = 1;
         foreach (SpeedIncrease s in ability.data.speedIncreases)
         {
-            Debug.Log(s.stat + " " + s.percent + ", " + actor.getUnitStats().getStatV(s.stat));
+            //Debug.Log(s.stat + " " + s.percent + ", " + actor.getUnitStats().getStatV(s.stat));
             speedIncrease *= 1 + s.percent * (actor.getUnitStats().getStatV(s.stat)-1);
         }
     }
@@ -91,10 +91,21 @@ public class AbilityCommand : Command {
 			if(!doneAllEffects)
 			{
                 //Aimbot if you have a target == op
-                if (target != null)
+                if (target != null && ability.data.canRetarget)
                 {
                     //Update target position to the targeted units position
-                    attackPosition = target.get2DPos();
+                    Vector2 heroPos = actor.get2DPos();
+                    Vector2 groundPos2D = target.get2DPos();
+
+                    if (Vector2.Distance(heroPos, groundPos2D) > ability.data.range)
+                    {
+                        Vector2 dir = (groundPos2D - heroPos).normalized;
+                        attackPosition = new Vector2(heroPos.x + dir.x * ability.data.range, heroPos.y + dir.y * ability.data.range);
+                    }
+                    else
+                    {
+                        attackPosition = target.get2DPos();
+                    }
                     calculateRotation();
                 }
 

@@ -105,10 +105,63 @@ public class World : MonoBehaviour {
                     getHeight(team.basePosition.toVector2()),
                     team.basePosition.y + 0.5f),
                     Random.value * 360, "baseFire"));
+
+            
         }
         //addRoadSpawners(mode);
     }
-	
+
+    public void initPvPWorld(MonumentMode mode)
+    {
+        if (seed != -1)
+        {
+            Random.seed = seed;
+        }
+        tileMap = new TileMap(4, 1);
+        tileMap.generatePvPMap(mode);
+        tileMap.generateGround();
+        tileMap.generateCaves();
+        generateWorldSections();
+        initObjectPools();
+        generateWater();
+        addObjects();
+
+        foreach (Vector2i holyplace in mode.holyplaces)
+        {
+            addHolyPlace(holyplace);
+        }
+        //addRoadSpawners(mode);
+    }
+
+    private void addHolyPlace(Vector2i position)
+    {
+        tileMap.getTile(position).setTileObject(
+                new EyecandyObject(new Vector3(
+                    position.x + 0.5f,
+                    getHeight(position.toVector2()),
+                    position.y + 0.5f),
+                    0, "holyplace"));
+
+        tileMap.getTile(position).setHolyPlace(true);
+
+        int x = position.x;
+        int y = position.y;
+        tileMap.getTile(x + 2, y + 2).setCliff(true);
+        tileMap.getTile(x + 1, y + 2).setCliff(true);
+        tileMap.getTile(x + 2, y + 1).setCliff(true);
+
+        tileMap.getTile(x - 2, y + 2).setCliff(true);
+        tileMap.getTile(x - 1, y + 2).setCliff(true);
+        tileMap.getTile(x - 2, y + 1).setCliff(true);
+
+        tileMap.getTile(x - 2, y - 2).setCliff(true);
+        tileMap.getTile(x - 1, y - 2).setCliff(true);
+        tileMap.getTile(x - 2, y - 1).setCliff(true);
+
+        tileMap.getTile(x + 2, y - 2).setCliff(true);
+        tileMap.getTile(x + 1, y - 2).setCliff(true);
+        tileMap.getTile(x + 2, y - 1).setCliff(true);
+    }
 	
 	void initObjectPools()
 	{
@@ -134,6 +187,7 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool("EyecandyObjects/walltorch", 4, true);
         ObjectPoolingManager.Instance.CreatePool("EyecandyObjects/thehall_pillar", 4, true);
         ObjectPoolingManager.Instance.CreatePool("ActionObjects/baseFire", 1, true);
+        ObjectPoolingManager.Instance.CreatePool("ActionObjects/holyplace", 1, true);
 
         ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveEntrance", 2, true);
         ObjectPoolingManager.Instance.CreatePool("ActionObjects/caveExit", 2, true);
@@ -218,6 +272,9 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool(("Buildings/spearspinner"), 5, true);
         ObjectPoolingManager.Instance.CreatePool(("Buildings/spinningdeath"), 5, true);
         ObjectPoolingManager.Instance.CreatePool(("Buildings/campfire"), 5, true);
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/toolbench"), 3, true);
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/oversizedcookingpot"), 3, true);
+        ObjectPoolingManager.Instance.CreatePool(("Buildings/mjolnir"), 1, true);
         
 		ObjectPoolingManager.Instance.CreatePool( ("Projectiles/rock"),20, true);
         ObjectPoolingManager.Instance.CreatePool(("Projectiles/arrow"), 20, true);
@@ -648,6 +705,53 @@ public class World : MonoBehaviour {
                             GameMaster.addNightSpawner("shaman", Random.Range(0, 3), new Vector2i(x, y));
 
                         }
+                    }
+                }
+            }
+        }
+#endif
+    }
+
+    public void addPvPSpawners(MonumentMode mode)
+    {
+        //Random.seed = 10;
+        for (int i = 0; i < tileMap.getCaves().Count; i++)
+        {
+            Cave cave = tileMap.getCaves()[i];
+            if (i == 4)
+            {
+                GameMaster.addDaySpawner("trollking", 1, cave.bossPos);
+                GameMaster.addDaySpawner("thundertroll", 1, cave.bossPos + new Vector2i(1, 0));
+                GameMaster.addDaySpawner("stonetroll", 1, cave.bossPos + new Vector2i(-1, 0));
+            }
+            else
+            {
+                GameMaster.addDaySpawner("troll", 1, cave.bossPos);
+            }
+            GameMaster.addDaySpawner("goblin", 4, cave.bossPos);
+        }
+
+
+#if true
+        for (int x = 0; x < getMainMapSize(); x++)
+        {
+            for (int y = 0; y < getMainMapSize(); y++)
+            {
+                if (tileMap.getTile(x, y).isWalkable(-1) && Random.value > 0.994f)
+                {
+                    if (Random.value < 0.7f)
+                    {
+                        GameMaster.addDaySpawner("hare", 1, new Vector2i(x, y));
+                    }
+                    else if (Random.value < 0.1f)
+                    {
+                        GameMaster.addNightSpawner("wolf", 1, new Vector2i(x, y));
+                    }
+                    else if (Random.value < 0.2f)
+                    {
+                        //Debug.Log("Added goblin pack");
+                        GameMaster.addNightSpawner("goblin", Random.Range(3, 6), new Vector2i(x, y));
+                        GameMaster.addNightSpawner("shaman", Random.Range(0, 3), new Vector2i(x, y));
                     }
                 }
             }
@@ -1137,6 +1241,11 @@ public class World : MonoBehaviour {
 			renderer.material.SetFloat("_SnowAmount", snowAmount);
 		}
 	}
+
+    public float getSnowAmount()
+    {
+        return snowAmount;
+    }
 
     void generateWorldSectionsNew()
     {

@@ -51,7 +51,7 @@ public class GameMaster : MonoBehaviour {
         guiManager.setGameMaster(this);
 		world = GameObject.Find("World").GetComponent<World>();
 		netView = GetComponent<NetworkView>();
-        mode = new TrialOfTheGods(this);
+        mode = new MonumentMode(this);
         mode.initWorld();
         //world.initPvPWorld();
 		
@@ -303,9 +303,9 @@ public class GameMaster : MonoBehaviour {
 	{
 		updateCamera();
 
-        foreach (Hero hero in heroes)
+        foreach (Actor actor in awakeActors)
         {
-            hero.updateHealthbar();
+            actor.updateHealthbar();
         }
 	}
 	

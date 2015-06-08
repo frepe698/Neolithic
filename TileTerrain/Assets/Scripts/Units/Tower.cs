@@ -16,17 +16,19 @@ public class Tower : Building {
     public Tower(string name, Vector2i position, float yRotation, int id, int team)
         : base(name, position, yRotation, id, team)
     {
-        modelName = name;
+        
         TowerData data = DataHolder.Instance.getTowerData(name);
         if (data == null)
         {
             Debug.LogError("The Tower " + name + " has no data");
             return;
         }
+        modelName = data.modelName;
         damage = data.damage;
         attackSpeed = data.attackspeed;
         attackSound = data.attackSound;
         lineOfSight = data.lineofsight;
+        warmth = data.warmth;
         unitstats = new UnitStats(this, 0, data);
         init();
         tile = new Vector2i(get2DPos());
@@ -42,6 +44,7 @@ public class Tower : Building {
         attackSpeed = data.attackspeed;
         attackSound = data.attackSound;
         lineOfSight = data.lineofsight;
+        warmth = data.warmth;
         modelName = data.modelName;
         unitstats = new UnitStats(this, 0, data);
         init();

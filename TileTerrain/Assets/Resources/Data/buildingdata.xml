@@ -5,13 +5,43 @@
       <health>100</health>
       <healthperlevel>20</healthperlevel>
       <lifegen>0</lifegen>
+      <warmth>25</warmth>
       <size>1</size>
       <buildTime>0</buildTime>
       <craftingRecipeNames>
+        <string>craftSteak</string>
+      </craftingRecipeNames>
+    </BuildingData>
+    <BuildingData name="toolbench" gameName="Toolbench" modelName="toolbench">
+      <health>100</health>
+      <healthperlevel>20</healthperlevel>
+      <lifegen>0</lifegen>
+      <warmth>0</warmth>
+      <size>1</size>
+      <buildTime>0</buildTime>
+      <craftingRecipeNames>
+        <string>craftShortbow</string>
         <string>craftFlintPickaxe</string>
         <string>craftFlintAxe</string>
+        <string>craftStronkBow</string>
         <string>craftIronPickaxe</string>
         <string>craftIronAxe</string>
+        <string>craftGoldBow</string>
+      </craftingRecipeNames>
+    </BuildingData>
+    <BuildingData name="oversizedcookingpot" gameName="Oversized Cooking Pot" modelName="oversizedcookingpot">
+      <health>200</health>
+      <healthperlevel>0</healthperlevel>
+      <lifegen>0</lifegen>
+      <warmth>5</warmth>
+      <size>1</size>
+      <buildTime>0</buildTime>
+      <craftingRecipeNames>
+        <string>craftTrolldryck</string>
+        <string>craftHealthPotion</string>
+        <string>craftSmallEnergyPotion</string>
+        <string>craftBerzerkerBrew</string>
+        <string>craftGold</string>
       </craftingRecipeNames>
     </BuildingData>
   </CraftingBuildings>
@@ -20,6 +50,7 @@
       <health>200</health>
       <healthperlevel>50</healthperlevel>
       <lifegen>0</lifegen>
+      <warmth>0</warmth>
       <size>1</size>
       <buildTime>0</buildTime>
       <craftingRecipeNames>
@@ -38,6 +69,7 @@
       <health>300</health>
       <healthperlevel>100</healthperlevel>
       <lifegen>0</lifegen>
+      <warmth>0</warmth>
       <size>1</size>
       <buildTime>0</buildTime>
       <craftingRecipeNames>
@@ -53,4 +85,14 @@
       <basicattack>spinningdeathattack</basicattack>
     </TowerData>
   </Towers>
+  <Monuments>
+    <MonumentData name="mjolnir" gameName="Mjolnir" modelName="mjolnir">
+      <health>500</health>
+      <healthperlevel>50</healthperlevel>
+      <lifegen>0</lifegen>
+      <warmth>0</warmth>
+      <size>1</size>
+      <buildTime>0</buildTime>
+    </MonumentData>
+  </Monuments>
 </BuildingsRoot>

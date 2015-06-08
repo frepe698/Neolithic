@@ -8,6 +8,7 @@ public class ArmorData : EquipmentData {
 
     public readonly int armor;
     public readonly int speedPenalty;
+    public readonly float warmth;
 
     public readonly int armorType = 0;
 
@@ -20,13 +21,15 @@ public class ArmorData : EquipmentData {
     {
         armor = edit.armor;
         speedPenalty = edit.speedPenalty;
+        warmth = edit.warmth;
         armorType = (int)edit.armorType;
     }
 
     public override string getTooltipStatsString()
     {
         return "Armor: " + armor +
-            "\nSpeed Penalty: " + speedPenalty;
+            "\nSpeed Penalty: " + speedPenalty +
+            "\nWarmth: " + warmth;
     }
 	
 }

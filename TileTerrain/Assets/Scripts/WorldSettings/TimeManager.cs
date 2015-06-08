@@ -40,6 +40,15 @@ public class TimeManager{
     private Light moon;
 
     private bool inDoors = false;
+
+    //Temperature
+    private float curTemperature;
+    private float prevTemperature;
+    private float temperatureChange;
+    private float temperatureInterpolationSpeed;
+    private float temperatureInterpolationTimer;
+    private float nextTemperatureChangeTimer;
+
     public TimeManager()
     {
         currentTime = times[DAY];
@@ -65,6 +74,9 @@ public class TimeManager{
         moon.renderMode = LightRenderMode.ForcePixel;
 
         updateIntermissionValues();
+
+        curTemperature = currentTime.getTemperatureChange(0);
+        nextTemperatureChangeTimer = 0.0f;
     }
     
     
@@ -85,6 +97,17 @@ public class TimeManager{
 
             sunRotation = currentTime.getSunRotation();
             moonRotation = currentTime.getMoonRotation();
+
+            nextTemperatureChangeTimer -= deltaTime;
+            if (nextTemperatureChangeTimer <= 0)
+            {
+                temperatureChange = currentTime.getTemperatureChange(curTemperature);
+                prevTemperature = curTemperature;
+                nextTemperatureChangeTimer = Random.Range(4.0f, 10.0f);
+                temperatureInterpolationSpeed = 1.0f / nextTemperatureChangeTimer;
+                temperatureInterpolationTimer = 0;
+                
+            }
         }
         else 
         { 
@@ -124,6 +147,16 @@ public class TimeManager{
         {
             sun.color = black;
             moon.color = black;
+        }
+
+        if (temperatureInterpolationTimer < 1)
+        {
+            temperatureInterpolationTimer += deltaTime * temperatureInterpolationSpeed;
+            curTemperature = prevTemperature + temperatureChange * temperatureInterpolationTimer;
+        }
+        else
+        {
+            curTemperature = prevTemperature + temperatureChange;
         }
 
     }
@@ -189,6 +222,11 @@ public class TimeManager{
     public float getTimeOfDay()
     {
         return currentTime.getTimeOfDay();
+    }
+
+    public float getCurTemperature()
+    {
+        return (int)(curTemperature*10)/10.0f;
     }
 	
 }

@@ -19,14 +19,14 @@ public class BuildingCommand : Command {
 
     public override void update()
     {
-        if (Vector2.Distance(actor.get2DPos(), destination) < 2)
+        if (Vector2.Distance(actor.get2DPos(), destination) < 1)
         {
             actor.setMoving(false);
             if (building != null)
             {
                 if (actor.getID() == GameMaster.getPlayerUnitID())
                 {
-                    GameMaster.getGUIManager().selectedBuilding(building);
+                    GameMaster.getGUIManager().selectBuilding(building);
                 }
             }
             setCompleted();

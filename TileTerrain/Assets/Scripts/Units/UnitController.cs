@@ -254,4 +254,9 @@ public class UnitController : MonoBehaviour {
         return go;
     }
 
+    public float getHeight()
+    {
+        return myCollider.bounds.size.y;
+    }
+
 }

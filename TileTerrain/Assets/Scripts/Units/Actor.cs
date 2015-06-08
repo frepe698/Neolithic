@@ -29,6 +29,8 @@ public abstract class Actor {
     protected List<Ability> abilities;
     protected UnitStats unitstats;
 
+    protected HealthbarController healthBar;
+
     public Actor(string name, Vector3 position, Vector3 rotation, int id)
     {
         this.name = name;
@@ -80,7 +82,35 @@ public abstract class Actor {
         if (!isActive()) return false; //Already inactive
         ObjectPoolingManager.Instance.ReturnObject(modelName, gameObject);
         gameObject = null;
+
+        if (healthBar != null)
+        {
+            GameObject.Destroy(healthBar.gameObject);
+            healthBar = null;
+        }
         return true;
+    }
+
+    public virtual void updateHealthbar()
+    {
+        if (healthBar == null)
+        {
+            if(getHealth() >= getMaxHealth() - 1)
+                return;
+
+            GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("GUI/ai_healthbar"));
+            go.transform.SetParent(GameMaster.getGUIManager().getCanvas().FindChild("WorldUI"));
+            healthBar = go.GetComponent<HealthbarController>();
+            healthBar.setColor(Color.red);
+
+        }
+
+        if (!alive || getHealth() == getMaxHealth()) healthBar.setActive(false);
+        else
+        {
+            healthBar.update(this);
+            healthBar.setActive(true);
+        }
     }
 
     public virtual void setAwake(bool awake)
@@ -632,5 +662,12 @@ public abstract class Actor {
             }
         }
         return closestUnit;
+    }
+
+    public float getHeight()
+    {
+        if (unitController == null)
+            return 0;
+        return unitController.getHeight();
     }
 }

@@ -7,12 +7,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.05</attackSpeed>
+      <attackSpeed>2.1</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>15</int>
-        <int>13</int>
-        <int>3</int>
+        <int>8</int>
+        <int>8</int>
+        <int>2</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -31,12 +31,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.2</attackSpeed>
+      <attackSpeed>2.4</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>20</int>
-        <int>15</int>
-        <int>5</int>
+        <int>12</int>
+        <int>10</int>
+        <int>3</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -55,12 +55,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.1</attackSpeed>
+      <attackSpeed>2.2</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>30</int>
         <int>18</int>
-        <int>8</int>
+        <int>14</int>
+        <int>4</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -103,12 +103,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1</attackSpeed>
+      <attackSpeed>2</attackSpeed>
       <tags>1</tags>
       <damage>
+        <int>6</int>
+        <int>6</int>
         <int>8</int>
-        <int>12</int>
-        <int>15</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -127,12 +127,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.1</attackSpeed>
+      <attackSpeed>2.2</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>14</int>
+        <int>9</int>
+        <int>6</int>
         <int>12</int>
-        <int>18</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -151,12 +151,12 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1</attackSpeed>
+      <attackSpeed>2</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>20</int>
+        <int>12</int>
+        <int>10</int>
         <int>15</int>
-        <int>22</int>
       </damage>
       <attackAnims>
         <string>attack_axe</string>
@@ -175,11 +175,11 @@
       <idleAnim>idle_unarmed</idleAnim>
       <runAnim>run_unarmed</runAnim>
       <lootAnim>loot_unarmed</lootAnim>
-      <attackSpeed>1</attackSpeed>
+      <attackSpeed>1.5</attackSpeed>
       <tags>16</tags>
       <damage>
         <int>5</int>
-        <int>10</int>
+        <int>8</int>
         <int>1</int>
       </damage>
       <attackAnims>
@@ -223,11 +223,11 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.4</attackSpeed>
+      <attackSpeed>2.8</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>13</int>
-        <int>3</int>
+        <int>8</int>
+        <int>2</int>
         <int>1</int>
       </damage>
       <attackAnims>
@@ -247,10 +247,10 @@
       <idleAnim>idle_axe</idleAnim>
       <runAnim>run_axe</runAnim>
       <lootAnim>loot_axe</lootAnim>
-      <attackSpeed>1.1</attackSpeed>
+      <attackSpeed>2</attackSpeed>
       <tags>1</tags>
       <damage>
-        <int>20</int>
+        <int>14</int>
         <int>6</int>
         <int>4</int>
       </damage>

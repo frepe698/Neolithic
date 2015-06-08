@@ -39,16 +39,20 @@ public class DataHolder {
     public class BuildingDataHolder
     {
         public BuildingDataHolder() { }
-        public BuildingDataHolder(BuildingData[] buildingData, TowerData[] towerData)
+        public BuildingDataHolder(BuildingData[] buildingData, TowerData[] towerData, MonumentData[] monumentData)
         {
             this.buildingData = buildingData;
             this.towerData = towerData;
+            this.monumentData = monumentData;
         }
         [XmlArray("CraftingBuildings"), XmlArrayItem("BuildingData")]
         public readonly BuildingData[] buildingData;
 
         [XmlArray("Towers"), XmlArrayItem("TowerData")]
         public readonly TowerData[] towerData;
+
+        [XmlArray("Monuments"), XmlArrayItem("MonumentData")]
+        public readonly MonumentData[] monumentData;
     }
 
 	[XmlRoot("WeaponsRoot")]
@@ -678,6 +682,10 @@ public class DataHolder {
         {
             if (data.name.Equals(name)) return data;
         }
+        foreach (MonumentData data in buildingDataHolder.monumentData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
         return null;
     }
 
@@ -693,6 +701,15 @@ public class DataHolder {
     public TowerData getTowerData(string name)
     {
         foreach (TowerData data in buildingDataHolder.towerData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
+
+    public MonumentData getMonumentData(string name)
+    {
+        foreach (MonumentData data in buildingDataHolder.monumentData)
         {
             if (data.name.Equals(name)) return data;
         }

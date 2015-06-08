@@ -173,6 +173,7 @@ public class ArmorEditor : ObjectEditor
         EditorGUILayout.LabelField("Stats: ", EditorStyles.boldLabel);
         data.armor = IntField("Armor: ", data.armor);
         data.speedPenalty = IntField("Speed Penalty: ", data.speedPenalty);
+        data.warmth = FloatField("Warmth: ", data.warmth);
 
         data.armorType = (ArmorType)EditorGUILayout.EnumPopup("Armor Type: ", data.armorType);
         data.durability = IntField("Durablity: ", data.durability);

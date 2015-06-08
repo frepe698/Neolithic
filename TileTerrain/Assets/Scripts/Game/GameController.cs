@@ -19,7 +19,8 @@ public abstract class GameController : MonoBehaviour{
     private Vector3 attackPosition;
 
     //Building placing
-    private BuildingRecipeData currentBuildingData;
+    private BuildingRecipeData currentBuildingRecipeData;
+    private BuildingData currentBuildingData;
     private bool isPlacingBuilding;
     private GameObject buildingGhost;
     private Renderer[] ghostRenderers;
@@ -522,30 +523,34 @@ public abstract class GameController : MonoBehaviour{
             if (isPlacingBuilding)
             {
                 Vector2i placeTile = new Vector2i(groundPosition);
-                
+
 
                 Vector2 gridPos = new Vector2(placeTile.x + 0.5f, placeTile.y + 0.5f);
                 buildingGhost.transform.position = new Vector3(gridPos.x, World.getHeight(gridPos), gridPos.y);
 
-                bool canPlace = false;
-                if (World.tileMap.getTile(placeTile).isBuildable())
+                bool canPlace = World.tileMap.getTile(placeTile).isBuildable(currentBuildingData is MonumentData);
+                Debug.Log(canPlace);
+                if (canPlace)
                 {
+                    if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
+                    {
+                        requestBuildBuilding(unitID, currentBuildingRecipeData.name, (int)groundPosition.x, (int)groundPosition.z);
+                    }
                     ghostMaterial.color = GHOST_COLOR_CAN_PLACE;
-                    canPlace = true;
                 }
                 else
                 {
                     ghostMaterial.color = GHOST_COLOR_CAN_NOT_PLACE;
                 }
 
-                if (canPlace && Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
-                {
-                    requestBuildBuilding(unitID, currentBuildingData.name, (int)groundPosition.x, (int)groundPosition.z);
-                }
-                else if (Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON))
+                foreach (Renderer renderer in ghostRenderers)
+                    renderer.material = ghostMaterial;
+
+                if (Input.GetMouseButtonDown(RIGHT_MOUSE_BUTTON))
                 {
                     cancelPlacingBuilding();
                 }
+
             }
             else
             {
@@ -581,6 +586,8 @@ public abstract class GameController : MonoBehaviour{
                             {
                                 requestAbilityCommandVec(unitID, groundPosition + Vector3.up, abilityIndex);
                             }
+
+                            GameMaster.getGUIManager().onPlayerHeroMove();
                         }
                     }
                 }
@@ -588,6 +595,7 @@ public abstract class GameController : MonoBehaviour{
 
                 if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
                 {
+                    GameMaster.getGUIManager().onPlayerHeroMove();
                     if (hitGround && Input.GetKey(ATTACK_GROUND))
                     {
                         Ability ability = hero.getBasicAttack();
@@ -636,7 +644,7 @@ public abstract class GameController : MonoBehaviour{
                             UnitController target = firstBuilding.GetComponent<UnitController>();
                             targetUnitID = target.getID();
                             targetTag = "Building";
-                            requestBuildingCommand(unitID, targetUnitID); 
+                            requestBuildingCommand(unitID, targetUnitID);
                         }
                         else if (firstAction != null)
                         {
@@ -664,6 +672,7 @@ public abstract class GameController : MonoBehaviour{
                        || (Input.GetMouseButton(LEFT_MOUSE_BUTTON) && !attackingGround && !targetSelected && targetUnitID < 0 && clickTimer <= 0)
                        || Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON)))
                 {
+                    GameMaster.getGUIManager().onPlayerHeroMove();
                     clickTimer = clickTime;
                     requestMoveCommand(unitID, groundPosition.x, groundPosition.z);
                 }
@@ -719,6 +728,10 @@ public abstract class GameController : MonoBehaviour{
 
                 }
             }
+        }
+        else //if cursor is over gui
+        {
+            Cursor.SetCursor(moveCursor, Vector2.zero, CursorMode.Auto);
         }
     }
 
@@ -923,15 +936,15 @@ public abstract class GameController : MonoBehaviour{
 
     public void startPlacingBuilding(BuildingRecipeData recipe)
     {
-        BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
-        GameObject go = ObjectPoolingManager.Instance.GetObject(data.modelName);
+        currentBuildingData = DataHolder.Instance.getBuildingData(recipe.product);
+        GameObject go = ObjectPoolingManager.Instance.GetObject(currentBuildingData.modelName);
 
         ghostRenderers = go.GetComponentsInChildren<Renderer>();
 
         
         foreach (Renderer renderer in ghostRenderers)
         {
-            renderer.material = ghostMaterial;
+            renderer.sharedMaterial = ghostMaterial;
         }
 
         if (buildingGhost != null)
@@ -942,7 +955,7 @@ public abstract class GameController : MonoBehaviour{
         buildingGhost = go;
         buildingGhost.SetActive(true);
         isPlacingBuilding = true;
-        currentBuildingData = recipe;
+        currentBuildingRecipeData = recipe;
     }
 
     public void cancelPlacingBuilding()
@@ -954,11 +967,13 @@ public abstract class GameController : MonoBehaviour{
     [RPC]
     public void approveBuildBuilding(int unitID, string recipeName, int x, int y)
     {
+        Hero hero = GameMaster.getHero(unitID);
         BuildingRecipeData recipe = DataHolder.Instance.getBuildingRecipeData(recipeName);
         BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
-        if (data != null && GameMaster.getPlayerHero().getInventory().removeRecipeIngredients(recipe))
+        if (hero != null && data != null && hero.getInventory().removeRecipeIngredients(recipe))
         {
-            GameMaster.addActor(data.getBuilding(new Vector2i(x, y), 0, GameMaster.getNextUnitID(), GameMaster.getPlayerHero().getTeam()));
+            GameMaster.addActor(data.getBuilding(new Vector2i(x, y), 0, GameMaster.getNextUnitID(), hero.getTeam()));
+            giveExperience(unitID, (int)recipe.skill, recipe.expAmount);
         }
         buildingGhost.SetActive(false);
         isPlacingBuilding = false;

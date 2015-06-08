@@ -21,6 +21,7 @@ public class HeroStats : UnitStats {
             //set to base + per level
             stats[s].reset(level);
         }
+        hero.setWarmth(0);
 
         //get stats from unit skills
         Skill[] skills = hero.getSkillManager().getSkills();
@@ -41,6 +42,7 @@ public class HeroStats : UnitStats {
             if (a == null) continue;
             addToStat(Stat.Armor, a.armor);
             addToStat(Stat.Movespeed, -a.speedPenalty);
+            hero.addWarmth(a.warmth);
         }
 
         //get damage from equiped weapon

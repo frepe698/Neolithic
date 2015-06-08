@@ -176,6 +176,7 @@ public class AbilityEditor : ObjectEditor
 
         GUILayout.Space(20);
         data.canAlwaysStart = EditorGUILayout.Toggle("Can always start: ", data.canAlwaysStart);
+        data.canRetarget = EditorGUILayout.Toggle("Can Retarget: ", data.canRetarget);
         data.totalTime = EditorGUILayout.FloatField("Total Time: ", data.totalTime);
         data.range = EditorGUILayout.FloatField("Range: ", data.range);
 

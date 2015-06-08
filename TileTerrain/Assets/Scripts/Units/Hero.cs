@@ -24,6 +24,14 @@ public class Hero : Unit {
 	private float hunger;
 	private readonly float BASE_HUNGER_GAIN;
 
+    //COLDNESS
+    private float maxColdness = 100;
+    private float coldness;
+    private const float COLDNESS_MULTIPLIER = 0.2f;
+    private const float BASE_TEMPERATURE_INCREASE = -10.0f;
+    private float armorWarmth = 0;
+    private float buildingWarmth = 0;
+
     protected bool colliderActive = true;
 
     private float respawnTimer;
@@ -31,7 +39,7 @@ public class Hero : Unit {
     private bool waitingForRespawn = false;
     private Vector2 respawnPosition;
 
-    private HealthbarController healthBar;
+    
 
 	public Hero(string unit, Vector3 position, Vector3 rotation, int id, int team) 
 		: base(unit, position, rotation, id, new Vector3(1,1,1))
@@ -124,9 +132,8 @@ public class Hero : Unit {
         return false;
     }
 
-    public void updateHealthbar()
+    public override void updateHealthbar()
     {
-        if (!awake) return;
         if (healthBar == null)
         {
             GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("GUI/hero_healthbar"));
@@ -151,6 +158,8 @@ public class Hero : Unit {
 	{
 		hunger += getHungerGain()*Time.deltaTime;
 		hunger = Mathf.Clamp(hunger, 0, maxHunger);
+
+        coldness = Mathf.Clamp(coldness + getColdnessGain()*Time.deltaTime, 0, maxColdness);
 
         unitstats.getEnergy().addCurValue(getEnergyGain() * Time.deltaTime);
         //unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
@@ -309,13 +318,26 @@ public class Hero : Unit {
 
 	public float getHealthGain()
 	{
-
 		if(hunger <= 0)
 		{
 			return -0.5f;
 		}
-		return unitstats.getHealthRegen().getValue(); 
+		return unitstats.getHealthRegen().getValue() * getColdnessMultiplier(); 
 	}
+
+    public float getColdnessMultiplier()
+    {
+        return 1 - (coldness + float.Epsilon) / 100.0f;
+    }
+
+    public float getColdnessGain()
+    {
+        float airTemp = TimeManager.Instance.getCurTemperature();
+
+        float total = airTemp + armorWarmth + buildingWarmth + BASE_TEMPERATURE_INCREASE;
+
+        return -total * COLDNESS_MULTIPLIER;
+    }
 
 	public float getHungerGain()
 	{
@@ -325,6 +347,16 @@ public class Hero : Unit {
 		}
 		return BASE_HUNGER_GAIN;
 	}
+
+    public void setWarmth(float warmth)
+    {
+        this.armorWarmth = warmth;
+    }
+
+    public void addWarmth(float warmth)
+    {
+        this.armorWarmth += warmth;
+    }
 
 	public void changeHunger(float change)
 	{
@@ -353,6 +385,16 @@ public class Hero : Unit {
 		return maxHunger;
 	}
 
+    public float getColdness()
+    {
+        return coldness;
+    }
+
+    public float getMaxColdness()
+    {
+        return maxColdness;
+    }
+
 	public float getMaxEnergy()
 	{
 		return unitstats.getEnergy().getValue();
@@ -366,7 +408,7 @@ public class Hero : Unit {
 		{
 			penalty = 0.5f;
 		}*/
-        return base.getMovespeed();// *penalty;
+        return base.getMovespeed() * (1 - (coldness + float.Epsilon) / 200.0f);// *penalty;
 	}
 
 	public override void playWeaponAttackAnimation(float speed = 1)
@@ -470,7 +512,7 @@ public class Hero : Unit {
                 particles.Play();
             }
 
-            unitController.playSound("levelup");
+            //unitController.playSound("levelup");
         }
     }
 
@@ -516,5 +558,31 @@ public class Hero : Unit {
     public override int getFavour()
     {
         return 100;
+    }
+
+    public override void onEnterNewTile()
+    {
+        buildingWarmth = 0;
+
+        for (int x = tile.x - Building.WARMTH_TILE_RANGE; x < tile.x + Building.WARMTH_TILE_RANGE + 1; x++)
+        {
+            for (int y = tile.y - Building.WARMTH_TILE_RANGE; y < tile.y + Building.WARMTH_TILE_RANGE + 1; y++)
+            {
+                if (!World.getMap().isValidTile(x, y)) continue;
+                Tile checkTile = World.getMap().getTile(x, y);
+                if (checkTile.containsActors() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
+                {
+                    foreach (Actor actor in checkTile.getActors())
+                    {
+                        Building building = actor as Building;
+                        if (building == null) continue;
+                        float distance = Vector2i.getDistance(new Vector2i(x, y), tile);
+                        if(distance <= Building.WARMTH_TILE_RANGE) 
+                            buildingWarmth += (1 - (distance + float.Epsilon - 1) / (float)(Building.WARMTH_TILE_RANGE)) * building.getWarmth();
+                    }
+                }
+            }
+        }
+        //Debug.Log("bwarmth " + buildingWarmth);
     }
 }

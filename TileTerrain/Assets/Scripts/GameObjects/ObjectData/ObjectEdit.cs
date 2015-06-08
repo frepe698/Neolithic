@@ -281,6 +281,7 @@ namespace Edit
         };
         public float totalTime;
         public bool canAlwaysStart = false;
+        public bool canRetarget = true;
 
         public int energyCost;
         public int healthCost;
@@ -296,6 +297,8 @@ namespace Edit
             animations = new List<AbilityAnimationEdit>();
             speedIncreases = new List<SpeedIncreaseEdit>();
             range = 2;
+            canRetarget = true;
+            canAlwaysStart = false;
         }
 
         public AbilityEdit(AbilityData data)
@@ -329,6 +332,7 @@ namespace Edit
             cooldown = data.cooldown;
             totalTime = data.totalTime;
             canAlwaysStart = data.canAlwaysStart;
+            canRetarget = data.canRetarget;
             range = data.range;
         }
 
@@ -362,6 +366,7 @@ namespace Edit
             cooldown = data.cooldown;
             totalTime = data.totalTime;
             canAlwaysStart = data.canAlwaysStart;
+            canRetarget = data.canRetarget;
             range = data.range;
             tags = data.tags;
         }
@@ -534,6 +539,7 @@ namespace Edit
         public int health;
         public int healthperlevel;
         public float lifegen;
+        public float warmth;
         public float size;
         public float buildTime;
 
@@ -551,6 +557,7 @@ namespace Edit
             this.health = data.health;
             this.healthperlevel = data.healthperlevel;
             this.lifegen = data.lifegen;
+            this.warmth = data.warmth;
             this.size = data.size;
             this.buildTime = data.buildTime;
             this.craftingRecipeNames = data.craftingRecipeNames;
@@ -562,6 +569,7 @@ namespace Edit
             this.health = data.health;
             this.healthperlevel = data.healthperlevel;
             this.lifegen = data.lifegen;
+            this.warmth = data.warmth;
             this.size = data.size;
             this.buildTime = data.buildTime;
 
@@ -573,6 +581,26 @@ namespace Edit
                     craftingRecipeNames += s + "\n";
                 }
             }
+        }
+    }
+
+    [Serializable]
+    public class MonumentEdit : BuildingEdit
+    {
+        public MonumentEdit()
+        {
+            name = "new monument";
+            gameName = "New Monument";
+        }
+
+        public MonumentEdit(MonumentEdit data)
+            : base(data)
+        {
+        }
+
+        public MonumentEdit(MonumentData data)
+            : base(data)
+        { 
         }
     }
 
@@ -898,6 +926,7 @@ namespace Edit
         {
             this.armor = data.armor;
             this.speedPenalty = data.speedPenalty;
+            this.warmth = data.warmth;
             this.armorType = (ArmorType)data.armorType;
         }
 
@@ -906,11 +935,13 @@ namespace Edit
         {
             this.armor = data.armor;
             this.speedPenalty = data.speedPenalty;
+            this.warmth = data.warmth;
             this.armorType = data.armorType;
         }
 
         public int armor;
         public int speedPenalty;
+        public float warmth;
         public ArmorType armorType;
     }
 
@@ -1141,6 +1172,7 @@ namespace Edit
     [Serializable]
     public class RecipeEdit : ObjectEdit
     {
+        public bool isBasicRecipe;
         public string product;
         public List<IngredientEdit> ingredients;
         public string description;
@@ -1162,6 +1194,7 @@ namespace Edit
         public RecipeEdit(RecipeData data)
             : base(data)
         {
+            isBasicRecipe = data.isBasicRecipe;
             product = data.product;
             ingredients = new List<IngredientEdit>();
             foreach(Ingredient i in data.ingredients)
@@ -1179,6 +1212,7 @@ namespace Edit
         public RecipeEdit(RecipeEdit data)
             : base(data)
         {
+            isBasicRecipe = data.isBasicRecipe;
             product = data.product;
             ingredients = new List<IngredientEdit>();
             foreach(IngredientEdit i in data.ingredients)
@@ -1210,6 +1244,7 @@ namespace Edit
         public BuildingRecipeEdit()
         {
             skill = Skills.Building;
+            isBasicRecipe = true;
         }
 
         public BuildingRecipeEdit(BuildingRecipeEdit data)

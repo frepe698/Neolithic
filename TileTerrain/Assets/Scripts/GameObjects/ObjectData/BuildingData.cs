@@ -9,6 +9,7 @@ public class BuildingData : ObjectData {
     public readonly int health;
     public readonly int healthperlevel;
     public readonly float lifegen;
+    public readonly float warmth;
 
     public readonly float size;
 
@@ -29,6 +30,7 @@ public class BuildingData : ObjectData {
         this.health = edit.health;
         this.healthperlevel = edit.healthperlevel;
         this.lifegen = edit.lifegen;
+        this.warmth = edit.warmth;
         this.size = edit.size;
         this.buildTime = edit.buildTime;
 

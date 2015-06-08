@@ -136,6 +136,10 @@ public class GUIManager : MonoBehaviour{
 
     private List<Button> craftingButtons;
     private List<RecipeData> recipes;
+
+    private List<RecipeData> basicCraftingRecipes;
+    private List<RecipeData> basicBuildingRecipes;
+
     private RectTransform recipeHolder;
     private const string CRAFTING_BUTTON_NAME = "CraftingButton";
 
@@ -162,6 +166,23 @@ public class GUIManager : MonoBehaviour{
 
 #endif
     #endregion //END CRAFTING MEMBERS
+
+    #region BUILDING WINDOW MEMBERS
+    //BUILDING WINDOW MEMBERS
+
+    private bool buildingWindowActive;
+    private GameObject buildingWindow;
+    private Text buildingWindowTitel;
+    private Text buildingWindowLevelText;
+    private Building selectedBuilding;
+
+    private Button buildingUpgradeButton;
+    private Button buildingRepairButton;
+    private Button buildingDestroyButton;
+
+    private RectTransform buildingWindowHPbarTransform;
+
+    #endregion //END BUILDING WINDOW MEMBERS
 
     #region TOOLTIP MEMBERS
     //Recipe tooltip
@@ -190,7 +211,7 @@ public class GUIManager : MonoBehaviour{
     private RectTransform healthbarTransform;
 	private RectTransform energybarTransform;
 	private RectTransform hungerbarTransform;
-	//private RectTransform coldbarTransform;
+	private RectTransform coldbarTransform;
     #endregion //END PLAYER STATS MEMBERS
 
     #region QUICK USE ITEMS MEMBERS
@@ -260,7 +281,7 @@ public class GUIManager : MonoBehaviour{
 
         Transform rightPanel = canvas.FindChild("RightPanel");
         hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
-        //coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
+        coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
 
         #region INGAME MENU INIT
         //Ingame Menu init
@@ -433,6 +454,35 @@ public class GUIManager : MonoBehaviour{
         craftingScrollRect = cscrollMask.GetComponent<ScrollRect>();
         craftingMask = cscrollMask.GetComponent<RectTransform>();
 
+        basicCraftingRecipes = new List<RecipeData>();
+
+        RecipeData[] eqRec = DataHolder.Instance.getEquipmentRecipeData();
+        foreach(RecipeData rec in eqRec)
+        {
+            if(rec.isBasicRecipe)
+                basicCraftingRecipes.Add(rec);
+        }
+        RecipeData[] matRec = DataHolder.Instance.getMaterialRecipeData();
+        foreach (RecipeData rec in matRec)
+        {
+            if(rec.isBasicRecipe)
+                basicCraftingRecipes.Add(rec);
+        }
+        RecipeData[] conRec = DataHolder.Instance.getConsumableRecipeData();
+        foreach (RecipeData rec in conRec)
+        {
+            if(rec.isBasicRecipe)
+                basicCraftingRecipes.Add(rec);
+        }
+
+        basicBuildingRecipes = new List<RecipeData>();
+
+        RecipeData[] buildRec = DataHolder.Instance.getBuildingRecipeData();
+        foreach (RecipeData rec in buildRec)
+        {
+            if (rec.isBasicRecipe)
+                basicBuildingRecipes.Add(rec);
+        }
 
         craftingButtons = new List<Button>();
 
@@ -440,6 +490,23 @@ public class GUIManager : MonoBehaviour{
         //initCrafting();
 #endif
         #endregion
+
+        #region BUILDING WINDOW INIT
+        //BUILDING WINDOW INIT
+
+        buildingWindow = canvas.FindChild("BuildingWindow").gameObject;
+        buildingWindowTitel = buildingWindow.transform.FindChild("Titel").GetComponent<Text>();
+        buildingWindowLevelText = buildingWindow.transform.FindChild("Level").GetComponent<Text>();
+
+        buildingUpgradeButton = buildingWindow.transform.FindChild("ButtonUpgrade").GetComponent<Button>();
+        buildingRepairButton = buildingWindow.transform.FindChild("ButtonRepair").GetComponent<Button>();
+        buildingDestroyButton = buildingWindow.transform.FindChild("ButtonDestroy").GetComponent<Button>();
+
+        buildingWindowHPbarTransform = buildingWindow.transform.FindChild("healthbar").FindChild("health_mask").GetComponent<RectTransform>();
+
+        buildingWindow.SetActive(false);
+
+        #endregion //END BUILDING WINDOW INIT
 
         #region TOOLTIPS INIT
         //Tooltips init
@@ -459,7 +526,6 @@ public class GUIManager : MonoBehaviour{
         abilityTooltip = canvas.FindChild("AbilityTooltip").gameObject;
         abilityTooltipName = abilityTooltip.transform.FindChild("GameName").GetComponent<Text>();
         abilityTooltipStats = abilityTooltip.transform.FindChild("Stats").GetComponent<Text>();
-        abilityTooltip.SetActive(false);
         #endregion
 
         #region QUICK USE ITEMS INIT
@@ -548,6 +614,7 @@ public class GUIManager : MonoBehaviour{
         activateCrafting(false);
         activateHeroStats(false);
         activateAbilityWindow(false);
+        activateBuildingWindow(false);
 
         waitingForPlayers = Instantiate(Resources.Load<GameObject>("GUI/WaitingForPlayers"));
         //Image image = waitingForPlayers.AddComponent<Image>();
@@ -688,6 +755,7 @@ public class GUIManager : MonoBehaviour{
             healthbarTransform.anchoredPosition = new Vector2(0, (playerHero.getHealth() / (playerHero.getMaxHealth() + float.Epsilon)) * 100);
             energybarTransform.anchoredPosition = new Vector2(0, (playerHero.getEnergy() / (playerHero.getMaxEnergy() + float.Epsilon)) * 100);
             hungerbarTransform.sizeDelta = new Vector2(100, (playerHero.getHunger() / playerHero.getMaxHunger()) * 100);
+            coldbarTransform.sizeDelta = new Vector2(100, (1 - playerHero.getColdnessMultiplier()) * 100);
             respawnText.gameObject.SetActive(false);
         }
         else
@@ -700,7 +768,7 @@ public class GUIManager : MonoBehaviour{
         //Game state update
         int gameTime = (int)GameMaster.getGameTime();
         int minutes = gameTime/60;
-        gameTimer.text = minutes + ":" + (gameTime - minutes * 60).ToString().PadLeft(2, '0');
+        gameTimer.text = minutes + ":" + (gameTime - minutes * 60).ToString().PadLeft(2, '0') + " | " + TimeManager.Instance.getCurTemperature() + "°C";
 
         daymeterStick.eulerAngles = new Vector3(0, 0, 1 - TimeManager.Instance.getTimeOfDay() * 360);
 
@@ -714,7 +782,7 @@ public class GUIManager : MonoBehaviour{
         frames++;
         if (nextUpdateTimer >= 1)
         {
-            fpsDisplay.text = "fps: " + frames + "vsync = " + QualitySettings.vSyncCount + " - ping: " + NetworkMaster.getAveragePing();
+            fpsDisplay.text = "fps: " + frames + /*"vsync = " + QualitySettings.vSyncCount +*/ " - ping: " + NetworkMaster.getAveragePing();
             nextUpdateTimer--;
             frames = 0;
         }
@@ -2025,11 +2093,7 @@ public class GUIManager : MonoBehaviour{
             craftingMode = CraftingWindowMode.Hands;
             craftingTitelText.text = "Crafting";
 
-            recipes = new List<RecipeData>();
-
-            recipes.AddRange(DataHolder.Instance.getEquipmentRecipeData().Cast<RecipeData>());
-            recipes.AddRange(DataHolder.Instance.getMaterialRecipeData().Cast<RecipeData>());
-            recipes.AddRange(DataHolder.Instance.getConsumableRecipeData().Cast<RecipeData>());
+            recipes = new List<RecipeData>(basicCraftingRecipes);
 
             initCrafting();
         }
@@ -2054,7 +2118,7 @@ public class GUIManager : MonoBehaviour{
 
             recipes = new List<RecipeData>();
 
-            recipes.AddRange(DataHolder.Instance.getBuildingRecipeData().Cast<RecipeData>());
+            recipes = new List<RecipeData>(basicBuildingRecipes);
 
             initCrafting();
         }
@@ -2063,9 +2127,16 @@ public class GUIManager : MonoBehaviour{
         activateCrafting(activate);
     }
 
-    public void selectedBuilding(Building building)
+    public void selectBuilding(Building building)
     {
         BuildingData data = DataHolder.Instance.getBuildingData(building.getName());
+        selectedBuilding = building;
+
+        buildingWindowTitel.text = data.gameName;
+        buildingWindowLevelText.text = "Level " + building.getUnitStats().getLevel();
+
+        activateBuildingWindow(true);
+        
 
         if (data.getCraftingRecipes() != null)
         {
@@ -2090,6 +2161,7 @@ public class GUIManager : MonoBehaviour{
         activateCrafting(false);
         activateHeroStats(false);
         activateAbilityWindow(false);
+        buildingWindow.SetActive(false);
     }
 
     public void toggleAbilityWindow()
@@ -2106,7 +2178,12 @@ public class GUIManager : MonoBehaviour{
 	public void activateCrafting(bool active)
 	{
         craftingActive = active;
-        craftingObject.SetActive(inventoryActive);
+        craftingObject.SetActive(craftingActive);
+
+        if (craftingActive && craftingMode != CraftingWindowMode.Tools)
+        {
+            activateBuildingWindow(false);
+        }
 	}
 
     public void activateHeroStats(bool active)
@@ -2119,6 +2196,23 @@ public class GUIManager : MonoBehaviour{
     {
         abilityWindowActive = active;
         abilityWindowObject.SetActive(abilityWindowActive);
+    }
+
+    public void activateBuildingWindow(bool active)
+    {
+        buildingWindowActive = active;
+        buildingWindow.SetActive(buildingWindowActive);
+
+        if (!buildingWindowActive && craftingMode == CraftingWindowMode.Tools)
+        {
+            activateCrafting(false);
+            activateInventory(false);
+        }
+    }
+
+    public void onPlayerHeroMove()
+    {
+        activateBuildingWindow(false);
     }
 
     #endregion //TOGGLE WINDOWS

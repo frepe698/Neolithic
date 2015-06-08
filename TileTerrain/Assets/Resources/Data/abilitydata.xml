@@ -17,12 +17,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -45,12 +46,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>5</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -74,12 +76,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>0.75</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -120,12 +123,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1.5</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>25</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -148,12 +152,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.2</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>18</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>
@@ -177,12 +182,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>20</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -213,12 +219,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>10</energyCost>
       <healthCost>0</healthCost>
       <cooldown>3</cooldown>
@@ -248,6 +255,7 @@
       <speedIncreases />
       <totalTime>2</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -275,12 +283,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>0.25</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.375</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -305,6 +314,7 @@
       <speedIncreases />
       <totalTime>0</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>30</energyCost>
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
@@ -334,6 +344,7 @@
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>15</healthCost>
       <cooldown>0</cooldown>
@@ -363,6 +374,7 @@
       </speedIncreases>
       <totalTime>1.5</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>50</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -392,6 +404,7 @@
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>false</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>70</healthCost>
       <cooldown>0</cooldown>
@@ -415,12 +428,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>0.5</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1.5</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>40</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -443,12 +457,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -471,12 +486,13 @@
       </animations>
       <speedIncreases>
         <SpeedIncrease>
-          <stat>IncreasedMagicDamage</stat>
+          <stat>Attackspeed</stat>
           <percent>1</percent>
         </SpeedIncrease>
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -506,6 +522,7 @@
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -535,6 +552,7 @@
       </speedIncreases>
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -559,6 +577,7 @@
       <speedIncreases />
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -583,6 +602,7 @@
       <speedIncreases />
       <totalTime>1</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>0</cooldown>
@@ -607,6 +627,7 @@
       <speedIncreases />
       <totalTime>2</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>false</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>5</cooldown>
@@ -631,6 +652,7 @@
       <speedIncreases />
       <totalTime>1.5</totalTime>
       <canAlwaysStart>false</canAlwaysStart>
+      <canRetarget>false</canRetarget>
       <energyCost>0</energyCost>
       <healthCost>0</healthCost>
       <cooldown>10</cooldown>
@@ -648,6 +670,7 @@
       <speedIncreases />
       <totalTime>0</totalTime>
       <canAlwaysStart>true</canAlwaysStart>
+      <canRetarget>true</canRetarget>
       <energyCost>10</energyCost>
       <healthCost>0</healthCost>
       <cooldown>2</cooldown>

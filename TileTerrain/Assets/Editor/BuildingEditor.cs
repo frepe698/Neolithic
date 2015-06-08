@@ -12,13 +12,16 @@ public class BuildingEditor : ObjectEditor
 
     private const int BUILDING = 0;
     private const int TOWER = 1;
+    private const int MONUMENT = 2;
     private List<BuildingEdit> buildings = new List<BuildingEdit>();
     private List<TowerEdit> towers = new List<TowerEdit>();
+    private List<MonumentEdit> monuments = new List<MonumentEdit>();
 
     private Vector2 scroll;
 
     private int selectedbuilding = -1;
     private int selectedtower = -1;
+    private int selectedmonument = -1;
 
     protected static BuildingEditor window;
 
@@ -52,6 +55,7 @@ public class BuildingEditor : ObjectEditor
 
             buildings = new List<BuildingEdit>();
             towers = new List<TowerEdit>();
+            monuments = new List<MonumentEdit>();
             foreach (BuildingData mdata in buildingDataHolder.buildingData)
             {
                 buildings.Add(new BuildingEdit(mdata));
@@ -59,6 +63,10 @@ public class BuildingEditor : ObjectEditor
             foreach (TowerData rdata in buildingDataHolder.towerData)
             {
                 towers.Add(new TowerEdit(rdata));
+            }
+            foreach (MonumentData rdata in buildingDataHolder.monumentData)
+            {
+                monuments.Add(new MonumentEdit(rdata));
             }
 
             this.filePath = filePath;
@@ -75,6 +83,7 @@ public class BuildingEditor : ObjectEditor
         }
         BuildingData[] craftingBuildingData = new BuildingData[buildings.Count];
         TowerData[] towerData = new TowerData[towers.Count];
+        MonumentData[] monumentData = new MonumentData[monuments.Count];
 
         int i = 0;
         foreach (BuildingEdit medit in buildings)
@@ -88,8 +97,14 @@ public class BuildingEditor : ObjectEditor
             towerData[i] = new TowerData(redit);
             i++;
         }
+        i = 0;
+        foreach (MonumentEdit redit in monuments)
+        {
+            monumentData[i] = new MonumentData(redit);
+            i++;
+        }
 
-        DataHolder.BuildingDataHolder buildingDataHolder = new DataHolder.BuildingDataHolder(craftingBuildingData, towerData);
+        DataHolder.BuildingDataHolder buildingDataHolder = new DataHolder.BuildingDataHolder(craftingBuildingData, towerData, monumentData);
 
         using (FileStream file = new FileStream(filePath, FileMode.Create))
         {
@@ -109,6 +124,7 @@ public class BuildingEditor : ObjectEditor
         if (selectedbuilding >= 0)
         {
             selectedtower = -1;
+            selectedmonument = -1;
             if (!openWindow(BUILDING, selectedbuilding))
             {
                 WindowSettings window = new WindowSettings();
@@ -125,12 +141,30 @@ public class BuildingEditor : ObjectEditor
         if (selectedtower >= 0)
         {
             selectedbuilding = -1;
+            selectedmonument = -1;
             if (!openWindow(TOWER, selectedtower))
             {
                 WindowSettings window = new WindowSettings();
                 window.objectListIndex = TOWER;
                 window.objectIndex = selectedtower;
                 window.windowFunc = editTower;
+                window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
+                window.windowScroll = Vector2.zero;
+                windows.Add(window);
+            }
+        }
+        GUILayout.Label("Monuments", EditorStyles.boldLabel);
+        selectedmonument = GUILayout.SelectionGrid(selectedmonument, getMonumentStrings(), 1);
+        if (selectedmonument >= 0)
+        {
+            selectedbuilding = -1;
+            selectedtower = -1;
+            if (!openWindow(MONUMENT, selectedmonument))
+            {
+                WindowSettings window = new WindowSettings();
+                window.objectListIndex = MONUMENT;
+                window.objectIndex = selectedmonument;
+                window.windowFunc = editMonument;
                 window.windowRect = new Rect(0, 100, 300, this.position.height - 20);
                 window.windowScroll = Vector2.zero;
                 windows.Add(window);
@@ -159,6 +193,10 @@ public class BuildingEditor : ObjectEditor
         if (GUILayout.Button("+Tower"))
         {
             towers.Add(new TowerEdit());
+        }
+        if (GUILayout.Button("+Monument"))
+        {
+            monuments.Add(new MonumentEdit());
         }
         if (GUILayout.Button("Remove"))
         {
@@ -192,6 +230,18 @@ public class BuildingEditor : ObjectEditor
         return result;
     }
 
+    private string[] getMonumentStrings()
+    {
+        string[] result = new string[monuments.Count];
+        int i = 0;
+        foreach (MonumentEdit edit in monuments)
+        {
+            result[i] = edit.name;
+            i++;
+        }
+        return result;
+    }
+
     protected void editBuilding(BuildingEdit data)
     {
         data.name = TextField("Name: ", data.name);
@@ -203,6 +253,7 @@ public class BuildingEditor : ObjectEditor
         data.health = IntField("Health: ", data.health);
         data.healthperlevel = IntField("Health Per Level: ", data.healthperlevel);
         data.lifegen = FloatField("Lifegen: ", data.lifegen);
+        data.warmth = FloatField("Warmth: ", data.warmth);
         EditorGUILayout.Space();
         data.size = FloatField("Size", data.size);
 
@@ -275,10 +326,37 @@ public class BuildingEditor : ObjectEditor
         GUI.DragWindow();
     }
 
+    protected void editMonument(int windowID)
+    {
+        if (GUI.Button(closeButtonRect, "X"))
+        {
+            if (selectedmonument == windows[windowID].objectIndex) selectedmonument = -1;
+            windows.RemoveAt(windowID);
+            return;
+        }
+        WindowSettings window = windows[windowID];
+        MonumentEdit data = monuments[window.objectIndex];
+        if (data == null)
+        {
+            windows.RemoveAt(windowID);
+            return;
+        }
+
+        EditorGUIUtility.labelWidth = 120;
+
+        window.windowScroll = GUILayout.BeginScrollView(window.windowScroll, false, true);
+
+        editBuilding(data);
+
+        GUILayout.EndScrollView();
+        GUI.DragWindow();
+    }
+
     protected override GUI.WindowFunction getWindowFunc(WindowSettings window)
     {
         if (window.objectListIndex == BUILDING) return editBuilding;
         if (window.objectListIndex == TOWER) return editTower;
+        if (window.objectListIndex == MONUMENT) return editMonument;
         return null;
     }
 
@@ -290,6 +368,8 @@ public class BuildingEditor : ObjectEditor
                 return buildings[index];
             case (TOWER):
                 return towers[index];
+            case(MONUMENT):
+                return monuments[index];
             default:
                 return null;
         }
@@ -303,6 +383,8 @@ public class BuildingEditor : ObjectEditor
                 return index >= buildings.Count;
             case (TOWER):
                 return index >= towers.Count;
+            case(MONUMENT):
+                return index >= monuments.Count;
             default:
                 return true;
         }
@@ -322,6 +404,12 @@ public class BuildingEditor : ObjectEditor
             deleteWindowListIndex = TOWER;
             GUI.BringWindowToFront(DELETEWINDOWID);
         }
+        else if (selectedmonument >= 0)
+        {
+            deleteWindowIndex = selectedmonument;
+            deleteWindowListIndex = MONUMENT;
+            GUI.BringWindowToFront(DELETEWINDOWID);
+        }
     }
 
     protected override void delete(int listIndex, int index)
@@ -339,6 +427,11 @@ public class BuildingEditor : ObjectEditor
                     closeWindow(TOWER, index);
                     towers.RemoveAt(index);
                     if (selectedtower > 0) selectedtower--;
+                    break;
+                case (MONUMENT):
+                    closeWindow(MONUMENT, index);
+                    monuments.RemoveAt(index);
+                    if (selectedmonument > 0) selectedmonument--;
                     break;
             }
         }
@@ -362,6 +455,14 @@ public class BuildingEditor : ObjectEditor
             towers.Insert(selectedtower + 1, temp);
             selectedtower++;
         }
+        else if (selectedmonument >= 0)
+        {
+            MonumentEdit temp = new MonumentEdit(monuments[selectedmonument]);
+            temp.name += "(Copy)";
+            temp.gameName += "(Copy)";
+            monuments.Insert(selectedmonument + 1, temp);
+            selectedmonument++;
+        }
     }
 
     private void moveUp()
@@ -381,6 +482,13 @@ public class BuildingEditor : ObjectEditor
             towers.Insert(selectedtower - 1, temp);
             selectedtower -= 1;
         }
+        else if (selectedmonument > 0)
+        {
+            MonumentEdit temp = monuments[selectedmonument];
+            monuments.RemoveAt(selectedmonument);
+            monuments.Insert(selectedmonument - 1, temp);
+            selectedmonument -= 1;
+        }
     }
 
     private void moveDown()
@@ -398,6 +506,13 @@ public class BuildingEditor : ObjectEditor
             towers.RemoveAt(selectedtower);
             towers.Insert(selectedtower + 1, temp);
             selectedtower += 1;
+        }
+        else if (selectedmonument >= 0 && selectedmonument < monuments.Count - 1)
+        {
+            MonumentEdit temp = monuments[selectedmonument];
+            monuments.RemoveAt(selectedmonument);
+            monuments.Insert(selectedmonument+ 1, temp);
+            selectedmonument += 1;
         }
     }
 }

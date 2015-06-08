@@ -27,7 +27,7 @@ GameObject:
   - 224: {fileID: 22466370}
   - 222: {fileID: 22249904}
   - 114: {fileID: 11430238}
-  - 114: {fileID: 11496246}
+  - 114: {fileID: 11427122}
   m_Layer: 5
   m_Name: hero_healthbar
   m_TagString: Untagged
@@ -159,6 +159,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11427122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26e68a3d890d9440909febd08ae1062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMask: {fileID: 22473196}
+  energyMask: {fileID: 22431134}
+  level: {fileID: 11450204}
 --- !u!114 &11430238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,20 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!114 &11496246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 140086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a827d2721aca0664ea24957a23e8ff22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthMask: {fileID: 22473196}
-  energyMask: {fileID: 22431134}
-  level: {fileID: 11450204}
 --- !u!222 &22209954
 CanvasRenderer:
   m_ObjectHideFlags: 1

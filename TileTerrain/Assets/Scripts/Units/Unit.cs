@@ -110,8 +110,8 @@ public class Unit : Actor{
 					{
 						World.tileMap.getTile(tile).removeActor(this);
 						World.tileMap.getTile(newTile).addActor(this);
-						
-						
+                        tile = newTile;
+                        onEnterNewTile();
 					}
 				}
 				tile = newTile;
@@ -348,5 +348,9 @@ public class Unit : Actor{
     public override bool canMove()
     {
         return true;
+    }
+
+    public virtual void onEnterNewTile()
+    { 
     }
 }

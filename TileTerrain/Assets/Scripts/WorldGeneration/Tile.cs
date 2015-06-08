@@ -12,6 +12,7 @@ public class Tile {
 	private short s;
 
     private bool cliff = false;
+    private bool holyplace = false;
 
 	private TileObject tileObject;
 	private List<LootableObject> lootableObjects = new List<LootableObject>();
@@ -91,6 +92,16 @@ public class Tile {
         return cliff;
     }
 
+    public void setHolyPlace(bool holyplace)
+    {
+        this.holyplace = holyplace;
+    }
+
+    public bool isHolyPlace()
+    {
+        return holyplace;
+    }
+
 	public bool isWalkable(int id)
 	{
         if (cliff) return false;
@@ -111,10 +122,17 @@ public class Tile {
 		return tileObject != null;
 	}
 
-    public bool isBuildable()
+    public bool isBuildable(bool monument)
     {
-        if (cliff) return false;
-        return ((actors.Count == 0 && tileObject == null));
+        if (monument)
+        {
+            return isHolyPlace() && actors.Count == 0;
+        }
+        else
+        {
+            if (cliff) return false;
+            return ((actors.Count == 0 && tileObject == null));
+        }
     }
 
 	public void renderEyecandy()

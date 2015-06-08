@@ -4,11 +4,10 @@ using System.Collections;
 
 public class HealthbarController : MonoBehaviour {
 
-    private RectTransform rectTransform;
+    protected RectTransform rectTransform;
 
     public RectTransform healthMask;
-    public RectTransform energyMask;
-    public Text level; 
+    
 
     void Awake()
     {
@@ -17,20 +16,18 @@ public class HealthbarController : MonoBehaviour {
 
     void Start()
     {
-        rectTransform.localScale = new Vector3(1, 1, 1);
+        rectTransform.localScale = new Vector3(0.5f, 0.5f, 1);
     }
 
-    public void update(Unit unit)
+    public virtual void update(Actor actor)
     {
-        healthMask.sizeDelta = new Vector2(unit.getHealth() / unit.getMaxHealth() * 50, healthMask.sizeDelta.y);
-        energyMask.sizeDelta = new Vector2(unit.getUnitStats().getCurEnergy() / unit.getUnitStats().getMaxEnergy() * 50, energyMask.sizeDelta.y);
-        level.text = unit.getUnitStats().getDisplayLevel().ToString();
-        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, unit.getPosition()+new Vector3(0, 3f, 0));
+        healthMask.sizeDelta = new Vector2(actor.getHealth() / actor.getMaxHealth() * 50, healthMask.sizeDelta.y);
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, actor.getPosition());
 
         //screenPos = Camera.main.WorldToScreenPoint(unit.getPosition()) + new Vector3(0, 50, 0);
         screenPos = screenPos / GameMaster.getGUIManager().getCanvasCanvas().scaleFactor - new Vector2(320, 180);;
-        screenPos.x *= 0.9f;
-        rectTransform.anchoredPosition = screenPos;
+        screenPos.x *= 1f;
+        rectTransform.anchoredPosition = screenPos + new Vector2(0, actor.getHeight());
     }
 
     public void setColor(Color color)

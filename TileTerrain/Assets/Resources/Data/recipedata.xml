@@ -2,6 +2,7 @@
 <RecipesRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EquipmentRecipes>
     <EquipmentRecipeData name="craftSharpenedstick" gameName="Sharpened Stick" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>sharpenedstick</product>
       <ingredients>
         <Ingredient>
@@ -15,6 +16,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftWoodenclub" gameName="Wooden Club" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>woodenclub</product>
       <ingredients>
         <Ingredient>
@@ -28,6 +30,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftStoneAxe" gameName="Stone Axe" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>stoneAxe</product>
       <ingredients>
         <Ingredient>
@@ -45,6 +48,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>stonePickaxe</product>
       <ingredients>
         <Ingredient>
@@ -62,6 +66,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>shortbow</product>
       <ingredients>
         <Ingredient>
@@ -79,6 +84,7 @@
       <requiredSkillLevel>1</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintAxe" gameName="Flint Axe" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>flintAxe</product>
       <ingredients>
         <Ingredient>
@@ -100,6 +106,7 @@
       <requiredSkillLevel>3</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>flintPickaxe</product>
       <ingredients>
         <Ingredient>
@@ -121,6 +128,7 @@
       <requiredSkillLevel>3</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>torch</product>
       <ingredients>
         <Ingredient>
@@ -138,6 +146,7 @@
       <requiredSkillLevel>1</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftStronkBow" gameName="Stronk Bow" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>stronkbow</product>
       <ingredients>
         <Ingredient>
@@ -159,6 +168,7 @@
       <requiredSkillLevel>5</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>ironAxe</product>
       <ingredients>
         <Ingredient>
@@ -176,6 +186,7 @@
       <requiredSkillLevel>10</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>superAxe</product>
       <ingredients>
         <Ingredient>
@@ -201,6 +212,7 @@
       <requiredSkillLevel>15</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>ironPickaxe</product>
       <ingredients>
         <Ingredient>
@@ -218,6 +230,7 @@
       <requiredSkillLevel>10</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftGoldBow" gameName="Gold Bow" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>goldbow</product>
       <ingredients>
         <Ingredient>
@@ -239,6 +252,7 @@
       <requiredSkillLevel>14</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>fishingrod</product>
       <ingredients>
         <Ingredient>
@@ -260,6 +274,7 @@
       <requiredSkillLevel>10</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftHarehat" gameName="Hare Hat" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>harehat</product>
       <ingredients>
         <Ingredient>
@@ -273,6 +288,7 @@
       <requiredSkillLevel>4</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFurarmor" gameName="Fur Armor" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>furarmor</product>
       <ingredients>
         <Ingredient>
@@ -286,6 +302,7 @@
       <requiredSkillLevel>5</requiredSkillLevel>
     </EquipmentRecipeData>
     <EquipmentRecipeData name="craftFuzzyboots" gameName="Fuzzy Boots" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>fuzzyboots</product>
       <ingredients>
         <Ingredient>
@@ -301,6 +318,7 @@
   </EquipmentRecipes>
   <MaterialRecipes>
     <MaterialRecipeData name="craftGold" gameName="Gold" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>gold</product>
       <ingredients>
         <Ingredient>
@@ -314,6 +332,7 @@
       <requiredSkillLevel>19</requiredSkillLevel>
     </MaterialRecipeData>
     <MaterialRecipeData name="craftRope" gameName="Nettle Rope" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>rope</product>
       <ingredients>
         <Ingredient>
@@ -327,6 +346,7 @@
       <requiredSkillLevel>1</requiredSkillLevel>
     </MaterialRecipeData>
     <MaterialRecipeData name="craftFur" gameName="Fur From Hare" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>fur</product>
       <ingredients>
         <Ingredient>
@@ -340,6 +360,7 @@
       <requiredSkillLevel>2</requiredSkillLevel>
     </MaterialRecipeData>
     <MaterialRecipeData name="craftFinewood" gameName="Fining wood treatment" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>finewood</product>
       <ingredients>
         <Ingredient>
@@ -355,6 +376,7 @@
   </MaterialRecipes>
   <ConsumableRecipes>
     <ConsumableRecipeData name="craftTrolldryck" gameName="Trolldryck" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>trolldryck</product>
       <ingredients>
         <Ingredient>
@@ -372,6 +394,7 @@
       <requiredSkillLevel>5</requiredSkillLevel>
     </ConsumableRecipeData>
     <ConsumableRecipeData name="craftHealthPotion" gameName="Small Health Potion" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>smallhealthpotion</product>
       <ingredients>
         <Ingredient>
@@ -385,6 +408,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </ConsumableRecipeData>
     <ConsumableRecipeData name="craftSmallEnergyPotion" gameName="Small Energy Potion" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>smallenergypotion</product>
       <ingredients>
         <Ingredient>
@@ -398,6 +422,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </ConsumableRecipeData>
     <ConsumableRecipeData name="craftBerzerkerBrew" gameName="Berzerker Brew" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
       <product>berzerkerbrew</product>
       <ingredients>
         <Ingredient>
@@ -418,9 +443,24 @@
       <expAmount>400</expAmount>
       <requiredSkillLevel>4</requiredSkillLevel>
     </ConsumableRecipeData>
+    <ConsumableRecipeData name="craftSteak" gameName="Steak" modelName="">
+      <isBasicRecipe>false</isBasicRecipe>
+      <product>steak</product>
+      <ingredients>
+        <Ingredient>
+          <name>meat</name>
+          <amount>1</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Mumsfillibaba</description>
+      <skill>Alchemy</skill>
+      <expAmount>50</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </ConsumableRecipeData>
   </ConsumableRecipes>
   <BuildingRecipes>
     <BuildingRecipeData name="buildSpearspinner" gameName="Spear Spinner" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>spearspinner</product>
       <ingredients>
         <Ingredient>
@@ -446,6 +486,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </BuildingRecipeData>
     <BuildingRecipeData name="buildSpinningdeath" gameName="Spinning Death" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>spinningdeath</product>
       <ingredients>
         <Ingredient>
@@ -459,6 +500,7 @@
       <requiredSkillLevel>0</requiredSkillLevel>
     </BuildingRecipeData>
     <BuildingRecipeData name="buildCampfire" gameName="Camp Fire" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
       <product>campfire</product>
       <ingredients>
         <Ingredient>
@@ -473,6 +515,60 @@
       <description>Burning logs surrounded by stones</description>
       <skill>Building</skill>
       <expAmount>100</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </BuildingRecipeData>
+    <BuildingRecipeData name="buildToolbench" gameName="Toolbench" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
+      <product>toolbench</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>5</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>flint</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Build a bench that can be used to craft better tools and weapons</description>
+      <skill>Building</skill>
+      <expAmount>250</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </BuildingRecipeData>
+    <BuildingRecipeData name="buildOversizedcookingpot" gameName="Oversized Cooking Pot" modelName="">
+      <isBasicRecipe>true</isBasicRecipe>
+      <product>oversizedcookingpot</product>
+      <ingredients>
+        <Ingredient>
+          <name>log</name>
+          <amount>4</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stick</name>
+          <amount>4</amount>
+        </Ingredient>
+        <Ingredient>
+          <name>stone</name>
+          <amount>4</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Build a very big cooking pot that can be used to brew potions and cook food</description>
+      <skill>Building</skill>
+      <expAmount>250</expAmount>
+      <requiredSkillLevel>0</requiredSkillLevel>
+    </BuildingRecipeData>
+    <BuildingRecipeData name="buildMjolnir" gameName="Mjolnir">
+      <isBasicRecipe>true</isBasicRecipe>
+      <product>mjolnir</product>
+      <ingredients>
+        <Ingredient>
+          <name>stone</name>
+          <amount>2</amount>
+        </Ingredient>
+      </ingredients>
+      <description>Build a monument to thor.</description>
+      <skill>Building</skill>
+      <expAmount>0</expAmount>
       <requiredSkillLevel>0</requiredSkillLevel>
     </BuildingRecipeData>
   </BuildingRecipes>

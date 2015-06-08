@@ -666,6 +666,15 @@ public class TileMap {
             flattenBase(summonPositions[i], World.summonSize + 2, 5);
         }
     }
+
+    public void flattenHolyPlaces(Vector2i[] holyplaces)
+    {
+        for (int i = 0; i < holyplaces.Length; i++)
+        {
+            flattenBase(holyplaces[i], World.baseSize + 2, 5);
+        }
+
+    }
     /*
 	public void flattenBaseAndSummons()
 	{
@@ -804,6 +813,84 @@ public class TileMap {
         //smoothMap(1, 1);
         flattenBaseAndSummons(basePositions, summonPos);
     }
+
+    public void generatePvPMap(MonumentMode mode)
+    {
+        /* 0  	1  	5
+		 * 
+		 * 1   	5  	7
+		 *
+		 * 5  	7  	10	
+		 *
+		 */
+        int end = mainMapSize - 1;
+        //TOP ROW
+        tiles[0, 0].height = 0; //LT
+        tiles[end / 2, 0].height = 1; //MT
+        tiles[end, 0].height = 5; //RT
+
+        //MID ROW
+        tiles[0, end / 2].height = 1; //LM
+        tiles[end / 2, end / 2].height = 5; //MID
+        tiles[end, end / 2].height = 7; //RM
+
+        //BOT ROW
+        tiles[0, end].height = 5; //LB
+        tiles[end / 2, end].height = 7; //MB
+        tiles[end, end].height = 10; //RB
+
+
+
+        divide(end / 2, 8, 2, 12);
+
+        Vector2i[] holyplacePositions = new Vector2i[mainMapSectionCount * mainMapSectionCount];
+        int i = 0;
+        for (int y = 0; y < mainMapSectionCount; y++)
+        {
+            for (int x = 0; x < mainMapSectionCount; x++)
+            {
+                holyplacePositions[i] = new Vector2i(x * WorldSection.SIZE + WorldSection.SIZE / 2, y * WorldSection.SIZE + WorldSection.SIZE / 2);
+                i++;
+            }
+        }
+
+        mode.holyplaces = holyplacePositions;
+
+        generatePvPBases(holyplacePositions);
+       // generatePvPSummons(mode, holyplacePositions);
+        generatePvpCavePositions();
+
+        //clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 3);
+        //clampMapHeight(basePositions[1], WorldSection.SIZE - 10, 2, 3);
+
+        /*for (int i = 0; i < TrialOfTheGods.TEAM_COUNT; i++)
+        {
+            Vector2i basePosition = mode.teams[i].basePosition;
+            mode.teams[i].roads = new Road[] {
+                generateRoad(basePosition, mode.teams[i].summonPositions[0]), 
+                generateRoad(basePosition, mode.teams[i].summonPositions[1])};
+            //Debug.Log(mode.teams[i].roads[0].getWaypoints()[0].get2D().x);
+        }*/
+
+
+        divide(8, 1, 0, 12);
+        //clampMapHeight(basePositions[0], WorldSection.SIZE - 10, 2, 6);
+        //clampMapHeight(basePositions[1], WorldSection.SIZE - 10, 2, 6);
+
+
+        // generateRiver(new Vector2i((getMainMapSize() - 1), (getMainMapSize() - 1) / 2), new Vector2i((getMainMapSize() - 1) / 2, (getMainMapSize() - 1)),
+        //                     6, 30, -2, 0, 8, 3);
+
+        generateRiver(new Vector2i(0, (getMainMapSize() - 1) / 2), new Vector2i((getMainMapSize() - 1) / 2, 0),
+                              6, 30, -2, 0, 8, 3);
+
+        smoothMap(4, 2);
+
+        //smoothMap(1, 1);
+        flattenHolyPlaces(holyplacePositions);
+    }
+
+
 
     /*
     public void generateTeamMap()

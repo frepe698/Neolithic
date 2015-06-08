@@ -6,7 +6,7 @@ using Edit;
 
 public abstract class RecipeData : ObjectData
 {
-
+    public readonly bool isBasicRecipe;
     public readonly string product;
 
     [XmlArray("ingredients"), XmlArrayItem("Ingredient")]
@@ -26,6 +26,7 @@ public abstract class RecipeData : ObjectData
     public RecipeData(RecipeEdit edit)
         : base(edit)
     {
+        isBasicRecipe = edit.isBasicRecipe;
         product = edit.product;
         ingredients = edit.getIngredients();
         description = edit.description;

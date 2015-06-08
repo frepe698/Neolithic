@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Building : Actor {
 
+    public const int WARMTH_TILE_RANGE = 4;
+
     private int team;
+    protected float warmth;
 
     public Building(string name, Vector2i position, float yRotation, int id, int team)
         : base(name, new Vector3(position.x + 0.5f, 0, position.y + 0.5f), new Vector3(0, yRotation, 0), id)
@@ -15,6 +18,7 @@ public class Building : Actor {
         : base(data.name, new Vector3(position.x + 0.5f, 0, position.y + 0.5f), new Vector3(0, yRotation, 0), id)
     {
         this.team = team;
+        this.warmth = data.warmth;
         modelName = data.modelName;
         unitstats = new UnitStats(this, 0, data);
         init();
@@ -31,5 +35,10 @@ public class Building : Actor {
     public override int getTeam()
     {
         return team;
+    }
+
+    public float getWarmth()
+    {
+        return warmth;
     }
 }

@@ -405,13 +405,13 @@ public class Inventory {
         if (mi != null)
         {
             amount = mi.getAmount();
-            if (amount >= ingredient.amount) return true;
+            return (amount >= ingredient.amount);
         }
         ConsumableItem ci = findConsumableItem(ingredient.name);
         if (ci != null)
         {
             amount = ci.getAmount();
-            if (amount >= ingredient.amount) return true;
+            return (amount >= ingredient.amount);
         }
         amount = 0;
         return false;
