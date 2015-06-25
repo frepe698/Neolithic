@@ -140,7 +140,7 @@ public class GameMaster : MonoBehaviour {
 		for(int i = 0; i < actors.Count; i++)
 		{
 			Actor actor = actors[i];
-			if(!actor.isAlive())
+			if(actor.shouldBeRemoved())
 			{
                 removeActor(actor);
                 i--;
@@ -157,19 +157,13 @@ public class GameMaster : MonoBehaviour {
 
             if (!hero.isAlive())
             {
-                if(hero.isWaitingRespawn())
+                if (hero.isWaitingRespawn())
                 {
                     if (hero.updateRespawnTimer())
                     {
                         gameController.requestRespawnHero(hero.getID());
                     }
                 }
-                else 
-                {
-                    gameController.requestHeroStartRespawn(hero.getID());
-                }
-                
-
             }
 
         }
@@ -546,7 +540,7 @@ public class GameMaster : MonoBehaviour {
         if (!World.getMap().getTile(actor.getTile()).removeActor(actor)) Debug.LogError("Did not remove unit from tile");
         actor.setAlive(false);
 		actor.setAwake(false);
-		actor.inactivate();
+        actor.inactivate(); 
 
         Hero hero = actor as Hero;
         if (hero != null && !hero.isWaitingRespawn())
@@ -582,8 +576,8 @@ public class GameMaster : MonoBehaviour {
                 hero.setAwake(true);
                 hero.activate();
                 hero.respawn();
-                actors.Insert(hero.getID(),hero);
-                awakeActors.Add(hero);
+                //actors.Insert(hero.getID(),hero);
+                //awakeActors.Add(hero);
             }
         }
         
@@ -625,7 +619,7 @@ public class GameMaster : MonoBehaviour {
 	public static void addResourceLoot(string resourceName, int seed, int x, int y, int unitID)
 	{
 		Random.seed = seed;
-		ResourceData data = DataHolder.Instance.getResourceData(resourceName);
+		ResourceData data = DataHolder.Instance.getAllResourceData(resourceName);
 		if(data == null) return;
 
         UnitStats unitstats = getHero(unitID).getUnitStats();

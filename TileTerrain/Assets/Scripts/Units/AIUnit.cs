@@ -11,7 +11,7 @@ public class AIUnit : Unit {
     private int favour;
 
     private Ability basicAttack;
-    
+
 	public AIUnit(string unit, Vector3 position, Vector3 rotation, int id, int level = 0) 
 		: base(unit, position, rotation, id)
 	{
@@ -219,6 +219,14 @@ public class AIUnit : Unit {
     public override int getFavour()
     {
         return favour;
+    }
+
+    public override void onDeath()
+    {
+        if(isActive())
+            setAnimationRestart("die_unarmed");
+
+        deathTimer = 1.5f;
     }
 
 }

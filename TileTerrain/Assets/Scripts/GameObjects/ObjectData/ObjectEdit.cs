@@ -1168,12 +1168,49 @@ namespace Edit
         }
     }
 
+    [Serializable]
+    public class HarvestableEdit : ResourceEdit
+    {
+        public string harvestDrop;
+        public int minHarvest;
+        public int maxHarvest;
+        public float minRespawnTime;
+        public float maxRespawnTime;
+
+        public HarvestableEdit()
+        {
+            name = "new harvestable";
+            gameName = "New Harvestable";
+        }
+
+        public HarvestableEdit(HarvestableData data)
+            : base(data)
+        {
+            harvestDrop = data.harvestDrop;
+            minHarvest = data.minHarvest;
+            maxHarvest = data.maxHarvest;
+            minRespawnTime = data.minRespawnTime;
+            maxRespawnTime = data.maxRespawnTime;
+        }
+
+        public HarvestableEdit(HarvestableEdit data)
+            : base(data)
+        {
+            harvestDrop = data.harvestDrop;
+            minHarvest = data.minHarvest;
+            maxHarvest = data.maxHarvest;
+            minRespawnTime = data.minRespawnTime;
+            maxRespawnTime = data.maxRespawnTime;
+        }
+    }
+
     #region Recipe Edits
     [Serializable]
     public class RecipeEdit : ObjectEdit
     {
         public bool isBasicRecipe;
         public string product;
+        public float creationTime;
         public List<IngredientEdit> ingredients;
         public string description;
 
@@ -1196,6 +1233,7 @@ namespace Edit
         {
             isBasicRecipe = data.isBasicRecipe;
             product = data.product;
+            creationTime = data.creationTime;
             ingredients = new List<IngredientEdit>();
             foreach(Ingredient i in data.ingredients)
             {
@@ -1214,6 +1252,7 @@ namespace Edit
         {
             isBasicRecipe = data.isBasicRecipe;
             product = data.product;
+            creationTime = data.creationTime;
             ingredients = new List<IngredientEdit>();
             foreach(IngredientEdit i in data.ingredients)
             {

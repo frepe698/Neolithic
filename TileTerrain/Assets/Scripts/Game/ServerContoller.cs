@@ -86,6 +86,11 @@ public class ServerController : GameController {
         gameMaster.getNetView().RPC("approveNightSpawnerRemoveAll", RPCMode.All, spawnerID);
     }
 
+    public override void requestKillActor(int targetID, int killerID)
+    {
+        gameMaster.getNetView().RPC("killActor", RPCMode.All, targetID, killerID);
+    }
+
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
@@ -182,34 +187,42 @@ public class ServerController : GameController {
 		ResourceObject resObject = World.tileMap.getTile(tile).getResourceObject();
 		if(resObject != null)
 		{
-			int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
-			if(resObject.getHealth() <= damage)
-			{
-				gameMaster.getNetView().RPC ("gatherResource", RPCMode.All, tile.x, tile.y, unitID);
-				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
-                if(resObject.getDamageType() == 1)
+            if (resObject.canBeHarvested())
+            {
+                gameMaster.getNetView().RPC("harvestResource", RPCMode.All, tile.x, tile.y, unitID);
+                gameMaster.getNetView().RPC("changeEnergy", RPCMode.All, unitID, -5);
+            }
+            else
+            {
+                int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
+                if (resObject.getHealth() <= damage)
                 {
-                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
+                    gameMaster.getNetView().RPC("gatherResource", RPCMode.All, tile.x, tile.y, unitID);
+                    gameMaster.getNetView().RPC("changeEnergy", RPCMode.All, unitID, -5);
+                    if (resObject.getDamageType() == 1)
+                    {
+                        gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
+                    }
+                    else
+                    {
+                        gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
+                    }
                 }
                 else
                 {
-                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
-                }
-			}
-			else
-			{
-				gameMaster.getNetView().RPC ("hitResource", RPCMode.All, tile.x, tile.y, damage);
-				gameMaster.getNetView ().RPC ("changeEnergy", RPCMode.All, unitID, -5);
-                if (resObject.getDamageType() == 1)
-                {
-                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
-                }
-                else
-                {
-                    gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
-                }
+                    gameMaster.getNetView().RPC("hitResource", RPCMode.All, tile.x, tile.y, damage);
+                    gameMaster.getNetView().RPC("changeEnergy", RPCMode.All, unitID, -5);
+                    if (resObject.getDamageType() == 1)
+                    {
+                        gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.WoodChopping, damage);
+                    }
+                    else
+                    {
+                        gameMaster.getNetView().RPC("giveExperience", RPCMode.All, unitID, Skill.Mining, damage);
+                    }
 
-			}
+                }
+            }
 		}
 	}
 
@@ -323,6 +336,21 @@ public class ServerController : GameController {
             gameMaster.getNetView().RPC("approveBuildingCommand", RPCMode.All, unitID, buildingID);
     }
 
+    [RPC]
+    public override void requestCraftingCommand(int unitID, string recipeName)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        RecipeData data = DataHolder.Instance.getRecipeData(recipeName);
+
+        if (hero != null && data != null)
+        {
+            if (hero.canStartCommand(new CraftingCommand(hero, data)))
+            {
+                gameMaster.getNetView().RPC("approveCraftingCommand", RPCMode.All, unitID, recipeName);
+            }
+        }
+    }
+
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{
@@ -372,7 +400,7 @@ public class ServerController : GameController {
     public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
         Actor target = GameMaster.getActor(targetID);
-        if (target != null)
+        if (target != null && target.isAlive())
         {
             if (damage < 0)
             {
@@ -434,6 +462,10 @@ public class ServerController : GameController {
 
     public override void requestApplyEffect(int unitID, int targetID, string effectName)
     {
+        Actor actor = GameMaster.getActor(unitID);
+        if (actor == null || !actor.isAlive())
+            return;
+
         gameMaster.getNetView().RPC("approveApplyEffect", RPCMode.All, unitID, targetID, effectName);
     }
 

@@ -62,4 +62,10 @@ public class ResourceData : ObjectData {
 	{
 		return Random.Range(1, variances+1).ToString().PadLeft(2, '0');
 	}
+
+    public virtual ResourceObject getResourceObject(Vector3 position, float rotation)
+    {
+        return new ResourceObject(position, rotation, this);
+    }
+
 }

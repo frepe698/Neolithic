@@ -13,6 +13,7 @@ TagManager:
   - UIRaycastBlock
   - UIRaycast
   - Building
+  - DeadUnit
   layers:
   - Default
   - TransparentFX

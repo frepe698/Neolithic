@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: e9685188a6f66a34680269dd1893d77d
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: bFoot.L
     100002: bFoot.R
@@ -28,6 +28,16 @@ ModelImporter:
     100044: head
     100046: neck
     100048: rig
+    100050: bFoot.L_end
+    100052: bFoot.R_end
+    100054: bIK_leg.L_end
+    100056: bIK_leg.R_end
+    100058: ear.L_end
+    100060: ear.R_end
+    100062: fFoot.L_end
+    100064: fFoot.R_end
+    100066: fIK_leg.L_end
+    100068: fIK_leg.R_end
     400000: bFoot.L
     400002: bFoot.R
     400004: bIK_leg.L
@@ -53,12 +63,23 @@ ModelImporter:
     400044: head
     400046: neck
     400048: rig
+    400050: bFoot.L_end
+    400052: bFoot.R_end
+    400054: bIK_leg.L_end
+    400056: bIK_leg.R_end
+    400058: ear.L_end
+    400060: ear.R_end
+    400062: fFoot.L_end
+    400064: fFoot.R_end
+    400066: fIK_leg.L_end
+    400068: fIK_leg.R_end
     4300000: hare
     7400000: idle_unarmed
     7400002: run_unarmed
     7400004: hare|run
     7400006: loot_unarmed
     7400008: chop_unarmed
+    7400010: die_unarmed
     9500000: //RootNode
     11100000: //RootNode
     13700000: hare
@@ -231,82 +252,6 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: loot_unarmed
-      takeName: rig|idle
-      firstFrame: 0
-      lastFrame: 20
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: hare
-        weight: 1
-      - path: rig
-        weight: 1
-      - path: rig/bIK_leg.L
-        weight: 1
-      - path: rig/bIK_leg.R
-        weight: 1
-      - path: rig/body1
-        weight: 1
-      - path: rig/body1/bLeg1.L
-        weight: 1
-      - path: rig/body1/bLeg1.L/bLeg2.L
-        weight: 1
-      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
-        weight: 1
-      - path: rig/body1/bLeg1.R
-        weight: 1
-      - path: rig/body1/bLeg1.R/bLeg2.R
-        weight: 1
-      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
-        weight: 1
-      - path: rig/body2
-        weight: 1
-      - path: rig/body2/fLeg1.L
-        weight: 1
-      - path: rig/body2/fLeg1.L/fLeg2.L
-        weight: 1
-      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
-        weight: 1
-      - path: rig/body2/fLeg1.R
-        weight: 1
-      - path: rig/body2/fLeg1.R/fLeg2.R
-        weight: 1
-      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
-        weight: 1
-      - path: rig/body2/neck
-        weight: 1
-      - path: rig/body2/neck/head
-        weight: 1
-      - path: rig/body2/neck/head/ear.L
-        weight: 1
-      - path: rig/body2/neck/head/ear.R
-        weight: 1
-      - path: rig/fIK_leg.L
-        weight: 1
-      - path: rig/fIK_leg.R
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
       name: chop_unarmed
       takeName: rig|idle
       firstFrame: 0
@@ -382,6 +327,102 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: die_unarmed
+      takeName: rig|die
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: hare
+        weight: 1
+      - path: rig
+        weight: 1
+      - path: rig/bIK_leg.L
+        weight: 1
+      - path: rig/bIK_leg.L/bIK_leg.L_end
+        weight: 1
+      - path: rig/bIK_leg.R
+        weight: 1
+      - path: rig/bIK_leg.R/bIK_leg.R_end
+        weight: 1
+      - path: rig/body1
+        weight: 1
+      - path: rig/body1/bLeg1.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L
+        weight: 1
+      - path: rig/body1/bLeg1.L/bLeg2.L/bFoot.L/bFoot.L_end
+        weight: 1
+      - path: rig/body1/bLeg1.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R
+        weight: 1
+      - path: rig/body1/bLeg1.R/bLeg2.R/bFoot.R/bFoot.R_end
+        weight: 1
+      - path: rig/body2
+        weight: 1
+      - path: rig/body2/fLeg1.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L
+        weight: 1
+      - path: rig/body2/fLeg1.L/fLeg2.L/fFoot.L/fFoot.L_end
+        weight: 1
+      - path: rig/body2/fLeg1.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R
+        weight: 1
+      - path: rig/body2/fLeg1.R/fLeg2.R/fFoot.R/fFoot.R_end
+        weight: 1
+      - path: rig/body2/neck
+        weight: 1
+      - path: rig/body2/neck/head
+        weight: 1
+      - path: rig/body2/neck/head/ear.L
+        weight: 1
+      - path: rig/body2/neck/head/ear.L/ear.L_end
+        weight: 1
+      - path: rig/body2/neck/head/ear.R
+        weight: 1
+      - path: rig/body2/neck/head/ear.R/ear.R_end
+        weight: 1
+      - path: rig/fIK_leg.L
+        weight: 1
+      - path: rig/fIK_leg.L/fIK_leg.L_end
+        weight: 1
+      - path: rig/fIK_leg.R
+        weight: 1
+      - path: rig/fIK_leg.R/fIK_leg.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -393,11 +434,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -420,3 +463,5 @@ ModelImporter:
   animationType: 1
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

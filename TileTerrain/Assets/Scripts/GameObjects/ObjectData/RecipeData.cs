@@ -8,6 +8,7 @@ public abstract class RecipeData : ObjectData
 {
     public readonly bool isBasicRecipe;
     public readonly string product;
+    public readonly float creationTime = 1;
 
     [XmlArray("ingredients"), XmlArrayItem("Ingredient")]
     public readonly Ingredient[] ingredients;
@@ -28,6 +29,7 @@ public abstract class RecipeData : ObjectData
     {
         isBasicRecipe = edit.isBasicRecipe;
         product = edit.product;
+        creationTime = edit.creationTime;
         ingredients = edit.getIngredients();
         description = edit.description;
 

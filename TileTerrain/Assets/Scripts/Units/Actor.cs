@@ -61,6 +61,7 @@ public abstract class Actor {
     {
         tile = new Vector2i(get2DPos());
         World.tileMap.getTile(tile).addActor(this);
+        onEnterNewTile();
     }
 
     public virtual void activate()
@@ -75,6 +76,7 @@ public abstract class Actor {
         //unit.transform.localScale = scale;
         this.unitController = gameObject.GetComponent<UnitController>();
         unitController.setID(id);
+        setTag();
     }
 
     public virtual bool inactivate()
@@ -318,7 +320,7 @@ public abstract class Actor {
         return tile;
     }
 
-    public void setPosition(Vector3 position)
+    public virtual void setPosition(Vector3 position)
     {
         this.position = position;
     }
@@ -551,11 +553,22 @@ public abstract class Actor {
     public void setAlive(bool alive)
     {
         this.alive = alive;
+        if (!alive)
+        {
+            onDeath();
+            World.tileMap.getTile(tile).removeActor(this);
+        }
+        setTag();
     }
 
     public bool isAlive()
     {
         return alive;
+    }
+
+    public virtual void onDeath()
+    {
+        command = null;
     }
 
     public string getName()
@@ -619,7 +632,7 @@ public abstract class Actor {
 
                     foreach (Actor actor in checkTile.getActors())
                     {
-                        if (actor.getID() == id || actor.getTeam() == getTeam()) continue;
+                        if (!actor.isAlive() || actor.getID() == id || actor.getTeam() == getTeam()) continue;
 
                         float newDist = Vector2.Distance(get2DPos(), actor.get2DPos());
                         if (newDist < dist)
@@ -649,7 +662,7 @@ public abstract class Actor {
                     foreach (Actor actor in checkTile.getActors())
                     {
                         Unit unit = actor as Unit;
-                        if (unit == null || actor.getID() == id || actor.getTeam() == getTeam()) continue;
+                        if (unit == null || !actor.isAlive() || actor.getID() == id || actor.getTeam() == getTeam()) continue;
 
                         float newDist = Vector2.Distance(get2DPos(), actor.get2DPos());
                         if (newDist < dist)
@@ -669,5 +682,18 @@ public abstract class Actor {
         if (unitController == null)
             return 0;
         return unitController.getHeight();
+    }
+
+    public virtual bool shouldBeRemoved()
+    {
+        return !isAlive();
+    }
+
+    public virtual void onEnterNewTile()
+    {
+    }
+
+    protected virtual void setTag()
+    { 
     }
 }

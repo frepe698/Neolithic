@@ -70,7 +70,7 @@ public class LootCommand : Command {
 	
 	private void calculateRotation()
 	{
-		Vector2 dir = (actor.get2DPos()-destination).normalized;
+        Vector2 dir = (destination - actor.get2DPos()).normalized;
 		actor.setRotation (new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0));
 		
 	}

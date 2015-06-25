@@ -27,7 +27,7 @@ public class TileObject {
         this.blocks = false;
     }
 
-	public bool Activate()
+	public virtual bool Activate()
 	{
 		if(ObjectActive()) return true; //Object already active, do nothing
 
@@ -40,7 +40,7 @@ public class TileObject {
 		return true; //Everything worked as expected
 	}
 
-	public void Inactivate()
+	public virtual void Inactivate()
 	{
 		if(!ObjectActive()) return; //Already inactive
 		ObjectPoolingManager.Instance.ReturnObject(poolName, poolObject);

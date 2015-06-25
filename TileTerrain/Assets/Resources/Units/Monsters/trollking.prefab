@@ -1978,8 +1978,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.73000002, y: 2.79999995, z: 1}
-  m_Center: {x: 0, y: 1.39999998, z: -.129999995}
+  m_Size: {x: 1.73000002, y: 2.8900001, z: 1.45000005}
+  m_Center: {x: 0, y: 1.38999999, z: -.129999995}
 --- !u!111 &11154628
 Animation:
   m_ObjectHideFlags: 1
@@ -1988,15 +1988,16 @@ Animation:
   m_GameObject: {fileID: 134636}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
+  m_Animation: {fileID: 7400002, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   m_Animations:
   - {fileID: 7400000, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   - {fileID: 7400002, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   - {fileID: 7400004, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   - {fileID: 7400006, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   - {fileID: 7400008, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
+  - {fileID: 7400010, guid: 43b167dd5548ac0409f1db743d8d5729, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
 --- !u!114 &11470786

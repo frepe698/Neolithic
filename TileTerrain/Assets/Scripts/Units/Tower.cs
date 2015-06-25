@@ -68,7 +68,6 @@ public class Tower : Building {
         this.unitController = gameObject.GetComponent<UnitController>();
         unitController.setID(id);
         aimPart = gameObject.transform.FindChild("aim");
-
     }
 
     public override bool inactivate()

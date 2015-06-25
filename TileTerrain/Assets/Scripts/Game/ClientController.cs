@@ -76,6 +76,9 @@ public class ClientController : GameController {
     {
         //Do nada
     }
+
+    public override void requestKillActor(int targetID, int killerID)    {        //Do nada    }
+
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
@@ -264,6 +267,12 @@ public class ClientController : GameController {
     public override void requestBuildingCommand(int unitID, int buildingID)
     {
         gameMaster.getNetView().RPC("requestBuildingCommand", RPCMode.Server, unitID, buildingID);
+    }
+
+    [RPC]
+    public override void requestCraftingCommand(int unitID, string recipeName)
+    {
+        gameMaster.getNetView().RPC("requestCraftingCommand", RPCMode.Server, unitID, recipeName);
     }
 
     [RPC]

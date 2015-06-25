@@ -25,7 +25,8 @@ public class Hero : Unit {
 	private readonly float BASE_HUNGER_GAIN;
 
     //COLDNESS
-    private float maxColdness = 100;
+    public const float MAX_COLDNESS = 100;
+    public const float FREEZING_LINE = 75;
     private float coldness;
     private const float COLDNESS_MULTIPLIER = 0.2f;
     private const float BASE_TEMPERATURE_INCREASE = -10.0f;
@@ -34,7 +35,6 @@ public class Hero : Unit {
 
     protected bool colliderActive = true;
 
-    private float respawnTimer;
     private const float RESPAWN_TIME = 10;
     private bool waitingForRespawn = false;
     private Vector2 respawnPosition;
@@ -118,8 +118,7 @@ public class Hero : Unit {
             if(armor != null) 
                 unitController.equipArmor(name, armor);
         }
-        gameObject.tag = colliderActive ? "Unit" : "Player";
-        //unit.GetComponent<Collider>().enabled = colliderActive;
+        setTag();
 	}
 
     public override bool inactivate()
@@ -156,14 +155,21 @@ public class Hero : Unit {
 
 	public void updateStats()
 	{
+        if (!alive)
+            return;
+
 		hunger += getHungerGain()*Time.deltaTime;
 		hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
-        coldness = Mathf.Clamp(coldness + getColdnessGain()*Time.deltaTime, 0, maxColdness);
+        coldness = Mathf.Clamp(coldness + getColdnessGain()*Time.deltaTime, 0, MAX_COLDNESS);
 
         unitstats.getEnergy().addCurValue(getEnergyGain() * Time.deltaTime);
         //unitstats.getEnergy().addCurValue(unitstats.getEnergyRegen().getValue()*Time.deltaTime);
+
 		unitstats.getHealth().addCurValue(getHealthGain()*Time.deltaTime);
+
+        if (getHealth() <= 0)
+            GameMaster.getGameController().requestKillActor(id, -1);
 		//health = Mathf.Clamp(health, 0, maxHealth);
 	}
 
@@ -318,11 +324,18 @@ public class Hero : Unit {
 
 	public float getHealthGain()
 	{
+        float regen = unitstats.getHealthRegen().getValue();
+        float change = 0;
 		if(hunger <= 0)
 		{
-			return -0.5f;
+            regen = 0;
+			change -= 2f;
 		}
-		return unitstats.getHealthRegen().getValue() * getColdnessMultiplier(); 
+        if (coldness >= FREEZING_LINE)
+        {
+            change -= coldness / MAX_COLDNESS * 5;
+        }
+		return regen * getColdnessMultiplier() + change; 
 	}
 
     public float getColdnessMultiplier()
@@ -392,7 +405,7 @@ public class Hero : Unit {
 
     public float getMaxColdness()
     {
-        return maxColdness;
+        return MAX_COLDNESS;
     }
 
 	public float getMaxEnergy()
@@ -524,7 +537,7 @@ public class Hero : Unit {
     public void startRespawn()
     {
         waitingForRespawn = true;
-        respawnTimer = RESPAWN_TIME + unitstats.getLevel();
+        deathTimer = RESPAWN_TIME + unitstats.getLevel();
     }
 
     public bool isWaitingRespawn()
@@ -535,8 +548,8 @@ public class Hero : Unit {
     public bool updateRespawnTimer()
     {
         //Debug.Log("Hero is waiting for respawn. " + respawnTimer + " seconds left.");
-        respawnTimer -= Time.deltaTime;
-        return respawnTimer <= 0;
+        deathTimer -= Time.deltaTime;
+        return deathTimer <= 0;
     }
 
     public void respawn()
@@ -544,6 +557,7 @@ public class Hero : Unit {
         buffs.Clear();
         unitstats.resetVitals();
         unitstats.updateStats();
+        coldness = 0;
         waitingForRespawn = false;
         command = null;
         warp(respawnPosition);
@@ -552,7 +566,7 @@ public class Hero : Unit {
 
     public float getRespawnTime()
     {
-        return respawnTimer;
+        return deathTimer;
     }
 
     public override int getFavour()
@@ -561,6 +575,11 @@ public class Hero : Unit {
     }
 
     public override void onEnterNewTile()
+    {
+        calculateBuildingWarmth();
+    }
+
+    public void calculateBuildingWarmth()
     {
         buildingWarmth = 0;
 
@@ -577,12 +596,37 @@ public class Hero : Unit {
                         Building building = actor as Building;
                         if (building == null) continue;
                         float distance = Vector2i.getDistance(new Vector2i(x, y), tile);
-                        if(distance <= Building.WARMTH_TILE_RANGE) 
+                        if (distance <= Building.WARMTH_TILE_RANGE)
                             buildingWarmth += (1 - (distance + float.Epsilon - 1) / (float)(Building.WARMTH_TILE_RANGE)) * building.getWarmth();
                     }
                 }
             }
         }
-        //Debug.Log("bwarmth " + buildingWarmth);
+        Debug.Log("bwarmth " + buildingWarmth);
+    }
+
+    public override void onDeath()
+    {
+        command = null;
+        startRespawn();
+
+        if (isActive())
+            setAnimationRestart("die_unarmed");
+    }
+
+    public override bool shouldBeRemoved()
+    {
+        return false;
+    }
+
+    protected override void setTag()
+    {
+        if (gameObject != null)
+        {
+            if (alive)
+                gameObject.tag = colliderActive ? "Unit" : "Player";
+            else
+                gameObject.tag = "DeadUnit";
+        }
     }
 }

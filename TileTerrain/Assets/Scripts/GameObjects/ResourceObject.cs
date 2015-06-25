@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class ResourceObject : TileObject
 {
-	private int health;
+	protected int health;
 
-	private ResourceData data;
+	protected ResourceData data;
 
 	public ResourceObject(Vector3 position, float rotation, string name)
         : base(position, rotation)
@@ -18,6 +18,21 @@ public class ResourceObject : TileObject
 		this.blocks = data.blocksProjectile;
 	}
 
+    public ResourceObject(Vector3 position, float rotation)
+        : base(position, rotation)
+    {
+ 
+    }
+
+    public ResourceObject(Vector3 position, float rotation, ResourceData data)
+        : base(position, rotation)
+    {
+        this.scale = new Vector2(Random.Range(0.9f, 1.1f), Random.Range(0.9f, 1.1f));
+        this.data = data;
+        this.poolName = data.modelName + data.getRandomVariance();
+        this.health = data.health;
+        this.blocks = data.blocksProjectile;
+    }
 	
 
 	public override bool Equals(object o)
@@ -72,5 +87,15 @@ public class ResourceObject : TileObject
 	{
 		return data.damageType;
 	}
+
+    public virtual string harvest()
+    {
+        return null;
+    }
+
+    public virtual bool canBeHarvested()
+    {
+        return false;
+    }
 	
 }

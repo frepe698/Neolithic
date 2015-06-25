@@ -212,6 +212,8 @@ public class GUIManager : MonoBehaviour{
 	private RectTransform energybarTransform;
 	private RectTransform hungerbarTransform;
 	private RectTransform coldbarTransform;
+
+    private RawImage coldnessOverlay;
     #endregion //END PLAYER STATS MEMBERS
 
     #region QUICK USE ITEMS MEMBERS
@@ -265,6 +267,18 @@ public class GUIManager : MonoBehaviour{
 
     #endregion
 
+    #region PROGRESS BAR
+    //PROGRESS BAR
+
+    private GameObject progressBar;
+    private bool progressBarShouldClose = false;
+    private Text progressBarText;
+    private RectTransform progressBarRect;
+    private float progressBarMaxWidth;
+
+    //END PROGRESS BAR  
+    #endregion
+
     private bool mouseOverGUI = false;
     private GameObject waitingForPlayers;
 
@@ -282,6 +296,7 @@ public class GUIManager : MonoBehaviour{
         Transform rightPanel = canvas.FindChild("RightPanel");
         hungerbarTransform = rightPanel.FindChild("hungerbar").FindChild("hungerbar_mask").GetComponent<RectTransform>();
         coldbarTransform = rightPanel.FindChild("coldbar").FindChild("coldbar_mask").GetComponent<RectTransform>();
+        coldnessOverlay = canvas.FindChild("ColdnessOverlay").GetComponent<RawImage>();
 
         #region INGAME MENU INIT
         //Ingame Menu init
@@ -610,6 +625,17 @@ public class GUIManager : MonoBehaviour{
 
         #endregion
 
+        #region PROGRESS BAR INIT
+        //PROGRESS BAR INIT
+
+        progressBar = canvas.FindChild("ProgressBar").gameObject;
+        progressBarText = progressBar.transform.FindChild("Text").GetComponent<Text>();
+        progressBarRect = progressBar.transform.FindChild("bar").FindChild("bar_mask").GetComponent<RectTransform>();
+        progressBarMaxWidth = progressBarRect.sizeDelta.x;
+
+        //PROGRESS BAR INIT END
+        #endregion
+
         activateInventory(false);
         activateCrafting(false);
         activateHeroStats(false);
@@ -756,6 +782,15 @@ public class GUIManager : MonoBehaviour{
             energybarTransform.anchoredPosition = new Vector2(0, (playerHero.getEnergy() / (playerHero.getMaxEnergy() + float.Epsilon)) * 100);
             hungerbarTransform.sizeDelta = new Vector2(100, (playerHero.getHunger() / playerHero.getMaxHunger()) * 100);
             coldbarTransform.sizeDelta = new Vector2(100, (1 - playerHero.getColdnessMultiplier()) * 100);
+            if (playerHero.getColdness() >= Hero.FREEZING_LINE)
+            {
+                coldnessOverlay.color = new Color(1, 1, 1, (playerHero.getColdness() - Hero.FREEZING_LINE) / (Hero.MAX_COLDNESS - Hero.FREEZING_LINE));
+                coldnessOverlay.enabled = true;
+            }
+            else
+            {
+                coldnessOverlay.enabled = false;
+            }
             respawnText.gameObject.SetActive(false);
         }
         else
@@ -785,6 +820,15 @@ public class GUIManager : MonoBehaviour{
             fpsDisplay.text = "fps: " + frames + /*"vsync = " + QualitySettings.vSyncCount +*/ " - ping: " + NetworkMaster.getAveragePing();
             nextUpdateTimer--;
             frames = 0;
+        }
+
+        if (progressBarShouldClose)
+        {
+            progressBar.SetActive(false);
+        }
+        else
+        {
+            progressBarShouldClose = true;
         }
 	}
 
@@ -2070,7 +2114,7 @@ public class GUIManager : MonoBehaviour{
             }
             else
             {
-                GameMaster.getGameController().requestItemCraft(GameMaster.getPlayerUnitID(), name);
+                GameMaster.getGameController().requestCraftingCommand(GameMaster.getPlayerUnitID(), name);
             }
         }
         else
@@ -2384,6 +2428,20 @@ public class GUIManager : MonoBehaviour{
     }
 
     #endregion
+
+    #region PROGRESS BAR
+    //REGION PROGRESS BAR
+
+    public void setProgressBar(string text, float percentComplete)
+    {
+        progressBar.SetActive(true);
+        progressBarText.text = text;
+        progressBarRect.sizeDelta = new Vector2(progressBarMaxWidth * percentComplete, progressBarRect.sizeDelta.y);
+        progressBarShouldClose = false;
+    }
+    
+    #endregion //PROGRESS BAR
+
     public bool isMouseOverGUI()
     {
         return mouseOverGUI;

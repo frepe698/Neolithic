@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <ResourcesRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Resources>
-    <ResourceData name="bigTree" gameName="Big Tree" modelName="">
+    <ResourceData name="bigTree" gameName="Big Tree" modelName="bigTree">
       <health>0</health>
       <damageType>0</damageType>
       <safeDrops>
@@ -18,7 +18,7 @@
       <variances>1</variances>
       <blocksProjectile>false</blocksProjectile>
     </ResourceData>
-    <ResourceData name="gran" gameName="Gran" modelName="">
+    <ResourceData name="gran" gameName="Gran" modelName="gran">
       <health>100</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -37,7 +37,7 @@
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
     </ResourceData>
-    <ResourceData name="birch" gameName="Birch" modelName="">
+    <ResourceData name="birch" gameName="Birch" modelName="birch">
       <health>80</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -56,7 +56,7 @@
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
     </ResourceData>
-    <ResourceData name="greenTree" gameName="Green Tree" modelName="">
+    <ResourceData name="greenTree" gameName="Green Tree" modelName="greenTree">
       <health>80</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -75,7 +75,7 @@
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
     </ResourceData>
-    <ResourceData name="deadTree" gameName="Dead Tree" modelName="">
+    <ResourceData name="deadTree" gameName="Dead Tree" modelName="deadTree">
       <health>80</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -95,7 +95,7 @@
       <hitParticle>treeChopParticles</hitParticle>
       <blocksProjectile>true</blocksProjectile>
     </ResourceData>
-    <ResourceData name="deadBush" gameName="Dead Bush" modelName="">
+    <ResourceData name="deadBush" gameName="Dead Bush" modelName="deadBush">
       <health>40</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -113,7 +113,7 @@
       <hitParticle>bushChopParticles</hitParticle>
       <blocksProjectile>false</blocksProjectile>
     </ResourceData>
-    <ResourceData name="greenBush" gameName="Green Bush" modelName="">
+    <ResourceData name="greenBush" gameName="Green Bush" modelName="greenBush">
       <health>40</health>
       <damageType>1</damageType>
       <safeDrops>
@@ -131,7 +131,7 @@
       <hitParticle>bushChopParticles</hitParticle>
       <blocksProjectile>false</blocksProjectile>
     </ResourceData>
-    <ResourceData name="stone" gameName="Stone" modelName="">
+    <ResourceData name="stone" gameName="Stone" modelName="stone">
       <health>100</health>
       <damageType>2</damageType>
       <safeDrops>
@@ -158,4 +158,31 @@
       <blocksProjectile>false</blocksProjectile>
     </ResourceData>
   </Resources>
+  <Harvestables>
+    <HarvestableData name="blueberrybush" gameName="Blueberry Bush" modelName="blueberrybush">
+      <health>50</health>
+      <damageType>1</damageType>
+      <safeDrops>
+        <string>stick</string>
+        <string>stone</string>
+        <string>log</string>
+      </safeDrops>
+      <randomDrops>
+        <string>stick</string>
+      </randomDrops>
+      <rareDrops>
+        <string />
+      </rareDrops>
+      <minDrops>2</minDrops>
+      <maxDrops>2</maxDrops>
+      <variances>1</variances>
+      <hitParticle>bushChopParticles</hitParticle>
+      <blocksProjectile>false</blocksProjectile>
+      <harvestDrop>blueberry</harvestDrop>
+      <minHarvest>2</minHarvest>
+      <maxHarvest>10</maxHarvest>
+      <minRespawnTime>5</minRespawnTime>
+      <maxRespawnTime>5</maxRespawnTime>
+    </HarvestableData>
+  </Harvestables>
 </ResourcesRoot>

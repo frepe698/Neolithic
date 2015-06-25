@@ -84,8 +84,12 @@ public class UnitController : MonoBehaviour {
         Animation animator = this.GetComponent<Animation>();
         if (animator == null) return;
 		animator.Stop(animation);
-		animator[animation].speed = speed;
-		animator.CrossFade(animation, 0.2f);
+        AnimationState anim = animator[animation];
+        if (anim != null)
+        {
+            animator[animation].speed = speed;
+            animator.CrossFade(animation, 0.2f);
+        }
 	}
 
 	
@@ -93,8 +97,12 @@ public class UnitController : MonoBehaviour {
 	{
         Animation animator = this.GetComponent<Animation>();
         if (animator == null) return;
-        animator[animation].speed = speed;
-        animator.CrossFade(animation, 0.2f);
+        AnimationState anim = animator[animation];
+        if (anim != null)
+        {
+            animator[animation].speed = speed;
+            animator.CrossFade(animation, 0.2f);
+        }
 	}
 
 	public void playSound(string sound)

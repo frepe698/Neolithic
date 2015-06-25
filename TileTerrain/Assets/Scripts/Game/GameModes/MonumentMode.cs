@@ -57,8 +57,8 @@ public class MonumentMode : GameMode {
             for (int i = 0; i < TEAM_COUNT; i++)
             {
                 Team team = teams[i];
-                team.favour += (-2.0f * Time.deltaTime);
-                GameMaster.getGUIManager().setTeamFavour(i, (int)team.favour);
+                //team.favour += (-2.0f * Time.deltaTime);
+                //GameMaster.getGUIManager().setTeamFavour(i, (int)team.favour);
                 if (team.favour <= -100)
                 {
                     team.defeated = true;

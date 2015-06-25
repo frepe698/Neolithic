@@ -416,6 +416,8 @@ public class RecipeEditor : ObjectEditor
         GUILayout.Space(20);
         EditorGUILayout.LabelField("Product:", EditorStyles.boldLabel);
         data.product = EditorGUILayout.TextField(data.product);
+        GUILayout.Space(20);
+        data.creationTime = EditorGUILayout.FloatField("Creation Time: ", data.creationTime);
 
         GUILayout.Space(20);
         EditorGUILayout.LabelField("Ingredients:", EditorStyles.boldLabel);

@@ -29,7 +29,12 @@ public class Building : Actor {
 
     public override void update()
     {
-
+        if (!awake) return;
+        if (command != null)
+        {
+            if (command.isCompleted()) command = null;
+            else command.update();
+        }
     }
 
     public override int getTeam()
@@ -40,5 +45,45 @@ public class Building : Actor {
     public float getWarmth()
     {
         return warmth;
+    }
+
+    public override void setPosition(Vector3 position)
+    {
+        this.position = position;
+        if (isActive())
+        {
+            gameObject.transform.position = position;
+        }
+    }
+
+    public override void onEnterNewTile()
+    {
+        for (int x = tile.x - Building.WARMTH_TILE_RANGE; x < tile.x + Building.WARMTH_TILE_RANGE + 1; x++)
+        {
+            for (int y = tile.y - Building.WARMTH_TILE_RANGE; y < tile.y + Building.WARMTH_TILE_RANGE + 1; y++)
+            {
+                if (!World.getMap().isValidTile(x, y)) continue;
+                Tile checkTile = World.getMap().getTile(x, y);
+                if (checkTile.containsActors() /*&& Pathfinder.unhinderedTilePath(World.getMap(), get2DPos(), new Vector2(x, y), id)*/)
+                {
+                    foreach (Actor actor in checkTile.getActors())
+                    {
+                        Hero hero = actor as Hero;
+                        if (hero == null) continue;
+                        float distance = Vector2i.getDistance(new Vector2i(x, y), tile);
+                        if (distance <= Building.WARMTH_TILE_RANGE)
+                            hero.calculateBuildingWarmth();
+                    }
+                }
+            }
+        }
+    }
+
+    protected override void setTag()
+    {
+        if (gameObject != null)
+        {
+            gameObject.tag = alive ? "Building" : "DeadUnit";
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AreaOfEffect : AbilityEffect {
 
@@ -29,17 +30,19 @@ public class AreaOfEffect : AbilityEffect {
             {
                 if (!World.tileMap.isValidTile(x, y)) continue;
                 Vector2i tile = new Vector2i(x, y);
-                foreach(Actor target in World.tileMap.getTile(tile).getActors())
+                List<Actor> actors = World.tileMap.getTile(tile).getActors();
+                for (int i = actors.Count - 1; i >= 0; i--)
                 {
-                    if (target.getID() == actor.getID() 
+                    Actor target = actors[i];
+                    if (target.getID() == actor.getID()
                         || target.getTeam() == actor.getTeam()
                         || Vector2.Distance(target.get2DPos(), targetPosition2D) > radius) continue;
 
                     //Target is officially hit here, calculate damage
                     applyDamage(data.hitDamage, actor, target, data.expSkill);
-                    
+
                     //Apply buffs if there are buffs
-                    if(data.hitBuffs.Length > 0)
+                    if (data.hitBuffs.Length > 0)
                         GameMaster.getGameController().requestApplyEffect(actor.getID(), target.getID(), data.name);
                 }
             }

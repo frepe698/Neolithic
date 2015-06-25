@@ -56,10 +56,19 @@ public class GatherCommand : Command {
 			if(resObject != null)
 			{
 				gathering = true;
-				gatherTime = TRIGGER_TIME / actor.getAttackSpeed();
+				
 				hasGathered = false;
 				calculateRotation();
-				actor.setAnimationRestart(actor.getAttackAnim(resObject.getDamageType()), actor.getAttackSpeed());
+                if (resObject.canBeHarvested())
+                {
+                    gatherTime = unit.getLootTime()*2;
+                    actor.setAnimationRestart(unit.getLootAnim(), 0.5f);
+                }
+                else
+                {
+                    gatherTime = TRIGGER_TIME / actor.getAttackSpeed();
+                    actor.setAnimationRestart(actor.getAttackAnim(resObject.getDamageType()), actor.getAttackSpeed());
+                }
 			}
 			else
 			{
@@ -70,7 +79,7 @@ public class GatherCommand : Command {
 
 	private void calculateRotation()
 	{
-		Vector2 dir = (actor.get2DPos()-resourcePosition).normalized;
+        Vector2 dir = (resourcePosition - actor.get2DPos()).normalized;
 		actor.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 
 	}

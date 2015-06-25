@@ -209,7 +209,7 @@ public class World : MonoBehaviour {
         ObjectPoolingManager.Instance.CreatePool(("Loot/fur"), 10, true);
         ObjectPoolingManager.Instance.CreatePool(("Loot/healthpotion"), 10, true);
         ObjectPoolingManager.Instance.CreatePool(("Loot/energypotion"), 10, true);
-        ObjectPoolingManager.Instance.CreatePool(("Harvestable/blueberry"), 50, true);
+        ObjectPoolingManager.Instance.CreatePool(("Harvestable/blueberrybush"), 50, true);
         ObjectPoolingManager.Instance.CreatePool(("Harvestable/nettle"), 50, true);
 		
 //		ObjectPoolingManager.Instance.CreatePool((GameObject)Resources.Load ("Eyecandy/grass01"), 400, true);
@@ -586,7 +586,9 @@ public class World : MonoBehaviour {
                 if (ground.spawnResource())
                 {
                     Vector2 pos = new Vector2(x + 0.4f + Random.value * 0.2f, y + 0.4f + Random.value * 0.2f);
-                    tile.setTileObject(ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y)));
+                    ResourceObject resObject = ground.getRandomResource(new Vector3(pos.x, getHeight(pos), pos.y));
+                    if(resObject != null)
+                        tile.setTileObject(resObject);
                 }
                 else
                 {

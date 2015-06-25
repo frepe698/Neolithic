@@ -73,6 +73,11 @@ public class OfflineController : GameController {
         approveNightSpawnerRemoveAll(spawnerID);
     }
 
+    public override void requestKillActor(int targetID, int killerID)
+    {
+        killActor(targetID, killerID);
+    }
+
 	[RPC]
 	public override void requestMoveCommand(int unitID, float x, float y)
 	{
@@ -166,37 +171,45 @@ public class OfflineController : GameController {
 	public override void requestGather(int unitID, Vector2i tile)
 	{
 		ResourceObject resObject = World.tileMap.getTile(tile).getResourceObject();
-		if(resObject != null)
-		{
-			int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
-			if(resObject.getHealth() <= damage)
-			{
-				gatherResource(tile.x, tile.y, unitID);
-				changeEnergy(unitID, -5);
-                if(resObject.getDamageType() == 1)
+        if (resObject != null)
+        {
+            if (resObject.canBeHarvested())
+            {
+                harvestResource(tile.x, tile.y, unitID);
+                changeEnergy(unitID, -5);
+            }
+            else
+            {
+                int damage = GameMaster.getHero(unitID).getDamage(resObject.getDamageType());
+                if (resObject.getHealth() <= damage)
                 {
-                    giveExperience(unitID, Skill.WoodChopping, damage);
-                }
-                else 
-                {
-                    giveExperience(unitID, Skill.Mining, damage);
-                }
-			}
-			else
-			{
-				hitResource(tile.x, tile.y, damage);
-				changeEnergy(unitID, -5);
-                if (resObject.getDamageType() == 1)
-                {
-                    giveExperience(unitID, Skill.WoodChopping, damage);
+                    gatherResource(tile.x, tile.y, unitID);
+                    changeEnergy(unitID, -5);
+                    if (resObject.getDamageType() == 1)
+                    {
+                        giveExperience(unitID, Skill.WoodChopping, damage);
+                    }
+                    else
+                    {
+                        giveExperience(unitID, Skill.Mining, damage);
+                    }
                 }
                 else
                 {
-                    giveExperience(unitID, Skill.Mining, damage);
-                }
+                    hitResource(tile.x, tile.y, damage);
+                    changeEnergy(unitID, -5);
+                    if (resObject.getDamageType() == 1)
+                    {
+                        giveExperience(unitID, Skill.WoodChopping, damage);
+                    }
+                    else
+                    {
+                        giveExperience(unitID, Skill.Mining, damage);
+                    }
 
-			}
-		}
+                }
+            }
+        }
 
 	}
 
@@ -306,6 +319,21 @@ public class OfflineController : GameController {
         approveBuildingCommand(unitID, buildingID);
     }
 
+    [RPC]
+    public override void requestCraftingCommand(int unitID, string recipeName)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        RecipeData data = DataHolder.Instance.getRecipeData(recipeName);
+
+        if (hero != null && data != null)
+        {
+            if (hero.canStartCommand(new CraftingCommand(hero, data)))
+            {
+                approveCraftingCommand(unitID, recipeName);
+            }
+        }
+    }
+
 	[RPC]
 	public override void requestItemCraft(int unitID, string name)
 	{
@@ -351,7 +379,7 @@ public class OfflineController : GameController {
     public override void requestHit(int damage, int unitID, int targetID, int skill = -1)
     {
         Actor target = GameMaster.getActor(targetID);
-        if (target == null) return;
+        if (target == null || !target.isAlive()) return;
         if (damage < 0)
         {
             changeHealth(targetID, -damage);
@@ -407,6 +435,11 @@ public class OfflineController : GameController {
 
     public override void requestApplyEffect(int unitID, int targetID, string effectName)
     {
+        Actor target = GameMaster.getActor(targetID);
+        if (target == null || !target.isAlive())
+            return;
+
+        Debug.Log("approve apply effect");
         approveApplyEffect(unitID, targetID, effectName);
     }
 

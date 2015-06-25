@@ -210,7 +210,7 @@ public class AbilityCommand : Command {
 	
 	private void calculateRotation()
 	{
-		Vector2 dir = (actor.get2DPos()-attackPosition).normalized;
+        Vector2 dir = (attackPosition - actor.get2DPos()).normalized;
 		actor.setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 	}
 	

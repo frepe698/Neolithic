@@ -21,6 +21,8 @@ public class Unit : Actor{
 	
 	protected const float LOOT_TIME = 0.25f;
 
+    protected float deathTimer;
+
 	public Unit(string unit, Vector3 position, Vector3 rotation, int id) 
         : base(unit, position, rotation, id)
 	{
@@ -33,7 +35,7 @@ public class Unit : Actor{
 
 	public override void update ()
 	{
-		if(awake == false) 
+		if(awake == false || alive == false) 
 		{
 			return;
 		}
@@ -116,7 +118,7 @@ public class Unit : Actor{
 				}
 				tile = newTile;
 				position =  newPos;
-                setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y) + 180, 0) );
+                setRotation( new Vector3(0, Mathf.Rad2Deg*Mathf.Atan2(dir.x, dir.y), 0) );
 				ground();
                 setAnimation(getRunAnim(), getAdjustedMovespeed() / BASE_MOVESPEED);
 
@@ -350,7 +352,33 @@ public class Unit : Actor{
         return true;
     }
 
-    public virtual void onEnterNewTile()
-    { 
+
+
+    public override void onDeath()
+    {
+        command = null;
+        if (isActive())
+        {
+            setAnimationRestart("die_unarmed");
+        }
+
+        deathTimer = 1.5f;
+    }
+
+    public override bool shouldBeRemoved()
+    {
+        if (!isAlive())
+        {
+            return (deathTimer-=Time.deltaTime) <= 0;
+        }
+        return false;
+    }
+
+    protected override void setTag()
+    {
+        if (gameObject != null)
+        {
+            gameObject.tag = alive ? "Unit" : "DeadUnit";
+        }
     }
 }

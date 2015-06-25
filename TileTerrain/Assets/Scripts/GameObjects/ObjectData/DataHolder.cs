@@ -167,12 +167,15 @@ public class DataHolder {
 	public class ResourceDataHolder
 	{
         public ResourceDataHolder() { }
-        public ResourceDataHolder(ResourceData[] resourceData)
+        public ResourceDataHolder(ResourceData[] resourceData, HarvestableData[] harvestableData)
         {
             this.resourceData = resourceData;
+            this.harvestableData = harvestableData;
         }
 		[XmlArray("Resources"), XmlArrayItem("ResourceData")]
 		public readonly ResourceData[] resourceData;
+        [XmlArray("Harvestables"), XmlArrayItem("HarvestableData")]
+        public readonly HarvestableData[] harvestableData;
 	}
 
 	[XmlRoot("ProjectilesRoot")]
@@ -322,7 +325,7 @@ public class DataHolder {
         instance.initItemIcons();
         instance.initAbilityIcons();
         instance.initCraftingBuildingRecipes();
-
+        instance.initHarvestableTextures();
 	}
 
     private void initCraftingBuildingRecipes()
@@ -331,6 +334,12 @@ public class DataHolder {
         {
             data.initRecipes();
         }
+    }
+
+    private void initHarvestableTextures()
+    {
+        foreach (HarvestableData data in resourceDataHolder.harvestableData)
+            data.initTextures();
     }
 
     private void initItemIcons()
@@ -381,6 +390,18 @@ public class DataHolder {
         return null;
     }
 
+    public ResourceData getAllResourceData(string name)
+    {
+        foreach (ResourceData data in resourceDataHolder.resourceData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        foreach (HarvestableData data in resourceDataHolder.harvestableData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 
 	public ResourceData getResourceData(string name)
 	{
@@ -390,6 +411,15 @@ public class DataHolder {
 		}
 		return null;
 	}
+
+    public HarvestableData getHarvestableData(string name)
+    {
+        foreach (HarvestableData data in resourceDataHolder.harvestableData)
+        {
+            if (data.name.Equals(name)) return data;
+        }
+        return null;
+    }
 
 	public ItemData getItemData(string name)
 	{

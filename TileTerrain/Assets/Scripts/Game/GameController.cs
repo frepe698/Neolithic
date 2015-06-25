@@ -428,7 +428,9 @@ public abstract class GameController : MonoBehaviour{
             rayhits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
 
             //Loop through all and find the first of each kind
+            //List<Transform> unitsHit = new List<Transform>();
             Transform firstUnit = null;
+            float unitScreenDist = 99999;
             Transform firstLoot = null;
             Transform firstBuilding = null;
             Transform firstAction = null;
@@ -443,6 +445,16 @@ public abstract class GameController : MonoBehaviour{
                     if (firstUnit == null)
                     {
                         firstUnit = hit.transform;
+                        unitScreenDist = Vector2.Distance(Input.mousePosition, Camera.main.WorldToScreenPoint(hit.collider.bounds.center));
+                    }
+                    else
+                    {
+                        float newUnitScreenDist = Vector2.Distance(Input.mousePosition, Camera.main.WorldToScreenPoint(hit.collider.bounds.center));
+                        if(newUnitScreenDist < unitScreenDist)
+                        {
+                            unitScreenDist = newUnitScreenDist;
+                            firstUnit = hit.transform;
+                        }
                     }
                 }
                 else if (tag == "Loot")
@@ -529,7 +541,6 @@ public abstract class GameController : MonoBehaviour{
                 buildingGhost.transform.position = new Vector3(gridPos.x, World.getHeight(gridPos), gridPos.y);
 
                 bool canPlace = World.tileMap.getTile(placeTile).isBuildable(currentBuildingData is MonumentData);
-                Debug.Log(canPlace);
                 if (canPlace)
                 {
                     if (Input.GetMouseButtonDown(LEFT_MOUSE_BUTTON))
@@ -746,12 +757,18 @@ public abstract class GameController : MonoBehaviour{
 
     #region COMBAT
 
+    public abstract void requestKillActor(int targetID, int killerID);
+
     [RPC]
 	protected void killActor(int targetID, int unitID)
 	{
-		Actor target = GameMaster.getActor (targetID); 
+		Actor target = GameMaster.getActor (targetID);
+        if (target == null)
+            return;
+
 		target.setAlive(false);
 		requestUnitLootDrop(target.getName(), target.getTile());
+
         Hero hero = GameMaster.getHero(unitID);
         if(hero != null)
         {
@@ -835,6 +852,25 @@ public abstract class GameController : MonoBehaviour{
     {
         string name = World.tileMap.getTile(x, y).removeTileObject();
         requestResourceLootDrop(name, new Vector2i(x, y), unitID);
+    }
+
+    [RPC]
+    protected void harvestResource(int x, int y, int unitID)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        if (hero == null)
+            return;
+
+        string name = World.tileMap.getTile(x, y).getResourceObject().harvest();
+        if (name == null)
+            return;
+
+        ItemData itemData = DataHolder.Instance.getItemData(name);
+        if(itemData == null)
+            return;
+
+        hero.getInventory().addItem(itemData.getItem());
+        hero.grantExperience((int)Skill.Harvesting, 100); //TODO: different amount of xp
     }
 
     public abstract void requestResourceLootDrop(string loot, Vector2i tile, int unitID);
@@ -972,7 +1008,9 @@ public abstract class GameController : MonoBehaviour{
         BuildingData data = DataHolder.Instance.getBuildingData(recipe.product);
         if (hero != null && data != null && hero.getInventory().removeRecipeIngredients(recipe))
         {
-            GameMaster.addActor(data.getBuilding(new Vector2i(x, y), 0, GameMaster.getNextUnitID(), hero.getTeam()));
+            Building building = data.getBuilding(new Vector2i(x, y), 0, GameMaster.getNextUnitID(), hero.getTeam());
+            GameMaster.addActor(building);
+            building.giveCommand(new BuildingBuildCommand(building, recipe.creationTime));
             giveExperience(unitID, (int)recipe.skill, recipe.expAmount);
         }
         buildingGhost.SetActive(false);
@@ -995,6 +1033,20 @@ public abstract class GameController : MonoBehaviour{
             return;
 
         hero.giveCommand(new BuildingCommand(hero, building));
+    }
+
+    [RPC]
+    public abstract void requestCraftingCommand(int unitID, string recipeName);
+
+    protected void approveCraftingCommand(int unitID, string recipeName)
+    {
+        Hero hero = GameMaster.getHero(unitID);
+        RecipeData recipe = DataHolder.Instance.getRecipeData(recipeName);
+
+        if (hero != null && recipe != null)
+        {
+            hero.giveCommand(new CraftingCommand(hero, recipe));
+        }
     }
 
     [RPC]

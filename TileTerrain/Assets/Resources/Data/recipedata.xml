@@ -4,6 +4,7 @@
     <EquipmentRecipeData name="craftSharpenedstick" gameName="Sharpened Stick" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>sharpenedstick</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -18,6 +19,7 @@
     <EquipmentRecipeData name="craftWoodenclub" gameName="Wooden Club" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>woodenclub</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -32,6 +34,7 @@
     <EquipmentRecipeData name="craftStoneAxe" gameName="Stone Axe" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>stoneAxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -50,6 +53,7 @@
     <EquipmentRecipeData name="craftStonePickaxe" gameName="Stone Pickaxe" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>stonePickaxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -68,6 +72,7 @@
     <EquipmentRecipeData name="craftShortbow" gameName="Short Bow" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>shortbow</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -86,6 +91,7 @@
     <EquipmentRecipeData name="craftFlintAxe" gameName="Flint Axe" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>flintAxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -108,6 +114,7 @@
     <EquipmentRecipeData name="craftFlintPickaxe" gameName="Flint Pickaxe" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>flintPickaxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -130,6 +137,7 @@
     <EquipmentRecipeData name="craftTorch" gameName="Torch" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>torch</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -148,6 +156,7 @@
     <EquipmentRecipeData name="craftStronkBow" gameName="Stronk Bow" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>stronkbow</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>finewood</name>
@@ -170,6 +179,7 @@
     <EquipmentRecipeData name="craftIronAxe" gameName="Iron Axe" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>ironAxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>finewood</name>
@@ -188,6 +198,7 @@
     <EquipmentRecipeData name="craftSuperAxe" gameName="Super Axe" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>superAxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>finewood</name>
@@ -214,6 +225,7 @@
     <EquipmentRecipeData name="craftIronPickaxe" gameName="Iron Pickaxe" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>ironPickaxe</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>finewood</name>
@@ -232,6 +244,7 @@
     <EquipmentRecipeData name="craftGoldBow" gameName="Gold Bow" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>goldbow</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>finewood</name>
@@ -254,6 +267,7 @@
     <EquipmentRecipeData name="craftFishingrod" gameName="Fishing Rod" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>fishingrod</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stick</name>
@@ -276,6 +290,7 @@
     <EquipmentRecipeData name="craftHarehat" gameName="Hare Hat" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>harehat</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>harepelt</name>
@@ -290,6 +305,7 @@
     <EquipmentRecipeData name="craftFurarmor" gameName="Fur Armor" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>furarmor</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>fur</name>
@@ -304,6 +320,7 @@
     <EquipmentRecipeData name="craftFuzzyboots" gameName="Fuzzy Boots" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>fuzzyboots</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>fur</name>
@@ -320,6 +337,7 @@
     <MaterialRecipeData name="craftGold" gameName="Gold" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>gold</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>stone</name>
@@ -334,6 +352,7 @@
     <MaterialRecipeData name="craftRope" gameName="Nettle Rope" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>rope</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>nettle</name>
@@ -348,6 +367,7 @@
     <MaterialRecipeData name="craftFur" gameName="Fur From Hare" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>fur</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>harepelt</name>
@@ -362,6 +382,7 @@
     <MaterialRecipeData name="craftFinewood" gameName="Fining wood treatment" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>finewood</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -378,6 +399,7 @@
     <ConsumableRecipeData name="craftTrolldryck" gameName="Trolldryck" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>trolldryck</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>deathcap</name>
@@ -396,6 +418,7 @@
     <ConsumableRecipeData name="craftHealthPotion" gameName="Small Health Potion" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>smallhealthpotion</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>cep</name>
@@ -410,6 +433,7 @@
     <ConsumableRecipeData name="craftSmallEnergyPotion" gameName="Small Energy Potion" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>smallenergypotion</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>nettle</name>
@@ -424,6 +448,7 @@
     <ConsumableRecipeData name="craftBerzerkerBrew" gameName="Berzerker Brew" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>berzerkerbrew</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>deathcap</name>
@@ -446,6 +471,7 @@
     <ConsumableRecipeData name="craftSteak" gameName="Steak" modelName="">
       <isBasicRecipe>false</isBasicRecipe>
       <product>steak</product>
+      <creationTime>1</creationTime>
       <ingredients>
         <Ingredient>
           <name>meat</name>
@@ -462,6 +488,7 @@
     <BuildingRecipeData name="buildSpearspinner" gameName="Spear Spinner" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>spearspinner</product>
+      <creationTime>5</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -488,6 +515,7 @@
     <BuildingRecipeData name="buildSpinningdeath" gameName="Spinning Death" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>spinningdeath</product>
+      <creationTime>5</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -502,6 +530,7 @@
     <BuildingRecipeData name="buildCampfire" gameName="Camp Fire" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>campfire</product>
+      <creationTime>3</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -520,6 +549,7 @@
     <BuildingRecipeData name="buildToolbench" gameName="Toolbench" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>toolbench</product>
+      <creationTime>5</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -538,6 +568,7 @@
     <BuildingRecipeData name="buildOversizedcookingpot" gameName="Oversized Cooking Pot" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>oversizedcookingpot</product>
+      <creationTime>5</creationTime>
       <ingredients>
         <Ingredient>
           <name>log</name>
@@ -557,9 +588,10 @@
       <expAmount>250</expAmount>
       <requiredSkillLevel>0</requiredSkillLevel>
     </BuildingRecipeData>
-    <BuildingRecipeData name="buildMjolnir" gameName="Mjolnir">
+    <BuildingRecipeData name="buildMjolnir" gameName="Mjolnir" modelName="">
       <isBasicRecipe>true</isBasicRecipe>
       <product>mjolnir</product>
+      <creationTime>10</creationTime>
       <ingredients>
         <Ingredient>
           <name>stone</name>

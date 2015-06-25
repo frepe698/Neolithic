@@ -9,7 +9,8 @@ public class ForestGround : GroundType {
 		"gran",
 		"stone",
 		"bigTree",
-        "greenBush"
+        "greenBush",
+        "blueberrybush",
 	};
 
 	private static readonly string[] startingLootTypes = new string[]
@@ -19,7 +20,6 @@ public class ForestGround : GroundType {
 		"deathcap",
 		"cep",
 		"puffball",
-		"blueberry",
 	};
 
 	private static readonly string[] eyecandyTypes = new string[]
@@ -32,7 +32,11 @@ public class ForestGround : GroundType {
 
 	public override ResourceObject getRandomResource(Vector3 position)
 	{
-		return new ResourceObject(position,Random.value*360, resObjects[Random.Range(0, resObjects.Length)]);
+        ResourceData data = DataHolder.Instance.getAllResourceData(resObjects[Random.Range(0, resObjects.Length)]);
+        if(data != null)
+            return data.getResourceObject(position, Random.value*360);
+
+        return null;
 	}
 
 	public override bool spawnResource ()
